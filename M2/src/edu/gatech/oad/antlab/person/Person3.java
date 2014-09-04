@@ -1,15 +1,15 @@
 package edu.gatech.oad.antlab.person;
 /**
- *  A simple class for person 3
+ *  A simple class for person 3 (Cindy Wang in Team Space Ferret)
  *  returns their name and a
  *  reversed string 
  *  
- *  @author  Bob
- *  @version 1.1
+ *  @author  Cindy Wang
+ *  @version 1.0
  */
 public class Person3 {
    /** Holds the persons real name */  
-	private String name;
+	private String name = "Cindy Wang";
 	
 	/**
 	 * The constructor, takes in the persons
@@ -42,7 +42,12 @@ public class Person3 {
 	 * @return the reversed string
 	 */
 	private String calc(String input) {
-	  //Person 3 put your implementation here
-	  return null;
+		char[] strChar = input.toCharArray();
+		String reverse = "";
+
+		for( int i = strChar.length - 1 ; i >= 0 ; i-- ) {
+			reverse = reverse + strChar[i];
+		}
+		return reverse;
 	}
 }
