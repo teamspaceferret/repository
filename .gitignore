@@ -13,3 +13,6 @@ hs_err_pid*
 /M2/build/
 
 /M2/nbproject/project.properties
+/SpaceTrader/nbproject/private/
+/SpaceTrader/build/
+/SpaceTrader/dist/
