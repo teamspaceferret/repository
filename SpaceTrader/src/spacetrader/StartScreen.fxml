@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.StartScreenController">
+   <children>
+      <Button layoutX="89.0" layoutY="291.0" mnemonicParsing="false" onAction="#newGameButtonAction" text="New Game">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="361.0" layoutY="291.0" mnemonicParsing="false" onAction="#loadGameButtonAction" text="Load Game">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Text layoutX="163.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Space Trader">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
