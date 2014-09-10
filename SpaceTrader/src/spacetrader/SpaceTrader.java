@@ -1,37 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package spacetrader;
 
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author keatts
- */
 public class SpaceTrader extends Application {
+    public interface ControlledScreen {
+        public void setScreenParent(ScreensController screenPage); 
+    }
     
     @Override
-    public void start(Stage stage) throws Exception {   
-        AnchorPane root = FXMLLoader.load(getClass().getResource("StartScreen.fxml"));
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        ScreensController mainContainer = new ScreensController();
+        mainContainer.loadScreen("StartScreen", "StartScreen.fxml");
+        mainContainer.loadScreen("CharacterCreation", "CharacterCreation.fxml");
+        
+        mainContainer.setScreen("StartScreen");
+        
+        Group root = new Group();
+        root.getChildren().addAll(mainContainer);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         launch(args);
     }
-    
 }

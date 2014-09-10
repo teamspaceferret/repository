@@ -1,12 +1,21 @@
 package spacetrader;
 
-public class StartScreenController {
+import spacetrader.SpaceTrader.ControlledScreen;
+
+public class StartScreenController implements ControlledScreen {
+    
+    ScreensController controller;
+    
+    public void setScreenParent(ScreensController screenParent) {
+        controller = screenParent;
+    }
     
     public void newGameButtonAction() {
-        System.out.println("New Game button pressed");
+        controller.setScreen("CharacterCreation");
     }
     
     public void loadGameButtonAction() {
         System.out.println("Load Game button pressed");
     }   
+
 }
