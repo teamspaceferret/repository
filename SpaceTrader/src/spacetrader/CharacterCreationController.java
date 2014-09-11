@@ -19,6 +19,8 @@ public class CharacterCreationController implements ControlledScreen {
     @FXML
     private Button engineerButton;
     @FXML
+    private Button investorButton;
+    @FXML
     private TextArea descriptions;
     @FXML
     private Label pointsRemainingGUI;
@@ -31,6 +33,8 @@ public class CharacterCreationController implements ControlledScreen {
     @FXML
     private TextField engineerField;
     @FXML
+    private TextField investorField;
+    @FXML
     private Slider fighterSlider;
     @FXML
     private Slider traderSlider;
@@ -38,6 +42,8 @@ public class CharacterCreationController implements ControlledScreen {
     private Slider pilotSlider;
     @FXML
     private Slider engineerSlider;
+    @FXML
+    private Slider investorSlider;
     @FXML
     private Button fighterIncrement;
     @FXML
@@ -47,6 +53,8 @@ public class CharacterCreationController implements ControlledScreen {
     @FXML
     private Button engineerIncrement;
     @FXML
+    private Button investorIncrement;
+    @FXML
     private Button fighterDecrement;
     @FXML
     private Button traderDecrement;
@@ -54,9 +62,11 @@ public class CharacterCreationController implements ControlledScreen {
     private Button pilotDecrement;
     @FXML
     private Button engineerDecrement;
+    @FXML
+    private Button investorDecrement;
     
     ScreensController controller;
-    public int pointsRemaining = 24;
+    public int pointsRemaining = 28;
     
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
@@ -81,13 +91,14 @@ public class CharacterCreationController implements ControlledScreen {
     public void incrementFighterAction() {
         double current = fighterSlider.getValue();
         current += 1;
-        if (checkTotals()) {
+        if (checkTotals() && current <= 10) {
             fighterSlider.setValue(current);
             pointsRemaining--;
             current = fighterSlider.getValue();
             fighterField.setText("" + ((int)current));
             upr();
         } else {
+            current = fighterSlider.getValue();
             upr();
         }
     }
@@ -95,13 +106,14 @@ public class CharacterCreationController implements ControlledScreen {
     public void incrementTraderAction() {
         double current = traderSlider.getValue();
         current += 1;
-        if (checkTotals()) {
+        if (checkTotals() && current <= 10) {
             traderSlider.setValue(current);
             pointsRemaining--;
             current = traderSlider.getValue();
             traderField.setText("" + ((int)current));
             upr();
         } else {
+            current = traderSlider.getValue();
             upr();
         }
     }
@@ -109,13 +121,14 @@ public class CharacterCreationController implements ControlledScreen {
     public void incrementPilotAction() {
         double current = pilotSlider.getValue();
         current += 1;
-        if (checkTotals()) {
+        if (checkTotals() && current <= 10) {
             pilotSlider.setValue(current);
             pointsRemaining--;
             current = pilotSlider.getValue();
             pilotField.setText("" + ((int)current));
             upr();
         } else {
+            current = pilotSlider.getValue();
             upr();
         }
     }
@@ -123,13 +136,29 @@ public class CharacterCreationController implements ControlledScreen {
     public void incrementEngineerAction() {
         double current = engineerSlider.getValue();
         current += 1;
-        if (checkTotals()) {
+        if (checkTotals() && current <= 10) {
             engineerSlider.setValue(current);
             pointsRemaining--;
             current = engineerSlider.getValue();
             engineerField.setText("" + ((int)current));
             upr();
         } else {
+            current = engineerSlider.getValue();
+            upr();
+        }
+    }
+    
+    public void incrementInvestorAction() {
+        double current = investorSlider.getValue();
+        current += 1;
+        if (checkTotals() && current <= 10) {
+            investorSlider.setValue(current);
+            pointsRemaining--;
+            current = investorSlider.getValue();
+            investorField.setText("" + ((int)current));
+            upr();
+        } else {
+            current = investorSlider.getValue();
             upr();
         }
     }
@@ -182,6 +211,18 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    public void decrementInvestorAction() {
+        double current = investorSlider.getValue();
+        if (current != 0) {
+            pointsRemaining++;
+        }
+        current -= 1;
+        investorSlider.setValue(current);
+        current = investorSlider.getValue();
+        investorField.setText("" + ((int)current));
+        upr();
+    }
+    
     public void fighterDescriptionAction() {
         descriptions.setText("The fighter skill determines how well you handle your weapons,"
                 + " in particular, how easy it is for you hit another ship. A trader who isn't"
@@ -215,5 +256,12 @@ public class CharacterCreationController implements ControlledScreen {
                 + "your weaponry a bit so it does more damage. This makes the engineer "
                 + "skill important for both traders and pirates. An auto-repair system "
                 + "will enhance the engineering capabilities.");
+    }
+    
+    public void investorDescriptionAction() {
+        descriptions.setText("The investor skill influences how well you do in investing in"
+                + " the galactic markets. Stock prices and interest rates are volatile. You"
+                + " can make a killing or you can lose your savings, but having a high"
+                + "Investor skill can bolster your successes and cushion your losses. Be wary. ");
     }
 }
