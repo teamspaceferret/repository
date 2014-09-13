@@ -9,7 +9,14 @@ public class CharacterCreationController implements ControlledScreen {
     
     //note: the descriptions of the skills used in this document are taken
     //directly from the final project description, change if necessary
-    
+    @FXML
+    private TextField nameEntry;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button okButton;
     @FXML
     private Button fighterButton;
     @FXML
@@ -64,17 +71,67 @@ public class CharacterCreationController implements ControlledScreen {
     private Button engineerDecrement;
     @FXML
     private Button investorDecrement;
-    
     ScreensController controller;
-    public int pointsRemaining = 28;
+    private int pointsRemaining = 28;
+    private String playerName = "";
+    private int[] stats;
+    private Player player;
+    
+    public Player getPlayer() {
+        if (player != null) {
+            return player;
+        } else {
+            System.out.println("Player hasn't been created yet (null).");
+            return player;
+        }
+    }
     
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }
     
-    public void randomizeButtonAction() {
-        System.out.println("Stats randomized!");
+    public void confirmAction() {
+        if (pointsRemaining <= 0 && !playerName.equals("")) {
+            stats = new int[5];
+            //investor stat in index 0
+            stats[0] = Integer.parseInt(investorField.getText());
+            //pilot stat in index 1
+            stats[1] = Integer.parseInt(pilotField.getText());
+            //trader stat in index 2
+            stats[2] = Integer.parseInt(traderField.getText());
+            //fighter stat in index 3
+            stats[3] = Integer.parseInt(fighterField.getText());
+            //engineer stat in index 4
+            stats[4] = Integer.parseInt(engineerField.getText());
+            player = new Player(playerName, stats);
+            System.out.println(player.toString());
+            //controller.setScreen("GameScreen");
+        } else if (pointsRemaining > 0 && playerName.equals("")) {
+            descriptions.setText("You still have points left to assign, and you still have to enter"
+                    + " a name and press OK.");
+        } else if (pointsRemaining > 0) {
+            descriptions.setText("You still have points left to assign.");
+        } else {
+            descriptions.setText("You still have to enter a name and press OK.");
+        }
     }
+    
+    public void backAction() {
+        controller.setScreen("StartScreen");
+    }
+    
+    public void setPlayerName() {
+        String tempName = playerName;
+        playerName = nameEntry.getText();
+        if (playerName.length() > 0 && !playerName.equals(tempName)) {
+            descriptions.setText("Hello, " + playerName + "!");
+        }
+    }
+    
+    //Will implement stat randomization on Saturday (9/13)
+    /*public void randomizeButtonAction() {
+        System.out.println("Stats randomized!");
+    }*/
     
     public void upr() {
         pointsRemainingGUI.setText("Points remaining: " + pointsRemaining);

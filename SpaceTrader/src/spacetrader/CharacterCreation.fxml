@@ -15,39 +15,39 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Button fx:id="engineerButton" layoutX="336.0" layoutY="311.0" mnemonicParsing="false" onAction="#engineerDescriptionAction" text="Engineer">
+      <Button fx:id="engineerButton" layoutX="336.0" layoutY="291.0" mnemonicParsing="false" onAction="#engineerDescriptionAction" text="Engineer">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="traderButton" layoutX="334.0" layoutY="188.0" mnemonicParsing="false" onAction="#traderDescriptionAction" text="Trader    ">
+      <Button fx:id="traderButton" layoutX="334.0" layoutY="168.0" mnemonicParsing="false" onAction="#traderDescriptionAction" text="Trader    ">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="pilotButton" layoutX="334.0" layoutY="124.0" mnemonicParsing="false" onAction="#pilotDescriptionAction" prefHeight="25.0" prefWidth="127.0" text="Pilot       ">
+      <Button fx:id="pilotButton" layoutX="334.0" layoutY="104.0" mnemonicParsing="false" onAction="#pilotDescriptionAction" prefHeight="25.0" prefWidth="127.0" text="Pilot       ">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="fighterButton" layoutX="335.0" layoutY="250.0" mnemonicParsing="false" onAction="#fighterDescriptionAction" text="Fighter   ">
+      <Button fx:id="fighterButton" layoutX="335.0" layoutY="230.0" mnemonicParsing="false" onAction="#fighterDescriptionAction" text="Fighter   ">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Label layoutX="14.0" layoutY="57.0" text="(click stat names for details)">
+      <Label layoutX="17.0" layoutY="58.0" text="(click stat names for details)">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button id="pilotIncrement" fx:id="pilotIncrement" layoutX="561.0" layoutY="137.0" mnemonicParsing="false" onAction="#incrementPilotAction" text="+" />
-      <Button id="engineerIncrement" fx:id="engineerIncrement" layoutX="561.0" layoutY="324.0" mnemonicParsing="false" onAction="#incrementEngineerAction" text="+" />
-      <Button id="fighterIncrement" fx:id="fighterIncrement" layoutX="561.0" layoutY="263.0" mnemonicParsing="false" onAction="#incrementFighterAction" text="+" />
-      <Button id="traderIncrement" fx:id="traderIncrement" layoutX="561.0" layoutY="201.0" mnemonicParsing="false" onAction="#incrementTraderAction" text="+" />
-      <Button id="pilotDecrement" fx:id="pilotDecrement" layoutX="479.0" layoutY="137.0" mnemonicParsing="false" onAction="#decrementPilotAction" text="-" />
-      <Button id="engineerDecrement" fx:id="engineerDecrement" layoutX="479.0" layoutY="324.0" mnemonicParsing="false" onAction="#decrementEngineerAction" text="-" />
-      <Button id="fighterDecrement" fx:id="fighterDecrement" layoutX="479.0" layoutY="263.0" mnemonicParsing="false" onAction="#decrementFighterAction" text="-" />
-      <Button id="traderDecrement" fx:id="traderDecrement" layoutX="479.0" layoutY="201.0" mnemonicParsing="false" onAction="#decrementTraderAction" text="-" />
+      <Button id="pilotIncrement" fx:id="pilotIncrement" layoutX="561.0" layoutY="117.0" mnemonicParsing="false" onAction="#incrementPilotAction" text="+" />
+      <Button id="engineerIncrement" fx:id="engineerIncrement" layoutX="561.0" layoutY="304.0" mnemonicParsing="false" onAction="#incrementEngineerAction" text="+" />
+      <Button id="fighterIncrement" fx:id="fighterIncrement" layoutX="561.0" layoutY="243.0" mnemonicParsing="false" onAction="#incrementFighterAction" text="+" />
+      <Button id="traderIncrement" fx:id="traderIncrement" layoutX="561.0" layoutY="181.0" mnemonicParsing="false" onAction="#incrementTraderAction" text="+" />
+      <Button id="pilotDecrement" fx:id="pilotDecrement" layoutX="479.0" layoutY="117.0" mnemonicParsing="false" onAction="#decrementPilotAction" text="-" />
+      <Button id="engineerDecrement" fx:id="engineerDecrement" layoutX="477.0" layoutY="304.0" mnemonicParsing="false" onAction="#decrementEngineerAction" text="-" />
+      <Button id="fighterDecrement" fx:id="fighterDecrement" layoutX="477.0" layoutY="243.0" mnemonicParsing="false" onAction="#decrementFighterAction" text="-" />
+      <Button id="traderDecrement" fx:id="traderDecrement" layoutX="479.0" layoutY="181.0" mnemonicParsing="false" onAction="#decrementTraderAction" text="-" />
       <Label layoutX="34.0" layoutY="77.0">
          <font>
             <Font size="14.0" />
@@ -59,23 +59,40 @@
          </font>
       </Label>
       <TextArea fx:id="descriptions" editable="false" layoutX="17.0" layoutY="132.0" prefHeight="236.0" prefWidth="296.0" wrapText="true" />
-      <TextField id="engineerField" fx:id="engineerField" alignment="CENTER" editable="false" layoutX="510.0" layoutY="324.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-      <TextField id="pilotField" fx:id="pilotField" alignment="CENTER" layoutX="510.0" layoutY="137.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-      <TextField id="fighterField" fx:id="fighterField" alignment="CENTER" layoutX="511.0" layoutY="263.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-      <TextField id="traderField" fx:id="traderField" alignment="CENTER" layoutX="511.0" layoutY="201.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+      <TextField id="engineerField" fx:id="engineerField" alignment="CENTER" editable="false" layoutX="510.0" layoutY="304.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+      <TextField id="pilotField" fx:id="pilotField" alignment="CENTER" layoutX="510.0" layoutY="117.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+      <TextField id="fighterField" fx:id="fighterField" alignment="CENTER" layoutX="511.0" layoutY="243.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+      <TextField id="traderField" fx:id="traderField" alignment="CENTER" layoutX="511.0" layoutY="181.0" prefHeight="25.0" prefWidth="38.0" text="0" />
       <Slider id="pilotSlider" fx:id="fighterSlider" blockIncrement="1.0" layoutX="430.0" layoutY="20.0" max="10.0" visible="false" />
       <Slider id="traderSlider" fx:id="traderSlider" blockIncrement="1.0" layoutX="430.0" layoutY="41.0" max="10.0" visible="false" />
       <Slider id="fighterSlider" fx:id="pilotSlider" blockIncrement="1.0" layoutX="430.0" layoutY="61.0" max="10.0" visible="false" />
       <Slider id="engineerSlider" fx:id="engineerSlider" blockIncrement="1.0" layoutX="430.0" layoutY="81.0" max="10.0" visible="false" />
-      <Label fx:id="pointsRemainingGUI" layoutX="473.0" layoutY="40.0" text="Points remaining: 28" />
-      <Button fx:id="investorButton" layoutX="333.0" layoutY="62.0" mnemonicParsing="false" onAction="#investorDescriptionAction" prefHeight="25.0" prefWidth="127.0" text="Investor">
+      <Label fx:id="pointsRemainingGUI" layoutX="473.0" layoutY="20.0" text="Points remaining: 28" />
+      <Button fx:id="investorButton" layoutX="333.0" layoutY="42.0" mnemonicParsing="false" onAction="#investorDescriptionAction" prefHeight="25.0" prefWidth="127.0" text="Investor">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <TextField id="pilotField" fx:id="investorField" alignment="CENTER" layoutX="508.0" layoutY="77.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-      <Button id="pilotDecrement" fx:id="investorDecrement" layoutX="477.0" layoutY="77.0" mnemonicParsing="false" onAction="#decrementInvestorAction" text="-" />
-      <Button id="pilotIncrement" fx:id="investorIncrement" layoutX="559.0" layoutY="77.0" mnemonicParsing="false" onAction="#incrementInvestorAction" text="+" />
+      <TextField id="pilotField" fx:id="investorField" alignment="CENTER" layoutX="508.0" layoutY="57.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+      <Button id="pilotDecrement" fx:id="investorDecrement" layoutX="477.0" layoutY="57.0" mnemonicParsing="false" onAction="#decrementInvestorAction" text="-" />
+      <Button id="pilotIncrement" fx:id="investorIncrement" layoutX="559.0" layoutY="57.0" mnemonicParsing="false" onAction="#incrementInvestorAction" text="+" />
       <Slider fx:id="investorSlider" blockIncrement="1.0" max="10.0" visible="false" />
+      <TextField fx:id="nameEntry" layoutX="126.0" layoutY="90.0" />
+      <Label layoutX="17.0" layoutY="89.0" text="Enter name:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="okButton" layoutX="284.0" layoutY="90.0" mnemonicParsing="false" onAction="#setPlayerName" text="OK" />
+      <Button fx:id="confirmButton" layoutX="498.0" layoutY="349.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="401.0" layoutY="349.0" mnemonicParsing="false" onAction="#backAction" text="Back">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

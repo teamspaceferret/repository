@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SpaceTrader extends Application {
+    
     public interface ControlledScreen {
         public void setScreenParent(ScreensController screenPage); 
     }
@@ -15,7 +16,7 @@ public class SpaceTrader extends Application {
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen("StartScreen", "StartScreen.fxml");
         mainContainer.loadScreen("CharacterCreation", "CharacterCreation.fxml");
-        
+        mainContainer.loadScreen("GameScreen", "GameScreen.fxml"); 
         mainContainer.setScreen("StartScreen");
         
         Group root = new Group();
