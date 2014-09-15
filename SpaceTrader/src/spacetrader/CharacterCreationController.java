@@ -105,7 +105,7 @@ public class CharacterCreationController implements ControlledScreen {
             stats[4] = Integer.parseInt(engineerField.getText());
             player = new Player(playerName, stats);
             System.out.println(player.toString());
-            //controller.setScreen("GameScreen");
+            controller.setScreen("GameScreen");
         } else if (pointsRemaining > 0 && playerName.equals("")) {
             descriptions.setText("You still have points left to assign, and you still have to enter"
                     + " a name and press OK.");
