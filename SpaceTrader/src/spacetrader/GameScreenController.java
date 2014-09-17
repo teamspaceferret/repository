@@ -6,20 +6,13 @@ import javafx.scene.control.Label;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class GameScreenController implements ControlledScreen {
-    @FXML
-    private Button button;
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Label investorLabel;
-    @FXML
-    private Label pilotLabel;
-    @FXML
-    private Label traderLabel;
-    @FXML
-    private Label fighterLabel;
-    @FXML
-    private Label engineerLabel;
+    @FXML private Button button;
+    @FXML private Label nameLabel;
+    @FXML private Label investorLabel;
+    @FXML private Label pilotLabel;
+    @FXML private Label traderLabel;
+    @FXML private Label fighterLabel;
+    @FXML private Label engineerLabel;
     
     ScreensController controller;
     

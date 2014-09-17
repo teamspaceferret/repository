@@ -6,6 +6,11 @@ public class StartScreenController implements ControlledScreen {
     
     ScreensController controller;
     
+    /**
+     *
+     * @param screenParent
+     */
+    @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }

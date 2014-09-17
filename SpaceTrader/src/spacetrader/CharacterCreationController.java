@@ -6,68 +6,37 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 public class CharacterCreationController implements ControlledScreen {
-    @FXML
-    private TextField nameEntry;
-    @FXML
-    private Button confirmButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button okButton;
-    @FXML
-    private Button fighterButton;
-    @FXML
-    private Button traderButton;
-    @FXML
-    private Button pilotButton;
-    @FXML
-    private Button engineerButton;
-    @FXML
-    private Button investorButton;
-    @FXML
-    private TextArea descriptions;
-    @FXML
-    private Label pointsRemainingGUI;
-    @FXML
-    private TextField fighterField;
-    @FXML
-    private TextField traderField;
-    @FXML
-    private TextField pilotField;
-    @FXML
-    private TextField engineerField;
-    @FXML
-    private TextField investorField;
-    @FXML
-    private Slider fighterSlider;
-    @FXML
-    private Slider traderSlider;
-    @FXML
-    private Slider pilotSlider;
-    @FXML
-    private Slider engineerSlider;
-    @FXML
-    private Slider investorSlider;
-    @FXML
-    private Button fighterIncrement;
-    @FXML
-    private Button traderIncrement;
-    @FXML
-    private Button pilotIncrement;
-    @FXML
-    private Button engineerIncrement;
-    @FXML
-    private Button investorIncrement;
-    @FXML
-    private Button fighterDecrement;
-    @FXML
-    private Button traderDecrement;
-    @FXML
-    private Button pilotDecrement;
-    @FXML
-    private Button engineerDecrement;
-    @FXML
-    private Button investorDecrement;
+    @FXML private TextField nameEntry;
+    @FXML private Button confirmButton;
+    @FXML private Button cancelButton;
+    @FXML private Button okButton;
+    @FXML private Button fighterButton;
+    @FXML private Button traderButton;
+    @FXML private Button pilotButton;
+    @FXML private Button engineerButton;
+    @FXML private Button investorButton;
+    @FXML private TextArea descriptions;
+    @FXML private Label pointsRemainingGUI;
+    @FXML private TextField fighterField;
+    @FXML private TextField traderField;
+    @FXML private TextField pilotField;
+    @FXML private TextField engineerField;
+    @FXML private TextField investorField;
+    @FXML private Slider fighterSlider;
+    @FXML private Slider traderSlider;
+    @FXML private Slider pilotSlider;
+    @FXML private Slider engineerSlider;
+    @FXML private Slider investorSlider;
+    @FXML private Button fighterIncrement;
+    @FXML private Button traderIncrement;
+    @FXML private Button pilotIncrement;
+    @FXML private Button engineerIncrement;
+    @FXML private Button investorIncrement;
+    @FXML private Button fighterDecrement;
+    @FXML private Button traderDecrement;
+    @FXML private Button pilotDecrement;
+    @FXML private Button engineerDecrement;
+    @FXML private Button investorDecrement;
     
     private int pointsRemaining = 28;
     private String playerName = "";

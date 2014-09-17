@@ -6,7 +6,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class ScreensController  extends StackPane {
     //Holds the screens to be displayed
     
-    private HashMap<String, Node> screens = new HashMap<>();
+    private final HashMap<String, Node> screens = new HashMap<>();
     
     public ScreensController() {
         super();
@@ -57,20 +56,18 @@ public class ScreensController  extends StackPane {
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = opacityProperty();
             
-            if (!getChildren().isEmpty()) {    //if there is more than one screen
-                Timeline fade = new Timeline(
+            if (!getChildren().isEmpty()) {
+                Timeline fade;
+                fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(100), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent t) {
-                        getChildren().remove(0);                    //remove the displayed screen
-                        getChildren().add(0, screens.get(name));     //add the screen
-                        Timeline fadeIn = new Timeline(
-                                new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(100), new KeyValue(opacity, 1.0)));
-                        fadeIn.play();
-                    }
-                }, new KeyValue(opacity, 0.0)));
+                        new KeyFrame(new Duration(100), (ActionEvent t) -> {
+                            getChildren().remove(0);                    //remove the displayed screen
+                            getChildren().add(0, screens.get(name));     //add the screen
+                            Timeline fadeIn = new Timeline(
+                                    new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+                                    new KeyFrame(new Duration(100), new KeyValue(opacity, 1.0)));
+                            fadeIn.play();
+                        }, new KeyValue(opacity, 0.0)));
                 fade.play();
             } else {
                 setOpacity(0.0);
