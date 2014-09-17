@@ -7,8 +7,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 // NOTE: Don't forget to add entry to SpaceTrader.java!!!
 
 public class ExampleController implements ControlledScreen {
-    @FXML
-    private Label exampleLabel;
+    @FXML private Label exampleLabel;
     
     ScreensController controller;
     
