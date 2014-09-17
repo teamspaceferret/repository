@@ -16,7 +16,7 @@ public class SpaceTrader extends Application {
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen("StartScreen", "StartScreen.fxml");
         mainContainer.loadScreen("CharacterCreation", "CharacterCreation.fxml");
-        mainContainer.loadScreen("GameScreen", "GameScreen.fxml"); 
+        mainContainer.loadScreen("GameScreen", "GameScreen.fxml");
         mainContainer.setScreen("StartScreen");
         
         Group root = new Group();

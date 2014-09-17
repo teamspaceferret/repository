@@ -6,9 +6,6 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 public class CharacterCreationController implements ControlledScreen {
-    
-    //note: the descriptions of the skills used in this document are taken
-    //directly from the final project description, change if necessary
     @FXML
     private TextField nameEntry;
     @FXML
@@ -71,11 +68,13 @@ public class CharacterCreationController implements ControlledScreen {
     private Button engineerDecrement;
     @FXML
     private Button investorDecrement;
-    ScreensController controller;
+    
     private int pointsRemaining = 28;
     private String playerName = "";
     private int[] stats;
     private Player player;
+    
+    ScreensController controller;
     
     public Player getPlayer() {
         if (player != null) {
@@ -103,8 +102,12 @@ public class CharacterCreationController implements ControlledScreen {
             stats[3] = Integer.parseInt(fighterField.getText());
             //engineer stat in index 4
             stats[4] = Integer.parseInt(engineerField.getText());
-            player = new Player(playerName, stats);
-            System.out.println(player.toString());
+            
+            // Create player
+            Context.getInstance().getPlayer().setName(playerName);
+            Context.getInstance().getPlayer().setStates(stats);
+            
+            System.out.println(Context.getInstance().getPlayer().toString());
             controller.setScreen("GameScreen");
         } else if (pointsRemaining > 0 && playerName.equals("")) {
             descriptions.setText("You still have points left to assign, and you still have to enter"

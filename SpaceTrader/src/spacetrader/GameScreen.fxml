@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="spacetrader.GameScreenController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.GameScreenController">
    <children>
-      <Label layoutX="178.0" layoutY="214.0" text="insert game here" />
+      <Button fx:id="button" layoutX="236.0" layoutY="335.0" mnemonicParsing="false" onAction="#setLabels" text="Click Me!">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="nameLabel" layoutX="236.0" layoutY="149.0" text="Name:" />
+      <Label fx:id="investorLabel" layoutX="236.0" layoutY="166.0" text="Investor:" />
+      <Label fx:id="pilotLabel" layoutX="236.0" layoutY="183.0" text="Pilot:" />
+      <Label fx:id="fighterLabel" layoutX="236.0" layoutY="217.0" text="Fighter:" />
+      <Label fx:id="traderLabel" layoutX="236.0" layoutY="200.0" text="Trader:" />
+      <Label fx:id="engineerLabel" layoutX="236.0" layoutY="234.0" text="Engineer:" />
    </children>
 </AnchorPane>
