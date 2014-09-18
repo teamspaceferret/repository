@@ -90,6 +90,37 @@ public class CharacterCreationController implements ControlledScreen {
     
     public void backAction() {
         controller.setScreen("StartScreen");
+        playerName = "";
+        /*
+        for (int i = 0; i < Integer.parseInt(investorField.getText()); i++) {
+            decrementInvestorAction();
+        }
+        for (int i = 0; i < Integer.parseInt(pilotField.getText()); i++) {
+            decrementPilotAction();
+        }
+        for (int i = 0; i < Integer.parseInt(traderField.getText()); i++) {
+            decrementTraderAction();
+        }
+        for (int i = 0; i < Integer.parseInt(fighterField.getText()); i++) {
+            decrementFighterAction();
+        }
+        for (int i = 0; i < Integer.parseInt(engineerField.getText()); i++) {
+            decrementEngineerAction();
+        }*/
+        nameEntry.clear();
+        investorField.clear();
+        investorSlider.setValue(0);
+        pilotField.clear();
+        pilotSlider.setValue(0);
+        traderField.clear();
+        traderSlider.setValue(0);
+        fighterField.clear();
+        fighterSlider.setValue(0);
+        engineerField.clear();
+        engineerSlider.setValue(0);
+        descriptions.clear();
+        pointsRemaining = 28;
+        upr();
     }
     
     public void setPlayerName() {
