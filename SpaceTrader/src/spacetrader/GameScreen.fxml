@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,16 +12,23 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.GameScreenController">
    <children>
-      <Button fx:id="button" layoutX="236.0" layoutY="335.0" mnemonicParsing="false" onAction="#setLabels" text="Click Me!">
+      <Label layoutX="24.0" layoutY="24.0" text="GALAXY MAP">
          <font>
-            <Font size="24.0" />
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="descriptions" editable="false" layoutX="376.0" layoutY="67.0" prefHeight="214.0" prefWidth="200.0" wrapText="true" />
+      <Button fx:id="travelButton" layoutX="423.0" layoutY="337.0" mnemonicParsing="false" onAction="#drawSolarSystems" prefHeight="49.0" prefWidth="106.0" text="Select">
+         <font>
+            <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="nameLabel" layoutX="236.0" layoutY="149.0" text="Name:" />
-      <Label fx:id="investorLabel" layoutX="236.0" layoutY="166.0" text="Investor:" />
-      <Label fx:id="pilotLabel" layoutX="236.0" layoutY="183.0" text="Pilot:" />
-      <Label fx:id="fighterLabel" layoutX="236.0" layoutY="217.0" text="Fighter:" />
-      <Label fx:id="traderLabel" layoutX="236.0" layoutY="200.0" text="Trader:" />
-      <Label fx:id="engineerLabel" layoutX="236.0" layoutY="234.0" text="Engineer:" />
+      <Label fx:id="fuelLabel" layoutX="423.0" layoutY="295.0" text="Fuel: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="324.0" layoutX="24.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
+      <Canvas fx:id="canvas" height="310.0" layoutX="32.0" layoutY="74.0" width="310.0" />
    </children>
 </AnchorPane>

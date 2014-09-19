@@ -37,4 +37,15 @@ public class Planet {
         return string;
     }
     
+    public String getName() {
+        return name;
+    }
+    
+    public int getX() {
+        return xCoord;
+    }
+    
+    public int getY() {
+        return yCoord;
+    }
 }

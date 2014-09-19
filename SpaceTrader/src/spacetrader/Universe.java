@@ -14,15 +14,15 @@ public class Universe {
         solarSystems = new SolarSystem[3];
         
         SolarSystem s1 = new SolarSystem("N00b Zone");
-        s1.placeSolarSystem(4, 5);
+        s1.placeSolarSystem(10, 5);
         s1.populateSolarSystem(1);
         
         SolarSystem s2 = new SolarSystem("Vectron");
-        s2.placeSolarSystem(3,8);
+        s2.placeSolarSystem(1,10);
         s2.populateSolarSystem(2);
         
         SolarSystem s3 = new SolarSystem("Bob");
-        s3.placeSolarSystem(8, 2);
+        s3.placeSolarSystem(9, 2);
         s3.populateSolarSystem(3);
         
         
@@ -47,5 +47,9 @@ public class Universe {
             string += "Solar System " + i + " " + solarSystems[i].toString() + "\n";
         }
         return string;
+    }
+    
+    public SolarSystem[] getSolarSystems() {
+        return solarSystems;
     }
 }

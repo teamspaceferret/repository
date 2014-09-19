@@ -38,4 +38,20 @@ public class SolarSystem {
         
         return string;
     }
+    
+    public Planet[] getPlanets() {
+        return planets;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getX() {
+        return xCoord;
+    }
+    
+    public int getY() {
+        return yCoord;
+    }
 }
