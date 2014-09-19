@@ -6,6 +6,10 @@ public class Planet {
     private int techLevel;
     private int specialResources;
     private int government;
+    private int xCoord, yCoord;
+    private double chancePolice, chancePirate, chanceTrader;
+    private int specialEvent; //make not-an-int?? Probably
+    
     
     public Planet(){
         this.name = "Name";
@@ -14,11 +18,17 @@ public class Planet {
         this.specialResources = 0;
     }
     
-    public Planet(String name, int tech, int resource, int govt){
+    public Planet(String name, int tech, int resource, int govt, int x, int y, int specialEvent){
         this.name = name;
         this.techLevel = tech;
         this.specialResources = resource;
         this.government = govt;
+        this.xCoord = x;
+        this.yCoord = y;
+        this.specialEvent = specialEvent;
+        this.chancePolice = 0;
+        this.chancePirate = 0;
+        this.chanceTrader = 0;
     }
     
 }
