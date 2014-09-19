@@ -42,9 +42,11 @@ public class GameScreenController implements ControlledScreen {
                     universe.getSolarSystems()[i].getPlanets()[j].getY(), 5, 5);
             }
         }*/
-        for (SolarSystem solarSystem : universe.getSolarSystems()) {
+        
+        for(int i = 0; i < universe.getSolarSystems().length; i++) {
             gc.setFill(Color.RED);
-            gc.fillOval(solarSystem.getX(), solarSystem.getY(), 5, 5);
+            gc.fillOval(universe.getSolarSystems()[i].getX(),
+                universe.getSolarSystems()[i].getY(), 5, 5);
         }
         
         System.out.println(universe.toString());

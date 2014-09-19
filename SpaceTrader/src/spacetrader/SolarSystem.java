@@ -25,8 +25,9 @@ public class SolarSystem {
     
     public void placeSolarSystem(int x, int y){
         //reserve coords for planets
-        xCoord = x*100;
-        yCoord = y*100;
+        //*30 to make input from 1 to 10 be appropriately placed on canvas
+        xCoord = x*30;
+        yCoord = y*30;
     }
     
     @Override
