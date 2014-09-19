@@ -75,8 +75,11 @@ public class CharacterCreationController implements ControlledScreen {
             // Create player
             Context.getInstance().getPlayer().setName(playerName);
             Context.getInstance().getPlayer().setStates(stats);
+            // Create universe
+            Context.getInstance().getUniverse().makeUniverse();
             
             System.out.println(Context.getInstance().getPlayer().toString());
+            System.out.println(Context.getInstance().getUniverse().toString());
             controller.setScreen("GameScreen");
         } else if (pointsRemaining > 0 && playerName.equals("")) {
             descriptions.setText("You still have points left to assign, and you still have to enter"

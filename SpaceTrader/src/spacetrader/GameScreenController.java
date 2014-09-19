@@ -33,5 +33,8 @@ public class GameScreenController implements ControlledScreen {
         traderLabel.setText("Trader: " + String.valueOf(player.getTrader()));
         fighterLabel.setText("Fighter: " + String.valueOf(player.getFighter()));
         engineerLabel.setText("Engineer: " + String.valueOf(player.getEngineer()));
+        
+        Universe u = Context.getInstance().getUniverse();
+        System.out.println(u.toString());
     }
 }

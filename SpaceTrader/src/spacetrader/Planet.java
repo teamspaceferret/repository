@@ -31,4 +31,10 @@ public class Planet {
         this.chanceTrader = 0;
     }
     
+    @Override
+    public String toString(){
+        String string = this.name + " at: " + this.xCoord + "," + this.yCoord;
+        return string;
+    }
+    
 }

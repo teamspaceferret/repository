@@ -19,13 +19,23 @@ public class SolarSystem {
             Planet p = new Planet(name,0,0,0,x,y,0);
             
             planets[i] = p;
+            //System.out.println(planets[i].toString());
         }
     }
     
     public void placeSolarSystem(int x, int y){
-        //reserve a bounding box around the x and y for planets
-        //can make it so that each "solarsystem coord" is equiv to ~100 planet coords
+        //reserve coords for planets
         xCoord = x*100;
         yCoord = y*100;
+    }
+    
+    @Override
+    public String toString(){
+        String string = "";
+        for (int i = 0; i < (planets.length); i++){
+            string += " " + planets[i].toString() + " ";
+        }
+        
+        return string;
     }
 }

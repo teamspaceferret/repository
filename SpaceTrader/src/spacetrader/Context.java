@@ -8,8 +8,13 @@ public class Context {
     }
 
     private Player player = new Player();
+    private Universe universe = new Universe();
 
     public Player getPlayer() {
         return player;
+    }
+    
+    public Universe getUniverse(){
+        return universe;
     }
 }

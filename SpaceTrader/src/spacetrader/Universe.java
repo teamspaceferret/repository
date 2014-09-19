@@ -21,9 +21,15 @@ public class Universe {
         s2.placeSolarSystem(3,8);
         s2.populateSolarSystem(2);
         
-        SolarSystem s3 = new SolarSystem("Matryoshka");
+        SolarSystem s3 = new SolarSystem("Bob");
         s3.placeSolarSystem(8, 2);
         s3.populateSolarSystem(3);
+        
+        
+        solarSystems[0] = s1;
+        solarSystems[1] = s2;
+        solarSystems[2] = s3;
+        
     }
     
     public Universe populateUniverse(){
@@ -32,5 +38,14 @@ public class Universe {
         
         return universe;
         
-    } 
+    }
+    
+    @Override
+    public String toString(){
+       String string = "";
+       for(int i = 0; i < (solarSystems.length); i++){
+            string += "Solar System " + i + " " + solarSystems[i].toString() + "\n";
+        }
+        return string;
+    }
 }
