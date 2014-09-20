@@ -12,24 +12,40 @@ public class Universe {
     public void generateUniverse() {
         Random rand = new Random();
         
-        solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
+        this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
         
         for (int i = 0; i < solarSystems.length; i++) {
-            solarSystems[i] = new SolarSystem("SOLAR SYSTEM NAME");
-            solarSystems[i].generateSolarSystem();
+            this.solarSystems[i] = new SolarSystem();
+            this.solarSystems[i].generateSolarSystem();
         }
     }
     
     public SolarSystem[] getSolarSystems() {
-        return solarSystems;
+        return this.solarSystems;
     }
+    
+    public String[] getSolarSystemNames() {
+        String[] names = new String[solarSystems.length];
         
+        for (int i = 0; i < names.length; i++) {
+            try {
+                names[i] = solarSystems[i].getName();
+            } catch (NullPointerException e) {
+                names[i] = "";
+            }
+        }
+        
+        return names;
+    }
+    
     @Override
     public String toString(){
        String string = "";
-       for(int i = 0; i < (solarSystems.length); i++){
-            string += "Solar System " + i + " " + solarSystems[i].toString() + "\n";
+       for(int i = 0; i < this.solarSystems.length; i++){
+            string += "Solar System " + i + " \"" + this.solarSystems[i].getName() + "\": \n";
+            string += this.solarSystems[i].toString() + "\n";
         }
+       
         return string;
     }
 }

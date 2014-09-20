@@ -3,13 +3,12 @@ package spacetrader;
 public class Planet {
     //make some int things for the techlvl, resource, and govt
     private String name;
+    private Coordinate coords;
     private int techLevel;
     private int specialResources;
     private int government;
     private double chancePolice, chancePirate, chanceTrader;
     private int specialEvent; //make not-an-int?? Probably
-    
-    private Coordinate coords;
         
     public Planet() {
         this.name = "Name";
@@ -20,7 +19,7 @@ public class Planet {
     }
     
     public Planet(int x, int y) {
-        super();
+        this();
         this.coords = new Coordinate(x, y);
     }
     
@@ -45,7 +44,7 @@ public class Planet {
     
     @Override
     public String toString() {
-        String string = this.name + " at: " + this.coords.getX() + "," + this.coords.getY();
+        String string = this.name + " at " + this.coords.getX() + "," + this.coords.getY();
         return string;
     }
 }

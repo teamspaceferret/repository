@@ -34,14 +34,6 @@ public class GameScreenController implements ControlledScreen {
         
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
-        /*
-        for(int i = 0; i < universe.getSolarSystems().length; i++) {
-            for(int j = 0; j < universe.getSolarSystems()[i].getPlanets().length; j++) {
-                gc.setFill(Color.RED);
-                gc.fillOval(universe.getSolarSystems()[i].getPlanets()[j].getX(),
-                    universe.getSolarSystems()[i].getPlanets()[j].getY(), 5, 5);
-            }
-        }*/
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
             gc.setFill(Color.RED);
             gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
