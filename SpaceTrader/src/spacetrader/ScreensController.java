@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import spacetrader.SpaceTrader.ControlledScreen;
 
-public class ScreensController  extends StackPane {
+public class ScreensController extends StackPane {
     //Holds the screens to be displayed
     
     private final HashMap<String, Node> screens = new HashMap<>();

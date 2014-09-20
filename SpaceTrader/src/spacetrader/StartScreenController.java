@@ -20,7 +20,7 @@ public class StartScreenController implements ControlledScreen {
     }
     
     public void loadGameButtonAction() {
-        System.out.println("Load Game button pressed");
-    }   
-
+        Context.getInstance().getUniverse().generateUniverse();
+        controller.setScreen("GameScreen");
+    }
 }

@@ -1,58 +1,63 @@
 package spacetrader;
 
+import java.util.Random;
+
 public class SolarSystem {
     private String name;
-    private int xCoord, yCoord;
+    
+    private Coordinate coords;
     private Planet[] planets;
-    //have a list of available coordinates??
     
-    public SolarSystem(String name){
-        this.name = name; 
+    public SolarSystem() {
+        this.coords = new Coordinate();
     }
     
-    public void populateSolarSystem(int numPlanets){
-        planets = new Planet[numPlanets];
-        for(int i = 0; i<numPlanets; i++){
-            String name = this.name + " Planet " + i;
-            int x = this.xCoord + i*10;
-            int y = this.yCoord + i*10;
-            Planet p = new Planet(name,0,0,0,x,y,0);
-            
-            planets[i] = p;
-            //System.out.println(planets[i].toString());
-        }
+    public SolarSystem(String name) {
+        super();
+        this.name = name;
     }
     
-    public void placeSolarSystem(int x, int y){
-        //reserve coords for planets
-        //*30 to make input from 1 to 10 be appropriately placed on canvas
-        xCoord = x*30;
-        yCoord = y*30;
-    }
-    
-    @Override
-    public String toString(){
-        String string = "";
-        for (int i = 0; i < (planets.length); i++){
-            string += " " + planets[i].toString() + " ";
-        }
+    public void generateSolarSystem() {
+        Random rand = new Random();
         
-        return string;
-    }
-    
-    public Planet[] getPlanets() {
-        return planets;
+        this.coords = new Coordinate(rand.nextInt(300), rand.nextInt(300));
+        
+        int numPlanets = rand.nextInt(Context.MAX_PLANETS_PER_SOLAR_SYSTEM
+                - Context.MIN_PLANETS_PER_SOLAR_SYSTEM)
+                + Context.MIN_PLANETS_PER_SOLAR_SYSTEM;
+        
+        this.planets = new Planet[numPlanets];
+        
+        for (int i = 0; i < this.planets.length; i++) {
+            int x = rand.nextInt(300);
+            int y = rand.nextInt(300);
+            this.planets[i] = new Planet(x, y);
+        }
     }
     
     public String getName() {
-        return name;
+        return this.name;
     }
     
-    public int getX() {
-        return xCoord;
+    public Coordinate getCoords() {
+        return this.coords;
     }
     
-    public int getY() {
-        return yCoord;
+    public Planet[] getPlanets() {
+        return this.planets;
+    }
+    
+    public void setCoords(int x, int y) {
+        this.coords.setCoords(x, y);
+    }
+    
+    @Override
+    public String toString() {
+        String string = "";
+        for (int i = 0; i < this.planets.length; i++) {
+            string += " " + this.planets[i].toString() + " ";
+        }
+        
+        return string;
     }
 }

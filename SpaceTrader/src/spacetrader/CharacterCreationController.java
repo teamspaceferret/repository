@@ -1,9 +1,13 @@
 package spacetrader;
 
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import spacetrader.SpaceTrader.ControlledScreen;
-import javafx.fxml.*;
-import javafx.scene.control.*;
 
 public class CharacterCreationController implements ControlledScreen {
     @FXML private TextField nameEntry;
@@ -38,7 +42,7 @@ public class CharacterCreationController implements ControlledScreen {
     @FXML private Button engineerDecrement;
     @FXML private Button investorDecrement;
     
-    private int pointsRemaining = 28;
+    private int pointsRemaining = 15;
     private String playerName = "";
     private int[] stats;
     private Player player;
@@ -54,6 +58,11 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     *
+     * @param screenParent
+     */
+    @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }
@@ -76,10 +85,8 @@ public class CharacterCreationController implements ControlledScreen {
             Context.getInstance().getPlayer().setName(playerName);
             Context.getInstance().getPlayer().setStates(stats);
             // Create universe
-            Context.getInstance().getUniverse().makeUniverse();
+            Context.getInstance().getUniverse().generateUniverse();
             
-            System.out.println(Context.getInstance().getPlayer().toString());
-            System.out.println(Context.getInstance().getUniverse().toString());
             controller.setScreen("GameScreen");
         } else if (pointsRemaining > 0 && playerName.equals("")) {
             descriptions.setText("You still have points left to assign, and you still have to enter"
@@ -122,7 +129,7 @@ public class CharacterCreationController implements ControlledScreen {
         engineerField.clear();
         engineerSlider.setValue(0);
         descriptions.clear();
-        pointsRemaining = 28;
+        pointsRemaining = 15;
         upr();
     }
     
