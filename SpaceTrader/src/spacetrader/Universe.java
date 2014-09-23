@@ -5,10 +5,16 @@ import java.util.Random;
 public class Universe {
     private SolarSystem[] solarSystems;
     
+    /**
+     * Constructs a default universe
+     */
     public Universe() {
         this.solarSystems = null;
     }
     
+    /**
+     * Constructs a randomly generated universe
+     */
     public void generateUniverse() {
         Random rand = new Random();
         
@@ -20,10 +26,18 @@ public class Universe {
         }
     }
     
+    /**
+     * Gets the universe's solar systems
+     * @return the array of all solar systems in the universe
+     */
     public SolarSystem[] getSolarSystems() {
         return this.solarSystems;
     }
     
+    /**
+     * Gets the universe's solar system's names
+     * @return an array of all solar system names in the universe
+     */
     public String[] getSolarSystemNames() {
         String[] names = new String[solarSystems.length];
         
@@ -38,6 +52,10 @@ public class Universe {
         return names;
     }
     
+    /**
+     * Makes a string representation of the universe
+     * @return a string representation of the universe
+     */
     @Override
     public String toString(){
        String string = "";

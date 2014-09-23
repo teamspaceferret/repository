@@ -18,7 +18,7 @@ public class GameScreenController implements ControlledScreen {
     ScreensController controller;
     
     /**
-     *
+     * 
      * @param screenParent
      */
     @Override
@@ -26,6 +26,9 @@ public class GameScreenController implements ControlledScreen {
         controller = screenParent;
     }
     
+    /**
+     * Draws current solar systems on galaxy map
+     */
     public void drawSolarSystems() {
         Universe universe = Context.getInstance().getUniverse();
         
@@ -42,6 +45,9 @@ public class GameScreenController implements ControlledScreen {
         System.out.println(universe.toString());
     }
     
+    /**
+     * Sets the current available fuel value to be displayed
+     */
     public void currentFuel() {
         fuelLabel.setText("Fuel: 1000"); //add fuel value here!
     }
