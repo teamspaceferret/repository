@@ -6,11 +6,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SpaceTrader extends Application {
-    
+
+/**
+* interface of ControlledScreen
+*/
     public interface ControlledScreen {
         public void setScreenParent(ScreensController screenPage); 
     }
-    
+  
+/**
+* Loading the start screen, game screen, character creation, and setting the screen to start screen. 
+*/  
     @Override
     public void start(Stage primaryStage) throws Exception {
         ScreensController mainContainer = new ScreensController();
@@ -26,6 +32,9 @@ public class SpaceTrader extends Application {
         primaryStage.show();
     }
     
+/**
+* Main driver that launches the game. 
+*/
     public static void main(String[] args) {
         launch(args);
     }
