@@ -49,6 +49,10 @@ public class CharacterCreationController implements ControlledScreen {
     
     ScreensController controller;
     
+    /**
+     * Returns the player
+     * @return player the user's player
+     */
     public Player getPlayer() {
         if (player != null) {
             return player;
@@ -67,6 +71,9 @@ public class CharacterCreationController implements ControlledScreen {
         controller = screenParent;
     }
     
+    /**
+     * Creates player and assigns their skills if configuration is complete
+     */
     public void confirmAction() {
         if (pointsRemaining <= 0 && !playerName.equals("")) {
             stats = new int[5];
@@ -98,6 +105,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Clears inputted values to go back to start screen
+     */
     public void backAction() {
         controller.setScreen("StartScreen");
         playerName = "";
@@ -133,6 +143,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Sets player name
+     */
     public void setPlayerName() {
         String tempName = playerName;
         playerName = nameEntry.getText();
@@ -146,10 +159,16 @@ public class CharacterCreationController implements ControlledScreen {
         System.out.println("Stats randomized!");
     }*/
     
+    /**
+     * Sets the current available points to be displayed
+     */
     public void upr() {
         pointsRemainingGUI.setText("Points remaining: " + pointsRemaining);
     }
     
+    /**
+     * Checks if any points remain during allocation
+     */
     public boolean checkTotals() {
         if (pointsRemaining == 0) {
             System.out.println("You're out of points.");
@@ -158,6 +177,9 @@ public class CharacterCreationController implements ControlledScreen {
         return true;
     }
     
+    /**
+     * Adds points to Fighter skill
+     */
     public void incrementFighterAction() {
         double current = fighterSlider.getValue();
         current += 1;
@@ -173,6 +195,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Adds points to Trader skill
+     */
     public void incrementTraderAction() {
         double current = traderSlider.getValue();
         current += 1;
@@ -188,6 +213,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Adds points to Pilot skill
+     */
     public void incrementPilotAction() {
         double current = pilotSlider.getValue();
         current += 1;
@@ -203,6 +231,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Adds points to Engineer skill
+     */
     public void incrementEngineerAction() {
         double current = engineerSlider.getValue();
         current += 1;
@@ -218,6 +249,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Adds points to Investor skill
+     */
     public void incrementInvestorAction() {
         double current = investorSlider.getValue();
         current += 1;
@@ -233,6 +267,9 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
+    /**
+     * Removes point from Fighter skill
+     */
     public void decrementFighterAction() {
         double current = fighterSlider.getValue();
         if (current != 0) {
@@ -245,6 +282,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Removes point from Trader skill
+     */
     public void decrementTraderAction() {
         double current = traderSlider.getValue();
         if (current != 0) {
@@ -257,6 +297,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Removes point from Pilot skill
+     */
     public void decrementPilotAction() {
         double current = pilotSlider.getValue();
         if (current != 0) {
@@ -269,6 +312,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Removes point from Engineer skill
+     */
     public void decrementEngineerAction() {
         double current = engineerSlider.getValue();
         if (current != 0) {
@@ -281,6 +327,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Removes point from Investor skill
+     */
     public void decrementInvestorAction() {
         double current = investorSlider.getValue();
         if (current != 0) {
@@ -293,6 +342,9 @@ public class CharacterCreationController implements ControlledScreen {
         upr();
     }
     
+    /**
+     * Displays description of Fighter skill
+     */
     public void fighterDescriptionAction() {
         descriptions.setText("The fighter skill determines how well you handle your weapons,"
                 + " in particular, how easy it is for you hit another ship. A trader who isn't"
@@ -301,6 +353,9 @@ public class CharacterCreationController implements ControlledScreen {
                 + " will enhance your fighting capabilities. ");
     }
     
+    /**
+     * Displays description of Trader skill
+     */
     public void traderDescriptionAction() {
         descriptions.setText("The trader skill determines what prices you must pay for "
                 + "trade goods, ships and equipment. A good trader can reduce prices up to "
@@ -310,6 +365,9 @@ public class CharacterCreationController implements ControlledScreen {
                 + "capabilities.");
     }
     
+    /**
+     * Displays description of Pilot skill
+     */
     public void pilotDescriptionAction() {
         descriptions.setText("The pilot skill determines how well you pilot your ship."
                 + " A high piloting skill will enable you to flee from attacks easily,"
@@ -319,6 +377,9 @@ public class CharacterCreationController implements ControlledScreen {
                 + " capabilities.");
     }
     
+    /**
+     * Displays description of Engineer skill
+     */
     public void engineerDescriptionAction() {
         descriptions.setText("The engineer skill determines how well you keep your ship in "
                 + "shape. A good engineer may keep your hull and shields intact during a "
@@ -328,6 +389,9 @@ public class CharacterCreationController implements ControlledScreen {
                 + "will enhance the engineering capabilities.");
     }
     
+    /**
+     * Displays description of Investor skill
+     */
     public void investorDescriptionAction() {
         descriptions.setText("The investor skill influences how well you do in investing in"
                 + " the galactic markets. Stock prices and interest rates are volatile. You"
