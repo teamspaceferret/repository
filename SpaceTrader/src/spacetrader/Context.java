@@ -32,14 +32,26 @@ public class Context {
         "Zuul"
     };
     
+    /**
+     * Gets the instance of the game
+     * @return the context instance
+     */
     public static Context getInstance() {
         return instance;
     }
     
+    /**
+     * Gets the player of the game's instance
+     * @return the player
+     */
     public Player getPlayer() {
         return player;
     }
     
+    /**
+     * Gets the universe of the game's instance
+     * @return the universe
+     */
     public Universe getUniverse() {
         return universe;
     }
