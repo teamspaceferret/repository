@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
 
-public class GameScreenController implements ControlledScreen {
+public class GalaxyMapController implements ControlledScreen {
     @FXML private Button travelButton;
     @FXML private Label fuelLabel;
     @FXML private TextArea descriptions;
@@ -73,6 +73,6 @@ public class GameScreenController implements ControlledScreen {
     }
     
     public void selectSystem() {
-        controller.setScreen("GameScreen");
+        controller.setScreen("Market");
     }
 }
