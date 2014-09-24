@@ -9,6 +9,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import spacetrader.SpaceTrader.ControlledScreen;
 
+/**
+ * Controls the CharacterCreation.fxml file, or the character creation screen.
+ * 
+ */
+
 public class CharacterCreationController implements ControlledScreen {
     @FXML private TextField nameEntry;
     @FXML private Button confirmButton;
@@ -50,29 +55,34 @@ public class CharacterCreationController implements ControlledScreen {
     ScreensController controller;
     
     /**
-     * Returns the player
-     * @return player the user's player
+     * Returns the player, if one has been created.
+     *
+     * @return Created player, null if no player has been created.
      */
+    
     public Player getPlayer() {
         if (player != null) {
             return player;
         } else {
-            System.out.println("Player hasn't been created yet (null).");
+            System.out.println("Player hasn't been created yet.");
             return player;
         }
     }
     
     /**
-     *
-     * @param screenParent
+     * Used to change screens.
+     * 
+     * @param screenParent The global screen controller.
      */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }
     
-    /**
-     * Creates player and assigns their skills if configuration is complete
+   /**
+     * Initializes the Player object, once all stat points are spent and a
+     * name has been entered. Also initializes the Universe object.
+     *
      */
     public void confirmAction() {
         if (pointsRemaining <= 0 && !playerName.equals("")) {
@@ -94,7 +104,7 @@ public class CharacterCreationController implements ControlledScreen {
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             
-            controller.setScreen("GalaxyMap");
+            controller.setScreen("GameScreen");
         } else if (pointsRemaining > 0 && playerName.equals("")) {
             descriptions.setText("You still have points left to assign, and you still have to enter"
                     + " a name and press OK.");
@@ -106,27 +116,14 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Clears inputted values to go back to start screen
+     * Returns to the start screen. Clears all stat fields and
+     * resets stat sliders and refunds stat points.
+     * 
      */
+    
     public void backAction() {
         controller.setScreen("StartScreen");
         playerName = "";
-        /*
-        for (int i = 0; i < Integer.parseInt(investorField.getText()); i++) {
-            decrementInvestorAction();
-        }
-        for (int i = 0; i < Integer.parseInt(pilotField.getText()); i++) {
-            decrementPilotAction();
-        }
-        for (int i = 0; i < Integer.parseInt(traderField.getText()); i++) {
-            decrementTraderAction();
-        }
-        for (int i = 0; i < Integer.parseInt(fighterField.getText()); i++) {
-            decrementFighterAction();
-        }
-        for (int i = 0; i < Integer.parseInt(engineerField.getText()); i++) {
-            decrementEngineerAction();
-        }*/
         nameEntry.clear();
         investorField.clear();
         investorSlider.setValue(0);
@@ -144,8 +141,11 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Sets player name
+     * Sets the Player name. Player name cannot be "".
+     * Also greets the Player!
+     *
      */
+    
     public void setPlayerName() {
         String tempName = playerName;
         playerName = nameEntry.getText();
@@ -154,20 +154,18 @@ public class CharacterCreationController implements ControlledScreen {
         }
     }
     
-    //Will implement stat randomization on Saturday (9/13)
-    /*public void randomizeButtonAction() {
-        System.out.println("Stats randomized!");
-    }*/
-    
     /**
-     * Sets the current available points to be displayed
+     * Updates the GUI to show how many stat points are left to assign.
+     *
      */
     public void upr() {
         pointsRemainingGUI.setText("Points remaining: " + pointsRemaining);
     }
     
     /**
-     * Checks if any points remain during allocation
+     * Checks to see if the Player is out of stat points.
+     *
+     * @return True if the Player has points left to assign, false otherwise.
      */
     public boolean checkTotals() {
         if (pointsRemaining == 0) {
@@ -178,7 +176,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Adds points to Fighter skill
+     * Increments the Fighter stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void incrementFighterAction() {
         double current = fighterSlider.getValue();
@@ -196,7 +196,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Adds points to Trader skill
+     * Increments the Trader stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void incrementTraderAction() {
         double current = traderSlider.getValue();
@@ -214,7 +216,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Adds points to Pilot skill
+     * Increments the Pilot stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void incrementPilotAction() {
         double current = pilotSlider.getValue();
@@ -232,7 +236,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Adds points to Engineer skill
+     * Increments the Engineer stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void incrementEngineerAction() {
         double current = engineerSlider.getValue();
@@ -250,7 +256,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Adds points to Investor skill
+     * Increments the Investor stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void incrementInvestorAction() {
         double current = investorSlider.getValue();
@@ -268,7 +276,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Removes point from Fighter skill
+     * Decrements the Fighter stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void decrementFighterAction() {
         double current = fighterSlider.getValue();
@@ -283,7 +293,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Removes point from Trader skill
+     * Decrements the Trader stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void decrementTraderAction() {
         double current = traderSlider.getValue();
@@ -298,7 +310,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Removes point from Pilot skill
+     * Decrements the Pilot stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void decrementPilotAction() {
         double current = pilotSlider.getValue();
@@ -313,7 +327,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Removes point from Engineer skill
+     * Decrements the Engineer stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void decrementEngineerAction() {
         double current = engineerSlider.getValue();
@@ -328,7 +344,9 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Removes point from Investor skill
+     * Decrements the Investor stat slider by 1 and adjusts the corresponding 
+     * field.
+     * 
      */
     public void decrementInvestorAction() {
         double current = investorSlider.getValue();
@@ -343,7 +361,8 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Displays description of Fighter skill
+     * Sets the description TextArea to the Fighter stat description.
+     * 
      */
     public void fighterDescriptionAction() {
         descriptions.setText("The fighter skill determines how well you handle your weapons,"
@@ -354,7 +373,8 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Displays description of Trader skill
+     * Sets the description TextArea to the Trader stat description.
+     * 
      */
     public void traderDescriptionAction() {
         descriptions.setText("The trader skill determines what prices you must pay for "
@@ -366,7 +386,8 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Displays description of Pilot skill
+     * Sets the description TextArea to the Pilot stat description.
+     * 
      */
     public void pilotDescriptionAction() {
         descriptions.setText("The pilot skill determines how well you pilot your ship."
@@ -378,7 +399,8 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Displays description of Engineer skill
+     * Sets the description TextArea to the Engineer stat description.
+     * 
      */
     public void engineerDescriptionAction() {
         descriptions.setText("The engineer skill determines how well you keep your ship in "
@@ -390,7 +412,8 @@ public class CharacterCreationController implements ControlledScreen {
     }
     
     /**
-     * Displays description of Investor skill
+     * Sets the description TextArea to the Investor stat description.
+     * 
      */
     public void investorDescriptionAction() {
         descriptions.setText("The investor skill influences how well you do in investing in"
