@@ -1,5 +1,10 @@
 package spacetrader;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public enum Resource {
     NOSPECIALRESOURCES("No special resources", 0),
     MINERALRICH("Mineral rich", 1), MINERALPOOR("Mineral poor", 2),
@@ -9,12 +14,22 @@ public enum Resource {
     WEIRDMUSHROOMS("Weird mushrooms", 9), LOTSOFHERBS("Lots of herbs", 10),
     ARTISTIC("Artistic", 11), WARLIKE("Warlike", 12), PACIFIST("Pacifist", 13);
     
+    private static final Random rand = new Random();
+    private static final List<Resource> VALUES = Arrays.asList(values());
     private final String NAME;
     private final int ID;
     
     private Resource(String name, int id) {
         NAME = name;
         ID = id;
+    }
+    
+    /**
+     * Returns a random resource.
+     * @return a random resource
+     */
+    public Resource randomResource() {
+        return VALUES.get(rand.nextInt(VALUES.size()));
     }
     
     /**
