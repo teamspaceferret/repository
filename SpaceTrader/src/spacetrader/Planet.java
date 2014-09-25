@@ -1,28 +1,26 @@
 package spacetrader;
 
 public class Planet {
-    //make some int things for the techlvl, resource, and govt
     private String name;
     private Coordinate coords;
     private int techLevel;
-    private int specialResources;
-    private int government;
+    private int resource;
+    private int govt;
     private double chancePolice, chancePirate, chanceTrader;
-    private int specialEvent; //make not-an-int?? Probably
     
     /**
-     * Constructs a planet with default values
+     * Constructs a planet with default values.
      */
     public Planet() {
-        this.name = "Name";
+        this.name = "";
         this.coords = new Coordinate();
         this.techLevel = 0;
-        this.government = 0;
-        this.specialResources = 0;
+        this.resource = 0;
+        this.govt = 0;
     }
     
     /**
-     * Constructs a planet with given coordinates
+     * Constructs a planet with given coordinates.
      * @param x planet's x coordinate
      * @param y planet's y coordinate
      */
@@ -32,45 +30,43 @@ public class Planet {
     }
     
     /**
-     * Constructs a planet with given values
+     * Constructs a planet with given values.
      * @param name planet's name
-     * @param tech which tech level planet has
+     * @param techLevel which tech level planet has
      * @param resource which special resource planet has
      * @param govt which government planet has
      * @param x planet's x coordinate
      * @param y planet's y coordinate
-     * @param specialEvent event happening on planet
      */
-    public Planet(String name, int tech, int resource, int govt, int x, int y, int specialEvent) {
+    public Planet(String name, int techLevel, int resource, int govt, int x, int y) {
         this.name = name;
-        this.techLevel = tech;
-        this.specialResources = resource;
-        this.government = govt;
+        this.techLevel = techLevel;
+        this.resource = resource;
+        this.govt = govt;
         this.coords = new Coordinate(x, y);
-        this.specialEvent = specialEvent;
         this.chancePolice = 0;
         this.chancePirate = 0;
         this.chanceTrader = 0;
     }
     
     /**
-     * Gets the planet's name
-     * @return the planet's name
+     * Returns the name of the planet.
+     * @return the name of the planet
      */
     public String getName() {
         return this.name;
     }
     
     /**
-     * Gets the planet's coordinates
-     * @return the planet's coordinates
+     * Returns the coordinates of the planet.
+     * @return the coordinates of the planet
      */
     public Coordinate getCoords() {
         return this.coords;
     }
     
     /**
-     * Makes a string representation of the planet
+     * Returns a string representation of the planet.
      * @return a string representation of the planet
      */
     @Override

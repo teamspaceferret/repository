@@ -1,49 +1,92 @@
 package spacetrader;
 
+/**
+ *
+ * @author keatts
+ */
 public class Coordinate {
     
     private int x, y;
+
+    /**
+     * Constructs a coordinate with default values.
+     */
+    public Coordinate() {
+        this.x = 0;
+        this.y = 0;
+    }
+
+    /**
+     * Constructs a coordinate with x and y values. 
+     * @param x the x coordinate
+     * @param y the y coordinate 
+     */
+
+    public Coordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Checks if a coordinate is too close to another coordinate.
+     * @param otherCoord the coordinate pair to check against
+     * @return true if the coordinate pairs are too close
+     */
+    public boolean istooCloseTo(Coordinate otherCoord) {
+        if (Math.abs(this.x - otherCoord.getX()) < Context.MIN_DISTANCE_BETWEEN_PLANETS
+                && Math.abs(this.y - otherCoord.getY()) < Context.MIN_DISTANCE_BETWEEN_PLANETS) {
+            return true;
+        }
+        return false;
+    }
     
-/**
-* Initializing global variables. 
-**/
-public Coordinate() {
-    this.x = 0;
-    this.y = 0;
-}
+    /**
+     * Returns the x coordinate.
+     * @return the x coordinate
+     */
 
-/**
-* Setting global variables to the ones in the coordinate. 
-*@param x - the x coordinate
-*@param y - the y coordinate 
-**/
-
-public Coordinate(int x, int y) {
-    this.x = x;
-    this.y = y;
-}
-
-/**
-* The getter method for the x coordinate
-**/
-
-public int getX() {
-    return x;
-}
+    public int getX() {
+        return x;
+    }
 
 
-/**
-* The getter method for the y coordinate
-**/
-public int getY() {
-    return y;
-}
+    /**
+     * Returns the y coordinate.
+     * @return the y coordinate
+     */
+    public int getY() {
+        return y;
+    }
 
-/**
-* The setter method for the x and y coordinates
-**/
-public void setCoords(int x, int y) {
-    this.x = x;
-    this.y = y;
-}
+    /**
+     * Sets the x and y coordinates.
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+    public void setCoords(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    /**
+     * Sets the x coordinate.
+     * @param x the x coordinate
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    /**
+     * Sets the y coordinate
+     * @param y the y coordinate
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    @Override
+    public String toString() {
+        return "(" + String.valueOf(this.x) + ", "
+                + String.valueOf(this.y)+ ")";
+    }
 }

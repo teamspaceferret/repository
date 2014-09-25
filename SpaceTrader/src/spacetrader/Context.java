@@ -6,8 +6,8 @@ public class Context {
     private Player player = new Player();
     private Universe universe = new Universe();
     
-    public static final int NUM_SOLAR_SYSTEMS = 6;
-    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 200;
+    public static final int NUM_SOLAR_SYSTEMS = 30;
+    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 30;
     public static final int MIN_PLANETS_PER_SOLAR_SYSTEM = 4;
     public static final int MAX_PLANETS_PER_SOLAR_SYSTEM = 8;
     
@@ -32,8 +32,26 @@ public class Context {
         "Zuul"
     };
     
+    public static final String[] TECH_LEVELS = {
+        "Pre-Agriculture", "Agriculture", "Medieval", "Renaissance",
+        "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"
+    };
+    
+    public static final String[] RESOURCES = {
+        "NOSPECIALRESOURCES", "MINERALRICH", "MINERALPOOR", "DESERT",
+        "LOTSOFWATER", "RICHSOIL", "POORSOIL", "RICHFAUNA", "LIFELESS",
+        "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE"
+    };
+    
+    public static final String[] GOVERNMENTS = {
+        "Anarchy", "Capitalist", "Communist", "Confederacy", "Corporate",
+        "Cybernetic", "Democracy", "Dictatorship", "Fascist", "Feudal",
+        "Military", "Monarchy", "Paficist", "Socialist", "Satori",
+        "Technocracy", "Theocracy"
+    };
+    
     /**
-     * Gets the instance of the game
+     * Returns the context instance.
      * @return the context instance
      */
     public static Context getInstance() {
@@ -41,7 +59,7 @@ public class Context {
     }
     
     /**
-     * Gets the player of the game's instance
+     * Returns the player.
      * @return the player
      */
     public Player getPlayer() {
@@ -49,7 +67,7 @@ public class Context {
     }
     
     /**
-     * Gets the universe of the game's instance
+     * Returns the universe.
      * @return the universe
      */
     public Universe getUniverse() {

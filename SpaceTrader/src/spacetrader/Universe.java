@@ -20,8 +20,34 @@ public class Universe {
         
         this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
         
-        for (int i = 0; i < solarSystems.length; i++) {
-            this.solarSystems[i] = new SolarSystem();
+        // Generate random coordiantes that aren't too close
+        Coordinate solarSystemCoords[] = new Coordinate[this.solarSystems.length]; 
+        for (int i = 0; i < this.solarSystems.length; i++) {
+            boolean tooClose;
+            Coordinate newCoord;
+            do {
+                tooClose = false;
+                newCoord = new Coordinate(rand.nextInt(300),
+                        rand.nextInt(300));
+
+                if (i > 0) {
+                    for (int j = 0; j < i; j++) {
+                        System.out.println("Checking if " + newCoord + " is too close to " + solarSystemCoords[j]);
+                        if (newCoord.istooCloseTo(solarSystemCoords[j])) {
+                            tooClose = true;
+                            System.out.println("IT IS!!!!!!");
+                        }
+                    }
+                    System.out.println();
+                }
+            } while (tooClose);
+            
+            solarSystemCoords[i] = newCoord;
+        }
+        
+        // Create all the solar systems
+        for (int i = 0; i < solarSystemCoords.length; i++) {
+            this.solarSystems[i] = new SolarSystem(solarSystemCoords[i].getX(), solarSystemCoords[i].getY());
             this.solarSystems[i].generateSolarSystem();
         }
     }
@@ -60,7 +86,7 @@ public class Universe {
     public String toString(){
        String string = "";
        for(int i = 0; i < this.solarSystems.length; i++){
-            string += "Solar System " + i + " \"" + this.solarSystems[i].getName() + "\": \n";
+            string += "Solar System " + i + " \"" + this.solarSystems[i].getName() + "\" at " + this.solarSystems[i].getCoords() + ": \n";
             string += this.solarSystems[i].toString() + "\n";
         }
        

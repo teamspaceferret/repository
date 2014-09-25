@@ -32,10 +32,7 @@ public class GalaxyMapController implements ControlledScreen {
     /**
      * Draws current solar systems on galaxy map
      */
-    public void drawSolarSystems() {        
-        System.out.println(universe.getSolarSystems().length);
-        System.out.println(universe.getSolarSystems()[0].getPlanets().length);
-        
+    public void drawSolarSystems() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
