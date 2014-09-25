@@ -4,10 +4,9 @@ public class Planet {
     private String name;
     private Coordinate coords;
     private int techLevel;
-    private SC resource;
+    private Resource resource;
     private int govt;
-    private double chancePolice, chancePirate, chanceTrader;
-    private SE event;
+    private Event event;
     
     /**
      * Constructs a planet with default values.
@@ -16,9 +15,9 @@ public class Planet {
         this.name = "";
         this.coords = new Coordinate();
         this.techLevel = 0;
-        this.resource = SC.NONE;
+        this.resource = Resource.NOSPECIALRESOURCES;
         this.govt = 0;
-        this.event = SE.NONE;
+        this.event = Event.NONE;
     }
     
     /**
@@ -39,8 +38,9 @@ public class Planet {
      * @param govt which government planet has
      * @param x planet's x coordinate
      * @param y planet's y coordinate
+     * @param event
      */
-    public Planet(String name, int techLevel, SC resource, int govt, int x, int y, SE event) {
+    public Planet(String name, int techLevel, Resource resource, int govt, int x, int y, Event event) {
         this.name = name;
         this.techLevel = techLevel;
         this.resource = resource;

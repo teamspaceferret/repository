@@ -50,6 +50,13 @@ public class Context {
         "Technocracy", "Theocracy"
     };
     
+    /*public static final String[] EVENTS = {
+        "None", "Drought", "Cold", "War", "Boredom", "Plague",
+        "Lack of workers", "Crime wave", "Strike", "Many hunters",
+        "Crop failure", "Harvest season", "High police presence",
+        "Luddite invasion", "Straight-edge invasion"
+    };*/
+    
     /**
      * Returns the context instance.
      * @return the context instance

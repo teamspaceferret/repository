@@ -5,16 +5,16 @@ import java.util.Random;
  *
  */
 public enum TradeGood {
-    WATER(0, 0, 2, 30, 3, 4, SE.DROUGHT, SE.NONE, SC.LOTSOFWATER, SC.DESERT, 30, 50),
-    FURS(0, 0, 0, 250, 10, 10, SE.COLD, SE.MANYHUNTERS, SC.RICHFAUNA, SC.LIFELESS, 230, 280),
-    FOOD(1, 0, 1, 100, 5, 5, SE.CROPFAIL, SE.HARVEST, SC.RICHSOIL, SC.POORSOIL, 90, 160),
-    ORE(2, 2, 3, 350, 20, 10, SE.WAR, SE.NONE, SC.MINERALRICH, SC.MINERALPOOR, 350, 420),
-    GAMES(3, 1, 6, 250, -10, 5, SE.BOREDOM, SE.NONE, SC.ARTISTIC, SC.NONE, 160, 270),
-    FIREARMS(3, 1, 5, 1250, -75, 100, SE.CRIMEWAVE, SE.POLICE, SC.WARLIKE, SC.PACIFIST, 600, 1100),
-    MEDICINE(4, 1, 6, 650, -20, 10, SE.PLAGUE, SE.NONE, SC.LOTSOFHERBS, SC.LIFELESS, 400, 700),
-    MACHINES(4, 3, 5, 900, -30, 5, SE.LACKOFWORKERS, SE.LUDDITES, SC.NONE, SC.NONE, 600, 800),
-    NARCOTICS(5, 0, 5, 3500, -125, 150, SE.POLICE, SE.STRAIGHTEDGE, SC.WEIRDMUSHROOMS, SC.NONE, 2000, 3000),
-    ROBOTS(6, 4, 7, 5000, -150, 100, SE.LACKOFWORKERS, SE.LUDDITES, SC.NONE, SC.NONE, 3500, 5000);
+    WATER(0, 0, 2, 30, 3, 4, Event.DROUGHT, Event.NONE, Resource.LOTSOFWATER, Resource.DESERT, 30, 50),
+    FURS(0, 0, 0, 250, 10, 10, Event.COLD, Event.MANYHUNTERS, Resource.RICHFAUNA, Resource.LIFELESS, 230, 280),
+    FOOD(1, 0, 1, 100, 5, 5, Event.CROPFAIL, Event.HARVEST, Resource.RICHSOIL, Resource.POORSOIL, 90, 160),
+    ORE(2, 2, 3, 350, 20, 10, Event.WAR, Event.NONE, Resource.MINERALRICH, Resource.MINERALPOOR, 350, 420),
+    GAMES(3, 1, 6, 250, -10, 5, Event.BOREDOM, Event.NONE, Resource.ARTISTIC, Resource.NOSPECIALRESOURCES, 160, 270),
+    FIREARMS(3, 1, 5, 1250, -75, 100, Event.CRIMEWAVE, Event.POLICE, Resource.WARLIKE, Resource.PACIFIST, 600, 1100),
+    MEDICINE(4, 1, 6, 650, -20, 10, Event.PLAGUE, Event.NONE, Resource.LOTSOFHERBS, Resource.LIFELESS, 400, 700),
+    MACHINES(4, 3, 5, 900, -30, 5, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 600, 800),
+    NARCOTICS(5, 0, 5, 3500, -125, 150, Event.POLICE, Event.STRAIGHTEDGE, Resource.WEIRDMUSHROOMS, Resource.NOSPECIALRESOURCES, 2000, 3000),
+    ROBOTS(6, 4, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000);
     
     /**
      * TradeGoods have many parameters.
@@ -34,11 +34,11 @@ public enum TradeGood {
      */
     
     private final int MTLB, MTLS, TTP, BASEPRICE, IPL, VARIANCE, RTL, RTH;
-    private final SE IE, DE;
-    private final SC CR, ER;
+    private final Event IE, DE;
+    private final Resource CR, ER;
     
     private TradeGood(int mtlb, int mtls, int ttp, int basePrice, int ipl,
-            int variance, SE ie, SE de, SC cr, SC er, int rtl, int rth) {
+            int variance, Event ie, Event de, Resource cr, Resource er, int rtl, int rth) {
         MTLB = mtlb;
         MTLS = mtls;
         TTP = ttp;
