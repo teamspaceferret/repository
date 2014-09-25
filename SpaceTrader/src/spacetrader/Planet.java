@@ -4,9 +4,9 @@ public class Planet {
     private String name;
     private Coordinate coords;
     private int techLevel;
-    private Resource resource;
+    private int resource;
     private int govt;
-    private Event event;
+    private int event;
     
     /**
      * Constructs a planet with default values.
@@ -15,9 +15,11 @@ public class Planet {
         this.name = "";
         this.coords = new Coordinate();
         this.techLevel = 0;
-        this.resource = Resource.NOSPECIALRESOURCES;
+        this.resource = 0;
+        //this.resource = Resource.NOSPECIALRESOURCES;
         this.govt = 0;
-        this.event = Event.NONE;
+        this.event = 0;
+        //this.event = Event.NONE;
     }
     
     /**
@@ -40,7 +42,7 @@ public class Planet {
      * @param y planet's y coordinate
      * @param event
      */
-    public Planet(String name, int techLevel, Resource resource, int govt, int x, int y, Event event) {
+    public Planet(String name, int techLevel, int resource, int govt, int x, int y, int event) {
         this.name = name;
         this.techLevel = techLevel;
         this.resource = resource;
@@ -71,7 +73,11 @@ public class Planet {
      */
     @Override
     public String toString() {
-        String string = this.name + " at " + this.coords.getX() + "," + this.coords.getY();
+        String string = this.name + " at " + this.coords + " with techLevel "
+                + Context.TECH_LEVELS[techLevel] + ", resource "
+                + Context.RESOURCES[resource] + ", govt "
+                + Context.GOVERNMENTS[govt] + ", and event "
+                + Context.EVENTS[event];
         return string;
     }
 }

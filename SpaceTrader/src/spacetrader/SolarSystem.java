@@ -73,9 +73,16 @@ public class SolarSystem {
             planetCoords[i] = newCoord;
         }
         
+        
+        
         // Create all the planets
         for (int i = 0; i < planetCoords.length; i++) {
-            this.planets[i] = new Planet(planetCoords[i].getX(), planetCoords[i].getY());
+            this.planets[i] = new Planet("",
+                    rand.nextInt(Context.TECH_LEVELS.length),
+                    rand.nextInt(Context.RESOURCES.length),
+                    rand.nextInt(Context.GOVERNMENTS.length),
+                    planetCoords[i].getX(), planetCoords[i].getY(),
+                    rand.nextInt(Context.EVENTS.length));
         }
     }
     

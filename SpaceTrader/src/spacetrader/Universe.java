@@ -32,13 +32,10 @@ public class Universe {
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        System.out.println("Checking if " + newCoord + " is too close to " + solarSystemCoords[j]);
                         if (newCoord.istooCloseTo(solarSystemCoords[j])) {
                             tooClose = true;
-                            System.out.println("IT IS!!!!!!");
                         }
                     }
-                    System.out.println();
                 }
             } while (tooClose);
             

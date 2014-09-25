@@ -40,7 +40,7 @@ public class Context {
     public static final String[] RESOURCES = {
         "NOSPECIALRESOURCES", "MINERALRICH", "MINERALPOOR", "DESERT",
         "LOTSOFWATER", "RICHSOIL", "POORSOIL", "RICHFAUNA", "LIFELESS",
-        "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE"
+        "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE", "PACIFIST" // Pacifist?
     };
     
     public static final String[] GOVERNMENTS = {
@@ -50,12 +50,12 @@ public class Context {
         "Technocracy", "Theocracy"
     };
     
-    /*public static final String[] EVENTS = {
+    public static final String[] EVENTS = {
         "None", "Drought", "Cold", "War", "Boredom", "Plague",
         "Lack of workers", "Crime wave", "Strike", "Many hunters",
         "Crop failure", "Harvest season", "High police presence",
-        "Luddite invasion", "Straight-edge invasion"
-    };*/
+        "Luddite invasion!", "Straight-edge invasion!"
+    };
     
     /**
      * Returns the context instance.

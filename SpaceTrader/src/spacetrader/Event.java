@@ -18,16 +18,16 @@ public enum Event {
     }
     
     /**
-     *
-     * @return
+     * Returns event name.
+     * @return event name
      */
     public String getName() {
         return NAME;
     }
     
     /**
-     *
-     * @return
+     * Returns event id.
+     * @return event id
      */
     public int getID() {
         return ID;
