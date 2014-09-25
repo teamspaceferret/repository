@@ -5,10 +5,10 @@ public class Planet {
     private String name;
     private Coordinate coords;
     private int techLevel;
-    private int specialResources;
+    private SC specialResources;
     private int government;
     private double chancePolice, chancePirate, chanceTrader;
-    private int specialEvent; //make not-an-int?? Probably
+    private SE specialEvent; //make not-an-int?? Probably
     
     /**
      * Constructs a planet with default values
@@ -18,7 +18,7 @@ public class Planet {
         this.coords = new Coordinate();
         this.techLevel = 0;
         this.government = 0;
-        this.specialResources = 0;
+        this.specialResources = SC.NONE;
     }
     
     /**
@@ -41,7 +41,7 @@ public class Planet {
      * @param y planet's y coordinate
      * @param specialEvent event happening on planet
      */
-    public Planet(String name, int tech, int resource, int govt, int x, int y, int specialEvent) {
+    public Planet(String name, int tech, SC resource, int govt, int x, int y, SE specialEvent) {
         this.name = name;
         this.techLevel = tech;
         this.specialResources = resource;
