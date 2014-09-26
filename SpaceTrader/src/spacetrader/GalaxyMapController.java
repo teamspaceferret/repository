@@ -1,6 +1,9 @@
 package spacetrader;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -10,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
 
-public class GalaxyMapController implements ControlledScreen {
+public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Button travelButton;
     @FXML private Label fuelLabel;
     @FXML private TextArea descriptions;
@@ -21,12 +24,30 @@ public class GalaxyMapController implements ControlledScreen {
     SolarSystem currentlySelected;
     
     /**
-     * 
-     * @param screenParent
+     * Set the screen parent.
+     * @param screenParent the screen parent
      */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
+    }
+    
+    /**
+     * Initializes the screen.
+     */
+    @Override
+    public void initScreen() {
+        drawSolarSystems();
+    }
+    
+    /**
+     * Initializes the controller class.
+     * @param location
+     * @param resources 
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
     }
     
     /**
@@ -39,7 +60,6 @@ public class GalaxyMapController implements ControlledScreen {
             gc.setFill(Color.RED);
             gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
         }
-        System.out.println(universe.toString());
     }
     
     /**

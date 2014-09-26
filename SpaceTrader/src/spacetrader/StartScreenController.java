@@ -1,13 +1,15 @@
 package spacetrader;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import spacetrader.SpaceTrader.ControlledScreen;
 
-public class StartScreenController implements ControlledScreen {
-    
+public class StartScreenController implements ControlledScreen, Initializable {
     ScreensController controller;
     
     /**
-     * Sets the screen parent
+     * Set the screen parent.
      * @param screenParent the screen parent
      */
     @Override
@@ -16,14 +18,32 @@ public class StartScreenController implements ControlledScreen {
     }
     
     /**
-     * Transitions the screen from the start screen to the character creation screen.
+     * Initializes the screen.
+     */
+    @Override
+    public void initScreen() {
+        
+    }
+    
+    /**
+     * Initializes the controller class.
+     * @param location
+     * @param resources 
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+    }
+    
+    /**
+     * Transition the screen from the start screen to the character creation screen.
      */
     public void newGameButtonAction() {
         controller.setScreen("CharacterCreation");
     }
     
     /**
-     * Transitions to the saved games screen in order to load a chosen game.
+     * Transition to the saved games screen in order to load a chosen game.
      */
     public void loadGameButtonAction() {
         Context.getInstance().getUniverse().generateUniverse();

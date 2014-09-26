@@ -19,18 +19,18 @@ public enum TradeGood {
     /**
      * TradeGoods have many parameters.
      * 
-     * @param MTLB Minimum Tech Level to Buy this resource
-     * @param MTLS Minimum Tech Level to Sell this resource
-     * @param TTP Tech level which produces the most of this resource
-     * @param basePrice Base price of this resource
-     * @param IPL Price increase per tech level
+     * @param MTLB minimum tech level to buy this resource
+     * @param MTLS minimum tech level to sell this resource
+     * @param TTP tech level which produces the most of this resource
+     * @param basePrice base price of this resource
+     * @param IPL price increase per tech level
      * @param variance max percent this good can vary above or below the base
-     * @param IE price Increase Event, raises price astronomically
-     * @param DE price Decrease Event, drops price astronomically
+     * @param IE price increase event, raises price astronomically
+     * @param DE price decrease event, drops price astronomically
      * @param CR if this is true, price of this good is unusually low
      * @param ER if this is true, price of this good is expensive
-     * @param RTL Random Trader Lowest price, outside of marketplace
-     * @param RTH Random Trader Highest price, outside of marketplace
+     * @param RTL random trader lowest price, outside of marketplace
+     * @param RTH random trader highest price, outside of marketplace
      */
     
     private final int MTLB, MTLS, TTP, BASEPRICE, IPL, VARIANCE, RTL, RTH;
@@ -53,6 +53,10 @@ public enum TradeGood {
         RTH = rth;
     }
     
+    /**
+     *
+     * @return
+     */
     public int calcMarketPrice() {
         //basePrice + (IPL * (Planet tech level - MTLP)) + (variance)
         //need to add planet tech level to this equation when the player has a
@@ -67,6 +71,10 @@ public enum TradeGood {
         return price;
     }
     
+    /**
+     *
+     * @return
+     */
     public int calcTraderPrice() {
         Random r = new Random();
         return RTL + r.nextInt(RTH - RTL);

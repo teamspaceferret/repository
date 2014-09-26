@@ -12,6 +12,7 @@ public class SpaceTrader extends Application {
 */
     public interface ControlledScreen {
         public void setScreenParent(ScreensController screenPage); 
+        public void initScreen();
     }
   
 /**
@@ -36,7 +37,7 @@ public class SpaceTrader extends Application {
     }
     
 /**
-* Main driver that launches the game. 
+* Main method that JavaFX should never execute.
 */
     public static void main(String[] args) {
         launch(args);

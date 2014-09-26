@@ -1,5 +1,6 @@
 package spacetrader;
 
+import java.io.IOException;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -15,6 +16,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class ScreensController extends StackPane {
     private final HashMap<String, Node> screens = new HashMap<>();
+    private final HashMap<String, ControlledScreen> controllers = new HashMap<>();
     
     /**
      * Constructs a ScreensController.
@@ -29,8 +31,18 @@ public class ScreensController extends StackPane {
      * @param name   name of the screen
      * @param screen screen to be added
      */
-        public void addScreen(String name, Node screen) {
+    public void addScreen(String name, Node screen) {
         screens.put(name, screen);
+    }
+    
+    /**
+     * Add the controller to the collection.
+     *
+     * @param name       name of the screen
+     * @param controller controller to be added
+     */
+    public void addController(String name, ControlledScreen controller) {
+        controllers.put(name, controller);
     }
     
     /**
@@ -39,7 +51,7 @@ public class ScreensController extends StackPane {
      * @param name name of the screen
      * @return     screen with the given name
      */
-        public Node getScreen(String name) {
+    public Node getScreen(String name) {
         return screens.get(name);
     }
     
@@ -51,18 +63,22 @@ public class ScreensController extends StackPane {
      * @param resource name of the FXML file
      * @return         true if the screen loads successfully
      */
-        public boolean loadScreen(String name, String resource) {
+    public boolean loadScreen(String name, String resource) {
+        Parent loadScreen;
+        FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
+        
         try {
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
-            Parent loadScreen = (Parent) myLoader.load();
-            ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
-            myScreenControler.setScreenParent(this);
-            addScreen(name, loadScreen);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            loadScreen = myLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
+        
+        ControlledScreen myScreenController = ((ControlledScreen) myLoader.getController());
+        myScreenController.setScreenParent(this);
+        addScreen(name, loadScreen);
+        addController(name, myScreenController);
+        return true;
     }
        
     /**
@@ -75,16 +91,18 @@ public class ScreensController extends StackPane {
      * @param name name of the screen
      * @return     true if the screen sets successfully
      */
-        public boolean setScreen(final String name) {
-            // Screen loaded
-            if (screens.get(name) != null) {
-                final DoubleProperty opacity = opacityProperty();
+    public boolean setScreen(final String name) {
+        // Screen loaded
+        if (screens.get(name) != null) {
+            controllers.get(name).initScreen();
+            
+            final DoubleProperty opacity = opacityProperty();
                 
-                if (!getChildren().isEmpty()) {
-                    Timeline fade;
-                    fade = new Timeline(
-                            new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                            new KeyFrame(new Duration(100), (ActionEvent t) -> {
+            if (!getChildren().isEmpty()) {
+                Timeline fade;
+                fade = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
+                        new KeyFrame(new Duration(100), (ActionEvent t) -> {
                             // Remove the displayed screen
                             getChildren().remove(0); 
                             // Add the screen
@@ -93,7 +111,8 @@ public class ScreensController extends StackPane {
                                     new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                     new KeyFrame(new Duration(100), new KeyValue(opacity, 1.0)));
                             fadeIn.play();
-                    }, new KeyValue(opacity, 0.0)));
+                        }, new KeyValue(opacity, 0.0))
+                );
                 fade.play();
             } else {
                 setOpacity(0.0);
@@ -118,7 +137,7 @@ public class ScreensController extends StackPane {
      * @param name name of the screen
      * @return     true if the screen unloads successfully
      */
-        public boolean unloadScreen(String name) {
+    public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen doesn't exist");
             return false;

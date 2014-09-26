@@ -6,14 +6,14 @@ public class Universe {
     private SolarSystem[] solarSystems;
     
     /**
-     * Constructs a default universe
+     * Constructs a default universe.
      */
     public Universe() {
         this.solarSystems = null;
     }
     
     /**
-     * Constructs a randomly generated universe
+     * Generates a universe with random solar systems
      */
     public void generateUniverse() {
         Random rand = new Random();
@@ -55,6 +55,14 @@ public class Universe {
      */
     public SolarSystem[] getSolarSystems() {
         return this.solarSystems;
+    }
+    
+    /**
+     * Gets the universe's solar systems
+     * @return the array of all solar systems in the universe
+     */
+    public SolarSystem getSolarSystems(int i) {
+        return this.solarSystems[i];
     }
     
     /**
