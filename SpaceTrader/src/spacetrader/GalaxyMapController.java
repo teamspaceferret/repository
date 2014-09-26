@@ -78,7 +78,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                     ((event.getY() <= (universe.getSolarSystems()[i].getCoords().getY() + 10)) &&
                     (event.getY() >= (universe.getSolarSystems()[i].getCoords().getY()))))) {
                 currentlySelected = universe.getSolarSystems()[i];
-                setDescription(universe.getSolarSystems()[i]);
+                setDescription(currentlySelected);
             }
         }
     }
@@ -91,7 +91,11 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     public void selectSystem() {
-        player.setCurrentSolar(currentlySelected);
-        controller.setScreen("Market");
+        if (currentlySelected != null) {
+            player.setCurrentSolar(currentlySelected);
+            controller.setScreen("SolarMap");
+        } else {
+            System.out.println("Please select a system.");
+        }
     }
 }

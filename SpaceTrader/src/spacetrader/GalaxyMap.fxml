@@ -30,10 +30,5 @@
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="324.0" layoutX="24.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
       <Canvas fx:id="canvas" height="310.0" layoutX="32.0" layoutY="74.0" onMouseClicked="#onMouseClick" width="310.0" />
-      <Button layoutX="443.0" layoutY="20.0" mnemonicParsing="false" onAction="#drawSolarSystems" prefHeight="33.0" prefWidth="76.0" text="Start">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
