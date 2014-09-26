@@ -36,14 +36,8 @@ public class SolarSystem {
      */
     public void generateSolarSystem() {
         Random rand = new Random();
-        String randomName;
         
-        // Selects random names until it finds an unused name
-        do {
-            randomName = Context.SOLAR_SYSTEM_NAMES[rand.nextInt(Context.SOLAR_SYSTEM_NAMES.length)];
-        } while (Arrays.asList(Context.getInstance().getUniverse().getSolarSystemNames()).contains(randomName));
-        
-        this.name = randomName;
+        this.name = Context.getInstance().getNames().getRandomName();
         
         int numPlanets = rand.nextInt(Context.MAX_PLANETS_PER_SOLAR_SYSTEM
                 - Context.MIN_PLANETS_PER_SOLAR_SYSTEM)
@@ -75,7 +69,7 @@ public class SolarSystem {
         
         // Create all the planets
         for (int i = 0; i < planetCoords.length; i++) {
-            this.planets[i] = new Planet("",
+            this.planets[i] = new Planet(Context.getInstance().getNames().getRandomName(),
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     rand.nextInt(Context.GOVERNMENTS.length),

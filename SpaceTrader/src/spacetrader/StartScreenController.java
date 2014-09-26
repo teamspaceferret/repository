@@ -47,6 +47,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
      */
     public void loadGameButtonAction() {
         Context.getInstance().getUniverse().generateUniverse();
+        System.out.println(Context.getInstance().getUniverse());
         controller.setScreen("GalaxyMap");
     }
 }

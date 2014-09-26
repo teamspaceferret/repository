@@ -3,8 +3,9 @@ package spacetrader;
 public class Context {
     private static final Context instance = new Context();
     
-    private Player player = new Player();
-    private Universe universe = new Universe();
+    private final Player player = new Player();
+    private final Universe universe = new Universe();
+    private final Names names = new Names();
     
     public static final int NUM_SOLAR_SYSTEMS = 30;
     public static final int MIN_DISTANCE_BETWEEN_PLANETS = 30;
@@ -70,7 +71,7 @@ public class Context {
      * @return the player
      */
     public Player getPlayer() {
-        return player;
+        return this.player;
     }
     
     /**
@@ -78,8 +79,14 @@ public class Context {
      * @return the universe
      */
     public Universe getUniverse() {
-        return universe;
+        return this.universe;
     }
     
-    
+    /**
+     * Returns the names list.
+     * @return the names list
+     */
+    public Names getNames() {
+        return this.names;
+    }
 }
