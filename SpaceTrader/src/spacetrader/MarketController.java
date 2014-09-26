@@ -81,7 +81,7 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     public void backAction() {
-        //controller.setScreen("PlanetScreen");
+        controller.setScreen("SolarMap");
     }
     
 }

@@ -9,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="spacetrader.MarketController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.MarketController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="3.0" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -19,7 +18,7 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <Button fx:id="confirmButton" layoutX="441.0" layoutY="247.0" mnemonicParsing="false" onAction="#selectSystem" prefHeight="49.0" prefWidth="106.0" text="Confirm">
+            <Button fx:id="confirmButton" layoutX="441.0" layoutY="247.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="49.0" prefWidth="106.0" text="Confirm">
                <font>
                   <Font size="18.0" />
                </font>
@@ -34,7 +33,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="backButton" layoutX="451.0" layoutY="325.0" mnemonicParsing="false" onAction="#selectSystem" prefHeight="34.0" prefWidth="87.0" text="Back">
+            <Button fx:id="backButton" layoutX="451.0" layoutY="325.0" mnemonicParsing="false" onAction="#backAction" prefHeight="34.0" prefWidth="87.0" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
@@ -89,8 +88,8 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button id="pilotIncrement" fx:id="waterIncrement" layoutX="256.0" layoutY="94.0" mnemonicParsing="false" onAction="#incrementInvestorAction" text="+" />
-            <Button id="pilotDecrement" fx:id="waterDecrement" layoutX="174.0" layoutY="94.0" mnemonicParsing="false" onAction="#decrementInvestorAction" text="-" />
+            <Button id="pilotIncrement" fx:id="waterIncrement" layoutX="256.0" layoutY="94.0" mnemonicParsing="false" onAction="#waterIncrement" text="+" />
+            <Button id="pilotDecrement" fx:id="waterDecrement" layoutX="174.0" layoutY="94.0" mnemonicParsing="false" onAction="#waterDecrement" text="-" />
             <TextField id="pilotField" fx:id="usersWater" alignment="CENTER" layoutX="205.0" layoutY="94.0" prefHeight="25.0" prefWidth="38.0" text="0" />
             <Label layoutX="368.0" layoutY="94.0" text="0" textAlignment="RIGHT">
                <font>
