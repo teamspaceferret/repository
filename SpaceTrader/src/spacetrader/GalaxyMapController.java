@@ -18,6 +18,7 @@ public class GalaxyMapController implements ControlledScreen {
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
+    Player player = Context.getInstance().getPlayer();
     SolarSystem currentlySelected;
     
     /**
@@ -70,6 +71,7 @@ public class GalaxyMapController implements ControlledScreen {
     }
     
     public void selectSystem() {
+        player.setCurrentSolar(currentlySelected);
         controller.setScreen("Market");
     }
 }
