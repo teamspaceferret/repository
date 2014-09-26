@@ -94,7 +94,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     public void selectPlanet() {
         if (currentlySelected != null) {
             player.setCurrentPlanet(currentlySelected);
-            controller.setScreen("Market");
+            controller.setScreen("PlanetScreen");
         } else {
             System.out.println("Please select a planet.");
         }

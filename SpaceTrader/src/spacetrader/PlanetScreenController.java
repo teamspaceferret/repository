@@ -2,13 +2,20 @@ package spacetrader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
+    @FXML private Button marketButton;
+    @FXML private Button backButton;
+    @FXML private Label planetName;
+    
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
-    SolarSystem currentlySelected;
+    Player player = Context.getInstance().getPlayer();
     
     /**
      * Set the screen parent.
@@ -24,7 +31,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
-        
+        planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
     }
     
     /**
@@ -35,5 +42,13 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+    }
+    
+    public void marketAction() {
+        controller.setScreen("Market");
+    }
+    
+    public void backAction() {
+        controller.setScreen("SolarMap");
     }
 }
