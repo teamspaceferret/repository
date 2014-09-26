@@ -4,6 +4,8 @@ public class Player {
     
     private String name;
     private int[] stats;
+    private SolarSystem currentSolar;
+    private Planet currentPlanet;
     
     /**
      * Constructs a player without a name or stats
@@ -94,7 +96,34 @@ public class Player {
     public void setStates(int[] stats) {
         this.stats = stats;
     }
-    
+    /**
+     * Sets the currently visited solar system
+     * @param solarSystem the current solar system
+     */
+    public void setCurrentSolar(SolarSystem solarSystem) {
+        currentSolar = solarSystem;
+    }
+    /**
+     * Sets the currently visited planet
+     * @param planet the current planet
+     */
+    public void setCurrentPlanet(Planet planet) {
+        currentPlanet = planet;
+    }
+    /**
+     * Returns current solar system
+     * @return current solar system the player is in
+     */
+    public SolarSystem getCurrentSolar() {
+        return currentSolar;
+    }
+    /**
+     * Returns current planet
+     * @return current planet the player is at
+     */
+    public Planet getCurrentPlanet() {
+        return currentPlanet;
+    }
     /**
      * Makes a string representation of the player
      * @return a string representation of the player

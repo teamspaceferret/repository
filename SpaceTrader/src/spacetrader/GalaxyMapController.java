@@ -21,6 +21,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
+    Player player = Context.getInstance().getPlayer();
     SolarSystem currentlySelected;
     
     /**
@@ -90,6 +91,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     public void selectSystem() {
+        player.setCurrentSolar(currentlySelected);
         controller.setScreen("Market");
     }
 }
