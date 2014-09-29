@@ -47,4 +47,11 @@ public enum Resource {
     public int getID() {
         return ID;
     }
+    
+    public boolean equals(Resource other) {
+        if (other.getName().equals(this.getName())){
+            return true;
+        }
+        return false;
+    }
 }

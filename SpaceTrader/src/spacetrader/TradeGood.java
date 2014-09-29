@@ -36,6 +36,8 @@ public enum TradeGood {
     private final int MTLB, MTLS, TTP, BASEPRICE, IPL, VARIANCE, RTL, RTH;
     private final Event IE, DE;
     private final Resource CR, ER;
+    Universe universe = Context.getInstance().getUniverse();
+    Player player = Context.getInstance().getPlayer();
     
     private TradeGood(int mtlb, int mtls, int ttp, int basePrice, int ipl,
             int variance, Event ie, Event de, Resource cr, Resource er, int rtl, int rth) {
@@ -62,13 +64,26 @@ public enum TradeGood {
         //need to add planet tech level to this equation when the player has a
         //"currentPlanet" variable etc, plus commented stuff
         Random r = new Random();
-        int price = BASEPRICE + (IPL * (MTLB)) + r.nextInt(VARIANCE + 1);
-        //if current planet tech level = TTP, 5% decrease in price
-        //if current event = IE, 20% increase in price
-        //if current event = DE, 20% decrease in price
-        //if conditions = CR, 15% increase in price
-        //if conditions = ER, 15% decrease in price
-        return price;
+        double price = 0;
+        if (player.getCurrentPlanet() != null) {
+            price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
+        } else {
+            price = BASEPRICE + (IPL * (MTLB)) + r.nextInt(VARIANCE + 1);
+        } if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
+            price *= .95;
+        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.IE)) {
+            price *= 1.25;
+        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.DE)) {
+            price *= .75;
+        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.CR)) {
+            price *= 1.15;
+        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.ER)) {
+            price *= .85;
+        }
+        //if current event = IE, 25% increase in price
+        //if current event = DE, 25% decrease in price
+        int finalPrice = (int)price;
+        return finalPrice;
     }
     
     /**

@@ -46,4 +46,11 @@ public enum Event {
     public int getID() {
         return ID;
     }
+    
+    public boolean equals(Event other) {
+        if (other.getName().equals(this.getName())){
+            return true;
+        }
+        return false;
+    }
 }

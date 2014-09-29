@@ -65,6 +65,33 @@ public class Planet {
     }
     
     /**
+     * Gets planet tech level
+     * 
+     * @return int Planet tech lev
+     */
+    public int getTechLevel() {
+        return this.techLevel;
+    }
+    
+    /**
+     * Get planet resources
+     * 
+     * @return Resource special resources on this planet
+     */
+    public Resource getResource() {
+        return this.resource;
+    }
+    
+    /**
+     * Get event
+     * 
+     * @return Event special event on this planet
+     */
+    public Event getEvent() {
+        return this.event;
+    }
+    
+    /**
      * Returns a string representation of the planet.
      * @return a string representation of the planet
      */
