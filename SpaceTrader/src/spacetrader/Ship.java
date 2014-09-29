@@ -77,8 +77,6 @@ public class Ship {
         setUpCargoBay();
     }
     
-    
-    
     public boolean addFuel(int addedFuel){
         int newAmt = currentFuelLevel + addedFuel;
         if(newAmt > maxFuelLevel){
@@ -201,10 +199,6 @@ public class Ship {
         usedCargoSlots = newCargoAmt;
         return true;
     }
-    
-    
-    
-    
     
     
     //Getters

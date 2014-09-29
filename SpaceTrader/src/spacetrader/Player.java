@@ -6,23 +6,29 @@ public class Player {
     private int[] stats;
     private SolarSystem currentSolar;
     private Planet currentPlanet;
+    private int credits;
+    private Ship ship;
     
     /**
-     * Constructs a player without a name or stats
+     * Constructs a player without a name or stats and 0 credits
      */
     public Player() {
         this.name = null;
         this.stats = null;
+        this.credits = 0;
     }
     
     /**
      * Constructs a player with the given stats and name
+     * and gives them the default number of credits and default ship
      * @param name The name for the player
      * @param stats The stats for the player
      */
     public Player(String name, int[] stats) {
         this.name = name;
         this.stats = stats;
+        this.credits = 1000;
+        this.ship = new Ship("gnat");
     }
     
     /**
@@ -31,6 +37,22 @@ public class Player {
      */
     public String getName() {
         return name;
+    }
+    
+    /**
+     * Gets the player's ship
+     * @return  The player's ship
+     */
+    public Ship getShip(){
+        return ship;
+    }
+    
+    /**
+     * Gets the player's credits
+     * @return The player's credits
+     */
+    public int getCredits(){
+        return credits;
     }
     
     /**
