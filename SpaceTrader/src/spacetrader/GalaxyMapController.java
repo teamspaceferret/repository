@@ -70,6 +70,10 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         fuelLabel.setText("Fuel: 1000"); //add fuel value here!
     }
     
+    /**
+     * Checks mouseclicks for if they are on a solar system or not
+     * @param event the mouseclick
+     */
     public void onMouseClick(MouseEvent event) {
         //shouldnt loop over all solarSystems after it's found the clicked one
         for(int i = 0; i < universe.getSolarSystems().length; i++) {
@@ -83,6 +87,10 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         }
     }
     
+    /**
+     * Sets the text field to describe the selected solar system
+     * @param solarsystem the system being described
+     */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
         descriptions.setText("Name: " + solarSystem.getName() + "\n" +
@@ -90,6 +98,9 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             "Flavor text?");
     }
     
+    /**
+     * Travels to the currently selected system
+     */
     public void selectSystem() {
         if (currentlySelected != null) {
             player.setCurrentSolar(currentlySelected);

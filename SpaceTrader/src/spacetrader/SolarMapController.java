@@ -71,6 +71,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
         fuelLabel.setText("Fuel: 1000"); //add fuel value here!
     }
     
+    /**
+     * Checks mouseclicks for if they are on a planet or not
+     * @param event the mouseclick
+     */
     public void onMouseClick(MouseEvent event) {
         for(int i = 0; i < player.getCurrentSolar().getPlanets().length; i++) {
             if(((event.getX() <= (player.getCurrentSolar().getPlanets()[i].getCoords().getX() + 10)) && 
@@ -83,6 +87,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
         }
     }
     
+    /**
+     * Sets the text field to describe the selected planet
+     * @param planet the planet being described
+     */
     public void setDescription(Planet planet) {
         //draw indicator of currently selected one
         descriptions.setText("Name: " + planet.getName() + "\n" +
@@ -91,6 +99,9 @@ public class SolarMapController implements ControlledScreen, Initializable {
             "Flavor text?");
     }
     
+    /**
+     * Travels to the currently selected planet
+     */
     public void selectPlanet() {
         if (currentlySelected != null) {
             player.setCurrentPlanet(currentlySelected);

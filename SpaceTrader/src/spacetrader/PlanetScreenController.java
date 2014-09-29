@@ -44,10 +44,16 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
         
     }
     
+    /**
+     * Travels to the market
+     */
     public void marketAction() {
         controller.setScreen("Market");
     }
     
+    /**
+     * Travels back to the solar system map
+     */
     public void backAction() {
         controller.setScreen("SolarMap");
     }
