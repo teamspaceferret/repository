@@ -15,7 +15,7 @@ public class Player {
     public Player() {
         this.name = null;
         this.stats = null;
-        this.credits = 0;
+        this.credits = 1000;
     }
     
     /**

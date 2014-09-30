@@ -12,28 +12,28 @@ public class Ship {
                 types.put("bumblebee",new int[]{25,1,2,2,2,15,5,7,60000,125,15,100,0,1,0,1,2,10});
                 
             }
-    String type;
-    boolean hasEscapePod;
-    HashMap<TradeGood,Integer> cargo;
-    Weapon[] weapons;
-    Shield[] shields;
-    Gadget[] gadgets;
-    Mercenary[] crew;
-    int currentFuelLevel;
-    int minTechLevel;
-    int fuelCost;
-    int price;
-    int bounty;
-    int occurrence;
-    int hullStr;
-    int police,pirate,trader;
-    int repairCost;
-    int size;
-    int range; //the radius of the range bounding circle, potentially
+    private String type;
+    private boolean hasEscapePod;
+    private HashMap<TradeGood,Integer> cargo;
+    private Weapon[] weapons;
+    private Shield[] shields;
+    private Gadget[] gadgets;
+    private Mercenary[] crew;
+    private int currentFuelLevel;
+    private int minTechLevel;
+    private int fuelCost;
+    private int price;
+    private int bounty;
+    private int occurrence;
+    private int hullStr;
+    private int police,pirate,trader;
+    private int repairCost;
+    private int size;
+    private int range; //the radius of the range bounding circle, potentially
     
-    int maxFuelLevel;
-    int maxCargoSlots;
-    int usedCargoSlots;
+    private int maxFuelLevel;
+    private int maxCargoSlots;
+    private int usedCargoSlots;
     
     /**
      * Creates a ship with the given type and sets up the default stats
@@ -70,6 +70,8 @@ public class Ship {
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
         usedCargoSlots = 0;
+        System.out.println("USED CARGO SLOTS: " + usedCargoSlots);
+        System.out.println("MAX CARGO SLOTS: " + maxCargoSlots);
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
     }
@@ -369,6 +371,22 @@ public class Ship {
      */
     public int getRange(){
         return range;
+    }
+    
+    /**
+     * Gets the number of cargo slots currently used
+     * @return number of currently used cargo slots
+     */
+    public int getCurrentUsedCargoSlots(){
+        return usedCargoSlots;
+    }
+    
+    /**
+     * Gets the total number of cargo slots
+     * @return the total number of cargo slots
+     */
+    public int getMaxCargoSlots(){
+        return maxCargoSlots;
     }
     
     //private helper methods:
