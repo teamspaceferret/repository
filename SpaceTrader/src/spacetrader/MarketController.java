@@ -112,7 +112,6 @@ public class MarketController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         currentCredits();
-        currentCargo();
         //set playersGood to the amount they currently have
         //set tradersGood to the amount they currently have, or to "No trade" if thats true
         //display the prices for each good via their price Label
@@ -170,9 +169,7 @@ public class MarketController implements ControlledScreen, Initializable {
      * Sets the current available cargo space to be displayed
      */
     public void currentCargo() {
-        int currentUsedCargo = player.getShip().getCurrentUsedCargoSlots();
-        int maxCargoSlots = player.getShip().getMaxCargoSlots();
-        cargoLabel.setText("Cargo Bay Slots: " + currentUsedCargo + "/" + maxCargoSlots);
+        cargoLabel.setText("Cargo Bays: " + "num" + "/" + "total"); //add current/total here!
     }
     
     /*
@@ -272,8 +269,6 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     public void confirmAction() {
-        currentCargo();
-        currentCredits();
         //do stuff
         //go back to PlanetScreen
     }
