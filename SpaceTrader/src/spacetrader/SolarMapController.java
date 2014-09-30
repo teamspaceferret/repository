@@ -57,11 +57,18 @@ public class SolarMapController implements ControlledScreen, Initializable {
     public void drawPlanets() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         player.getCurrentSolar().toString();
+        //Clears canvas
+        gc.clearRect(0,0,300,300);
         
         for (Planet planet : player.getCurrentSolar().getPlanets()) {
             gc.setFill(Color.RED);
             gc.fillOval(planet.getCoords().getX(), planet.getCoords().getY(), 10, 10);
         }
+             
+        //draw current planet in gold
+        gc.setFill(Color.GOLD);
+        gc.fillOval(player.getCurrentPlanet().getCoords().getX(), 
+            player.getCurrentPlanet().getCoords().getY(), 10, 10);
     }
     
     /**
@@ -109,5 +116,12 @@ public class SolarMapController implements ControlledScreen, Initializable {
         } else {
             System.out.println("Please select a planet.");
         }
+    }
+    
+    /**
+     * Travels back to the galaxy map
+     */
+    public void backAction() {
+        controller.setScreen("GalaxyMap");
     }
 }

@@ -39,6 +39,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         drawSolarSystems();
+        currentFuel();
     }
     
     /**
@@ -56,23 +57,31 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void drawSolarSystems() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        //Clears canvas
+        gc.clearRect(0,0,300,300);
         
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
             gc.setFill(Color.RED);
             gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
         }
         
-        //draw your range circle
+        //draw current system in gold
         gc.setFill(Color.GOLD);
         gc.fillOval(player.getCurrentSolar().getCoords().getX(), 
-                player.getCurrentSolar().getCoords().getY(), 10, 10);
+            player.getCurrentSolar().getCoords().getY(), 10, 10);
+        //draw range circle
+        gc.setStroke(Color.BLACK);
+        gc.strokeOval(player.getCurrentSolar().getCoords().getX() - 75,
+            player.getCurrentSolar().getCoords().getY() - 75,
+            150, 150);
+        
     }
     
     /**
      * Sets the current available fuel value to be displayed
      */
     public void currentFuel() {
-        fuelLabel.setText("Fuel: 1000"); //add fuel value here!
+        fuelLabel.setText("Fuel: "); //add fuel value here!
     }
     
     /**
@@ -81,7 +90,6 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      * @return whether it is in range
      */
     public boolean isInRange(SolarSystem system) {
-        //check here!
         //check if ANY planets in this passed in system are in range
         return true;
     }
