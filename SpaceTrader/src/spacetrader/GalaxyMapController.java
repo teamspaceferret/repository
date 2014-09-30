@@ -63,6 +63,9 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         }
         
         //draw your range circle
+        gc.setFill(Color.GOLD);
+        gc.fillOval(player.getCurrentSolar().getCoords().getX(), 
+                player.getCurrentSolar().getCoords().getY(), 10, 10);
     }
     
     /**
