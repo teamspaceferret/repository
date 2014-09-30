@@ -1,6 +1,7 @@
 package spacetrader;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,6 +65,8 @@ public class MarketController implements ControlledScreen, Initializable {
     SolarSystem currentlySelected;
     Random r = new Random();
     int[] stockGoods = new int[10];
+    HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
+    HashMap<TradeGood,Integer> startCargoStock;
     int startCredits, startCargo;
     
     /**
@@ -131,51 +134,78 @@ public class MarketController implements ControlledScreen, Initializable {
         System.out.println("games: " + rand);
     }
     
+    private void setPrices(){
+        stockPrices.put(TradeGood.WATER, TradeGood.WATER.calcMarketPrice());
+        stockPrices.put(TradeGood.FURS, TradeGood.FURS.calcMarketPrice());
+        stockPrices.put(TradeGood.FIREARMS, TradeGood.FIREARMS.calcMarketPrice());
+        stockPrices.put(TradeGood.FOOD, TradeGood.FOOD.calcMarketPrice());
+        stockPrices.put(TradeGood.NARCOTICS, TradeGood.NARCOTICS.calcMarketPrice());
+        stockPrices.put(TradeGood.ROBOTS, TradeGood.ROBOTS.calcMarketPrice());
+        stockPrices.put(TradeGood.GAMES, TradeGood.GAMES.calcMarketPrice());
+        stockPrices.put(TradeGood.MEDICINE, TradeGood.MEDICINE.calcMarketPrice());
+        stockPrices.put(TradeGood.ORE, TradeGood.ORE.calcMarketPrice());
+        stockPrices.put(TradeGood.MACHINES, TradeGood.MACHINES.calcMarketPrice());
+        
+    }
+    
     /**
      * Initializes the screen.
      */
     @Override
     public void initScreen() {
         startCredits = Context.getInstance().getPlayer().getCredits();
-        startCargo = 15;
+        startCargo = Context.getInstance().getPlayer().getShip().getCurrentUsedCargoSlots();
         currentCredits();
         currentCargo();
-        cargoUp();
+        //cargoUp();
+        setPrices();
         //set playersGood to the amount they currently have
         //set tradersGood to the amount they currently have, or to "No trade" if thats true
         //display the prices for each good via their price Label
         playersWater.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER)));
-        waterSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER));
+        waterSlider.setValue((int)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER));
+        waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
         tradersWater.setText(String.valueOf(calcStock(TradeGood.WATER)));
         playersFur.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS)));
         furSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS));
         tradersFur.setText(String.valueOf(calcStock(TradeGood.FURS)));
+        furPrice.setText(String.valueOf(stockPrices.get(TradeGood.FURS)));
         playersFood.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD)));
         foodSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD));
         tradersFood.setText(String.valueOf(calcStock(TradeGood.FOOD)));
+        foodPrice.setText(String.valueOf(stockPrices.get(TradeGood.FOOD)));
         playersOre.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE)));
         oreSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE));
         tradersOre.setText(String.valueOf(calcStock(TradeGood.ORE)));
+        orePrice.setText(String.valueOf(stockPrices.get(TradeGood.ORE)));
         playersGames.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES)));
         gameSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES));
         tradersGames.setText(String.valueOf(calcStock(TradeGood.GAMES)));
+        gamesPrice.setText(String.valueOf(stockPrices.get(TradeGood.GAMES)));
         playersFirearms.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS)));
         firearmSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS));
         tradersFirearms.setText(String.valueOf(calcStock(TradeGood.FIREARMS)));
+        firearmsPrice.setText(String.valueOf(stockPrices.get(TradeGood.FIREARMS)));
         playersMed.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE)));
         medicineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE));
         tradersMed.setText(String.valueOf(calcStock(TradeGood.MEDICINE)));
+        medPrice.setText(String.valueOf(stockPrices.get(TradeGood.MEDICINE)));
         playersMachines.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES)));
         machineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES));
         tradersMachines.setText(String.valueOf(calcStock(TradeGood.MACHINES)));
+        machinesPrice.setText(String.valueOf(stockPrices.get(TradeGood.MACHINES)));
         playersNarcotics.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS)));
         narcoticSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS));
         tradersNarcotics.setText(String.valueOf(calcStock(TradeGood.NARCOTICS)));
+        narcoticsPrice.setText(String.valueOf(stockPrices.get(TradeGood.NARCOTICS)));
         playersRobots.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS)));
         robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
         tradersRobots.setText(String.valueOf(calcStock(TradeGood.ROBOTS)));
+        robotsPrice.setText(String.valueOf(stockPrices.get(TradeGood.ROBOTS)));
         Context.setStock(stockGoods);
         currentCargo();
+        
+        startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
     }
     
     /**
@@ -235,10 +265,11 @@ public class MarketController implements ControlledScreen, Initializable {
     public void waterIncrement() {
         if (Context.getInstance().getPlayer().getCredits() > TradeGood.WATER.calcMarketPrice() && Integer.parseInt(tradersWater.getText()) > 0 
                 && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-            waterSlider.setValue((double)((int)waterSlider.getValue()) + 1);
+            waterSlider.setValue(((int)waterSlider.getValue()) + 1);
             playersWater.setText(String.valueOf(waterSlider.getValue()));
             tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) - 1));
-            waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+            //waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+            //waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
             Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.WATER, 1);
             updateCredits(TradeGood.WATER, 1);
         }
@@ -247,10 +278,11 @@ public class MarketController implements ControlledScreen, Initializable {
     public void waterDecrement() {
         if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
                 && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER) > 0) {
-        waterSlider.setValue((double)((int)waterSlider.getValue()) - 1);
+        waterSlider.setValue(((int)waterSlider.getValue()) - 1);
         playersWater.setText(String.valueOf(waterSlider.getValue()));
         tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) + 1));
-        waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+        //waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+        //waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.WATER, 1);
         updateCredits(TradeGood.WATER, -1);
         }
@@ -262,7 +294,7 @@ public class MarketController implements ControlledScreen, Initializable {
         furSlider.setValue((double)((int)furSlider.getValue()) + 1);
         playersFur.setText(String.valueOf(furSlider.getValue()));
         tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) - 1));
-        furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
+       // furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FURS, 1);
         updateCredits(TradeGood.FURS, 1);        
         }
@@ -274,7 +306,7 @@ public class MarketController implements ControlledScreen, Initializable {
         furSlider.setValue((double)((int)furSlider.getValue()) - 1);
         playersFur.setText(String.valueOf(furSlider.getValue()));
         tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) + 1));
-        furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
+        //furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FURS, 1);
         updateCredits(TradeGood.FURS, -1);        
         }
@@ -286,7 +318,7 @@ public class MarketController implements ControlledScreen, Initializable {
         foodSlider.setValue((double)((int)foodSlider.getValue()) + 1);
         playersFood.setText(String.valueOf(foodSlider.getValue()));
         tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) - 1));
-        foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));        
+        //foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FOOD, 1);
         updateCredits(TradeGood.FOOD, 1);        
         }
@@ -298,7 +330,7 @@ public class MarketController implements ControlledScreen, Initializable {
         foodSlider.setValue((double)((int)foodSlider.getValue()) - 1);
         playersFood.setText(String.valueOf(foodSlider.getValue()));
         tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) + 1));
-        foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));       
+        //foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));       
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FOOD, 1);
         updateCredits(TradeGood.FOOD, -1);        
         }
@@ -310,7 +342,7 @@ public class MarketController implements ControlledScreen, Initializable {
         oreSlider.setValue((double)((int)oreSlider.getValue()) + 1);
         playersOre.setText(String.valueOf(oreSlider.getValue()));
         tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) - 1));
-        orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));
+        //orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ORE, 1);
         updateCredits(TradeGood.ORE, 1);        
         }
@@ -322,7 +354,7 @@ public class MarketController implements ControlledScreen, Initializable {
         oreSlider.setValue((double)((int)oreSlider.getValue()) - 1);
         playersOre.setText(String.valueOf(oreSlider.getValue()));
         tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) + 1));
-        orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));       
+       // orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));       
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ORE, 1);        
         updateCredits(TradeGood.ORE, -1);
         }
@@ -334,7 +366,7 @@ public class MarketController implements ControlledScreen, Initializable {
         gameSlider.setValue((double)((int)gameSlider.getValue()) + 1);
         playersGames.setText(String.valueOf(gameSlider.getValue()));
         tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) - 1));
-        gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));        
+        //gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.GAMES, 1);        
         updateCredits(TradeGood.GAMES, 1);        
         }
@@ -346,7 +378,7 @@ public class MarketController implements ControlledScreen, Initializable {
         gameSlider.setValue((double)((int)gameSlider.getValue()) - 1);
         playersGames.setText(String.valueOf(gameSlider.getValue()));
         tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) + 1));
-        gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));      
+        //gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));      
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.GAMES, 1);        
         updateCredits(TradeGood.GAMES, -1);        
         }
@@ -358,7 +390,7 @@ public class MarketController implements ControlledScreen, Initializable {
         firearmSlider.setValue((double)((int)firearmSlider.getValue()) + 1);
         playersFirearms.setText(String.valueOf(firearmSlider.getValue()));
         tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) - 1));
-        firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));        
+        //firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FIREARMS, 1);        
         updateCredits(TradeGood.FIREARMS, 1);        
         }
@@ -370,7 +402,7 @@ public class MarketController implements ControlledScreen, Initializable {
         firearmSlider.setValue((double)((int)firearmSlider.getValue() - 1));
         playersFirearms.setText(String.valueOf(firearmSlider.getValue()));
         tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) + 1));
-        firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));       
+        //firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));       
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FIREARMS, 1);        
         updateCredits(TradeGood.FIREARMS, -1);        
         }
@@ -382,7 +414,7 @@ public class MarketController implements ControlledScreen, Initializable {
         medicineSlider.setValue((double)((int)medicineSlider.getValue()) + 1);
         playersMed.setText(String.valueOf(medicineSlider.getValue()));
         tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) - 1));
-        medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));        
+        //medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MEDICINE, 1);    
         updateCredits(TradeGood.MEDICINE, 1);        
         }
@@ -394,7 +426,7 @@ public class MarketController implements ControlledScreen, Initializable {
         medicineSlider.setValue((double)((int)medicineSlider.getValue()) - 1);
         playersMed.setText(String.valueOf(medicineSlider.getValue()));
         tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) + 1));
-        medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));       
+       // medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));       
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MEDICINE, 1);
         updateCredits(TradeGood.MEDICINE, -1);        
         }
@@ -406,7 +438,7 @@ public class MarketController implements ControlledScreen, Initializable {
         machineSlider.setValue((double)((int)machineSlider.getValue()) + 1);
         playersMachines.setText(String.valueOf(machineSlider.getValue()));
         tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) - 1));
-        machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));        
+       // machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MACHINES, 1);
         updateCredits(TradeGood.MACHINES, 1);        
         }
@@ -418,7 +450,7 @@ public class MarketController implements ControlledScreen, Initializable {
         machineSlider.setValue((double)((int)machineSlider.getValue() - 1));
         playersMachines.setText(String.valueOf(machineSlider.getValue()));
         tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) + 1));
-        machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));       
+       // machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));       
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MACHINES, 1);
         updateCredits(TradeGood.MACHINES, -1);        
         }
@@ -430,7 +462,7 @@ public class MarketController implements ControlledScreen, Initializable {
         narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) + 1);
         playersNarcotics.setText(String.valueOf(narcoticSlider.getValue()));
         tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) - 1));
-        narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));        
+        //narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.NARCOTICS, 1);
         updateCredits(TradeGood.NARCOTICS, 1);        
         }
@@ -442,7 +474,7 @@ public class MarketController implements ControlledScreen, Initializable {
         narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) - 1);
         playersNarcotics.setText(String.valueOf(narcoticSlider.getValue()));
         tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) + 1));
-        narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));      
+        //narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));      
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.NARCOTICS, 1);        
         updateCredits(TradeGood.NARCOTICS, -1);        
         }
@@ -454,7 +486,7 @@ public class MarketController implements ControlledScreen, Initializable {
         robotSlider.setValue((double)((int)robotSlider.getValue()) + 1);
         playersRobots.setText(String.valueOf(robotSlider.getValue()));
         tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) - 1));
-        robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));        
+        //robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));        
         Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ROBOTS, 1);
         updateCredits(TradeGood.ROBOTS, 1);        
         }
@@ -466,7 +498,7 @@ public class MarketController implements ControlledScreen, Initializable {
         robotSlider.setValue((double)((int)robotSlider.getValue()) - 1);
         playersRobots.setText(String.valueOf(robotSlider.getValue()));
         tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) + 1));
-        robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));      
+       // robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));      
         Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ROBOTS, 1);        
         updateCredits(TradeGood.ROBOTS, -1);        
         }
@@ -476,9 +508,9 @@ public class MarketController implements ControlledScreen, Initializable {
     public void updateCredits(TradeGood traded, int num) {
         if (num < 0) {
             int absNum = Math.abs(num);
-            Context.getInstance().getPlayer().addCredits(absNum * traded.calcMarketPrice());
+            Context.getInstance().getPlayer().addCredits(absNum * stockPrices.get(traded));
         } else if (num > 0) {
-            Context.getInstance().getPlayer().removeCredits(num * traded.calcMarketPrice());
+            Context.getInstance().getPlayer().removeCredits(num * stockPrices.get(traded));
         }
         currentCredits();
     }
@@ -486,6 +518,7 @@ public class MarketController implements ControlledScreen, Initializable {
     public void confirmAction() {
         currentCargo();
         currentCredits();
+        controller.setScreen("PlanetScreen");
         //do stuff
         //go back to PlanetScreen
     }
@@ -493,6 +526,9 @@ public class MarketController implements ControlledScreen, Initializable {
     public void backAction() {
         Context.getInstance().getPlayer().removeCredits(Context.getInstance().getPlayer().getCredits());
         Context.getInstance().getPlayer().addCredits(startCredits);
+        Context.getInstance().getPlayer().getShip().setCargo(startCargoStock,startCargo);
+        System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
+        //need to reset stock
         controller.setScreen("PlanetScreen");
     }
     

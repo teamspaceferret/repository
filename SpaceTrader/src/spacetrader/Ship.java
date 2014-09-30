@@ -243,6 +243,26 @@ public class Ship {
     }
     
     /**
+     * get a clone of the ship's cargo
+     * @return a clone of the ship's cargo bay
+     */
+    public HashMap<TradeGood,Integer> getCargoClone(){
+        HashMap<TradeGood,Integer> clone = new HashMap<>();
+        clone.put(TradeGood.WATER, cargo.get(TradeGood.WATER));
+        clone.put(TradeGood.FOOD, cargo.get(TradeGood.FOOD));
+        clone.put(TradeGood.FURS, cargo.get(TradeGood.FURS));
+        clone.put(TradeGood.FIREARMS, cargo.get(TradeGood.FIREARMS));
+        clone.put(TradeGood.GAMES, cargo.get(TradeGood.GAMES));
+        clone.put(TradeGood.MACHINES, cargo.get(TradeGood.MACHINES));
+        clone.put(TradeGood.MEDICINE, cargo.get(TradeGood.MEDICINE));
+        clone.put(TradeGood.NARCOTICS, cargo.get(TradeGood.NARCOTICS));
+        clone.put(TradeGood.ORE, cargo.get(TradeGood.ORE));
+        clone.put(TradeGood.ROBOTS, cargo.get(TradeGood.ROBOTS));
+        
+        return clone;
+    }
+    
+    /**
      * Gets the ship's weapons
      * @return ship's weapons
      */
@@ -400,6 +420,17 @@ public class Ship {
      */
     public int getMaxCargoSlots(){
         return maxCargoSlots;
+    }
+    
+    /**
+     * Set the ship's cargo bay stock to the given cargo stock
+     * and the used cargo slots to the given number
+     * @param cargoStock the cargo stock to set the ships cargo stock
+     * @param num the number to set the used cargo slots as
+     */
+    public void setCargo(HashMap<TradeGood,Integer> cargoStock, int num){
+        this.cargo = cargoStock;
+        this.usedCargoSlots = num;
     }
     
     //private helper methods:
