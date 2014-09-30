@@ -34,6 +34,7 @@ public class Ship {
     int maxFuelLevel;
     int maxCargoSlots;
     int usedCargoSlots;
+
     
     /**
      * Creates a ship with the given type and sets up the default stats
@@ -70,6 +71,8 @@ public class Ship {
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
         usedCargoSlots = 0;
+        System.out.println("USED CARGO SLOTS: " + usedCargoSlots);
+        System.out.println("MAX CARGO SLOTS: " + maxCargoSlots);
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
     }
@@ -369,6 +372,22 @@ public class Ship {
      */
     public int getRange(){
         return range;
+    }
+    
+    /**
+     * Gets the number of cargo slots currently used
+     * @return number of currently used cargo slots
+     */
+    public int getCurrentUsedCargoSlots(){
+        return usedCargoSlots;
+    }
+    
+    /**
+     * Gets the total number of cargo slots
+     * @return the total number of cargo slots
+     */
+    public int getMaxCargoSlots(){
+        return maxCargoSlots;
     }
     
     //private helper methods:
