@@ -73,7 +73,7 @@ public class SolarSystem {
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     rand.nextInt(Context.GOVERNMENTS.length),
-                    planetCoords[i].getX(), planetCoords[i].getY());
+                    planetCoords[i].getX(), planetCoords[i].getY(), this.coords);
         }
     }
     

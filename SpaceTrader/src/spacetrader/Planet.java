@@ -7,7 +7,7 @@ public class Planet {
     private Resource resource;
     private int govt;
     private Event event;
-    private SolarSystem parentSolarSystem;
+    private Coordinate parentCoords;
     
     /**
      * Constructs a planet with default values.
@@ -40,13 +40,15 @@ public class Planet {
      * @param x planet's x coordinate
      * @param y planet's y coordinate
      */
-    public Planet(String name, int techLevel, Resource resource, int govt, int x, int y) {
+    public Planet(String name, int techLevel, Resource resource, int govt,
+            int x, int y, Coordinate parentCoords) {
         this();
         this.name = name;
         this.techLevel = techLevel;
         this.resource = resource;
         this.govt = govt;
         this.coords = new Coordinate(x, y);
+        this.parentCoords = parentCoords;
     }
     
     /**
@@ -96,10 +98,10 @@ public class Planet {
      * @return the distance between a planet and another planets
      */
     public double distanceToPlanet(Planet otherPlanet) {
-        return Math.sqrt(Math.pow((this.parentSolarSystem.getCoords().getX()
+        return Math.sqrt(Math.pow((this.parentCoords.getX()
                 + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
                         * (this.coords.getX()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2)
-                + Math.pow((this.parentSolarSystem.getCoords().getY()
+                + Math.pow((this.parentCoords.getY()
                         + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
                                 * (this.coords.getY()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2));
     }
