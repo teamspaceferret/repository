@@ -233,16 +233,16 @@
             <TextField id="pilotField" fx:id="playersRobots" alignment="CENTER" layoutX="175.0" layoutY="337.0" prefHeight="25.0" prefWidth="38.0" text="0" />
             <Button id="pilotDecrement" fx:id="robotsDecrement" layoutX="144.0" layoutY="337.0" mnemonicParsing="false" onAction="#robotsDecrement" text="-" />
             <Button id="pilotIncrement" fx:id="robotsIncrement" layoutX="221.0" layoutY="337.0" mnemonicParsing="false" onAction="#robotsIncrement" text="+" />
-            <Slider fx:id="waterSlider" layoutX="143.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="gameSlider" layoutX="143.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="firearmSlider" layoutX="183.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="furSlider" layoutX="183.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="narcoticSlider" layoutX="311.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="oreSlider" layoutX="264.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="machineSlider" layoutX="264.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="medicineSlider" layoutX="224.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="foodSlider" layoutX="224.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
-            <Slider fx:id="robotSlider" layoutX="359.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="15.0" />
+            <Slider fx:id="waterSlider" layoutX="143.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="gameSlider" layoutX="143.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="firearmSlider" layoutX="183.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="furSlider" layoutX="183.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="narcoticSlider" layoutX="311.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="oreSlider" layoutX="264.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="machineSlider" layoutX="264.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="medicineSlider" layoutX="224.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="foodSlider" layoutX="224.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
+            <Slider fx:id="robotSlider" layoutX="359.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="15.0" visible="false" />
          </children>
       </AnchorPane>
    </children>

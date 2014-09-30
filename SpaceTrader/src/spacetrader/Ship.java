@@ -124,6 +124,17 @@ public class Ship {
         } else return false;
     }
     
+    /**
+     * Gets whether or not the cargo is full
+     * @boolean true if the bay is full, false otherwise
+     */
+    public boolean isCargoFull() {
+        if (usedCargoSlots == maxCargoSlots) {
+            return true;
+        } 
+        return false;
+    }
+    
     /*
     public boolean addToCargo(TradeGood item){
         int newCargoAmt = usedCargoSlots + 1;

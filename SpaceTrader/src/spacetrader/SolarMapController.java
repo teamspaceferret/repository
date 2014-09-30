@@ -39,6 +39,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         drawPlanets();
+        int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        Context.setStock(stockReset);
     }
     
     /**

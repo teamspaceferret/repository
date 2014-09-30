@@ -64,6 +64,7 @@ public class MarketController implements ControlledScreen, Initializable {
     SolarSystem currentlySelected;
     Random r = new Random();
     int[] stockGoods = new int[10];
+    int startCredits, startCargo;
     
     /**
      * Set the screen parent.
@@ -105,14 +106,41 @@ public class MarketController implements ControlledScreen, Initializable {
             return Context.getStock()[good.getID()];
         }
     }
+    //demo function only
+    public void cargoUp() {
+        int rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FURS, 2);
+        System.out.println("furs: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FIREARMS, 2);
+        System.out.println("firearms: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.WATER, 3);
+        System.out.println("water: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FOOD, 2);
+        System.out.println("food: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.NARCOTICS, 1);
+        System.out.println("narcotics: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ROBOTS, 3);
+        System.out.println("robots: " + rand);
+        rand = r.nextInt(3);
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.GAMES, 2);
+        System.out.println("games: " + rand);
+    }
     
     /**
      * Initializes the screen.
      */
     @Override
     public void initScreen() {
+        startCredits = Context.getInstance().getPlayer().getCredits();
+        startCargo = 15;
         currentCredits();
         currentCargo();
+        cargoUp();
         //set playersGood to the amount they currently have
         //set tradersGood to the amount they currently have, or to "No trade" if thats true
         //display the prices for each good via their price Label
@@ -147,6 +175,7 @@ public class MarketController implements ControlledScreen, Initializable {
         robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
         tradersRobots.setText(String.valueOf(calcStock(TradeGood.ROBOTS)));
         Context.setStock(stockGoods);
+        currentCargo();
     }
     
     /**
@@ -204,71 +233,254 @@ public class MarketController implements ControlledScreen, Initializable {
     } */
     
     public void waterIncrement() {
-        
-        //add to usersWater
-        //dec tradersWater
-        //dec user's credits by water price
-        //dec cargo space
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.WATER.calcMarketPrice() && Integer.parseInt(tradersWater.getText()) > 0 
+                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+            waterSlider.setValue((double)((int)waterSlider.getValue()) + 1);
+            playersWater.setText(String.valueOf(waterSlider.getValue()));
+            tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) - 1));
+            waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+            Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.WATER, 1);
+            updateCredits(TradeGood.WATER, 1);
+        }
+        currentCargo();
     }
     public void waterDecrement() {
-        //dec usersWater
-        //add to tradersWater
-        //incr user's credits by water price
-        //incr cargo space
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER) > 0) {
+        waterSlider.setValue((double)((int)waterSlider.getValue()) - 1);
+        playersWater.setText(String.valueOf(waterSlider.getValue()));
+        tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) + 1));
+        waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.WATER, 1);
+        updateCredits(TradeGood.WATER, -1);
+        }
+        currentCargo();
     }
     public void furIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FURS.calcMarketPrice() && Integer.parseInt(tradersFur.getText()) > 0 
+                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        furSlider.setValue((double)((int)furSlider.getValue()) + 1);
+        playersFur.setText(String.valueOf(furSlider.getValue()));
+        tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) - 1));
+        furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FURS, 1);
+        updateCredits(TradeGood.FURS, 1);        
+        }
+        currentCargo();    
     }
     public void furDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS) > 0) {
+        furSlider.setValue((double)((int)furSlider.getValue()) - 1);
+        playersFur.setText(String.valueOf(furSlider.getValue()));
+        tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) + 1));
+        furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FURS, 1);
+        updateCredits(TradeGood.FURS, -1);        
+        }
+        currentCargo();    
     }
     public void foodIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FOOD.calcMarketPrice() && Integer.parseInt(tradersFood.getText()) > 0 
+            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        foodSlider.setValue((double)((int)foodSlider.getValue()) + 1);
+        playersFood.setText(String.valueOf(foodSlider.getValue()));
+        tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) - 1));
+        foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FOOD, 1);
+        updateCredits(TradeGood.FOOD, 1);        
+        }
+        currentCargo();    
     }
     public void foodDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD) > 0) {
+        foodSlider.setValue((double)((int)foodSlider.getValue()) - 1);
+        playersFood.setText(String.valueOf(foodSlider.getValue()));
+        tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) + 1));
+        foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));       
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FOOD, 1);
+        updateCredits(TradeGood.FOOD, -1);        
+        }
+        currentCargo();    
     }
     public void oreIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.ORE.calcMarketPrice() && Integer.parseInt(tradersOre.getText()) > 0 
+           && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        oreSlider.setValue((double)((int)oreSlider.getValue()) + 1);
+        playersOre.setText(String.valueOf(oreSlider.getValue()));
+        tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) - 1));
+        orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ORE, 1);
+        updateCredits(TradeGood.ORE, 1);        
+        }
+        currentCargo();    
     }
     public void oreDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE) > 0) {
+        oreSlider.setValue((double)((int)oreSlider.getValue()) - 1);
+        playersOre.setText(String.valueOf(oreSlider.getValue()));
+        tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) + 1));
+        orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));       
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ORE, 1);        
+        updateCredits(TradeGood.ORE, -1);
+        }
+        currentCargo();    
     }
     public void gamesIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.GAMES.calcMarketPrice() && Integer.parseInt(tradersGames.getText()) > 0 
+            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        gameSlider.setValue((double)((int)gameSlider.getValue()) + 1);
+        playersGames.setText(String.valueOf(gameSlider.getValue()));
+        tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) - 1));
+        gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.GAMES, 1);        
+        updateCredits(TradeGood.GAMES, 1);        
+        }
+        currentCargo();    
     }
     public void gamesDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES) > 0) {
+        gameSlider.setValue((double)((int)gameSlider.getValue()) - 1);
+        playersGames.setText(String.valueOf(gameSlider.getValue()));
+        tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) + 1));
+        gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));      
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.GAMES, 1);        
+        updateCredits(TradeGood.GAMES, -1);        
+        }
+        currentCargo();    
     }
     public void firearmsIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FIREARMS.calcMarketPrice() && Integer.parseInt(tradersFirearms.getText()) > 0 
+            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        firearmSlider.setValue((double)((int)firearmSlider.getValue()) + 1);
+        playersFirearms.setText(String.valueOf(firearmSlider.getValue()));
+        tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) - 1));
+        firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FIREARMS, 1);        
+        updateCredits(TradeGood.FIREARMS, 1);        
+        }
+        currentCargo();    
     }
     public void firearmsDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS) > 0) {
+        firearmSlider.setValue((double)((int)firearmSlider.getValue() - 1));
+        playersFirearms.setText(String.valueOf(firearmSlider.getValue()));
+        tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) + 1));
+        firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));       
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FIREARMS, 1);        
+        updateCredits(TradeGood.FIREARMS, -1);        
+        }
+        currentCargo();    
     }
     public void medIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.MEDICINE.calcMarketPrice() && Integer.parseInt(tradersMed.getText()) > 0 
+                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {        
+        medicineSlider.setValue((double)((int)medicineSlider.getValue()) + 1);
+        playersMed.setText(String.valueOf(medicineSlider.getValue()));
+        tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) - 1));
+        medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MEDICINE, 1);    
+        updateCredits(TradeGood.MEDICINE, 1);        
+        }
+        currentCargo();    
     }
     public void medDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE) > 0) {
+        medicineSlider.setValue((double)((int)medicineSlider.getValue()) - 1);
+        playersMed.setText(String.valueOf(medicineSlider.getValue()));
+        tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) + 1));
+        medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));       
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MEDICINE, 1);
+        updateCredits(TradeGood.MEDICINE, -1);        
+        }
+        currentCargo();    
     }
     public void machinesIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.MACHINES.calcMarketPrice() && Integer.parseInt(tradersMachines.getText()) > 0 
+                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {        
+        machineSlider.setValue((double)((int)machineSlider.getValue()) + 1);
+        playersMachines.setText(String.valueOf(machineSlider.getValue()));
+        tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) - 1));
+        machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MACHINES, 1);
+        updateCredits(TradeGood.MACHINES, 1);        
+        }
+        currentCargo();    
     }
     public void machinesDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES) > 0) {        
+        machineSlider.setValue((double)((int)machineSlider.getValue() - 1));
+        playersMachines.setText(String.valueOf(machineSlider.getValue()));
+        tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) + 1));
+        machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));       
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MACHINES, 1);
+        updateCredits(TradeGood.MACHINES, -1);        
+        }
+        currentCargo();    
     }
     public void narcoticsIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.NARCOTICS.calcMarketPrice() && Integer.parseInt(tradersNarcotics.getText()) > 0 
+                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) + 1);
+        playersNarcotics.setText(String.valueOf(narcoticSlider.getValue()));
+        tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) - 1));
+        narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.NARCOTICS, 1);
+        updateCredits(TradeGood.NARCOTICS, 1);        
+        }
+        currentCargo();    
     }
     public void narcoticsDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS) > 0) {        
+        narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) - 1);
+        playersNarcotics.setText(String.valueOf(narcoticSlider.getValue()));
+        tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) + 1));
+        narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));      
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.NARCOTICS, 1);        
+        updateCredits(TradeGood.NARCOTICS, -1);        
+        }
+        currentCargo();    
     }
     public void robotsIncrement() {
-        
+        if (Context.getInstance().getPlayer().getCredits() > TradeGood.ROBOTS.calcMarketPrice() && Integer.parseInt(tradersRobots.getText()) > 0 
+            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
+        robotSlider.setValue((double)((int)robotSlider.getValue()) + 1);
+        playersRobots.setText(String.valueOf(robotSlider.getValue()));
+        tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) - 1));
+        robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));        
+        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ROBOTS, 1);
+        updateCredits(TradeGood.ROBOTS, 1);        
+        }
+        currentCargo();    
     }
     public void robotsDecrement() {
-        
+        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() 
+                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS) > 0) {
+        robotSlider.setValue((double)((int)robotSlider.getValue()) - 1);
+        playersRobots.setText(String.valueOf(robotSlider.getValue()));
+        tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) + 1));
+        robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));      
+        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ROBOTS, 1);        
+        updateCredits(TradeGood.ROBOTS, -1);        
+        }
+        currentCargo();    
+    }
+    
+    public void updateCredits(TradeGood traded, int num) {
+        if (num < 0) {
+            int absNum = Math.abs(num);
+            Context.getInstance().getPlayer().addCredits(absNum * traded.calcMarketPrice());
+        } else if (num > 0) {
+            Context.getInstance().getPlayer().removeCredits(num * traded.calcMarketPrice());
+        }
+        currentCredits();
     }
     
     public void confirmAction() {
@@ -279,7 +491,8 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     public void backAction() {
-        //IMPORTANT, dont save the transactions made
+        Context.getInstance().getPlayer().removeCredits(Context.getInstance().getPlayer().getCredits());
+        Context.getInstance().getPlayer().addCredits(startCredits);
         controller.setScreen("PlanetScreen");
     }
     
