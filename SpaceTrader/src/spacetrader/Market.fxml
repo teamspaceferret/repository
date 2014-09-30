@@ -28,7 +28,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="cargoLabel" layoutX="431.0" layoutY="177.0" text="Cargo Bays: ">
+            <Label fx:id="cargoLabel" layoutX="441.0" layoutY="177.0" text="Cargo Bays: ">
                <font>
                   <Font size="16.0" />
                </font>
@@ -43,47 +43,47 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="31.0" layoutY="121.0" prefHeight="25.0" prefWidth="43.0" text="Furs">
+            <Label layoutX="30.0" layoutY="121.0" prefHeight="25.0" prefWidth="43.0" text="Furs">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="177.0" prefHeight="25.0" prefWidth="43.0" text="Ore">
+            <Label layoutX="30.0" layoutY="175.0" prefHeight="25.0" prefWidth="43.0" text="Ore">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="31.0" layoutY="150.0" text="Food">
+            <Label layoutX="30.0" layoutY="148.0" text="Food">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="264.0" text="Medicine">
+            <Label layoutX="30.0" layoutY="256.0" text="Medicine">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="295.0" prefHeight="25.0" prefWidth="74.0" text="Machines">
+            <Label layoutX="30.0" layoutY="283.0" prefHeight="25.0" prefWidth="74.0" text="Machines">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="31.0" layoutY="233.0" prefHeight="25.0" prefWidth="66.0" text="Firearms">
+            <Label layoutX="30.0" layoutY="229.0" prefHeight="25.0" prefWidth="66.0" text="Firearms">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="205.0" text="Games">
+            <Label layoutX="30.0" layoutY="202.0" text="Games">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="352.0" prefHeight="25.0" prefWidth="58.0" text="Robots">
+            <Label layoutX="30.0" layoutY="337.0" prefHeight="25.0" prefWidth="58.0" text="Robots">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="30.0" layoutY="324.0" text="Narcotics">
+            <Label layoutX="30.0" layoutY="310.0" text="Narcotics">
                <font>
                   <Font size="16.0" />
                </font>
@@ -129,110 +129,120 @@
             <TextField id="pilotField" fx:id="playersFur" alignment="CENTER" layoutX="175.0" layoutY="121.0" prefHeight="25.0" prefWidth="38.0" text="0" />
             <Button id="pilotDecrement" fx:id="furDecrement" layoutX="144.0" layoutY="121.0" mnemonicParsing="false" onAction="#furDecrement" text="-" />
             <Button id="pilotIncrement" fx:id="furIncrement" layoutX="221.0" layoutY="121.0" mnemonicParsing="false" onAction="#furIncrement" text="+" />
-            <Label fx:id="tradersFood" layoutX="298.0" layoutY="148.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="tradersFood" layoutX="295.0" layoutY="148.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="foodPrice" layoutX="381.0" layoutY="148.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="foodPrice" layoutX="378.0" layoutY="148.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersFood" alignment="CENTER" layoutX="178.0" layoutY="148.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="foodDecrement" layoutX="147.0" layoutY="148.0" mnemonicParsing="false" onAction="#foodDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="foodIncrement" layoutX="224.0" layoutY="148.0" mnemonicParsing="false" onAction="#foodIncrement" text="+" />
-            <Label fx:id="tradersOre" layoutX="299.0" layoutY="180.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersFood" alignment="CENTER" layoutX="175.0" layoutY="148.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="foodDecrement" layoutX="144.0" layoutY="148.0" mnemonicParsing="false" onAction="#foodDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="foodIncrement" layoutX="221.0" layoutY="148.0" mnemonicParsing="false" onAction="#foodIncrement" text="+" />
+            <Label fx:id="tradersOre" layoutX="295.0" layoutY="175.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="orePrice" layoutX="382.0" layoutY="180.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="orePrice" layoutX="378.0" layoutY="175.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersOre" alignment="CENTER" layoutX="179.0" layoutY="180.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="oreDecrement" layoutX="148.0" layoutY="180.0" mnemonicParsing="false" onAction="#oreDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="oreIncrement" layoutX="225.0" layoutY="180.0" mnemonicParsing="false" onAction="#oreIncrement" text="+" />
-            <Label fx:id="tradersGames" layoutX="295.0" layoutY="205.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersOre" alignment="CENTER" layoutX="175.0" layoutY="175.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="oreDecrement" layoutX="144.0" layoutY="175.0" mnemonicParsing="false" onAction="#oreDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="oreIncrement" layoutX="221.0" layoutY="175.0" mnemonicParsing="false" onAction="#oreIncrement" text="+" />
+            <Label fx:id="tradersGames" layoutX="295.0" layoutY="202.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="gamesPrice" layoutX="378.0" layoutY="205.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="gamesPrice" layoutX="378.0" layoutY="202.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersGames" alignment="CENTER" layoutX="175.0" layoutY="205.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="gamesDecrement" layoutX="144.0" layoutY="205.0" mnemonicParsing="false" onAction="#gamesDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="gamesIncrement" layoutX="221.0" layoutY="205.0" mnemonicParsing="false" onAction="#gamesIncrement" text="+" />
-            <Label fx:id="tradersFirearms" layoutX="295.0" layoutY="233.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersGames" alignment="CENTER" layoutX="175.0" layoutY="202.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="gamesDecrement" layoutX="144.0" layoutY="202.0" mnemonicParsing="false" onAction="#gamesDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="gamesIncrement" layoutX="221.0" layoutY="202.0" mnemonicParsing="false" onAction="#gamesIncrement" text="+" />
+            <Label fx:id="tradersFirearms" layoutX="295.0" layoutY="229.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="firearmsPrice" layoutX="378.0" layoutY="233.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="firearmsPrice" layoutX="378.0" layoutY="229.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersFirearms" alignment="CENTER" layoutX="175.0" layoutY="233.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="firearmsDecrement" layoutX="144.0" layoutY="233.0" mnemonicParsing="false" onAction="#firearmsDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="firearmsIncrement" layoutX="221.0" layoutY="233.0" mnemonicParsing="false" onAction="#firearmsIncrement" text="+" />
-            <Label fx:id="tradersMed" layoutX="295.0" layoutY="259.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersFirearms" alignment="CENTER" layoutX="175.0" layoutY="229.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="firearmsDecrement" layoutX="144.0" layoutY="229.0" mnemonicParsing="false" onAction="#firearmsDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="firearmsIncrement" layoutX="221.0" layoutY="229.0" mnemonicParsing="false" onAction="#firearmsIncrement" text="+" />
+            <Label fx:id="tradersMed" layoutX="295.0" layoutY="256.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="medPrice" layoutX="378.0" layoutY="259.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="medPrice" layoutX="378.0" layoutY="256.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersMed" alignment="CENTER" layoutX="175.0" layoutY="259.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="medDecrement" layoutX="144.0" layoutY="259.0" mnemonicParsing="false" onAction="#medDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="medIncrement" layoutX="221.0" layoutY="259.0" mnemonicParsing="false" onAction="#medIncrement" text="+" />
-            <Label fx:id="tradersMachines" layoutX="295.0" layoutY="295.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersMed" alignment="CENTER" layoutX="175.0" layoutY="256.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="medDecrement" layoutX="144.0" layoutY="256.0" mnemonicParsing="false" onAction="#medDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="medIncrement" layoutX="221.0" layoutY="256.0" mnemonicParsing="false" onAction="#medIncrement" text="+" />
+            <Label fx:id="tradersMachines" layoutX="295.0" layoutY="283.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="machinesPrice" layoutX="378.0" layoutY="295.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="machinesPrice" layoutX="378.0" layoutY="283.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersMachines" alignment="CENTER" layoutX="175.0" layoutY="295.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="machinesDecrement" layoutX="144.0" layoutY="295.0" mnemonicParsing="false" onAction="#machinesDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="machinesIncrement" layoutX="221.0" layoutY="295.0" mnemonicParsing="false" onAction="#machinesIncrement" text="+" />
-            <Label fx:id="tradersNarcotics" layoutX="295.0" layoutY="324.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersMachines" alignment="CENTER" layoutX="175.0" layoutY="283.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="machinesDecrement" layoutX="144.0" layoutY="283.0" mnemonicParsing="false" onAction="#machinesDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="machinesIncrement" layoutX="221.0" layoutY="283.0" mnemonicParsing="false" onAction="#machinesIncrement" text="+" />
+            <Label fx:id="tradersNarcotics" layoutX="295.0" layoutY="310.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="waterPrice8" layoutX="378.0" layoutY="324.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="narcoticsPrice" layoutX="378.0" layoutY="310.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersNarcotics" alignment="CENTER" layoutX="175.0" layoutY="324.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="narcoticsDecrement" layoutX="144.0" layoutY="324.0" mnemonicParsing="false" onAction="#narcoticsDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="narcoticsIncrement" layoutX="221.0" layoutY="324.0" mnemonicParsing="false" onAction="#narcoticsIncrement" text="+" />
-            <Label fx:id="tradersRobots" layoutX="295.0" layoutY="352.0" text="0" textAlignment="RIGHT">
+            <TextField id="pilotField" fx:id="playersNarcotics" alignment="CENTER" layoutX="175.0" layoutY="310.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="narcoticsDecrement" layoutX="144.0" layoutY="310.0" mnemonicParsing="false" onAction="#narcoticsDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="narcoticsIncrement" layoutX="221.0" layoutY="310.0" mnemonicParsing="false" onAction="#narcoticsIncrement" text="+" />
+            <Label fx:id="tradersRobots" layoutX="295.0" layoutY="337.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="robotsPrice" layoutX="378.0" layoutY="352.0" text="0" textAlignment="RIGHT">
+            <Label fx:id="robotsPrice" layoutX="378.0" layoutY="337.0" text="0" textAlignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField id="pilotField" fx:id="playersRobots" alignment="CENTER" layoutX="175.0" layoutY="352.0" prefHeight="25.0" prefWidth="38.0" text="0" />
-            <Button id="pilotDecrement" fx:id="robotsDecrement" layoutX="144.0" layoutY="352.0" mnemonicParsing="false" onAction="#robotsDecrement" text="-" />
-            <Button id="pilotIncrement" fx:id="robotsIncrement" layoutX="221.0" layoutY="352.0" mnemonicParsing="false" onAction="#robotsIncrement" text="+" />
+            <TextField id="pilotField" fx:id="playersRobots" alignment="CENTER" layoutX="175.0" layoutY="337.0" prefHeight="25.0" prefWidth="38.0" text="0" />
+            <Button id="pilotDecrement" fx:id="robotsDecrement" layoutX="144.0" layoutY="337.0" mnemonicParsing="false" onAction="#robotsDecrement" text="-" />
+            <Button id="pilotIncrement" fx:id="robotsIncrement" layoutX="221.0" layoutY="337.0" mnemonicParsing="false" onAction="#robotsIncrement" text="+" />
+            <Slider fx:id="waterSlider" layoutX="143.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="gameSlider" layoutX="143.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="firearmSlider" layoutX="183.0" layoutY="34.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="furSlider" layoutX="183.0" layoutY="17.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="narcoticSlider" layoutX="311.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="oreSlider" layoutX="264.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="machineSlider" layoutX="264.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="medicineSlider" layoutX="224.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="foodSlider" layoutX="224.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="robotSlider" layoutX="359.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="15.0" />
          </children>
       </AnchorPane>
    </children>
