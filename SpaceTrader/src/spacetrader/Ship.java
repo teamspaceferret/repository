@@ -38,7 +38,7 @@ public class Ship {
     int police,pirate,trader;
     int repairCost;
     int size;
-    int range; //the radius of the range bounding circle
+    int range; //the radius of the range bounding circle, potentially
     
     int maxFuelLevel;
     int maxCargoSlots;
@@ -228,79 +228,154 @@ public class Ship {
     
     
     //Getters
-    
+    /**
+     * Gets the ship's cargo bay
+     * @return ship's cargo
+     */
     public HashMap<TradeGood,Integer> getCargo(){
         return cargo;
     }
     
+    /**
+     * Gets the ship's weapons
+     * @return ship's weapons
+     */
     public Weapon[] getWeapons(){
         return weapons;
     }
     
+    /**
+     * Gets the ship's shields
+     * @return ship's shields
+     */
     public Shield[] getShields(){
         return shields;
     }
     
+    /**
+     * Gets the ship's gadgets
+     * @return ship's gadgets
+     */
     public Gadget[] getGadgets(){
         return gadgets;
     }
     
+    /**
+     * Gets the ship's crew
+     * @return ship's crew
+     */
     public Mercenary[] getCrew(){
         return crew;
     }
     
+    /**
+     * Gets the ship's current amount of fuel
+     * @return ship's current amount of fuel
+     */
     public int getFuelLevel(){
         return currentFuelLevel;
     }
     
+    /**
+     * Gets the ship's maximum fuel level
+     * @return ship's maximum fuel level
+     */
     public int getMaxFuelLevel(){
         return maxFuelLevel;
     }
     
+    /**
+     * Gets the ship's minimum tech level
+     * @return ship's minimum tech level
+     */
     public int getMinTechLevel(){
         return minTechLevel;
     }
     
+    /**
+     * Gets the ship's fuel cost
+     * @return ship's fuel cost
+     */
     public int getFuelCost(){
         return fuelCost;
     }
     
+    /**
+     * Gets the ship's base price
+     * @return ship's base price
+     */
     public int getPrice(){
         return price;
     }
     
+    /**
+     * Gets the ship's base bounty
+     * @return ship's base bounty
+     */
     public int getBounty(){
         return bounty;
     }
     
+    /**
+     * Gets the ship's occurrence
+     * @return ship's occurrence
+     */
     public int getOccurrence(){
         return occurrence;
     }
     
+    /**
+     * Gets the ship's hull strength
+     * @return ship's hull strength
+     */
     public int getHullStrength(){
         return hullStr;
     }
     
+    /**
+     * Gets the ship's police chance
+     * @return ship's police chance
+     */
     public int getPolice(){
         return police;
     }
     
+    /**
+     * Gets the ship's pirate chance
+     * @return ship's pirate chance
+     */
     public int getPirate(){
         return pirate;
     }
     
+    /**
+     * Gets the ship's trader chance
+     * @return ship's trader chance
+     */
     public int getTrader(){
         return trader;
     }
     
+    /**
+     * Gets the ship's base repair cost
+     * @return ship's base repair cost
+     */
     public int getRepairCost(){
         return repairCost;
     }
     
+    /**
+     * Gets the ship's size
+     * @return ship's size
+     */
     public int getSize(){
         return size;
     }
     
+    /**
+     * Gets the ship's range radius
+     * @return ship's range radius
+     */
     public int getRange(){
         return range;
     }
