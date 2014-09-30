@@ -83,21 +83,6 @@ public class CharacterCreationController implements ControlledScreen, Initializa
         
     }
     
-    /**
-     * Returns the player, if one has been created.
-     *
-     * @return Created player, null if no player has been created.
-     */
-    
-    public Player getPlayer() {
-        if (player != null) {
-            return player;
-        } else {
-            System.out.println("Player hasn't been created yet.");
-            return player;
-        }
-    }
-    
    /**
      * Initializes the Player object, once all stat points are spent and a
      * name has been entered. Also initializes the Universe object.
@@ -171,9 +156,13 @@ public class CharacterCreationController implements ControlledScreen, Initializa
      */
     
     public void setPlayerName() {
-        String tempName = playerName;
-        playerName = nameEntry.getText();
-        if (playerName.length() > 0 && !playerName.equals(tempName)) {
+        String name = nameEntry.getText();
+        if (name.isEmpty()) {
+            descriptions.setText("Your name cannot be empty.");
+        } else if (!name.matches("^[a-zA-Z'-]+")) {
+            descriptions.setText("Your name can only contain letters, dashes, and apostrophes.");
+        } else {
+            playerName = name;
             descriptions.setText("Hello, " + playerName + "!");
         }
     }
@@ -193,7 +182,6 @@ public class CharacterCreationController implements ControlledScreen, Initializa
      */
     public boolean checkTotals() {
         if (pointsRemaining == 0) {
-            System.out.println("You're out of points.");
             return false;
         }
         return true;
