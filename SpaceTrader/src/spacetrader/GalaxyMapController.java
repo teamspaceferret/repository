@@ -127,6 +127,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         if (currentlySelected != null) {
             if (isInRange(currentlySelected)) {
                 player.setCurrentSolar(currentlySelected);
+                //set current planet to null perhaps
                 controller.setScreen("SolarMap");
             } else {
                 System.out.println("That system is out of range! Please select a closer one.");

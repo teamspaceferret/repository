@@ -106,6 +106,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
             Context.getInstance().getPlayer().setName(playerName);
             Context.getInstance().getPlayer().setStats(stats);
             Context.getInstance().getPlayer().setShip(new Ship("gnat"));
+            
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             //Set current location default
