@@ -14,11 +14,11 @@ import java.util.HashMap;
 public class Ship {
     public static final HashMap<String,int[]> types = new HashMap<>();
             static{
-                types.put("flea",new int[]{10,0,0,0,1,30,4,1,2000,5,2,25,-1,-1,0,1,0});
-                types.put("gnat",new int[]{15,1,0,1,1,14,5,2,10000,50,28,100,0,0,0,1,1});
-                types.put("firefly",new int[]{20,1,1,1,1,17,5,3,25000,75,20,100,0,0,0,1,1});
-                types.put("mosquito",new int[]{15,2,1,1,1,13,5,5,30000,100,20,100,0,1,0,1,1});
-                types.put("bumblebee",new int[]{25,1,2,2,2,15,5,7,60000,125,15,100,0,1,0,1,2});
+                types.put("flea",new int[]{10,0,0,0,1,30,4,1,2000,5,2,25,-1,-1,0,1,0,10});
+                types.put("gnat",new int[]{15,1,0,1,1,14,5,2,10000,50,28,100,0,0,0,1,1,10});
+                types.put("firefly",new int[]{20,1,1,1,1,17,5,3,25000,75,20,100,0,0,0,1,1,10});
+                types.put("mosquito",new int[]{15,2,1,1,1,13,5,5,30000,100,20,100,0,1,0,1,1,10});
+                types.put("bumblebee",new int[]{25,1,2,2,2,15,5,7,60000,125,15,100,0,1,0,1,2,10});
                 
             }
     String type;
@@ -38,11 +38,16 @@ public class Ship {
     int police,pirate,trader;
     int repairCost;
     int size;
-   // boolean isPirate, isPolice, isTrader;
+    int range; //the radius of the range bounding circle
+    
     int maxFuelLevel;
     int maxCargoSlots;
     int usedCargoSlots;
     
+    /**
+     * Creates a ship with the given type and sets up the default stats
+     * @param type the type of ship to create
+     */
     public Ship(String type){
         type = type.toLowerCase();
         this.type = type;
@@ -69,6 +74,7 @@ public class Ship {
         trader = stats[14];
         repairCost = stats[15];
         size = stats[16];
+        range = stats[17];
         
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
@@ -77,6 +83,13 @@ public class Ship {
         setUpCargoBay();
     }
     
+    /**
+     * Adds the given amount of fuel to the ship
+     * If this were to add more fuel than the ship can hold, the addition does not occur and returns false
+     * Otherwise, fuel is added and returns true
+     * @param addedFuel the amount of fuel to add to the ship
+     * @return true if addition was successful, false otherwise
+     */
     public boolean addFuel(int addedFuel){
         int newAmt = currentFuelLevel + addedFuel;
         if(newAmt > maxFuelLevel){
@@ -106,6 +119,10 @@ public class Ship {
         } 
     }
     
+    /**
+     * Gets whether or not the cargo is empty
+     * @return true if cargo bay is empty, false otherwise
+     */
     public boolean isCargoEmpty(){
         if(usedCargoSlots == 0){
             return true;
@@ -200,6 +217,15 @@ public class Ship {
         return true;
     }
     
+    /**
+     * Gets the number of the given TradeGood in the ship's current cargo
+     * @param item TradeGood to get the number of
+     * @return the number of the given TradeGood
+     */
+    public int getCargoStock(TradeGood item){
+        return cargo.get(item);
+    }
+    
     
     //Getters
     
@@ -273,6 +299,10 @@ public class Ship {
     
     public int getSize(){
         return size;
+    }
+    
+    public int getRange(){
+        return range;
     }
     
     //private helper methods:
