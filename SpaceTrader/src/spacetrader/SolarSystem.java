@@ -17,14 +17,10 @@ public class SolarSystem {
     }
     
     /**
-     * Constructs a solar system with the given name.
-     * @param name name of the solar system
+     * Constructs a solar system with the given x and y coordinates.
+     * @param x the given x coordinate
+     * @param y the given y coordinate
      */
-    public SolarSystem(String name) {
-        this();
-        this.name = name;
-    }
-    
     public SolarSystem(int x, int y) {
         this();
         this.coords = new Coordinate(x, y);
@@ -52,8 +48,8 @@ public class SolarSystem {
             Coordinate newCoord;
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(300),
-                        rand.nextInt(300));
+                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
+                        rand.nextInt(Context.BOUNDARY));
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
@@ -73,7 +69,7 @@ public class SolarSystem {
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     rand.nextInt(Context.GOVERNMENTS.length),
-                    planetCoords[i].getX(), planetCoords[i].getY());
+                    planetCoords[i].getX(), planetCoords[i].getY(), this.coords);
         }
     }
     

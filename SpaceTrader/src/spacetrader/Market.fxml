@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.MarketController">
    <children>
-      <AnchorPane id="AnchorPane" layoutX="3.0" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane id="AnchorPane" layoutX="1.0" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Label layoutX="24.0" layoutY="24.0" text="MARKET">
                <font>
@@ -233,6 +233,17 @@
             <TextField id="pilotField" fx:id="playersRobots" alignment="CENTER" layoutX="175.0" layoutY="352.0" prefHeight="25.0" prefWidth="38.0" text="0" />
             <Button id="pilotDecrement" fx:id="robotsDecrement" layoutX="144.0" layoutY="352.0" mnemonicParsing="false" onAction="#robotsDecrement" text="-" />
             <Button id="pilotIncrement" fx:id="robotsIncrement" layoutX="221.0" layoutY="352.0" mnemonicParsing="false" onAction="#robotsIncrement" text="+" />
+            <Slider fx:id="robotSlider" layoutX="539.0" layoutY="61.0" max="99.0" prefHeight="14.0" prefWidth="1.0" />
+            <Slider fx:id="narcoticSlider" layoutX="496.0" layoutY="61.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="firearmSlider" layoutX="496.0" layoutY="40.0" max="99.0" prefHeight="14.0" prefWidth="1.0" />
+            <Slider fx:id="foodSlider" layoutX="496.0" layoutY="18.0" max="99.0" prefHeight="15.0" prefWidth="9.0" />
+            <Slider fx:id="gameSlider" layoutX="454.0" layoutY="39.0" max="99.0" prefHeight="14.0" prefWidth="1.0" />
+            <Slider fx:id="machineSlider" layoutX="454.0" layoutY="60.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="medicineSlider" layoutX="411.0" layoutY="59.0" max="99.0" prefHeight="14.0" prefWidth="0.0" />
+            <Slider fx:id="oreSlider" layoutX="411.0" layoutY="38.0" max="99.0" prefHeight="14.0" prefWidth="1.0" />
+            <Slider fx:id="waterSlider" layoutX="411.0" layoutY="16.0" max="99.0" prefHeight="15.0" prefWidth="9.0" />
+            <Slider fx:id="furSlider" layoutX="454.0" layoutY="18.0" max="99.0" prefHeight="15.0" prefWidth="9.0" />
+            <ToggleButton layoutX="213.0" layoutY="35.0" mnemonicParsing="false" text="ToggleButton" />
          </children>
       </AnchorPane>
    </children>

@@ -47,6 +47,11 @@ public enum Event {
         return ID;
     }
     
+    /**
+     * Returns true if event equals the given event.
+     * @param other the given event to compare to
+     * @return true if event equals the given event
+     */
     public boolean equals(Event other) {
         if (other.getName().equals(this.getName())){
             return true;

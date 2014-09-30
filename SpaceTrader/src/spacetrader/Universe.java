@@ -27,8 +27,8 @@ public class Universe {
             Coordinate newCoord;
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(300),
-                        rand.nextInt(300));
+                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
+                        rand.nextInt(Context.BOUNDARY));
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
@@ -55,14 +55,6 @@ public class Universe {
      */
     public SolarSystem[] getSolarSystems() {
         return this.solarSystems;
-    }
-    
-    /**
-     * Gets the universe's solar systems
-     * @return the array of all solar systems in the universe
-     */
-    public SolarSystem getSolarSystems(int i) {
-        return this.solarSystems[i];
     }
     
     /**
