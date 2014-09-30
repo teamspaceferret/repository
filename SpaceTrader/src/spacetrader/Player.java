@@ -32,6 +32,42 @@ public class Player {
     }
     
     /**
+     * Adds the given number of credits to the player's credit amount
+     * Returns true if the addition was successful, false otherwise
+     * @param creditsToAdd the number of credits to add
+     * @return true if successful, false otherwise
+     */
+    public boolean addCredits(int creditsToAdd){
+        if(credits < 0){
+            System.out.println("Cannot add negative number");
+            return false;
+        }
+        else {
+            credits += creditsToAdd;
+            return true;
+        }   
+    }
+    
+    /**
+     * Removes the given number of credits from the player's credit pool
+     * Returns true if the removal succeeded
+     * If the player does not have enough credits to remove the given amount, returns false
+     * @param creditsToRemove the number of credits to remove from the player
+     * @return true if the operation succeeded, false otherwise
+     */
+    public boolean removeCredits(int creditsToRemove){
+        int newCreditAmt = credits - creditsToRemove;
+        if(newCreditAmt < 0 || creditsToRemove < 0){
+            System.out.println("Not enough credits to remove that amount");
+            return false;
+        }
+        else {
+            credits = newCreditAmt;
+            return true;
+        }   
+    }
+    
+    /**
      * Gets the player's name
      * @return The player's name
      */
@@ -115,7 +151,7 @@ public class Player {
      * Sets the player's skill stats
      * @param stats The array representing the player's stats
      */
-    public void setStates(int[] stats) {
+    public void setStats(int[] stats) {
         this.stats = stats;
     }
     /**

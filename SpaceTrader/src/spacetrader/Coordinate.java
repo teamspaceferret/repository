@@ -33,11 +33,8 @@ public class Coordinate {
      * @return true if the coordinate pairs are too close
      */
     public boolean istooCloseTo(Coordinate otherCoord) {
-        if (Math.abs(this.x - otherCoord.getX()) < Context.MIN_DISTANCE_BETWEEN_PLANETS
-                && Math.abs(this.y - otherCoord.getY()) < Context.MIN_DISTANCE_BETWEEN_PLANETS) {
-            return true;
-        }
-        return false;
+        return Math.abs(this.x - otherCoord.getX()) < Context.MIN_DISTANCE_BETWEEN_PLANETS
+                && Math.abs(this.y - otherCoord.getY()) < Context.MIN_DISTANCE_BETWEEN_PLANETS;
     }
     
     /**

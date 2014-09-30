@@ -52,8 +52,8 @@ public class SolarSystem {
             Coordinate newCoord;
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(300),
-                        rand.nextInt(300));
+                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
+                        rand.nextInt(Context.BOUNDARY));
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
