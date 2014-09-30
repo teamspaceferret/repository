@@ -5,6 +5,8 @@ import java.util.Random;
 public class Universe {
     private SolarSystem[] solarSystems;
     
+    Player player = Context.getInstance().getPlayer();
+    
     /**
      * Constructs a default universe.
      */
@@ -47,6 +49,9 @@ public class Universe {
             this.solarSystems[i] = new SolarSystem(solarSystemCoords[i].getX(), solarSystemCoords[i].getY());
             this.solarSystems[i].generateSolarSystem();
         }
+        
+        player.setCurrentSolar(solarSystems[0]);
+        player.setCurrentPlanet(solarSystems[0].getPlanets()[0]);
     }
     
     /**

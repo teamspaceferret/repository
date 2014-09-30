@@ -61,6 +61,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             gc.setFill(Color.RED);
             gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
         }
+        
+        //draw your range circle
     }
     
     /**
@@ -68,6 +70,17 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void currentFuel() {
         fuelLabel.setText("Fuel: 1000"); //add fuel value here!
+    }
+    
+    /**
+     * Checks it currently selected system is in travel range
+     * @param system the currently looked at system
+     * @return whether it is in range
+     */
+    public boolean isInRange(SolarSystem system) {
+        //check here!
+        //check if ANY planets in this passed in system are in range
+        return true;
     }
     
     /**
@@ -93,9 +106,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
-        descriptions.setText("Name: " + solarSystem.getName() + "\n" +
-            "Fuel required: " + "\n" + "\n" +
-            "Flavor text?");
+        descriptions.setText("Name: " + solarSystem.getName());
     }
     
     /**
@@ -103,8 +114,12 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void selectSystem() {
         if (currentlySelected != null) {
-            player.setCurrentSolar(currentlySelected);
-            controller.setScreen("SolarMap");
+            if (isInRange(currentlySelected)) {
+                player.setCurrentSolar(currentlySelected);
+                controller.setScreen("SolarMap");
+            } else {
+                System.out.println("That system is out of range! Please select a closer one.");
+            }
         } else {
             System.out.println("Please select a system.");
         }
