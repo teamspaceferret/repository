@@ -123,4 +123,12 @@ public enum TradeGood {
     public int getID() {
         return ID;
     }
+    
+    public int getMTLB(){
+        return MTLB;
+    }
+    
+    public int getMTLS(){
+        return MTLS;
+    }
 }

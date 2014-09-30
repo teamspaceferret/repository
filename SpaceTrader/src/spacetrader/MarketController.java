@@ -90,7 +90,17 @@ public class MarketController implements ControlledScreen, Initializable {
             Planet p = Context.getInstance().getPlayer().getCurrentPlanet();
             Event e = p.getEvent();
             Resource re = p.getResource();
-            int stock = 7 + r.nextInt(14);
+            
+            int goodMinTechLevelToBuy = good.getMTLB();
+            int goodMinTechLevelToSell = good.getMTLS();
+            int planetTechLevel = p.getTechLevel();
+            int stock;
+            //will not produce things from too low a tech level
+            if(goodMinTechLevelToBuy > planetTechLevel){
+                stock = 0;
+            } else {
+                stock = 7 + r.nextInt(14);
+            }
             if (re.getID() == good.getER().getID()) {
                 stock *= .45;
             } else if (re.getID() == good.getCR().getID()) {
