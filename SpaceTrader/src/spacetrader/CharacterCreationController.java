@@ -1,6 +1,5 @@
 package spacetrader;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -120,7 +119,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
             
             // Create player
             Context.getInstance().getPlayer().setName(playerName);
-            Context.getInstance().getPlayer().setStates(stats);
+            Context.getInstance().getPlayer().setStats(stats);
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             

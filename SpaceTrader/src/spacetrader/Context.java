@@ -7,10 +7,11 @@ public class Context {
     private final Universe universe = new Universe();
     private final Names names = new Names();
     
-    public static final int NUM_SOLAR_SYSTEMS = 30;
+    public static final int BOUNDARY = 300;
     public static final int MIN_DISTANCE_BETWEEN_PLANETS = 30;
     public static final int MIN_PLANETS_PER_SOLAR_SYSTEM = 4;
     public static final int MAX_PLANETS_PER_SOLAR_SYSTEM = 8;
+    public static final int NUM_SOLAR_SYSTEMS = 30;
     
     public static final String[] SOLAR_SYSTEM_NAMES = {
         "Acamar", "Adahn", "Aldea", "Andevian", "Antedi", "Balosnee", "Baratas",

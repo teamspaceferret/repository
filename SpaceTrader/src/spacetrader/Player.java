@@ -115,7 +115,7 @@ public class Player {
      * Sets the player's skill stats
      * @param stats The array representing the player's stats
      */
-    public void setStates(int[] stats) {
+    public void setStats(int[] stats) {
         this.stats = stats;
     }
     /**

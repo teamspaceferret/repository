@@ -7,6 +7,7 @@ public class Planet {
     private Resource resource;
     private int govt;
     private Event event;
+    private SolarSystem parentSolarSystem;
     
     /**
      * Constructs a planet with default values.
@@ -65,30 +66,42 @@ public class Planet {
     }
     
     /**
-     * Gets planet tech level
-     * 
-     * @return int Planet tech lev
+     * Returns the tech level of the planet.
+     * @return the tech level of the planet
      */
     public int getTechLevel() {
         return this.techLevel;
     }
     
     /**
-     * Get planet resources
-     * 
-     * @return Resource special resources on this planet
+     * Returns the resources of the planet.
+     * @return the resources of the planet
      */
     public Resource getResource() {
         return this.resource;
     }
     
     /**
-     * Get event
-     * 
-     * @return Event special event on this planet
+     * Returns the event of the planet.
+     * @return the event of the planet
      */
     public Event getEvent() {
         return this.event;
+    }
+    
+    /**
+     * Returns the distance between a planet and another planet.
+     * 
+     * @param otherPlanet the other planet
+     * @return the distance between a planet and another planets
+     */
+    public double distanceToPlanet(Planet otherPlanet) {
+        return Math.sqrt(Math.pow((this.parentSolarSystem.getCoords().getX()
+                + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
+                        * (this.coords.getX()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2)
+                + Math.pow((this.parentSolarSystem.getCoords().getY()
+                        + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
+                                * (this.coords.getY()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2));
     }
     
     /**
