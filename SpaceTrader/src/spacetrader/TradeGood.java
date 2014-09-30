@@ -86,7 +86,13 @@ public enum TradeGood {
         //if current event = IE, 25% increase in price
         //if current event = DE, 25% decrease in price
         int finalPrice = (int)price;
-        return finalPrice;
+        if (player.getTrader() > 0) {
+            int discountedPrice = (finalPrice-(player.getTrader()));
+            System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
+            return discountedPrice;
+        } else {
+            return finalPrice;
+        }
     }
     
     /**
