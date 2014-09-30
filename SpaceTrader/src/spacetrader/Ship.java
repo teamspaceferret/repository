@@ -35,7 +35,6 @@ public class Ship {
     int maxCargoSlots;
     int usedCargoSlots;
 
-    
     /**
      * Creates a ship with the given type and sets up the default stats
      * @param type the type of ship to create
