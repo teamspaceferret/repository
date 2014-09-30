@@ -37,8 +37,9 @@ public class Planet {
      * @param techLevel which tech level planet has
      * @param resource which special resource planet has
      * @param govt which government planet has
-     * @param x planet's x coordinate
-     * @param y planet's y coordinate
+     * @param x the x coordinate of the parent
+     * @param y the y coordinate of the parent
+     * @param parentCoords the coordinates of the parent solar system
      */
     public Planet(String name, int techLevel, Resource resource, int govt,
             int x, int y, Coordinate parentCoords) {

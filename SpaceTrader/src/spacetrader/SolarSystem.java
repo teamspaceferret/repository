@@ -17,14 +17,10 @@ public class SolarSystem {
     }
     
     /**
-     * Constructs a solar system with the given name.
-     * @param name name of the solar system
+     * Constructs a solar system with the given x and y coordinates.
+     * @param x the given x coordinate
+     * @param y the given y coordinate
      */
-    public SolarSystem(String name) {
-        this();
-        this.name = name;
-    }
-    
     public SolarSystem(int x, int y) {
         this();
         this.coords = new Coordinate(x, y);

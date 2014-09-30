@@ -113,7 +113,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     
     /**
      * Sets the text field to describe the selected solar system
-     * @param solarsystem the system being described
+     * @param solarSystem the system being described
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
