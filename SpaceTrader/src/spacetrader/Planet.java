@@ -107,12 +107,25 @@ public class Planet {
      * @return the distance between a planet and another planets
      */
     public double distanceToPlanet(Planet otherPlanet) {
-        return Math.sqrt(Math.pow((this.parentSolarSystem.getCoords().getX()
-                + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
-                        * (this.coords.getX()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2)
-                + Math.pow((this.parentSolarSystem.getCoords().getY()
-                        + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
-                                * (this.coords.getY()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2));
+        System.out.println("this.parent: " + this.getParentSolarSystem().getCoords());
+        System.out.println("this.x: " + String.valueOf(this.getParentSolarSystem().getCoords().getX()+(this.getCoords().getX() - Context.BOUNDARY/2)*2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY));
+        System.out.println("this.y: " + String.valueOf(this.getParentSolarSystem().getCoords().getY()+(this.getCoords().getY() - Context.BOUNDARY/2)*2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY));
+        System.out.println("other.parent: " + otherPlanet.getParentSolarSystem().getCoords());
+        System.out.println("other.x: " + String.valueOf(otherPlanet.getParentSolarSystem().getCoords().getX()+(otherPlanet.getCoords().getX() - Context.BOUNDARY/2)*2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY));
+        System.out.println("other.y: " + String.valueOf(otherPlanet.getParentSolarSystem().getCoords().getY()+(otherPlanet.getCoords().getY() - Context.BOUNDARY/2)*2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY));
+        
+        return Math.sqrt(Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getX()
+                + (this.getCoords().getX() - Context.BOUNDARY/2)
+                        * 2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                - (otherPlanet.getParentSolarSystem().getCoords().getX()
+                        + (otherPlanet.getCoords().getX() - Context.BOUNDARY/2)
+                                * 2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2)
+                + Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getY()
+                        + (this.getCoords().getY() - Context.BOUNDARY/2)
+                                * 2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                        - (otherPlanet.getParentSolarSystem().getCoords().getY()
+                                + (otherPlanet.getCoords().getY() - Context.BOUNDARY/2)
+                                        * 2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2));
     }
     
     /**
