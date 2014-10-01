@@ -110,8 +110,6 @@ public class CharacterCreationController implements ControlledScreen, Initializa
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             //Set current location default
-            Context.getInstance().getPlayer().setCurrentSolar(
-                    Context.getInstance().getUniverse().getSolarSystems()[0]);
             Context.getInstance().getPlayer().setCurrentPlanet(
                     Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
             

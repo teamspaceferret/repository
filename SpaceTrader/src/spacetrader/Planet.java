@@ -7,7 +7,7 @@ public class Planet {
     private Resource resource;
     private int govt;
     private Event event;
-    private Coordinate parentCoords;
+    private SolarSystem parentSolarSystem;
     
     /**
      * Constructs a planet with default values.
@@ -39,17 +39,17 @@ public class Planet {
      * @param govt which government planet has
      * @param x the x coordinate of the parent
      * @param y the y coordinate of the parent
-     * @param parentCoords the coordinates of the parent solar system
+     * @param parentSolarSystem the parent solar system
      */
     public Planet(String name, int techLevel, Resource resource, int govt,
-            int x, int y, Coordinate parentCoords) {
+            int x, int y, SolarSystem parentSolarSystem) {
         this();
         this.name = name;
         this.techLevel = techLevel;
         this.resource = resource;
         this.govt = govt;
         this.coords = new Coordinate(x, y);
-        this.parentCoords = parentCoords;
+        this.parentSolarSystem = parentSolarSystem;
     }
     
     /**
@@ -93,16 +93,24 @@ public class Planet {
     }
     
     /**
+     * Returns the parent solar system.
+     * @return the parent solar system
+     */
+    public SolarSystem getParentSolarSystem() {
+        return this.parentSolarSystem;
+    }
+    
+    /**
      * Returns the distance between a planet and another planet.
      * 
      * @param otherPlanet the other planet
      * @return the distance between a planet and another planets
      */
     public double distanceToPlanet(Planet otherPlanet) {
-        return Math.sqrt(Math.pow((this.parentCoords.getX()
+        return Math.sqrt(Math.pow((this.parentSolarSystem.getCoords().getX()
                 + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
                         * (this.coords.getX()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2)
-                + Math.pow((this.parentCoords.getY()
+                + Math.pow((this.parentSolarSystem.getCoords().getY()
                         + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
                                 * (this.coords.getY()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2));
     }

@@ -86,7 +86,7 @@ public class MarketController implements ControlledScreen, Initializable {
      * 
      */
     public int calcStock(TradeGood good) {
-        if (Context.getStock()[good.getID()] == -1) {
+        if (Context.getInstance().getStock()[good.getID()] == -1) {
             Planet p = Context.getInstance().getPlayer().getCurrentPlanet();
             Event e = p.getEvent();
             Resource re = p.getResource();
@@ -116,7 +116,7 @@ public class MarketController implements ControlledScreen, Initializable {
             stockGoods[good.getID()] = stock;
             return stock;
         } else {
-            return Context.getStock()[good.getID()];
+            return Context.getInstance().getStock()[good.getID()];
         }
     }
     //demo function only
@@ -212,7 +212,7 @@ public class MarketController implements ControlledScreen, Initializable {
         robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
         tradersRobots.setText(String.valueOf(calcStock(TradeGood.ROBOTS)));
         robotsPrice.setText(String.valueOf(stockPrices.get(TradeGood.ROBOTS)));
-        Context.setStock(stockGoods);
+        Context.getInstance().setStock(stockGoods);
         currentCargo();
         
         startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();

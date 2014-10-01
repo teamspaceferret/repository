@@ -38,12 +38,12 @@ public class Player {
      * @return true if successful, false otherwise
      */
     public boolean addCredits(int creditsToAdd){
-        if(credits < 0){
+        if (this.credits < 0){
             System.out.println("Cannot add negative number");
             return false;
         }
         else {
-            credits += creditsToAdd;
+            this.credits += creditsToAdd;
             return true;
         }   
     }
@@ -56,13 +56,13 @@ public class Player {
      * @return true if the operation succeeded, false otherwise
      */
     public boolean removeCredits(int creditsToRemove){
-        int newCreditAmt = credits - creditsToRemove;
+        int newCreditAmt = this.credits - creditsToRemove;
         if(newCreditAmt < 0 || creditsToRemove < 0){
             System.out.println("Not enough credits to remove that amount");
             return false;
         }
         else {
-            credits = newCreditAmt;
+            this.credits = newCreditAmt;
             return true;
         }   
     }
@@ -72,7 +72,7 @@ public class Player {
      * @return The player's name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
     
     /**
@@ -80,7 +80,7 @@ public class Player {
      * @return  The player's ship
      */
     public Ship getShip(){
-        return ship;
+        return this.ship;
     }
     
     /**
@@ -88,7 +88,7 @@ public class Player {
      * @return The player's credits
      */
     public int getCredits(){
-        return credits;
+        return this.credits;
     }
     
     /**
@@ -96,7 +96,7 @@ public class Player {
      * @return the array of the player's stats
      */
     public int[] getStats() {
-        return stats;
+        return this.stats;
     }
     
     /**
@@ -104,7 +104,7 @@ public class Player {
      * @return The value of the investor stat
      */
     public int getInvestor() {
-        return stats[0];
+        return this.stats[0];
     }
     
     /**
@@ -112,7 +112,7 @@ public class Player {
      * @return The value of the pilot stat
      */
     public int getPilot() {
-        return stats[1];
+        return this.stats[1];
     }
     
     /**
@@ -120,7 +120,7 @@ public class Player {
      * @return The value of the trader stat
      */
     public int getTrader() {
-        return stats[2];
+        return this.stats[2];
     }
     
     /**
@@ -128,7 +128,7 @@ public class Player {
      * @return The value of the fighter stat
      */
     public int getFighter() {
-        return stats[3];
+        return this.stats[3];
     }
     
     /**
@@ -136,7 +136,11 @@ public class Player {
      * @return The value of the engineer stat
      */
     public int getEngineer() {
-        return stats[4];
+        return this.stats[4];
+    }
+    
+    public Planet getCurrentPlanet() {
+        return this.currentPlanet;
     }
     
     /**
@@ -154,13 +158,7 @@ public class Player {
     public void setStats(int[] stats) {
         this.stats = stats;
     }
-    /**
-     * Sets the currently visited solar system
-     * @param solarSystem the current solar system
-     */
-    public void setCurrentSolar(SolarSystem solarSystem) {
-        currentSolar = solarSystem;
-    }
+    
     /**
      * Sets the currently visited planet
      * @param planet the current planet
@@ -168,6 +166,7 @@ public class Player {
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
     }
+    
     /**
      * Sets the current ship
      * @param newShip ship that is being set
@@ -176,20 +175,6 @@ public class Player {
         ship = newShip;
     }
     
-    /**
-     * Returns current solar system
-     * @return current solar system the player is in
-     */
-    public SolarSystem getCurrentSolar() {
-        return currentSolar;
-    }
-    /**
-     * Returns current planet
-     * @return current planet the player is at
-     */
-    public Planet getCurrentPlanet() {
-        return currentPlanet;
-    }
     /**
      * Makes a string representation of the player
      * @return a string representation of the player
