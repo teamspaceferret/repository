@@ -105,6 +105,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                     && event.getY() <= solarSystem.getCoords().getY() + 10
                     && event.getY() >= solarSystem.getCoords().getY()) {
                 this.setDescription(solarSystem);
+                Context.getInstance().setFocus(solarSystem);
             }
         }
     }

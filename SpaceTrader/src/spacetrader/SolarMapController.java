@@ -103,11 +103,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
-        //draw indicator of currently selected one
-        descriptions.setText("Name: " + planet.getName() + "\n" +
-            "Current planet: " + player.getCurrentPlanet() + "\n" +
-            "Fuel required: " + "\n" + "\n" +
-            "Flavor text?");
+        descriptions.setText("Name: " + planet.getName() + "\n"
+                + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
+                + "Distance: " + this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
+                + "Fuel required: ");
     }
     
     /**
