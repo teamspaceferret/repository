@@ -16,13 +16,12 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Button travelButton;
     @FXML private Label fuelLabel;
-    @FXML private TextArea descriptions;
+    @FXML private TextArea description;
     @FXML private Canvas canvas;
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
-    SolarSystem currentlySelected;
     
     /**
      * Set the screen parent.
@@ -67,12 +66,12 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         
         //draw current system in gold
         gc.setFill(Color.GOLD);
-        gc.fillOval(player.getCurrentSolar().getCoords().getX(), 
-            player.getCurrentSolar().getCoords().getY(), 10, 10);
+        gc.fillOval(player.getCurrentPlanet().getParentSolarSystem().getCoords().getX(), 
+            player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(), 10, 10);
         //draw range circle
         gc.setStroke(Color.BLACK);
-        gc.strokeOval(player.getCurrentSolar().getCoords().getX() - 75,
-            player.getCurrentSolar().getCoords().getY() - 75,
+        gc.strokeOval(player.getCurrentPlanet().getParentSolarSystem().getCoords().getX() - 75,
+            player.getCurrentPlanet().getParentSolarSystem().getCoords().getY() - 75,
             150, 150);
         
     }
@@ -100,13 +99,13 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void onMouseClick(MouseEvent event) {
         //shouldnt loop over all solarSystems after it's found the clicked one
-        for(int i = 0; i < universe.getSolarSystems().length; i++) {
-            if(((event.getX() <= (universe.getSolarSystems()[i].getCoords().getX() + 10)) && 
-                    ((event.getX() >= (universe.getSolarSystems()[i].getCoords().getX()))) &&
-                    ((event.getY() <= (universe.getSolarSystems()[i].getCoords().getY() + 10)) &&
-                    (event.getY() >= (universe.getSolarSystems()[i].getCoords().getY()))))) {
-                currentlySelected = universe.getSolarSystems()[i];
-                setDescription(currentlySelected);
+        for (SolarSystem solarSystem : universe.getSolarSystems()) {
+            if (event.getX() <= solarSystem.getCoords().getX() + 10
+                    && event.getX() >= solarSystem.getCoords().getX()
+                    && event.getY() <= solarSystem.getCoords().getY() + 10
+                    && event.getY() >= solarSystem.getCoords().getY()) {
+                this.setDescription(solarSystem);
+                Context.getInstance().setFocus(solarSystem);
             }
         }
     }
@@ -117,16 +116,18 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
-        descriptions.setText("Name: " + solarSystem.getName());
+        description.setText("Name: " + solarSystem.getName() + "\n"
+                + "Coords: " + solarSystem.getCoords());
     }
     
     /**
      * Travels to the currently selected system
      */
     public void selectSystem() {
-        if (currentlySelected != null) {
-            if (isInRange(currentlySelected)) {
-                player.setCurrentSolar(currentlySelected);
+        SolarSystem focus = Context.getInstance().getFocus();
+        if (focus != null) {
+            if (isInRange(focus)) {
+                System.out.println("Going to " + focus);
                 controller.setScreen("SolarMap");
             } else {
                 System.out.println("That system is out of range! Please select a closer one.");

@@ -105,11 +105,11 @@ public class CharacterCreationController implements ControlledScreen, Initializa
             // Create player
             Context.getInstance().getPlayer().setName(playerName);
             Context.getInstance().getPlayer().setStats(stats);
+            Context.getInstance().getPlayer().setShip(new Ship("gnat"));
+            
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             //Set current location default
-            Context.getInstance().getPlayer().setCurrentSolar(
-                    Context.getInstance().getUniverse().getSolarSystems()[0]);
             Context.getInstance().getPlayer().setCurrentPlanet(
                     Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
             
@@ -195,7 +195,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementFighterAction() {
         double current = fighterSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             fighterSlider.setValue(current);
             pointsRemaining--;
             current = fighterSlider.getValue();
@@ -215,7 +215,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementTraderAction() {
         double current = traderSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             traderSlider.setValue(current);
             pointsRemaining--;
             current = traderSlider.getValue();
@@ -235,7 +235,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementPilotAction() {
         double current = pilotSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             pilotSlider.setValue(current);
             pointsRemaining--;
             current = pilotSlider.getValue();
@@ -255,7 +255,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementEngineerAction() {
         double current = engineerSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             engineerSlider.setValue(current);
             pointsRemaining--;
             current = engineerSlider.getValue();
@@ -275,7 +275,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementInvestorAction() {
         double current = investorSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             investorSlider.setValue(current);
             pointsRemaining--;
             current = investorSlider.getValue();

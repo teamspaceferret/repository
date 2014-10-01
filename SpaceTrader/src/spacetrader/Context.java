@@ -59,6 +59,9 @@ public class Context {
         "Luddite invasion!", "Straight-edge invasion!"
     };
     
+    private SolarSystem focus;
+    private int[] stock = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    
     /**
      * Returns the context instance.
      * @return the context instance
@@ -89,5 +92,33 @@ public class Context {
      */
     public Names getNames() {
         return this.names;
+    }
+    
+    public SolarSystem getFocus() {
+        return this.focus;
+    }
+    
+    /**
+     * Returns the stock.
+     * @return stock
+     */
+    public int[] getStock() {
+        return this.stock;
+    }
+    
+    /**
+     * Set the focus.
+     * @param focus new focus
+     */
+    public void setFocus(SolarSystem focus) {
+        this.focus = focus;
+    }
+    
+    /**
+     * Set the stock.
+     * @param stocks new stock
+     */
+    public void setStock(int[] stocks) {
+        this.stock = stocks;
     }
 }

@@ -68,7 +68,7 @@ public class SolarSystem {
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     rand.nextInt(Context.GOVERNMENTS.length),
-                    planetCoords[i].getX(), planetCoords[i].getY(), this.coords);
+                    planetCoords[i].getX(), planetCoords[i].getY(), this);
         }
     }
     
@@ -111,11 +111,6 @@ public class SolarSystem {
      */
     @Override
     public String toString() {
-        String string = "";
-        for (int i = 0; i < this.planets.length; i++) {
-            string += "    " + this.planets[i].toString() + "\n";
-        }
-        
-        return string;
+        return "Solar System \"" + this.name + "\" at " + this.coords;
     }
 }
