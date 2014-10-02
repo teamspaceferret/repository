@@ -197,6 +197,7 @@ public class Player {
      * Makes a string representation of the player
      * @return a string representation of the player
      */
+    @Override
     public String toString() {
         return name + " with stats: Investor: " + stats[0] + " Pilot: "
                 + stats[1] + " Trader: " + stats[2] + " Fighter: " + stats[3] 

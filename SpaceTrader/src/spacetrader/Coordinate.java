@@ -1,9 +1,5 @@
 package spacetrader;
 
-/**
- *
- * @author keatts
- */
 public class Coordinate {
     
     private int x, y;
