@@ -39,6 +39,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         drawPlanets();
+        this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
     }
@@ -65,7 +66,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         
         for (Planet planet : solarSystem.getPlanets()) {
             if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                    < 5*this.player.getShip().getMaxFuelLevel()) {
+                    < 5*this.player.getShip().getFuelLevel()) {
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
