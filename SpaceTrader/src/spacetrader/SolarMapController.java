@@ -16,13 +16,13 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class SolarMapController implements ControlledScreen, Initializable {
     @FXML private Button travelButton;
     @FXML private Label fuelLabel;
-    @FXML private TextArea descriptions;
+    @FXML private TextArea description;
     @FXML private Canvas canvas;
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
-    Planet currentlySelected;
+    Planet selectedPlanet;
     
     /**
      * Set the screen parent.
@@ -64,15 +64,21 @@ public class SolarMapController implements ControlledScreen, Initializable {
         gc.clearRect(0, 0, 300, 300);
         
         for (Planet planet : solarSystem.getPlanets()) {
-            gc.setFill(Color.RED);
+            if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                    < 5*this.player.getShip().getMaxFuelLevel()) {
+                gc.setFill(Color.GREEN);
+            } else {
+                gc.setFill(Color.RED);
+            }
             gc.fillOval(planet.getCoords().getX(), planet.getCoords().getY(), 10, 10);
         }
              
         // Draw current planet in gold
-        gc.setFill(Color.GOLD);
-        
-        gc.fillOval(player.getCurrentPlanet().getCoords().getX(), 
-            player.getCurrentPlanet().getCoords().getY(), 10, 10);
+        if (player.getCurrentPlanet().getParentSolarSystem() == solarSystem) {
+            gc.setFill(Color.GOLD);
+            gc.fillOval(player.getCurrentPlanet().getCoords().getX(), 
+                player.getCurrentPlanet().getCoords().getY(), 10, 10);
+        }
     }
     
     /**
@@ -92,8 +98,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
                     && ((event.getX() >= (planet.getCoords().getX())))
                     && ((event.getY() <= (planet.getCoords().getY() + 10))
                     && (event.getY() >= (planet.getCoords().getY())))) {
-                currentlySelected = planet;
-                setDescription(currentlySelected);
+                selectedPlanet = planet;
+                setDescription(selectedPlanet);
             }
         }
     }
@@ -103,26 +109,29 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
-        descriptions.setText("Name: " + planet.getName() + "\n"
+        description.setText("Name: " + planet.getName() + "\n"
                 + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
-                + "Distance: " + this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
-                + "Fuel required: ");
+                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
+                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet));
     }
     
     /**
      * Travels to the currently selected planet
      */
     public void selectPlanet() {
-        if (currentlySelected != null) {
-            player.setCurrentPlanet(currentlySelected);
-            controller.setScreen("PlanetScreen");
+        if (this.selectedPlanet == null) {
+            this.description.setText("Please select a planet.");
+        } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet)) {
+            this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
         } else {
-            System.out.println("Please select a planet.");
+            this.player.getShip().subtractFuel(2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet));
+            this.player.setCurrentPlanet(this.selectedPlanet);
+            this.controller.setScreen("PlanetScreen");
         }
     }
     
     /**
-     * Travels back to the galaxy map
+     * Go back to the galaxy map
      */
     public void backAction() {
         controller.setScreen("GalaxyMap");

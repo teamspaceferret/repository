@@ -32,6 +32,15 @@ public class Planet {
     }
     
     /**
+     * Constructs a planet with given coordinates.
+     * @param coords planet's coordinate pair
+     */
+    public Planet(Coordinate coords) {
+        this();
+        this.coords = coords;
+    }
+    
+    /**
      * Constructs a planet with given values.
      * @param name planet's name
      * @param techLevel which tech level planet has
@@ -101,6 +110,21 @@ public class Planet {
     }
     
     /**
+     * Returns the current absolute location.
+     * @return the current absolute location
+     */
+    public Coordinate getAbsoluteLocation() {
+        return new Coordinate(this.parentSolarSystem.getCoords().getX()
+                + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                        * this.coords.getX()/Context.BOUNDARY
+                - Context.MIN_DISTANCE_BETWEEN_PLANETS,
+                this.parentSolarSystem.getCoords().getY()
+                        + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                                * this.coords.getY()/Context.BOUNDARY
+                        - Context.MIN_DISTANCE_BETWEEN_PLANETS);
+    }
+    
+    /**
      * Returns the distance between a planet and another planet.
      * 
      * @param otherPlanet the other planet
@@ -119,6 +143,14 @@ public class Planet {
                         - (otherPlanet.getParentSolarSystem().getCoords().getY()
                                 + ((double)otherPlanet.getCoords().getY() - Context.BOUNDARY/2)
                                         * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2));
+    }
+    
+    /**
+     * Sets the parent solar system.
+     * @param parentSolarSystem parent solar system
+     */
+    public void setParentSolarSystem(SolarSystem parentSolarSystem) {
+        this.parentSolarSystem = parentSolarSystem;
     }
     
     /**

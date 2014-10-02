@@ -18,7 +18,7 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <TextArea fx:id="descriptions" editable="false" layoutX="376.0" layoutY="67.0" prefHeight="214.0" prefWidth="200.0" wrapText="true" />
+            <TextArea fx:id="description" editable="false" layoutX="376.0" layoutY="67.0" prefHeight="214.0" prefWidth="200.0" wrapText="true" />
             <Button fx:id="travelButton" layoutX="476.0" layoutY="332.0" mnemonicParsing="false" onAction="#selectPlanet" prefHeight="43.0" prefWidth="100.0" text="Travel">
                <font>
                   <Font size="18.0" />

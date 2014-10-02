@@ -56,11 +56,23 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void drawSolarSystems() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        //Clears canvas
-        gc.clearRect(0,0,300,300);
+        
+        // Clear canvas
+        gc.clearRect(0, 0, 300, 300);
         
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
-            gc.setFill(Color.RED);
+            Boolean isClose = false;
+            for (Planet planet : solarSystem.getPlanets()) {
+                if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                    < 5*this.player.getShip().getMaxFuelLevel()) {
+                    isClose = true;
+                }
+            }
+            if (isClose) {
+                gc.setFill(Color.GREEN);
+            } else {
+                gc.setFill(Color.RED);
+            }
             gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
         }
         
@@ -70,10 +82,12 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(), 10, 10);
         //draw range circle
         gc.setStroke(Color.BLACK);
-        gc.strokeOval(player.getCurrentPlanet().getParentSolarSystem().getCoords().getX() - 75,
-            player.getCurrentPlanet().getParentSolarSystem().getCoords().getY() - 75,
-            150, 150);
-        
+        gc.strokeOval(player.getAbsoluteLocation().getX()
+                - 5*this.player.getShip().getMaxFuelLevel() + 5,
+                player.getAbsoluteLocation().getY()
+                        - 5*this.player.getShip().getMaxFuelLevel() + 5,
+                10*this.player.getShip().getMaxFuelLevel(),
+                10*this.player.getShip().getMaxFuelLevel());
     }
     
     /**
@@ -84,22 +98,12 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Checks it currently selected system is in travel range
-     * @param system the currently looked at system
-     * @return whether it is in range
-     */
-    public boolean isInRange(SolarSystem system) {
-        //check if ANY planets in this passed in system are in range
-        return true;
-    }
-    
-    /**
      * Checks mouseclicks for if they are on a solar system or not
      * @param event the mouseclick
      */
     public void onMouseClick(MouseEvent event) {
         //shouldnt loop over all solarSystems after it's found the clicked one
-        for (SolarSystem solarSystem : universe.getSolarSystems()) {
+        for (SolarSystem solarSystem : this.universe.getSolarSystems()) {
             if (event.getX() <= solarSystem.getCoords().getX() + 10
                     && event.getX() >= solarSystem.getCoords().getX()
                     && event.getY() <= solarSystem.getCoords().getY() + 10
@@ -116,7 +120,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
-        description.setText("Name: " + solarSystem.getName() + "\n"
+        this.description.setText("Name: " + solarSystem.getName() + "\n"
                 + "Coords: " + solarSystem.getCoords());
     }
     
@@ -126,14 +130,9 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     public void selectSystem() {
         SolarSystem focus = Context.getInstance().getFocus();
         if (focus != null) {
-            if (isInRange(focus)) {
-                System.out.println("Going to " + focus);
-                controller.setScreen("SolarMap");
-            } else {
-                System.out.println("That system is out of range! Please select a closer one.");
-            }
+            this.controller.setScreen("SolarMap");
         } else {
-            System.out.println("Please select a system.");
+            this.description.setText("Please select a system.");
         }
     }
 }

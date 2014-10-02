@@ -4,7 +4,6 @@ public class Player {
     
     private String name;
     private int[] stats;
-    private SolarSystem currentSolar;
     private Planet currentPlanet;
     private int credits;
     private Ship ship;
@@ -139,8 +138,27 @@ public class Player {
         return this.stats[4];
     }
     
+    /**
+     * Returns the current planet.
+     * @return the current planet
+     */
     public Planet getCurrentPlanet() {
         return this.currentPlanet;
+    }
+    
+    /**
+     * Returns the current absolute location.
+     * @return the current absolute location
+     */
+    public Coordinate getAbsoluteLocation() {
+        return new Coordinate(this.currentPlanet.getParentSolarSystem().getCoords().getX()
+                + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                        * this.currentPlanet.getCoords().getX()/Context.BOUNDARY
+                - Context.MIN_DISTANCE_BETWEEN_PLANETS,
+                this.currentPlanet.getParentSolarSystem().getCoords().getY()
+                        + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                                * this.currentPlanet.getCoords().getY()/Context.BOUNDARY
+                        - Context.MIN_DISTANCE_BETWEEN_PLANETS);
     }
     
     /**
