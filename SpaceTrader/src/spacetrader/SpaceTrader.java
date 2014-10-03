@@ -8,16 +8,17 @@ import javafx.stage.Stage;
 public class SpaceTrader extends Application {
 
 /**
-* interface of ControlledScreen
-*/
+ * interface of ControlledScreen
+ */
     public interface ControlledScreen {
         public void setScreenParent(ScreensController screenPage); 
         public void initScreen();
     }
   
 /**
-* Loading the start screen, game screen, character creation, and setting the screen to start screen. 
-*/  
+ * Loading the start screen, game screen, character creation, and setting the screen to start screen. 
+ * @throws java.lang.Exception
+ */
     @Override
     public void start(Stage primaryStage) throws Exception {
         ScreensController mainContainer = new ScreensController();
@@ -37,8 +38,9 @@ public class SpaceTrader extends Application {
     }
     
 /**
-* Main method that JavaFX should never execute.
-*/
+ * Main method that JavaFX should never execute.
+ * @param args
+ */
     public static void main(String[] args) {
         launch(args);
     }

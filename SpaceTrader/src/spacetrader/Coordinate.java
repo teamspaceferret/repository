@@ -1,9 +1,5 @@
 package spacetrader;
 
-/**
- *
- * @author keatts
- */
 public class Coordinate {
     
     private int x, y;
@@ -27,6 +23,16 @@ public class Coordinate {
         this.y = y;
     }
 
+    /**
+     * Returns the distance between the coordinate and another coordinate.
+     * @param otherCoord another coordinate
+     * @return the distance between the coordinate and another coordinate
+     */
+    public double distanceTo(Coordinate otherCoord) {
+        return Math.sqrt(Math.pow(Math.abs(x-otherCoord.getX()), 2)
+                + Math.pow(Math.abs(y-otherCoord.getY()), 2));
+    }
+    
     /**
      * Checks if a coordinate is too close to another coordinate.
      * @param otherCoord the coordinate pair to check against

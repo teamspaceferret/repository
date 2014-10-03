@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package spacetrader;
 
 import java.util.HashMap;
 
-/**
- *
- * @author Cora
- */
 public class Ship {
     public static final HashMap<String,int[]> types = new HashMap<>();
             static{
@@ -21,29 +12,31 @@ public class Ship {
                 types.put("bumblebee",new int[]{25,1,2,2,2,15,5,7,60000,125,15,100,0,1,0,1,2,10});
                 
             }
-    String type;
-    boolean hasEscapePod;
-    HashMap<TradeGood,Integer> cargo;
-    Weapon[] weapons;
-    Shield[] shields;
-    Gadget[] gadgets;
-    Mercenary[] crew;
-    int currentFuelLevel;
-    int minTechLevel;
-    int fuelCost;
-    int price;
-    int bounty;
-    int occurrence;
-    int hullStr;
-    int police,pirate,trader;
-    int repairCost;
-    int size;
-    int range; //the radius of the range bounding circle, potentially
+
+    private String type;
+    private boolean hasEscapePod;
+    private HashMap<TradeGood,Integer> cargo;
+    private Weapon[] weapons;
+    private Shield[] shields;
+    private Gadget[] gadgets;
+    private Mercenary[] crew;
+    private int currentFuelLevel;
+    private int minTechLevel;
+    private int fuelCost;
+    private int price;
+    private int bounty;
+    private int occurrence;
+    private int hullStr;
+    private int police,pirate,trader;
+    private int repairCost;
+    private int size;
+    private int range; //the radius of the range bounding circle, potentially
     
-    int maxFuelLevel;
-    int maxCargoSlots;
-    int usedCargoSlots;
+    private int maxFuelLevel;
+    private int maxCargoSlots;
+    private int usedCargoSlots;
     
+
     /**
      * Creates a ship with the given type and sets up the default stats
      * @param type the type of ship to create
@@ -79,6 +72,8 @@ public class Ship {
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
         usedCargoSlots = 0;
+        System.out.println("USED CARGO SLOTS: " + usedCargoSlots);
+        System.out.println("MAX CARGO SLOTS: " + maxCargoSlots);
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
     }
@@ -127,6 +122,17 @@ public class Ship {
         if(usedCargoSlots == 0){
             return true;
         } else return false;
+    }
+    
+    /**
+     * Gets whether or not the cargo is full
+     * @boolean true if the bay is full, false otherwise
+     */
+    public boolean isCargoFull() {
+        if (usedCargoSlots == maxCargoSlots) {
+            return true;
+        } 
+        return false;
     }
     
     /*
@@ -234,6 +240,26 @@ public class Ship {
      */
     public HashMap<TradeGood,Integer> getCargo(){
         return cargo;
+    }
+    
+    /**
+     * get a clone of the ship's cargo
+     * @return a clone of the ship's cargo bay
+     */
+    public HashMap<TradeGood,Integer> getCargoClone(){
+        HashMap<TradeGood,Integer> clone = new HashMap<>();
+        clone.put(TradeGood.WATER, cargo.get(TradeGood.WATER));
+        clone.put(TradeGood.FOOD, cargo.get(TradeGood.FOOD));
+        clone.put(TradeGood.FURS, cargo.get(TradeGood.FURS));
+        clone.put(TradeGood.FIREARMS, cargo.get(TradeGood.FIREARMS));
+        clone.put(TradeGood.GAMES, cargo.get(TradeGood.GAMES));
+        clone.put(TradeGood.MACHINES, cargo.get(TradeGood.MACHINES));
+        clone.put(TradeGood.MEDICINE, cargo.get(TradeGood.MEDICINE));
+        clone.put(TradeGood.NARCOTICS, cargo.get(TradeGood.NARCOTICS));
+        clone.put(TradeGood.ORE, cargo.get(TradeGood.ORE));
+        clone.put(TradeGood.ROBOTS, cargo.get(TradeGood.ROBOTS));
+        
+        return clone;
     }
     
     /**
@@ -378,6 +404,33 @@ public class Ship {
      */
     public int getRange(){
         return range;
+    }
+    
+    /**
+     * Gets the number of cargo slots currently used
+     * @return number of currently used cargo slots
+     */
+    public int getCurrentUsedCargoSlots(){
+        return usedCargoSlots;
+    }
+    
+    /**
+     * Gets the total number of cargo slots
+     * @return the total number of cargo slots
+     */
+    public int getMaxCargoSlots(){
+        return maxCargoSlots;
+    }
+    
+    /**
+     * Set the ship's cargo bay stock to the given cargo stock
+     * and the used cargo slots to the given number
+     * @param cargoStock the cargo stock to set the ships cargo stock
+     * @param num the number to set the used cargo slots as
+     */
+    public void setCargo(HashMap<TradeGood,Integer> cargoStock, int num){
+        this.cargo = cargoStock;
+        this.usedCargoSlots = num;
     }
     
     //private helper methods:

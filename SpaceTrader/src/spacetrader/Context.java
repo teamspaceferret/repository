@@ -8,10 +8,10 @@ public class Context {
     private final Names names = new Names();
     
     public static final int BOUNDARY = 300;
-    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 30;
+    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 50;
     public static final int MIN_PLANETS_PER_SOLAR_SYSTEM = 4;
     public static final int MAX_PLANETS_PER_SOLAR_SYSTEM = 8;
-    public static final int NUM_SOLAR_SYSTEMS = 30;
+    public static final int NUM_SOLAR_SYSTEMS = 20;
     
     public static final String[] SOLAR_SYSTEM_NAMES = {
         "Acamar", "Adahn", "Aldea", "Andevian", "Antedi", "Balosnee", "Baratas",
@@ -59,6 +59,9 @@ public class Context {
         "Luddite invasion!", "Straight-edge invasion!"
     };
     
+    private SolarSystem focus;
+    private int[] stock = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    
     /**
      * Returns the context instance.
      * @return the context instance
@@ -89,5 +92,33 @@ public class Context {
      */
     public Names getNames() {
         return this.names;
+    }
+    
+    public SolarSystem getFocus() {
+        return this.focus;
+    }
+    
+    /**
+     * Returns the stock.
+     * @return stock
+     */
+    public int[] getStock() {
+        return this.stock;
+    }
+    
+    /**
+     * Set the focus.
+     * @param focus new focus
+     */
+    public void setFocus(SolarSystem focus) {
+        this.focus = focus;
+    }
+    
+    /**
+     * Set the stock.
+     * @param stocks new stock
+     */
+    public void setStock(int[] stocks) {
+        this.stock = stocks;
     }
 }

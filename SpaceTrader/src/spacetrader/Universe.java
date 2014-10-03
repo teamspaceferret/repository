@@ -58,14 +58,6 @@ public class Universe {
     }
     
     /**
-     * Gets the universe's solar systems
-     * @return the array of all solar systems in the universe
-     */
-    public SolarSystem getSolarSystems(int i) {
-        return this.solarSystems[i];
-    }
-    
-    /**
      * Gets the universe's solar system's names
      * @return an array of all solar system names in the universe
      */

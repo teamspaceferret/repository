@@ -83,21 +83,6 @@ public class CharacterCreationController implements ControlledScreen, Initializa
         
     }
     
-    /**
-     * Returns the player, if one has been created.
-     *
-     * @return Created player, null if no player has been created.
-     */
-    
-    public Player getPlayer() {
-        if (player != null) {
-            return player;
-        } else {
-            System.out.println("Player hasn't been created yet.");
-            return player;
-        }
-    }
-    
    /**
      * Initializes the Player object, once all stat points are spent and a
      * name has been entered. Also initializes the Universe object.
@@ -120,11 +105,11 @@ public class CharacterCreationController implements ControlledScreen, Initializa
             // Create player
             Context.getInstance().getPlayer().setName(playerName);
             Context.getInstance().getPlayer().setStats(stats);
+            Context.getInstance().getPlayer().setShip(new Ship("gnat"));
+            
             // Create universe
             Context.getInstance().getUniverse().generateUniverse();
             //Set current location default
-            Context.getInstance().getPlayer().setCurrentSolar(
-                    Context.getInstance().getUniverse().getSolarSystems()[0]);
             Context.getInstance().getPlayer().setCurrentPlanet(
                     Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
             
@@ -171,9 +156,13 @@ public class CharacterCreationController implements ControlledScreen, Initializa
      */
     
     public void setPlayerName() {
-        String tempName = playerName;
-        playerName = nameEntry.getText();
-        if (playerName.length() > 0 && !playerName.equals(tempName)) {
+        String name = nameEntry.getText();
+        if (name.isEmpty()) {
+            descriptions.setText("Your name cannot be empty.");
+        } else if (!name.matches("^[a-zA-Z'-]+")) {
+            descriptions.setText("Your name can only contain letters, dashes, and apostrophes.");
+        } else {
+            playerName = name;
             descriptions.setText("Hello, " + playerName + "!");
         }
     }
@@ -193,7 +182,6 @@ public class CharacterCreationController implements ControlledScreen, Initializa
      */
     public boolean checkTotals() {
         if (pointsRemaining == 0) {
-            System.out.println("You're out of points.");
             return false;
         }
         return true;
@@ -207,7 +195,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementFighterAction() {
         double current = fighterSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             fighterSlider.setValue(current);
             pointsRemaining--;
             current = fighterSlider.getValue();
@@ -227,7 +215,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementTraderAction() {
         double current = traderSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             traderSlider.setValue(current);
             pointsRemaining--;
             current = traderSlider.getValue();
@@ -247,7 +235,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementPilotAction() {
         double current = pilotSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             pilotSlider.setValue(current);
             pointsRemaining--;
             current = pilotSlider.getValue();
@@ -267,7 +255,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementEngineerAction() {
         double current = engineerSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             engineerSlider.setValue(current);
             pointsRemaining--;
             current = engineerSlider.getValue();
@@ -287,7 +275,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
     public void incrementInvestorAction() {
         double current = investorSlider.getValue();
         current += 1;
-        if (checkTotals() && current <= 10) {
+        if (checkTotals() && current <= 5) {
             investorSlider.setValue(current);
             pointsRemaining--;
             current = investorSlider.getValue();

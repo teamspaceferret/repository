@@ -32,21 +32,33 @@ public class Planet {
     }
     
     /**
+     * Constructs a planet with given coordinates.
+     * @param coords planet's coordinate pair
+     */
+    public Planet(Coordinate coords) {
+        this();
+        this.coords = coords;
+    }
+    
+    /**
      * Constructs a planet with given values.
      * @param name planet's name
      * @param techLevel which tech level planet has
      * @param resource which special resource planet has
      * @param govt which government planet has
-     * @param x planet's x coordinate
-     * @param y planet's y coordinate
+     * @param x the x coordinate of the parent
+     * @param y the y coordinate of the parent
+     * @param parentSolarSystem the parent solar system
      */
-    public Planet(String name, int techLevel, Resource resource, int govt, int x, int y) {
+    public Planet(String name, int techLevel, Resource resource, int govt,
+            int x, int y, SolarSystem parentSolarSystem) {
         this();
         this.name = name;
         this.techLevel = techLevel;
         this.resource = resource;
         this.govt = govt;
         this.coords = new Coordinate(x, y);
+        this.parentSolarSystem = parentSolarSystem;
     }
     
     /**
@@ -90,18 +102,55 @@ public class Planet {
     }
     
     /**
+     * Returns the parent solar system.
+     * @return the parent solar system
+     */
+    public SolarSystem getParentSolarSystem() {
+        return this.parentSolarSystem;
+    }
+    
+    /**
+     * Returns the current absolute location.
+     * @return the current absolute location
+     */
+    public Coordinate getAbsoluteLocation() {
+        return new Coordinate(this.parentSolarSystem.getCoords().getX()
+                + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                        * this.coords.getX()/Context.BOUNDARY
+                - Context.MIN_DISTANCE_BETWEEN_PLANETS,
+                this.parentSolarSystem.getCoords().getY()
+                        + Context.MIN_DISTANCE_BETWEEN_PLANETS
+                                * this.coords.getY()/Context.BOUNDARY
+                        - Context.MIN_DISTANCE_BETWEEN_PLANETS);
+    }
+    
+    /**
      * Returns the distance between a planet and another planet.
      * 
      * @param otherPlanet the other planet
      * @return the distance between a planet and another planets
      */
     public double distanceToPlanet(Planet otherPlanet) {
-        return Math.sqrt(Math.pow((this.parentSolarSystem.getCoords().getX()
-                + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
-                        * (this.coords.getX()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2)
-                + Math.pow((this.parentSolarSystem.getCoords().getY()
-                        + (Context.BOUNDARY/(2*Context.MIN_DISTANCE_BETWEEN_PLANETS))
-                                * (this.coords.getY()-Context.MIN_DISTANCE_BETWEEN_PLANETS)), 2));
+        return Math.sqrt(Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getX()
+                + (this.getCoords().getX() - (double)Context.BOUNDARY/2)
+                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                - (otherPlanet.getParentSolarSystem().getCoords().getX()
+                        + ((double)otherPlanet.getCoords().getX() - Context.BOUNDARY/2)
+                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2)
+                + Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getY()
+                        + (this.getCoords().getY() - (double)Context.BOUNDARY/2)
+                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                        - (otherPlanet.getParentSolarSystem().getCoords().getY()
+                                + ((double)otherPlanet.getCoords().getY() - Context.BOUNDARY/2)
+                                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2));
+    }
+    
+    /**
+     * Sets the parent solar system.
+     * @param parentSolarSystem parent solar system
+     */
+    public void setParentSolarSystem(SolarSystem parentSolarSystem) {
+        this.parentSolarSystem = parentSolarSystem;
     }
     
     /**

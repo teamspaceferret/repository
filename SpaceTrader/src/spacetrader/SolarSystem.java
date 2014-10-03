@@ -1,6 +1,5 @@
 package spacetrader;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class SolarSystem {
@@ -17,14 +16,10 @@ public class SolarSystem {
     }
     
     /**
-     * Constructs a solar system with the given name.
-     * @param name name of the solar system
+     * Constructs a solar system with the given x and y coordinates.
+     * @param x the given x coordinate
+     * @param y the given y coordinate
      */
-    public SolarSystem(String name) {
-        this();
-        this.name = name;
-    }
-    
     public SolarSystem(int x, int y) {
         this();
         this.coords = new Coordinate(x, y);
@@ -73,7 +68,7 @@ public class SolarSystem {
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     rand.nextInt(Context.GOVERNMENTS.length),
-                    planetCoords[i].getX(), planetCoords[i].getY());
+                    planetCoords[i].getX(), planetCoords[i].getY(), this);
         }
     }
     
@@ -116,11 +111,6 @@ public class SolarSystem {
      */
     @Override
     public String toString() {
-        String string = "";
-        for (int i = 0; i < this.planets.length; i++) {
-            string += "    " + this.planets[i].toString() + "\n";
-        }
-        
-        return string;
+        return "Solar System \"" + this.name + "\" at " + this.coords;
     }
 }
