@@ -44,4 +44,10 @@ public class SpaceTrader extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+    @Override
+    public void stop(){
+        //shutdown the sound threads
+        Context.getInstance().getSoundManager().shutdown();
+    }
 }

@@ -1,7 +1,10 @@
 package spacetrader;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.Initializable;
 import spacetrader.SpaceTrader.ControlledScreen;
 
@@ -22,7 +25,9 @@ public class StartScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
-        
+        //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
+        Context.getInstance().getSoundManager().loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
+        Context.getInstance().getSoundManager().playBackgroundMusic("OpenInitial");
     }
     
     /**

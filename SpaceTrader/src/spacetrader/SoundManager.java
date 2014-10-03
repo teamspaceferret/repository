@@ -5,12 +5,14 @@
  */
 package spacetrader;
 
+import java.net.MalformedURLException;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class SoundManager {
@@ -38,23 +40,41 @@ public class SoundManager {
         soundEffectsMap.put(id, soundEffect);
     }
     
-    public void loadBackgroundSound(String id, URL url){
-        AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
-        backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-        backgroundMusicMap.put(id, backgroundMusic);
+    public void loadBackgroundMusic(String id, String path){
+        try {
+            URL url = new URL(path);
+            AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
+            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+            backgroundMusicMap.put(id, backgroundMusic);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(SoundManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void playSoundEffect(String id){
-        soundEffectsMap.get(id).play(volumeSE);
+        Runnable sePlay = new Runnable(){
+            @Override
+            public void run(){
+                soundEffectsMap.get(id).play(volumeSE);
+            }
+        };
+        soundPool.execute(sePlay);
     }
     
     public void playBackgroundMusic(String id){
-        backgroundMusicMap.get(id).setCycleCount(AudioClip.INDEFINITE);
-        backgroundMusicMap.get(id).play(volumeBG);
+        //backgroundMusicMap.get(id).setCycleCount(AudioClip.INDEFINITE);
+        Runnable bgPlay = new Runnable(){
+            @Override
+            public void run(){
+                backgroundMusicMap.get(id).play(volumeBG);
+            }
+        };
+        soundPool.execute(bgPlay);
     }
     
     public void playBackgroundWithIntro(String introID, String loopID){
-        backgroundMusicMap.get(introID).play(volumeBG);
+        backgroundMusicMap.get(introID).setCycleCount(1);
+        playBackgroundMusic(introID);
         while(backgroundMusicMap.get(introID).isPlaying()){
             //wait weeeee
         }
@@ -96,9 +116,10 @@ public class SoundManager {
     }
     */
     
-    
-    
-    
-    
-    
+    /**
+     * stop all threads and media players
+     */
+    public void shutdown(){
+        soundPool.shutdown();
+    } 
 }

@@ -7,6 +7,8 @@ public class Context {
     private final Universe universe = new Universe();
     private final Names names = new Names();
     
+    private final SoundManager soundManager = new SoundManager(6);
+    
     public static final int BOUNDARY = 300;
     public static final int MIN_DISTANCE_BETWEEN_PLANETS = 50;
     public static final int MIN_PLANETS_PER_SOLAR_SYSTEM = 4;
@@ -107,6 +109,14 @@ public class Context {
     }
     
     /**
+     * returns the sound manager
+     * @return soundManager
+     */
+    public SoundManager getSoundManager(){
+        return this.soundManager;
+    }
+    
+    /**
      * Set the focus.
      * @param focus new focus
      */
@@ -121,4 +131,5 @@ public class Context {
     public void setStock(int[] stocks) {
         this.stock = stocks;
     }
+    
 }
