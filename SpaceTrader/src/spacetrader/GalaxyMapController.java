@@ -38,7 +38,9 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         drawSolarSystems();
-        currentFuel();
+        this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
+        setDescription(player.getCurrentPlanet().getParentSolarSystem());
+        Context.getInstance().setFocus(player.getCurrentPlanet().getParentSolarSystem());
     }
     
     /**
@@ -88,13 +90,6 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                         - 5*this.player.getShip().getMaxFuelLevel() + 5,
                 10*this.player.getShip().getMaxFuelLevel(),
                 10*this.player.getShip().getMaxFuelLevel());
-    }
-    
-    /**
-     * Sets the current available fuel value to be displayed
-     */
-    public void currentFuel() {
-        fuelLabel.setText("Fuel: "); //add fuel value here!
     }
     
     /**

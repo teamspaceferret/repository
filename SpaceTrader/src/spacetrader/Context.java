@@ -6,6 +6,7 @@ public class Context {
     private final Player player = new Player();
     private final Universe universe = new Universe();
     private final Names names = new Names();
+   
     
     public static final int BOUNDARY = 300;
     public static final int MIN_DISTANCE_BETWEEN_PLANETS = 50;
