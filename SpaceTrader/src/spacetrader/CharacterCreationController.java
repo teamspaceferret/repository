@@ -70,7 +70,7 @@ public class CharacterCreationController implements ControlledScreen, Initializa
      */
     @Override
     public void initScreen() {
-        
+
     }
     
     /**
@@ -134,15 +134,15 @@ public class CharacterCreationController implements ControlledScreen, Initializa
         controller.setScreen("StartScreen");
         playerName = "";
         nameEntry.clear();
-        investorField.clear();
+        investorField.setText("0");
         investorSlider.setValue(0);
-        pilotField.clear();
+        pilotField.setText("0");
         pilotSlider.setValue(0);
-        traderField.clear();
+        traderField.setText("0");
         traderSlider.setValue(0);
-        fighterField.clear();
+        fighterField.setText("0");
         fighterSlider.setValue(0);
-        engineerField.clear();
+        engineerField.setText("0");
         engineerSlider.setValue(0);
         descriptions.clear();
         pointsRemaining = 15;
