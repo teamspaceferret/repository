@@ -35,20 +35,19 @@ public class SoundManager {
         volumeSE = 1;
     }
     
-    public void loadSoundEffect(String id, URL url){
+    public void loadSoundEffect(String id, String path){
+        URL url = getClass().getResource(path);
         AudioClip soundEffect = new AudioClip(url.toExternalForm());
         soundEffectsMap.put(id, soundEffect);
     }
     
     public void loadBackgroundMusic(String id, String path){
-        try {
-            URL url = new URL(path);
+        
+            URL url = getClass().getResource(path);
             AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
             backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
             backgroundMusicMap.put(id, backgroundMusic);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(SoundManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     
     public void playSoundEffect(String id){
@@ -74,13 +73,18 @@ public class SoundManager {
     
     public void playBackgroundWithIntro(String introID, String loopID){
         backgroundMusicMap.get(introID).setCycleCount(1);
+        System.out.println("Playing intro");
         playBackgroundMusic(introID);
-        while(backgroundMusicMap.get(introID).isPlaying()){
-            //wait weeeee
-        }
-        playBackgroundMusic(loopID);   
+        System.out.println(backgroundMusicMap.get(introID).isPlaying());
+        //somehow have it wait for it to finish before playing next part
+        
+        //System.out.println("Playing loop");
+        //playBackgroundMusic(loopID);   
     }
     
+    public AudioClip getBackgroundMusic(String id){
+        return backgroundMusicMap.get(id);
+    }
     /*
     public void muteBG(){
         //loop through all BG and do not play??

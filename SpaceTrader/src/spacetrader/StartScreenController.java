@@ -26,8 +26,22 @@ public class StartScreenController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
-        Context.getInstance().getSoundManager().loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
-        Context.getInstance().getSoundManager().playBackgroundMusic("OpenInitial");
+        if(Context.getInstance().getSoundManager().getBackgroundMusic("OpenLoop") != null){
+            if(Context.getInstance().getSoundManager().getBackgroundMusic("OpenLoop").isPlaying()){
+                
+            } else {
+                
+                Context.getInstance().getSoundManager().playBackgroundMusic("OpenLoop");
+            }
+        } else {
+            Context.getInstance().getSoundManager().loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
+            Context.getInstance().getSoundManager().loadBackgroundMusic("OpenLoop", "resources/OpenLoop.wav");
+            //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
+            Context.getInstance().getSoundManager().playBackgroundMusic("OpenLoop");
+        }
+        
+        
+        //loop isn't perfect transition. Fix that.
     }
     
     /**
