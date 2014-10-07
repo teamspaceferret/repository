@@ -6,6 +6,7 @@ public class Context {
     private final Player player = new Player();
     private final Universe universe = new Universe();
     private final Names names = new Names();
+   
     
     private final SoundManager soundManager = new SoundManager(6);
     

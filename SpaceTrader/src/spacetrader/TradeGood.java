@@ -59,8 +59,8 @@ public enum TradeGood {
     }
     
     /**
-     *
-     * @return
+     * Calculates market prices for each good
+     * @return the final price
      */
     public int calcMarketPrice() {
         //basePrice + (IPL * (Planet tech level - MTLP)) + (variance)
@@ -88,7 +88,7 @@ public enum TradeGood {
         int finalPrice = (int)price;
         if (player.getTrader() > 0) {
             int discountedPrice = (finalPrice-(player.getTrader()));
-            System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
+            //System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
             return discountedPrice;
         } else {
             return finalPrice;
