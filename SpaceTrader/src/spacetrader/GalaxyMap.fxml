@@ -28,7 +28,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="324.0" layoutX="24.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="32.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="310.0" />
       <Canvas fx:id="canvas" height="310.0" layoutX="32.0" layoutY="74.0" onMouseClicked="#onMouseClick" width="310.0" />
    </children>
 </AnchorPane>
