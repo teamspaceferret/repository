@@ -42,6 +42,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
+        selectedPlanet = player.getCurrentPlanet();
+        setDescription(player.getCurrentPlanet());
     }
     
     /**

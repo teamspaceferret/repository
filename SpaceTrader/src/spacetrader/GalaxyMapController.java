@@ -60,7 +60,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         // Clear canvas
-        gc.clearRect(0, 0, 300, 300);
+        gc.clearRect(0, 0, 310, 310);
         
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
             Boolean isClose = false;
@@ -113,13 +113,15 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
+        String string = "Name: "
+                + solarSystem.getName() + "\n"
+                + "Coords: " + solarSystem.getCoords();
+        
         if (solarSystem.equals(player.getCurrentPlanet().getParentSolarSystem())) {
-            this.description.setText("Name: " + solarSystem.getName() + "\n"
-                + "Coords: " + solarSystem.getCoords() + "\n" + "Current solar system");
-        } else {
-        this.description.setText("Name: " + solarSystem.getName() + "\n"
-                + "Coords: " + solarSystem.getCoords());
+            string += "\nCurrent solar system";
         }
+        
+        description.setText(string);
     }
     
     /**
