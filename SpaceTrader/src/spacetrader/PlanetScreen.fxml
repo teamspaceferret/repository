@@ -11,29 +11,29 @@
    <children>
       <AnchorPane id="AnchorPane" layoutX="4.0" layoutY="5.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane id="AnchorPane" layoutX="3.0" prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
                <children>
                   <Label fx:id="planetName" layoutX="24.0" layoutY="24.0">
                      <font>
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <Button fx:id="marketButton" layoutX="432.0" layoutY="74.0" mnemonicParsing="false" onAction="#marketAction" prefHeight="49.0" prefWidth="106.0" text="Market">
+                  <Button fx:id="marketButton" layoutX="432.0" layoutY="74.0" mnemonicParsing="false" onAction="#marketAction" prefHeight="45.0" prefWidth="105.0" text="Market">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="backButton" layoutX="432.0" layoutY="303.0" mnemonicParsing="false" onAction="#backAction" prefHeight="43.0" prefWidth="106.0" text="Back">
+                  <Button fx:id="backButton" layoutX="432.0" layoutY="303.0" mnemonicParsing="false" onAction="#backAction" prefHeight="45.0" prefWidth="105.0" text="Back">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="saveButton" layoutX="432.0" layoutY="247.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="106.0" text="Save">
+                  <Button fx:id="saveButton" layoutX="432.0" layoutY="247.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="105.0" text="Save">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="shipyardButton" layoutX="432.0" layoutY="130.0" mnemonicParsing="false" onAction="#shipyardAction" prefHeight="49.0" prefWidth="106.0" text="Shipyard">
+                  <Button fx:id="shipyardButton" layoutX="432.0" layoutY="130.0" mnemonicParsing="false" onAction="#shipyardAction" prefHeight="45.0" prefWidth="105.0" text="Shipyard">
                      <font>
                         <Font size="18.0" />
                      </font>

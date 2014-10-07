@@ -17,13 +17,13 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <TextArea fx:id="description" editable="false" layoutX="376.0" layoutY="67.0" prefHeight="214.0" prefWidth="200.0" wrapText="true" />
-      <Button fx:id="travelButton" layoutX="423.0" layoutY="337.0" mnemonicParsing="false" onAction="#selectSystem" prefHeight="49.0" prefWidth="106.0" text="Select">
+      <TextArea fx:id="description" editable="false" layoutX="376.0" layoutY="74.0" prefHeight="207.0" prefWidth="200.0" wrapText="true" />
+      <Button fx:id="travelButton" layoutX="423.0" layoutY="335.0" mnemonicParsing="false" onAction="#selectSystem" prefHeight="45.0" prefWidth="105.0" text="Select">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="fuelLabel" layoutX="423.0" layoutY="295.0" text="Fuel: ">
+      <Label fx:id="fuelLabel" layoutX="439.0" layoutY="295.0" text="Fuel: ">
          <font>
             <Font size="16.0" />
          </font>
