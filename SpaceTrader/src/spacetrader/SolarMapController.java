@@ -42,6 +42,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
+        selectedPlanet = player.getCurrentPlanet();
+        setDescription(player.getCurrentPlanet());
     }
     
     /**
@@ -82,12 +84,6 @@ public class SolarMapController implements ControlledScreen, Initializable {
         }
     }
     
-    /**
-     * Sets the current available fuel value to be displayed
-     */
-    public void currentFuel() {
-        fuelLabel.setText("Fuel: 1000"); //add fuel value here!
-    }
     
     /**
      * Checks mouseclicks for if they are on a planet or not
@@ -110,10 +106,18 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
-        description.setText("Name: " + planet.getName() + "\n"
+        if (planet.equals(player.getCurrentPlanet())) {
+            description.setText("Name: " + planet.getName() + "\n"
+                + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
+                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
+                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet)
+                + "\n" + "Current planet");
+        } else {
+            description.setText("Name: " + planet.getName() + "\n"
                 + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
                 + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
                 + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet));
+        }
     }
     
     /**
@@ -127,6 +131,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
         } else {
             this.player.getShip().subtractFuel(2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet));
             this.player.setCurrentPlanet(this.selectedPlanet);
+            //setPrices();
+            //random events happen on the planet you go to
             this.controller.setScreen("PlanetScreen");
         }
     }

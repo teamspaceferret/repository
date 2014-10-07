@@ -79,6 +79,75 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
+     * Initializes the controller class.
+     * @param location
+     * @param resources 
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+    }
+    
+    /**
+     * Initializes the screen.
+     */
+    @Override
+    public void initScreen() {
+        startCredits = Context.getInstance().getPlayer().getCredits();
+        startCargo = Context.getInstance().getPlayer().getShip().getCurrentUsedCargoSlots();
+        currentCredits();
+        currentCargo();
+        setPrices();
+        //set playersGood to the amount they currently have
+        //set tradersGood to the amount they currently have, or to "No trade" if thats true
+        //display the prices for each good via their price Label
+        playersWater.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER)));
+        waterSlider.setValue((int)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER));
+        waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
+        tradersWater.setText(String.valueOf(calcStock(TradeGood.WATER)));
+        playersFur.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS)));
+        furSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS));
+        tradersFur.setText(String.valueOf(calcStock(TradeGood.FURS)));
+        furPrice.setText(String.valueOf(stockPrices.get(TradeGood.FURS)));
+        playersFood.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD)));
+        foodSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD));
+        tradersFood.setText(String.valueOf(calcStock(TradeGood.FOOD)));
+        foodPrice.setText(String.valueOf(stockPrices.get(TradeGood.FOOD)));
+        playersOre.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE)));
+        oreSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE));
+        tradersOre.setText(String.valueOf(calcStock(TradeGood.ORE)));
+        orePrice.setText(String.valueOf(stockPrices.get(TradeGood.ORE)));
+        playersGames.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES)));
+        gameSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES));
+        tradersGames.setText(String.valueOf(calcStock(TradeGood.GAMES)));
+        gamesPrice.setText(String.valueOf(stockPrices.get(TradeGood.GAMES)));
+        playersFirearms.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS)));
+        firearmSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS));
+        tradersFirearms.setText(String.valueOf(calcStock(TradeGood.FIREARMS)));
+        firearmsPrice.setText(String.valueOf(stockPrices.get(TradeGood.FIREARMS)));
+        playersMed.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE)));
+        medicineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE));
+        tradersMed.setText(String.valueOf(calcStock(TradeGood.MEDICINE)));
+        medPrice.setText(String.valueOf(stockPrices.get(TradeGood.MEDICINE)));
+        playersMachines.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES)));
+        machineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES));
+        tradersMachines.setText(String.valueOf(calcStock(TradeGood.MACHINES)));
+        machinesPrice.setText(String.valueOf(stockPrices.get(TradeGood.MACHINES)));
+        playersNarcotics.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS)));
+        narcoticSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS));
+        tradersNarcotics.setText(String.valueOf(calcStock(TradeGood.NARCOTICS)));
+        narcoticsPrice.setText(String.valueOf(stockPrices.get(TradeGood.NARCOTICS)));
+        playersRobots.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS)));
+        robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
+        tradersRobots.setText(String.valueOf(calcStock(TradeGood.ROBOTS)));
+        robotsPrice.setText(String.valueOf(stockPrices.get(TradeGood.ROBOTS)));
+        Context.getInstance().setStock(stockGoods);
+        currentCargo();
+        
+        startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
+    }
+    
+    /**
      * Determine how many of each goods this planet stocks.
      * 
      * @param good type of good being stocked
@@ -144,7 +213,10 @@ public class MarketController implements ControlledScreen, Initializable {
         System.out.println("games: " + rand);
     }
     
-    private void setPrices(){
+    /**
+     * Set the prices of the market
+     */
+    public void setPrices(){
         stockPrices.put(TradeGood.WATER, TradeGood.WATER.calcMarketPrice());
         stockPrices.put(TradeGood.FURS, TradeGood.FURS.calcMarketPrice());
         stockPrices.put(TradeGood.FIREARMS, TradeGood.FIREARMS.calcMarketPrice());
@@ -155,76 +227,6 @@ public class MarketController implements ControlledScreen, Initializable {
         stockPrices.put(TradeGood.MEDICINE, TradeGood.MEDICINE.calcMarketPrice());
         stockPrices.put(TradeGood.ORE, TradeGood.ORE.calcMarketPrice());
         stockPrices.put(TradeGood.MACHINES, TradeGood.MACHINES.calcMarketPrice());
-        
-    }
-    
-    /**
-     * Initializes the screen.
-     */
-    @Override
-    public void initScreen() {
-        startCredits = Context.getInstance().getPlayer().getCredits();
-        startCargo = Context.getInstance().getPlayer().getShip().getCurrentUsedCargoSlots();
-        currentCredits();
-        currentCargo();
-        //cargoUp();
-        setPrices();
-        //set playersGood to the amount they currently have
-        //set tradersGood to the amount they currently have, or to "No trade" if thats true
-        //display the prices for each good via their price Label
-        playersWater.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER)));
-        waterSlider.setValue((int)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER));
-        waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
-        tradersWater.setText(String.valueOf(calcStock(TradeGood.WATER)));
-        playersFur.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS)));
-        furSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS));
-        tradersFur.setText(String.valueOf(calcStock(TradeGood.FURS)));
-        furPrice.setText(String.valueOf(stockPrices.get(TradeGood.FURS)));
-        playersFood.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD)));
-        foodSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD));
-        tradersFood.setText(String.valueOf(calcStock(TradeGood.FOOD)));
-        foodPrice.setText(String.valueOf(stockPrices.get(TradeGood.FOOD)));
-        playersOre.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE)));
-        oreSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE));
-        tradersOre.setText(String.valueOf(calcStock(TradeGood.ORE)));
-        orePrice.setText(String.valueOf(stockPrices.get(TradeGood.ORE)));
-        playersGames.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES)));
-        gameSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES));
-        tradersGames.setText(String.valueOf(calcStock(TradeGood.GAMES)));
-        gamesPrice.setText(String.valueOf(stockPrices.get(TradeGood.GAMES)));
-        playersFirearms.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS)));
-        firearmSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS));
-        tradersFirearms.setText(String.valueOf(calcStock(TradeGood.FIREARMS)));
-        firearmsPrice.setText(String.valueOf(stockPrices.get(TradeGood.FIREARMS)));
-        playersMed.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE)));
-        medicineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE));
-        tradersMed.setText(String.valueOf(calcStock(TradeGood.MEDICINE)));
-        medPrice.setText(String.valueOf(stockPrices.get(TradeGood.MEDICINE)));
-        playersMachines.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES)));
-        machineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES));
-        tradersMachines.setText(String.valueOf(calcStock(TradeGood.MACHINES)));
-        machinesPrice.setText(String.valueOf(stockPrices.get(TradeGood.MACHINES)));
-        playersNarcotics.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS)));
-        narcoticSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS));
-        tradersNarcotics.setText(String.valueOf(calcStock(TradeGood.NARCOTICS)));
-        narcoticsPrice.setText(String.valueOf(stockPrices.get(TradeGood.NARCOTICS)));
-        playersRobots.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS)));
-        robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
-        tradersRobots.setText(String.valueOf(calcStock(TradeGood.ROBOTS)));
-        robotsPrice.setText(String.valueOf(stockPrices.get(TradeGood.ROBOTS)));
-        Context.getInstance().setStock(stockGoods);
-        currentCargo();
-        
-        startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
-    }
-    
-    /**
-     * Initializes the controller class.
-     * @param location
-     * @param resources 
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
         
     }
     
