@@ -10,6 +10,8 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
     @FXML private Button marketButton;
+    @FXML private Button shipyardButton;
+    @FXML private Button saveButton;
     @FXML private Button backButton;
     @FXML private Label planetName;
     
@@ -49,6 +51,14 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     public void marketAction() {
         controller.setScreen("Market");
+    }
+    
+    /**
+     * Travels to the market
+     */
+    public void shipyardAction() {
+        player.getShip().addFuel(100);
+        //controller.setScreen("Shipyard");
     }
     
     /**

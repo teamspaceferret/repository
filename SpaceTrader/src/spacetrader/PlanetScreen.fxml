@@ -18,12 +18,22 @@
                         <Font size="29.0" />
                      </font>
                   </Label>
-                  <Button fx:id="marketButton" layoutX="432.0" layoutY="176.0" mnemonicParsing="false" onAction="#marketAction" prefHeight="49.0" prefWidth="106.0" text="Market">
+                  <Button fx:id="marketButton" layoutX="432.0" layoutY="74.0" mnemonicParsing="false" onAction="#marketAction" prefHeight="49.0" prefWidth="106.0" text="Market">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="backButton" layoutX="432.0" layoutY="284.0" mnemonicParsing="false" onAction="#backAction" prefHeight="43.0" prefWidth="106.0" text="Back">
+                  <Button fx:id="backButton" layoutX="432.0" layoutY="303.0" mnemonicParsing="false" onAction="#backAction" prefHeight="43.0" prefWidth="106.0" text="Back">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="saveButton" layoutX="432.0" layoutY="247.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="106.0" text="Save">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="shipyardButton" layoutX="432.0" layoutY="130.0" mnemonicParsing="false" onAction="#shipyardAction" prefHeight="49.0" prefWidth="106.0" text="Shipyard">
                      <font>
                         <Font size="18.0" />
                      </font>
