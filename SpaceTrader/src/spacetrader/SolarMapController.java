@@ -42,8 +42,6 @@ public class SolarMapController implements ControlledScreen, Initializable {
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
-        selectedPlanet = player.getCurrentPlanet();
-        setDescription(player.getCurrentPlanet());
     }
     
     /**
@@ -68,7 +66,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         
         for (Planet planet : solarSystem.getPlanets()) {
             if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                    < this.player.getShip().getFuelLevel()) {
+                    < 0.5*this.player.getShip().getFuelLevel()) {
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
@@ -106,18 +104,16 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
+        String string = "Name: " + planet.getName() + "\n"
+                + "Coords: " + planet.getCoords() + "\n"
+                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
+                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet);
+        
         if (planet.equals(player.getCurrentPlanet())) {
-            description.setText("Name: " + planet.getName() + "\n"
-                + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
-                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
-                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet)
-                + "\n" + "Current planet");
-        } else {
-            description.setText("Name: " + planet.getName() + "\n"
-                + "Coords: " + this.player.getCurrentPlanet().getCoords() + "\n"
-                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
-                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet));
+            string += "\nCurrent planet";
         }
+        
+        description.setText(string);
     }
     
     /**
@@ -126,6 +122,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
     public void selectPlanet() {
         if (this.selectedPlanet == null) {
             this.description.setText("Please select a planet.");
+        } else if (this.player.getShip().getRange() <= 2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet)) {
+            this.description.setText(this.selectedPlanet.getName() + "is too further away than your ship's maximum range.");
         } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet)) {
             this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
         } else {

@@ -66,7 +66,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             Boolean isClose = false;
             for (Planet planet : solarSystem.getPlanets()) {
                 if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                    < this.player.getShip().getFuelLevel()) {
+                    < 0.5*this.player.getShip().getFuelLevel()) {
                     isClose = true;
                 }
             }
