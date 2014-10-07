@@ -67,6 +67,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         for (Planet planet : solarSystem.getPlanets()) {
             if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
                     < 0.5*this.player.getShip().getFuelLevel()) {
+                System.out.println(player.getShip().getFuelLevel());
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
@@ -106,8 +107,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
     public void setDescription(Planet planet) {
         String string = "Name: " + planet.getName() + "\n"
                 + "Coords: " + planet.getCoords() + "\n"
-                + "Distance: " + (int)this.player.getCurrentPlanet().distanceToPlanet(planet) + "\n"
-                + "Fuel required: " + 2*(int)this.player.getCurrentPlanet().distanceToPlanet(planet);
+                + "Distance: " + (int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()) + "\n"
+                + "Fuel required: " + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation());
         
         if (planet.equals(player.getCurrentPlanet())) {
             string += "\nCurrent planet";
