@@ -115,8 +115,13 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
+        if (solarSystem.equals(player.getCurrentPlanet().getParentSolarSystem())) {
+            this.description.setText("Name: " + solarSystem.getName() + "\n"
+                + "Coords: " + solarSystem.getCoords() + "\n" + "Current solar system");
+        } else {
         this.description.setText("Name: " + solarSystem.getName() + "\n"
                 + "Coords: " + solarSystem.getCoords());
+        }
     }
     
     /**
