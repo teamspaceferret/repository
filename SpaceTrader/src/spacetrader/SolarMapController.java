@@ -22,7 +22,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
-    Planet selectedPlanet;
+    Planet selectedPlanet, lastPlanetTraveledTo;
     
     /**
      * Set the screen parent.
@@ -131,7 +131,13 @@ public class SolarMapController implements ControlledScreen, Initializable {
             this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
         } else {
             this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation()));
+            lastPlanetTraveledTo = this.player.getCurrentPlanet();
             this.player.setCurrentPlanet(this.selectedPlanet);
+            if (!lastPlanetTraveledTo.equals(this.player.getCurrentPlanet()) || (this.player.getCurrentPlanet().getName().equals("Noobville") 
+                    && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
+                this.player.getCurrentPlanet().getMarket().setPrices();
+                this.player.getCurrentPlanet().getMarket().updateStock();
+            }           
             //setPrices();
             //random events happen on the planet you go to
             this.controller.setScreen("PlanetScreen");

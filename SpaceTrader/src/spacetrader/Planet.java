@@ -8,6 +8,7 @@ public class Planet {
     private int govt;
     private Event event;
     private SolarSystem parentSolarSystem;
+    private Market market;
     
     /**
      * Constructs a planet with default values.
@@ -19,6 +20,7 @@ public class Planet {
         this.resource = Resource.NOSPECIALRESOURCES;
         this.govt = 0;
         this.event = Event.NONE;
+        this.market = new Market(this);
     }
     
     /**
@@ -173,5 +175,20 @@ public class Planet {
                 + Context.GOVERNMENTS[govt] + ", and event "
                 + event.getName();
         return string;
+    }
+    
+    public Market getMarket() {
+        return market;
+    }
+    
+    public boolean equals(Planet other) {
+        if (other.getAbsoluteLocation().getX() == this.getAbsoluteLocation().getX()) {
+            if (other.getAbsoluteLocation().getY() == this.getAbsoluteLocation().getY()) {
+                if (other.getName().equals(this.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
