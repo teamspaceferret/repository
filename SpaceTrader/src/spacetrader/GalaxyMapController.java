@@ -64,7 +64,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             Boolean isClose = false;
             for (Planet planet : solarSystem.getPlanets()) {
                 if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                    < 5*this.player.getShip().getFuelLevel()) {
+                    < this.player.getShip().getFuelLevel()) {
                     isClose = true;
                 }
             }
@@ -82,12 +82,10 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(), 10, 10);
         //draw range circle
         gc.setStroke(Color.BLACK);
-        gc.strokeOval(player.getAbsoluteLocation().getX()
-                - 5*this.player.getShip().getMaxFuelLevel() + 5,
-                player.getAbsoluteLocation().getY()
-                        - 5*this.player.getShip().getMaxFuelLevel() + 5,
-                10*this.player.getShip().getMaxFuelLevel(),
-                10*this.player.getShip().getMaxFuelLevel());
+        gc.strokeOval(player.getAbsoluteLocation().getX(),
+                player.getAbsoluteLocation().getY(),
+                this.player.getShip().getRange(),
+                this.player.getShip().getRange());
     }
     
     /**

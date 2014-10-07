@@ -146,6 +146,14 @@ public class Planet {
     }
     
     /**
+     * Sets the planet name.
+     * @param name planet name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
      * Sets the parent solar system.
      * @param parentSolarSystem parent solar system
      */
