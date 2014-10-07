@@ -97,8 +97,7 @@ public class MarketController implements ControlledScreen, Initializable {
         startCargo = Context.getInstance().getPlayer().getShip().getCurrentUsedCargoSlots();
         currentCredits();
         currentCargo();
-        //cargoUp();
-        //setPrices();
+        setPrices();
         //set playersGood to the amount they currently have
         //set tradersGood to the amount they currently have, or to "No trade" if thats true
         //display the prices for each good via their price Label
@@ -214,6 +213,9 @@ public class MarketController implements ControlledScreen, Initializable {
         System.out.println("games: " + rand);
     }
     
+    /**
+     * Set the prices of the market
+     */
     public void setPrices(){
         stockPrices.put(TradeGood.WATER, TradeGood.WATER.calcMarketPrice());
         stockPrices.put(TradeGood.FURS, TradeGood.FURS.calcMarketPrice());
