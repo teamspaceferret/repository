@@ -125,12 +125,12 @@ public class SolarMapController implements ControlledScreen, Initializable {
     public void selectPlanet() {
         if (this.selectedPlanet == null) {
             this.description.setText("Please select a planet.");
-        } else if (this.player.getShip().getRange() <= 2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet)) {
+        } else if (this.player.getShip().getRange() <= 2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
             this.description.setText(this.selectedPlanet.getName() + "is too further away than your ship's maximum range.");
-        } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet)) {
+        } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
             this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
         } else {
-            this.player.getShip().subtractFuel(2*(int)this.player.getCurrentPlanet().distanceToPlanet(this.selectedPlanet));
+            this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation()));
             this.player.setCurrentPlanet(this.selectedPlanet);
             //setPrices();
             //random events happen on the planet you go to
