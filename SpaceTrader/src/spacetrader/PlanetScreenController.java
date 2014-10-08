@@ -9,10 +9,7 @@ import javafx.scene.control.Label;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
-    @FXML private Button marketButton;
-    @FXML private Button shipyardButton;
-    @FXML private Button saveButton;
-    @FXML private Button backButton;
+    @FXML private Button backButton, marketButton, saveButton, shipyardButton;
     @FXML private Label planetName;
     
     ScreensController controller;
@@ -47,24 +44,23 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Travels to the market
+     * Transitions back to the solar system map screen.
+     */
+    public void backAction() {
+        controller.setScreen("SolarMap");
+    }
+    
+    /**
+     * Transitions to the market screen.
      */
     public void marketAction() {
         controller.setScreen("Market");
     }
     
     /**
-     * Travels to the market
+     * Transitions to the ship yard screen.
      */
     public void shipyardAction() {
-        player.getShip().addFuel(100);
         //controller.setScreen("Shipyard");
-    }
-    
-    /**
-     * Travels back to the solar system map
-     */
-    public void backAction() {
-        controller.setScreen("SolarMap");
     }
 }

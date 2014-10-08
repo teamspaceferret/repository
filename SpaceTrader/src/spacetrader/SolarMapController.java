@@ -15,14 +15,13 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class SolarMapController implements ControlledScreen, Initializable {
     @FXML private Button travelButton;
+    @FXML private Canvas canvas;
     @FXML private Label fuelLabel;
     @FXML private TextArea description;
-    @FXML private Canvas canvas;
     
     ScreensController controller;
-    Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
-    Planet selectedPlanet, lastPlanetTraveledTo;
+    Planet selectedPlanet;
     
     /**
      * Set the screen parent.
@@ -39,7 +38,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         drawPlanets();
-        this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
+        this.fuelLabel.setText("Fuel: "
+                + String.valueOf(this.player.getShip().getFuelLevel()));
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
         selectedPlanet = player.getCurrentPlanet();
@@ -57,7 +57,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     }
         
     /**
-     * Draws current solar systems on galaxy map
+     * Draws the current solar systems on solar map.
      */
     public void drawPlanets() {
         SolarSystem solarSystem = Context.getInstance().getFocus();
@@ -74,11 +74,12 @@ public class SolarMapController implements ControlledScreen, Initializable {
             } else {
                 gc.setFill(Color.RED);
             }
-            gc.fillOval(planet.getCoords().getX(), planet.getCoords().getY(), 10, 10);
+            gc.fillOval(planet.getCoords().getX(), planet.getCoords().getY(),
+                    10, 10);
         }
              
         // Draw current planet in gold
-        if (player.getCurrentPlanet().getParentSolarSystem() == solarSystem) {
+        if (player.getCurrentPlanet().getParentSolarSystem().equals(solarSystem)) {
             gc.setFill(Color.GOLD);
             gc.fillOval(player.getCurrentPlanet().getCoords().getX(), 
                 player.getCurrentPlanet().getCoords().getY(), 10, 10);
@@ -87,8 +88,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
     
     
     /**
-     * Checks mouseclicks for if they are on a planet or not
-     * @param event the mouseclick
+     * Checks if the user clicked a planet.
+     * @param event click event
      */
     public void onMouseClick(MouseEvent event) {
         for (Planet planet : Context.getInstance().getFocus().getPlanets()) {
@@ -103,24 +104,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Sets the text field to describe the selected planet
-     * @param planet the planet being described
-     */
-    public void setDescription(Planet planet) {
-        String string = "Name: " + planet.getName() + "\n"
-                + "Coords: " + planet.getCoords() + "\n"
-                + "Distance: " + (int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()) + "\n"
-                + "Fuel required: " + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation());
-        
-        if (planet.equals(player.getCurrentPlanet())) {
-            string += "\nCurrent planet";
-        }
-        
-        description.setText(string);
-    }
-    
-    /**
-     * Travels to the currently selected planet
+     * TODO
      */
     public void selectPlanet() {
         if (this.selectedPlanet == null) {
@@ -130,24 +114,54 @@ public class SolarMapController implements ControlledScreen, Initializable {
         } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
             this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
         } else {
-            this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation()));
-            lastPlanetTraveledTo = this.player.getCurrentPlanet();
-            this.player.setCurrentPlanet(this.selectedPlanet);
-            if (!lastPlanetTraveledTo.equals(this.player.getCurrentPlanet()) || (this.player.getCurrentPlanet().getName().equals("Noobville") 
-                    && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
-                this.player.getCurrentPlanet().getMarket().setPrices();
-                this.player.getCurrentPlanet().getMarket().updateStock();
-            }           
-            
-            //setPrices();
-            //random events happen on the planet you go to
-            
-            this.controller.setScreen("PlanetScreen");
+            travelToPlanet(selectedPlanet);
         }
     }
     
     /**
-     * Go back to the galaxy map
+     * Sets the text field to describe the selected planet.
+     * @param planet the planet being described
+     */
+    public void setDescription(Planet planet) {
+        String string = "Name: " + planet.getName() + "\nCoords: "
+                + planet.getCoords() + "\nDistance: "
+                + (int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                + "\nFuel required: "
+                + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation());
+        
+        if (planet.equals(player.getCurrentPlanet())) {
+            string += "\nCurrent planet";
+        }
+        
+        description.setText(string);
+    }
+    
+    /**
+     * Travels to the given planet.
+     * @param planet destination planet
+     */
+    public void travelToPlanet(Planet planet) {
+        if (this.player.getCurrentPlanet().equals(planet)) {
+            
+        }
+        this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
+        Planet lastPlanetTraveledTo = this.player.getCurrentPlanet();
+        this.player.setCurrentPlanet(planet);
+        if (!lastPlanetTraveledTo.equals(this.player.getCurrentPlanet())
+                || (this.player.getCurrentPlanet().getName().equals("Noobville") 
+                && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
+            this.player.getCurrentPlanet().getMarket().setPrices();
+            this.player.getCurrentPlanet().getMarket().updateStock();
+        }           
+
+        //setPrices();
+        //random events happen on the planet you go to
+
+        this.controller.setScreen("PlanetScreen");
+    }
+    
+    /**
+     * Transitions to the galaxy map screen.
      */
     public void backAction() {
         controller.setScreen("GalaxyMap");

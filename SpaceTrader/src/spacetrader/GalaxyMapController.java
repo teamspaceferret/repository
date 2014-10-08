@@ -15,9 +15,9 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Button travelButton;
+    @FXML private Canvas canvas;
     @FXML private Label fuelLabel;
     @FXML private TextArea description;
-    @FXML private Canvas canvas;
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
@@ -70,19 +70,24 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                     isClose = true;
                 }
             }
+            
             if (isClose) {
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
             }
-            gc.fillOval(solarSystem.getCoords().getX(), solarSystem.getCoords().getY(), 10, 10);
+            
+            gc.fillOval(solarSystem.getCoords().getX(),
+                    solarSystem.getCoords().getY(), 10, 10);
         }
         
-        //draw current system in gold
+        // Draw current system in gold
         gc.setFill(Color.GOLD);
         gc.fillOval(player.getCurrentPlanet().getParentSolarSystem().getCoords().getX(), 
-            player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(), 10, 10);
-        //draw range circle
+            player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(),
+            10, 10);
+        
+        // Draw range circle
         gc.setStroke(Color.BLACK);
         gc.strokeOval(player.getAbsoluteLocation().getX(),
                 player.getAbsoluteLocation().getY(),
@@ -91,8 +96,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Checks mouseclicks for if they are on a solar system or not
-     * @param event the mouseclick
+     * Checks if the user clicked a solar system.
+     * @param event click event
      */
     public void onMouseClick(MouseEvent event) {
         //shouldnt loop over all solarSystems after it's found the clicked one
@@ -108,14 +113,13 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Sets the text field to describe the selected solar system
+     * Sets the text field to describe the selected solar system.
      * @param solarSystem the system being described
      */
     public void setDescription(SolarSystem solarSystem) {
         //draw indicator of currently selected one
-        String string = "Name: "
-                + solarSystem.getName() + "\n"
-                + "Coords: " + solarSystem.getCoords();
+        String string = "Name: " + solarSystem.getName() + "\nCoords: "
+                + solarSystem.getCoords();
         
         if (solarSystem.equals(player.getCurrentPlanet().getParentSolarSystem())) {
             string += "\nCurrent solar system";

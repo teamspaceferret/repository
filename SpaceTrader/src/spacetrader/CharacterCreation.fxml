@@ -67,7 +67,7 @@
       <Slider id="traderSlider" fx:id="traderSlider" blockIncrement="1.0" layoutX="430.0" layoutY="41.0" max="5.0" visible="false" />
       <Slider id="fighterSlider" fx:id="pilotSlider" blockIncrement="1.0" layoutX="430.0" layoutY="61.0" max="5.0" visible="false" />
       <Slider id="engineerSlider" fx:id="engineerSlider" blockIncrement="1.0" layoutX="430.0" layoutY="81.0" max="5.0" visible="false" />
-      <Label fx:id="pointsRemainingGUI" layoutX="473.0" layoutY="20.0" text="Points remaining: 15" />
+      <Label fx:id="pointsLabel" layoutX="473.0" layoutY="20.0" text="Points remaining: 15" />
       <Button fx:id="investorButton" layoutX="333.0" layoutY="42.0" mnemonicParsing="false" onAction="#investorDescriptionAction" prefHeight="25.0" prefWidth="127.0" text="Investor">
          <font>
             <Font size="24.0" />
