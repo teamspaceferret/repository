@@ -156,6 +156,14 @@ public class Planet {
     }
     
     /**
+     * Sets the planet event.
+     * @param event event
+     */
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+    
+    /**
      * Sets the parent solar system.
      * @param parentSolarSystem parent solar system
      */
