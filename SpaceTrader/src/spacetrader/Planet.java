@@ -148,11 +148,27 @@ public class Planet {
     }
     
     /**
+     * Returns true if a planet is too close to another planet.
+     * @param otherPlanet the other planet
+     * @return true if the planets are too close
+     */
+    public boolean istooCloseTo(Planet otherPlanet) {
+        return Math.abs(this.coords.getX() - otherPlanet.getCoords().getX())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS
+                && Math.abs(this.coords.getX() - otherPlanet.getCoords().getY())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS;
+    }
+    
+    /**
      * Sets the planet name.
      * @param name planet name
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
     }
     
     /**

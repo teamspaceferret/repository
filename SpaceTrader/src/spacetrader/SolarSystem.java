@@ -30,8 +30,14 @@ public class SolarSystem {
      * Then randomizes each planet in the solar system.
      */
     public void generateSolarSystem() {
+        boolean tooClose;
+        Coordinate newCoord;
+        Coordinate planetCoords[];
         Random rand = new Random();
+        Planet dummyPlanet = new Planet();
+        Planet dummyOtherPlanet = new Planet();
         
+        planetCoords = new Coordinate[this.planets.length]; 
         this.name = Context.getInstance().getNames().getRandomName();
         
         int numPlanets = rand.nextInt(Context.MAX_PLANETS_PER_SOLAR_SYSTEM
@@ -40,19 +46,17 @@ public class SolarSystem {
         
         this.planets = new Planet[numPlanets];
         
-        // Generate random coordiantes that aren't too close
-        Coordinate planetCoords[] = new Coordinate[this.planets.length]; 
         for (int i = 0; i < this.planets.length; i++) {
-            boolean tooClose;
-            Coordinate newCoord;
             do {
                 tooClose = false;
                 newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
                         rand.nextInt(Context.BOUNDARY));
+                dummyPlanet.setCoords(newCoord);
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        if (newCoord.istooCloseTo(planetCoords[j])) {
+                        dummyOtherPlanet.setCoords(planetCoords[j]);
+                        if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
                             tooClose = true;
                         }
                     }
