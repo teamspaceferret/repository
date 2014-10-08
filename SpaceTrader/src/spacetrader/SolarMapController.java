@@ -138,8 +138,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
                 this.player.getCurrentPlanet().getMarket().setPrices();
                 this.player.getCurrentPlanet().getMarket().updateStock();
             }           
+            
             //setPrices();
             //random events happen on the planet you go to
+            
             this.controller.setScreen("PlanetScreen");
         }
     }

@@ -232,8 +232,6 @@ public class Ship {
         return cargo.get(item);
     }
     
-    
-    //Getters
     /**
      * Gets the ship's cargo bay
      * @return ship's cargo
@@ -448,5 +446,20 @@ public class Ship {
         cargo.put(TradeGood.ROBOTS, NUM);
         cargo.put(TradeGood.WATER, NUM);
     }
+    
+    private class Gadget {
         
+    }
+    
+    private class Mercenary {
+        
+    }
+    
+    private class Shield {
+        
+    }
+    
+    private class Weapon {
+        
+    }
 }
