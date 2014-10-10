@@ -31,8 +31,8 @@ public class MarketController implements ControlledScreen, Initializable {
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();   
-    Ship ship = this.player.getShip();
-    int startCredits, startCargo;
+    Ship ship = Context.getInstance().getPlayer().getShip();
+    int startCredits, startCargo = 0;
     static int[] stockGoods = new int[10];
     HashMap<TradeGood, Integer> stockPrices = new HashMap<>();
     HashMap<TradeGood, Integer> startCargoStock;
@@ -62,6 +62,9 @@ public class MarketController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         startCredits = this.player.getCredits();
+        System.out.println("this.player: " + this.player + "\n");
+        System.out.println("this.ship: " + this.ship + "\n");
+        System.out.println("this.ship.getCurrentUsedCargoSlots(): " + this.ship.getCurrentUsedCargoSlots());
         startCargo = this.ship.getCurrentUsedCargoSlots();
         currentCredits();
         currentCargo();

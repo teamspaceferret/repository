@@ -153,10 +153,10 @@ public class Planet {
      * @return true if the planets are too close
      */
     public boolean istooCloseTo(Planet otherPlanet) {
-        return Math.abs(this.coords.getX() - otherPlanet.getCoords().getX())
-                < Context.MIN_DISTANCE_BETWEEN_PLANETS
-                && Math.abs(this.coords.getX() - otherPlanet.getCoords().getY())
-                < Context.MIN_DISTANCE_BETWEEN_PLANETS;
+        return (Math.abs(this.coords.getX() - otherPlanet.getCoords().getX())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS)
+                || (Math.abs(this.coords.getY() - otherPlanet.getCoords().getY())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS);
     }
     
     /**

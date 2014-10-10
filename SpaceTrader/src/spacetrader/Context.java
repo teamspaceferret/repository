@@ -9,10 +9,10 @@ public class Context {
    
     
     public static final int BOUNDARY = 300;
-    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 50;
+    public static final int MIN_DISTANCE_BETWEEN_PLANETS = 15;
     public static final int MIN_PLANETS_PER_SOLAR_SYSTEM = 4;
     public static final int MAX_PLANETS_PER_SOLAR_SYSTEM = 8;
-    public static final int NUM_SOLAR_SYSTEMS = 20;
+    public static final int NUM_SOLAR_SYSTEMS = 10;
     
     public static final String[] SOLAR_SYSTEM_NAMES = {
         "Acamar", "Adahn", "Aldea", "Andevian", "Antedi", "Balosnee", "Baratas",

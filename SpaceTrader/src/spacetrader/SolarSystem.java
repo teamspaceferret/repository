@@ -37,7 +37,6 @@ public class SolarSystem {
         Planet dummyPlanet = new Planet();
         Planet dummyOtherPlanet = new Planet();
         
-        planetCoords = new Coordinate[this.planets.length]; 
         this.name = Context.getInstance().getNames().getRandomName();
         
         int numPlanets = rand.nextInt(Context.MAX_PLANETS_PER_SOLAR_SYSTEM
@@ -45,6 +44,7 @@ public class SolarSystem {
                 + Context.MIN_PLANETS_PER_SOLAR_SYSTEM;
         
         this.planets = new Planet[numPlanets];
+        planetCoords = new Coordinate[this.planets.length]; 
         
         for (int i = 0; i < this.planets.length; i++) {
             do {

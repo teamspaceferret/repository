@@ -23,8 +23,8 @@ public class Universe {
         Planet dummyPlanet = new Planet();
         Planet dummyOtherPlanet = new Planet();
         
-        solarSystemCoords = new Coordinate[this.solarSystems.length];
         this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
+        solarSystemCoords = new Coordinate[this.solarSystems.length];
         
         for (int i = 0; i < this.solarSystems.length; i++) {
             do {
@@ -36,6 +36,7 @@ public class Universe {
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
                         dummyOtherPlanet.setCoords(solarSystemCoords[j]);
+                        
                         if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
                             tooClose = true;
                         }
