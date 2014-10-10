@@ -42,14 +42,13 @@ public class Ship {
      * @param type the type of ship to create
      */
     public Ship(String type){
-        type = type.toLowerCase();
-        this.type = type;
+        this.type = type.toLowerCase();
         if(type.equals("flea")){
             hasEscapePod = true;
         } else {
             hasEscapePod = false;
         }
-        int [] stats = types.get(type);
+        int[] stats = types.get(type);
         cargo = new HashMap<>();
         weapons = new Weapon[stats[1]];
         shields = new Shield[stats[2]];
@@ -72,8 +71,6 @@ public class Ship {
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
         usedCargoSlots = 0;
-        System.out.println("USED CARGO SLOTS: " + usedCargoSlots);
-        System.out.println("MAX CARGO SLOTS: " + maxCargoSlots);
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
     }

@@ -69,7 +69,6 @@ public class SolarMapController implements ControlledScreen, Initializable {
         for (Planet planet : solarSystem.getPlanets()) {
             if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
                     < 0.5*this.player.getShip().getFuelLevel()) {
-                System.out.println(player.getShip().getFuelLevel());
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
