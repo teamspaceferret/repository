@@ -64,7 +64,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         // Clear canvas
-        gc.clearRect(0, 0, 300, 300);
+        gc.clearRect(0, 0, 310, 310);
         
         for (Planet planet : solarSystem.getPlanets()) {
             if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
@@ -126,7 +126,15 @@ public class SolarMapController implements ControlledScreen, Initializable {
                 + planet.getCoords() + "\nDistance: "
                 + (int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
                 + "\nFuel required: "
-                + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation());
+                + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                + "\n" + "Tech level: " + Context.TECH_LEVELS[(planet.getTechLevel())] + "\n"
+                + "Government: " + planet.getGovernment().getName() + "\n"
+                + "Police: " + planet.getGovernment().getPolice()
+                + " Pirates: " + planet.getGovernment().getPirate()                
+                + " Traders: " + planet.getGovernment().getTrader() + "\n"
+                + "Resources: " + planet.getResource().getName() + "\n"
+                + "Event: " + planet.getEvent().getName() + "\n";
+
         
         if (planet.equals(player.getCurrentPlanet())) {
             string += "\nCurrent planet";

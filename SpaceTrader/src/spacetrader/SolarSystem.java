@@ -71,7 +71,7 @@ public class SolarSystem {
             this.planets[i] = new Planet(Context.getInstance().getNames().getRandomName(),
                     rand.nextInt(Context.TECH_LEVELS.length),
                     Resource.NOSPECIALRESOURCES.randomResource(),
-                    rand.nextInt(Context.GOVERNMENTS.length),
+                    Government.ANARCHY.randomGovernment(),
                     planetCoords[i].getX(), planetCoords[i].getY(), this);
         }
     }
