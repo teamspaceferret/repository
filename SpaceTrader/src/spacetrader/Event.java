@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 public enum Event {
-    NONE("None", -1), DROUGHT("Drought", 0), COLD("Cold", 1), WAR("War", 2),
-    BOREDOM("Boredom", 3), PLAGUE("Plague", 4),
-    LACKOFWORKERS("Lack of workers", 5), CRIMEWAVE("Crime wave", 6),
-    STRIKE("Strike", 7), MANYHUNTERS("Many hunters", 8),
+    NONE("Nothing", -1), DROUGHT("A drought", 0), COLD("Cold", 1), WAR("War", 2),
+    BOREDOM("Boredom", 3), PLAGUE("A plague", 4),
+    LACKOFWORKERS("Lack of workers", 5), CRIMEWAVE("A crime wave", 6),
+    STRIKE("A strike", 7), MANYHUNTERS("Many hunters", 8),
     CROPFAIL("Crop failure", 9), HARVEST("Harvest season", 10),
-    POLICE("High police presence", 11), LUDDITES("Luddite invasion!", 12),
-    STRAIGHTEDGE("Straight-edge invasion!", 13);
+    POLICE("High police presence", 11), LUDDITES("A luddite invasion", 12),
+    STRAIGHTEDGE("A straight-edge invasion", 13);
     
     private static final Random rand = new Random();
     private static final List<Event> VALUES = Arrays.asList(values());

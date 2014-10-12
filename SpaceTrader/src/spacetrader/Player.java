@@ -5,6 +5,7 @@ public class Player {
     private String name;
     private int[] stats;
     private Planet currentPlanet;
+    private Planet previousPlanet;
     private int credits;
     private Ship ship;
     
@@ -147,6 +148,14 @@ public class Player {
     }
     
     /**
+     * Returns the previous planet.
+     * @return the previous planet
+     */
+    public Planet getPreviousPlanet() {
+        return this.previousPlanet;
+    }
+    
+    /**
      * Returns the current absolute location.
      * @return the current absolute location
      */
@@ -183,6 +192,14 @@ public class Player {
      */
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
+    }
+    
+    /**
+     * Sets the previously visited planet
+     * @param planet the previous planet
+     */
+    public void setPreviousPlanet(Planet planet) {
+        previousPlanet = planet;
     }
     
     /**

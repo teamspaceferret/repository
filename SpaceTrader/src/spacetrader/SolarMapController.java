@@ -151,10 +151,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
         if (this.player.getCurrentPlanet().equals(planet)) {
             
         }
-        //this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
-        Planet lastPlanetTraveledTo = this.player.getCurrentPlanet();
+        this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
+        this.player.setPreviousPlanet(this.player.getCurrentPlanet());
         this.player.setCurrentPlanet(planet);
-        if (!lastPlanetTraveledTo.equals(this.player.getCurrentPlanet())
+        if (!this.player.getPreviousPlanet().equals(this.player.getCurrentPlanet())
                 || (this.player.getCurrentPlanet().getName().equals("Noobville") 
                 && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
             this.player.getCurrentPlanet().getMarket().setPrices();
@@ -162,16 +162,14 @@ public class SolarMapController implements ControlledScreen, Initializable {
         }           
 
         //random events happen on the planet you go to, only if changing planets
-        if (this.player.getCurrentPlanet().equals(lastPlanetTraveledTo)) {
+        if (this.player.getCurrentPlanet().equals(this.player.getPreviousPlanet())) {
             //dont do anything, you are already here
-            System.out.println("I was just here");
             this.controller.setScreen("PlanetScreen");
-        } else if (!(this.player.getCurrentPlanet().equals(lastPlanetTraveledTo))) {
+        } else if (!(this.player.getCurrentPlanet().equals(this.player.getPreviousPlanet()))) {
             //a random event happens!
             //1/3 encounters
             //this.controller.setScreen("Encounter");
             //2/3 random things
-            System.out.println("TRAVEL EVENT");
             this.controller.setScreen("TravelEvent");
         }
     }

@@ -18,7 +18,7 @@ public enum TravelEvent {
     CARGOWIN("Cargo discovered", 4, "You find a crate of supplies floating in space. It appears undamaged "
             + "and is filled with games. \n\n"),
     CREDITWIN("You won the lottery!", 5, "You won the galactic scratch-off lottery! \n\n"),
-    PRICEINCREASE("Radical price increase", 6, "An event happens to radically increase a price! Do this later.");
+    PRICEINCREASE("Radical price increase", 6, "");
     
     private static final Random rand = new Random();
     private static final List<TravelEvent> VALUES = Arrays.asList(values());
@@ -40,6 +40,8 @@ public enum TravelEvent {
      * @return the text representation of what happened during the event
      */
     public String randomTravelEvent() {
+        //set last planet's events to NONE, since they only last 1 turn
+        player.getPreviousPlanet().setEvent(Event.NONE);
         TravelEvent selected = VALUES.get(rand.nextInt(VALUES.size()));
         //edit a copy of the base text, adding on the random effects to be printed
         String eventText = selected.TEXT;
@@ -120,17 +122,15 @@ public enum TravelEvent {
             player.addCredits(100);
             eventText += "You gain 100 credits.";
         } else if (selected.ID == 6) {
-            
-            
-            
-            
-            
-            eventText += "No but seriously, do this later.";
-            
-            
-            
-            
-            
+            eventText += "Something is happening now on " + player.getCurrentPlanet().getName() + "! \n\n";
+            player.getCurrentPlanet().setEvent(Event.NONE.randomEvent());
+            if (player.getCurrentPlanet().getEvent().equals(Event.NONE)) {
+                eventText += "No, wait. Nevermind. It looks like nothing of interest is happening after all."
+                        + "What a boring place.";
+            } else {
+                eventText += player.getCurrentPlanet().getEvent().getName() + 
+                    " is causing drastic price increases in some goods, but it isn't likely to last very long.";
+            }
         }
         //return appropriately editted text
         return eventText;
