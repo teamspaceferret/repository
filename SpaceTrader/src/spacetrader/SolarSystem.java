@@ -68,10 +68,11 @@ public class SolarSystem {
         
         // Create all the planets
         for (int i = 0; i < planetCoords.length; i++) {
+            int techLevel = rand.nextInt(Context.TECH_LEVELS.length);
             this.planets[i] = new Planet(Context.getInstance().getNames().getRandomName(),
-                    rand.nextInt(Context.TECH_LEVELS.length),
+                    techLevel,
                     Resource.NOSPECIALRESOURCES.randomResource(),
-                    Government.ANARCHY.randomGovernment(),
+                    Government.ANARCHY.randomGovernment(techLevel),
                     planetCoords[i].getX(), planetCoords[i].getY(), this);
         }
     }

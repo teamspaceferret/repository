@@ -35,7 +35,10 @@ public enum Government {
      * Returns a random resource.
      * @return a random resource
      */
-    public Government randomGovernment() {
+    public Government randomGovernment(int techLevel) {
+        
+        
+        
         return VALUES.get(rand.nextInt(VALUES.size()));
     }
     
