@@ -1,6 +1,7 @@
 package spacetrader;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +17,6 @@ public enum Government {
     TECHNOCRACY("Technocracy", 15, 4, 1, 5), THEOCRACY("Theocracy", 16, 5, 1, 4),;
     
     private static final Random rand = new Random();
-    private static final List<Government> VALUES = Arrays.asList(values());
     private final String NAME;
     private final int ID;
     private final int POLICE;
@@ -32,14 +32,66 @@ public enum Government {
     }
     
     /**
-     * Returns a random resource.
-     * @return a random resource
+     * Returns a random government, based partially on tech level.
+     * @return a random government appropriate to the tech level
      */
     public Government randomGovernment(int techLevel) {
-        
-        
-        
-        return VALUES.get(rand.nextInt(VALUES.size()));
+        //governments OK for any tech level added to the list initially
+        List<Government> GOVTS = new LinkedList<Government>(Arrays.asList(CAPITALIST,
+                COMMUNIST, CONFEDERACY, DEMOCRACY, DICTATORSHIP, PACIFIST, SATORI));
+        //more specific ones are added here
+        if (techLevel == 7) {
+            GOVTS.add(CYBERNETIC);
+            GOVTS.add(FACIST);
+            GOVTS.add(MILITARY);
+            GOVTS.add(TECHNOCRACY);
+            GOVTS.add(CORPORATE);
+        } else if (techLevel == 6) {
+            GOVTS.add(FACIST);
+            GOVTS.add(MILITARY);
+            GOVTS.add(TECHNOCRACY);
+            GOVTS.add(CORPORATE);
+        } else if (techLevel == 5) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FACIST);
+            GOVTS.add(MILITARY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(TECHNOCRACY);
+            GOVTS.add(CORPORATE);
+        } else if (techLevel == 4) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FACIST);
+            GOVTS.add(MILITARY);
+            GOVTS.add(MONARCHY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(CORPORATE);
+        } else if (techLevel == 3) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FEUDAL);
+            GOVTS.add(MILITARY);
+            GOVTS.add(MONARCHY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(THEOCRACY);
+        } else if (techLevel == 2) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FEUDAL);
+            GOVTS.add(MONARCHY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(THEOCRACY);
+        } else if (techLevel == 1) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FEUDAL);
+            GOVTS.add(MONARCHY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(THEOCRACY);
+        } else if (techLevel == 0) {
+            GOVTS.add(ANARCHY);
+            GOVTS.add(FEUDAL);
+            GOVTS.add(MONARCHY);
+            GOVTS.add(SOCIALIST);
+            GOVTS.add(THEOCRACY);
+        }        
+        return GOVTS.get(rand.nextInt(GOVTS.size()));
     }
     
     /**
