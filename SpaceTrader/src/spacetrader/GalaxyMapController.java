@@ -122,7 +122,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                 + solarSystem.getCoords();
         
         if (solarSystem.equals(player.getCurrentPlanet().getParentSolarSystem())) {
-            string += "\nCurrent solar system";
+            string += "\n\nCurrent solar system";
         }
         
         description.setText(string);
