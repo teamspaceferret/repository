@@ -34,16 +34,6 @@ public class Coordinate {
     }
     
     /**
-     * Checks if a coordinate is too close to another coordinate.
-     * @param otherCoord the coordinate pair to check against
-     * @return true if the coordinate pairs are too close
-     */
-    public boolean istooCloseTo(Coordinate otherCoord) {
-        return Math.abs(this.x - otherCoord.getX()) < Context.MIN_DISTANCE_BETWEEN_PLANETS
-                && Math.abs(this.y - otherCoord.getY()) < Context.MIN_DISTANCE_BETWEEN_PLANETS;
-    }
-    
-    /**
      * Returns the x coordinate.
      * @return the x coordinate
      */

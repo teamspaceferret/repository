@@ -17,7 +17,7 @@ public enum TradeGood {
     ROBOTS(6, 4, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000, 9);
     
     /**
-     * TradeGoods have many parameters.
+     * TradeGoods have many parameters, most of them influence price in some way.
      * 
      * @param MTLB minimum tech level to buy this resource
      * @param MTLS minimum tech level to sell this resource
@@ -63,9 +63,6 @@ public enum TradeGood {
      * @return the final price
      */
     public int calcMarketPrice() {
-        //basePrice + (IPL * (Planet tech level - MTLP)) + (variance)
-        //need to add planet tech level to this equation when the player has a
-        //"currentPlanet" variable etc, plus commented stuff
         Random r = new Random();
         double price = 0;
         if (player.getCurrentPlanet() != null) {
@@ -83,11 +80,10 @@ public enum TradeGood {
         } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.ER)) {
             price *= .85;
         }
-        //if current event = IE, 25% increase in price
-        //if current event = DE, 25% decrease in price
+        price *= (1.0 + ((double)Context.getInstance().getPlayer().getTrader() / 50.0));
         int finalPrice = (int)price;
         if (player.getTrader() > 0) {
-            int discountedPrice = (finalPrice-(player.getTrader()));
+            int discountedPrice = (int)(price-( (price)*((double)player.getTrader())/100.0) );
             //System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
             return discountedPrice;
         } else {
@@ -96,30 +92,50 @@ public enum TradeGood {
     }
     
     /**
-     *
-     * @return
+     * calculates price when buying/selling with a random trader
+     * @return trader price
      */
     public int calcTraderPrice() {
         Random r = new Random();
         return RTL + r.nextInt(RTH - RTL);
     }
     
+    /**
+     * get increase event
+     * @return increase event
+     */
     public Event getIE() {
         return IE;
     }
     
+    /**
+     * get decrease event
+     * @return decrease event
+     */
     public Event getDE() {
         return DE;
     }
     
+    /**
+     * get low price modifier resource
+     * @return low price mod resource
+     */
     public Resource getCR() {
         return CR;
     }
     
+    /**
+     * get high price modifier resource
+     * @return high price mod resource
+     */
     public Resource getER() {
         return ER;
     }
     
+    /**
+     * get good ID
+     * @return good ID
+     */
     public int getID() {
         return ID;
     }
@@ -130,5 +146,34 @@ public enum TradeGood {
     
     public int getMTLS(){
         return MTLS;
+    }
+    
+    public static TradeGood getGoodFromID(int id) {
+        TradeGood good = null;
+        switch(id) {
+            case 0: good = WATER;
+                    break;
+            case 1: good = FURS;
+                    break;
+            case 2: good = FOOD;
+                    break;
+            case 3: good = ORE;
+                    break;
+            case 4: good = GAMES;
+                    break;
+            case 5: good = FIREARMS;
+                    break;
+            case 6: good = MEDICINE;
+                    break;
+            case 7: good = MACHINES;
+                    break;
+            case 8: good = NARCOTICS;
+                    break;
+            case 9: good = ROBOTS;
+                    break;
+            default: System.out.println("you supplied a bad ID, returns null");
+                    break;
+        }
+        return good;     
     }
 }

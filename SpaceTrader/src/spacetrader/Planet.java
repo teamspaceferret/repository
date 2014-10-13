@@ -5,9 +5,10 @@ public class Planet {
     private Coordinate coords;
     private int techLevel;
     private Resource resource;
-    private int govt;
+    private Government govt;
     private Event event;
     private SolarSystem parentSolarSystem;
+    private Market market;
     
     /**
      * Constructs a planet with default values.
@@ -17,8 +18,9 @@ public class Planet {
         this.coords = new Coordinate();
         this.techLevel = 0;
         this.resource = Resource.NOSPECIALRESOURCES;
-        this.govt = 0;
+        this.govt = Government.ANARCHY;
         this.event = Event.NONE;
+        this.market = new Market(this);
     }
     
     /**
@@ -50,7 +52,7 @@ public class Planet {
      * @param y the y coordinate of the parent
      * @param parentSolarSystem the parent solar system
      */
-    public Planet(String name, int techLevel, Resource resource, int govt,
+    public Planet(String name, int techLevel, Resource resource, Government govt,
             int x, int y, SolarSystem parentSolarSystem) {
         this();
         this.name = name;
@@ -91,6 +93,14 @@ public class Planet {
      */
     public Resource getResource() {
         return this.resource;
+    }
+
+    /**
+     * Returns the resources of the planet.
+     * @return the resources of the planet
+     */
+    public Government getGovernment() {
+        return this.govt;
     }
     
     /**
@@ -146,11 +156,35 @@ public class Planet {
     }
     
     /**
+     * Returns true if a planet is too close to another planet.
+     * @param otherPlanet the other planet
+     * @return true if the planets are too close
+     */
+    public boolean istooCloseTo(Planet otherPlanet) {
+        return (Math.abs(this.coords.getX() - otherPlanet.getCoords().getX())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS)
+                || (Math.abs(this.coords.getY() - otherPlanet.getCoords().getY())
+                < Context.MIN_DISTANCE_BETWEEN_PLANETS);
+    }
+    
+    /**
      * Sets the planet name.
      * @param name planet name
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
+    }
+    
+    /**
+     * Sets the planet event.
+     * @param event event
+     */
+    public void setEvent(Event event) {
+        this.event = event;
     }
     
     /**
@@ -170,8 +204,23 @@ public class Planet {
         String string = this.name + " at " + this.coords + " with techLevel "
                 + Context.TECH_LEVELS[techLevel] + ", resource "
                 + resource.getName() + ", govt "
-                + Context.GOVERNMENTS[govt] + ", and event "
+                + govt.getName() + ", and event "
                 + event.getName();
         return string;
+    }
+    
+    public Market getMarket() {
+        return market;
+    }
+    
+    public boolean equals(Planet other) {
+        if (other.getAbsoluteLocation().getX() == this.getAbsoluteLocation().getX()) {
+            if (other.getAbsoluteLocation().getY() == this.getAbsoluteLocation().getY()) {
+                if (other.getName().equals(this.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

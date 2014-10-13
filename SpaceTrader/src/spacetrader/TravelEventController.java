@@ -2,15 +2,15 @@ package spacetrader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import spacetrader.SpaceTrader.ControlledScreen;
 
-public class PlanetScreenController implements ControlledScreen, Initializable {
-    @FXML private Button backButton, marketButton, saveButton, shipyardButton;
-    @FXML private Label planetName;
+public class TravelEventController implements ControlledScreen, Initializable {
+    @FXML private Button travelButton;
+    @FXML private TextArea description;
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
@@ -30,7 +30,8 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
-        planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
+        //display flavor text of the chosen event
+        description.setText(randomEvent());
     }
     
     /**
@@ -44,23 +45,18 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Transitions back to the solar system map screen.
+     * Selects a random event to happen; effects applied in randomTravelEvent()
+     * @return the text output by what occurred during the event
      */
-    public void backAction() {
-        controller.setScreen("SolarMap");
+    public String randomEvent() {
+        return TravelEvent.NONE.randomTravelEvent();
     }
     
     /**
-     * Transitions to the market screen.
+     * Continues to the planet.
      */
-    public void marketAction() {
-        controller.setScreen("Market");
+    public void continueAction() {
+        controller.setScreen("PlanetScreen");
     }
     
-    /**
-     * Transitions to the ship yard screen.
-     */
-    public void shipyardAction() {
-        //controller.setScreen("Shipyard");
-    }
 }

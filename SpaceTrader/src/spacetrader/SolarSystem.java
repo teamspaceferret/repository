@@ -30,7 +30,12 @@ public class SolarSystem {
      * Then randomizes each planet in the solar system.
      */
     public void generateSolarSystem() {
+        boolean tooClose;
+        Coordinate newCoord;
+        Coordinate planetCoords[];
         Random rand = new Random();
+        Planet dummyPlanet = new Planet();
+        Planet dummyOtherPlanet = new Planet();
         
         this.name = Context.getInstance().getNames().getRandomName();
         
@@ -39,20 +44,19 @@ public class SolarSystem {
                 + Context.MIN_PLANETS_PER_SOLAR_SYSTEM;
         
         this.planets = new Planet[numPlanets];
+        planetCoords = new Coordinate[this.planets.length]; 
         
-        // Generate random coordiantes that aren't too close
-        Coordinate planetCoords[] = new Coordinate[this.planets.length]; 
         for (int i = 0; i < this.planets.length; i++) {
-            boolean tooClose;
-            Coordinate newCoord;
             do {
                 tooClose = false;
                 newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
                         rand.nextInt(Context.BOUNDARY));
+                dummyPlanet.setCoords(newCoord);
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        if (newCoord.istooCloseTo(planetCoords[j])) {
+                        dummyOtherPlanet.setCoords(planetCoords[j]);
+                        if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
                             tooClose = true;
                         }
                     }
@@ -64,10 +68,11 @@ public class SolarSystem {
         
         // Create all the planets
         for (int i = 0; i < planetCoords.length; i++) {
+            int techLevel = rand.nextInt(Context.TECH_LEVELS.length);
             this.planets[i] = new Planet(Context.getInstance().getNames().getRandomName(),
-                    rand.nextInt(Context.TECH_LEVELS.length),
+                    techLevel,
                     Resource.NOSPECIALRESOURCES.randomResource(),
-                    rand.nextInt(Context.GOVERNMENTS.length),
+                    Government.ANARCHY.randomGovernment(techLevel),
                     planetCoords[i].getX(), planetCoords[i].getY(), this);
         }
     }

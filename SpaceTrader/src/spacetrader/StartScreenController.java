@@ -55,14 +55,14 @@ public class StartScreenController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Transition the screen from the start screen to the character creation screen.
+     * Transitions to the character creation screen.
      */
     public void newGameButtonAction() {
         controller.setScreen("CharacterCreation");
     }
     
     /**
-     * Transition to the saved games screen in order to load a chosen game.
+     * Loads the saved game state and transitions to the appropriate screen.
      */
     public void loadGameButtonAction() {
         Context.getInstance().getUniverse().generateUniverse();

@@ -26,6 +26,7 @@ public class SpaceTrader extends Application {
         mainContainer.loadScreen("CharacterCreation", "CharacterCreation.fxml");
         mainContainer.loadScreen("GalaxyMap", "GalaxyMap.fxml");
         mainContainer.loadScreen("SolarMap", "SolarMap.fxml");
+        mainContainer.loadScreen("TravelEvent", "TravelEvent.fxml");
         mainContainer.loadScreen("PlanetScreen", "PlanetScreen.fxml");
         mainContainer.loadScreen("Market", "Market.fxml");
         mainContainer.setScreen("StartScreen");

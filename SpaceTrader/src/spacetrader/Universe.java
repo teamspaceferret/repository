@@ -16,23 +16,28 @@ public class Universe {
      * Generates a universe with random solar systems
      */
     public void generateUniverse() {
+        boolean tooClose;
+        Coordinate newCoord;
+        Coordinate solarSystemCoords[];
         Random rand = new Random();
+        Planet dummyPlanet = new Planet();
+        Planet dummyOtherPlanet = new Planet();
         
         this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
+        solarSystemCoords = new Coordinate[this.solarSystems.length];
         
-        // Generate random coordiantes that aren't too close
-        Coordinate solarSystemCoords[] = new Coordinate[this.solarSystems.length]; 
         for (int i = 0; i < this.solarSystems.length; i++) {
-            boolean tooClose;
-            Coordinate newCoord;
             do {
                 tooClose = false;
                 newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
                         rand.nextInt(Context.BOUNDARY));
+                dummyPlanet.setCoords(newCoord);
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        if (newCoord.istooCloseTo(solarSystemCoords[j])) {
+                        dummyOtherPlanet.setCoords(solarSystemCoords[j]);
+                        
+                        if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
                             tooClose = true;
                         }
                     }

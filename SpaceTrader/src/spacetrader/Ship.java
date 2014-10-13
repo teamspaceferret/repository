@@ -5,11 +5,11 @@ import java.util.HashMap;
 public class Ship {
     public static final HashMap<String,int[]> types = new HashMap<>();
             static{
-                types.put("flea",new int[]{10,0,0,0,1,400,4,1,2000,5,2,25,-1,-1,0,1,0,100});
-                types.put("gnat",new int[]{15,1,0,1,1,250,5,2,10000,50,28,100,0,0,0,1,1,100});
-                types.put("firefly",new int[]{20,1,1,1,1,300,5,3,25000,75,20,100,0,0,0,1,1,100});
-                types.put("mosquito",new int[]{15,2,1,1,1,200,5,5,30000,100,20,100,0,1,0,1,1,100});
-                types.put("bumblebee",new int[]{25,1,2,2,2,250,5,7,60000,125,15,100,0,1,0,1,2,100});
+                types.put("flea",new int[]{10,0,0,0,1,200,4,1,2000,5,2,25,-1,-1,0,1,0,100});
+                types.put("gnat",new int[]{15,1,0,1,1,120,5,2,10000,50,28,100,0,0,0,1,1,100});
+                types.put("firefly",new int[]{20,1,1,1,1,150,5,3,25000,75,20,100,0,0,0,1,1,100});
+                types.put("mosquito",new int[]{15,2,1,1,1,100,5,5,30000,100,20,100,0,1,0,1,1,100});
+                types.put("bumblebee",new int[]{25,1,2,2,2,130,5,7,60000,125,15,100,0,1,0,1,2,100});
                 
             }
 
@@ -42,14 +42,13 @@ public class Ship {
      * @param type the type of ship to create
      */
     public Ship(String type){
-        type = type.toLowerCase();
-        this.type = type;
+        this.type = type.toLowerCase();
         if(type.equals("flea")){
             hasEscapePod = true;
         } else {
             hasEscapePod = false;
         }
-        int [] stats = types.get(type);
+        int[] stats = types.get(type);
         cargo = new HashMap<>();
         weapons = new Weapon[stats[1]];
         shields = new Shield[stats[2]];
@@ -72,8 +71,6 @@ public class Ship {
         maxFuelLevel = stats[5];
         maxCargoSlots = stats[0];
         usedCargoSlots = 0;
-        System.out.println("USED CARGO SLOTS: " + usedCargoSlots);
-        System.out.println("MAX CARGO SLOTS: " + maxCargoSlots);
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
     }
@@ -232,8 +229,6 @@ public class Ship {
         return cargo.get(item);
     }
     
-    
-    //Getters
     /**
      * Gets the ship's cargo bay
      * @return ship's cargo
@@ -448,5 +443,20 @@ public class Ship {
         cargo.put(TradeGood.ROBOTS, NUM);
         cargo.put(TradeGood.WATER, NUM);
     }
+    
+    private class Gadget {
         
+    }
+    
+    private class Mercenary {
+        
+    }
+    
+    private class Shield {
+        
+    }
+    
+    private class Weapon {
+        
+    }
 }

@@ -11,27 +11,27 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.SolarMapController">
    <children>
-      <AnchorPane id="AnchorPane" layoutX="5.0" layoutY="5.0" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Label layoutX="24.0" layoutY="24.0" text="SOLAR MAP">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
-            <TextArea fx:id="description" editable="false" layoutX="376.0" layoutY="67.0" prefHeight="214.0" prefWidth="200.0" wrapText="true" />
-            <Button fx:id="travelButton" layoutX="476.0" layoutY="332.0" mnemonicParsing="false" onAction="#selectPlanet" prefHeight="43.0" prefWidth="100.0" text="Travel">
+            <TextArea fx:id="description" editable="false" layoutX="376.0" layoutY="73.0" prefHeight="208.0" prefWidth="200.0" wrapText="true" />
+            <Button fx:id="travelButton" layoutX="476.0" layoutY="335.0" mnemonicParsing="false" onAction="#selectPlanet" prefHeight="45.0" prefWidth="100.0" text="Travel">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="fuelLabel" layoutX="423.0" layoutY="295.0" text="Fuel: ">
+            <Label fx:id="fuelLabel" layoutX="430.0" layoutY="295.0" text="Fuel: ">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="324.0" layoutX="24.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="324.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="32.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="310.0" />
             <Canvas fx:id="canvas" height="310.0" layoutX="32.0" layoutY="74.0" onMouseClicked="#onMouseClick" width="310.0" />
-            <Button fx:id="backButton" layoutX="376.0" layoutY="331.0" mnemonicParsing="false" onAction="#backAction" prefHeight="43.0" prefWidth="76.0" text="Back">
+            <Button fx:id="backButton" layoutX="376.0" layoutY="335.0" mnemonicParsing="false" onAction="#backAction" prefHeight="45.0" prefWidth="75.0" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
