@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.io.Serializable;
 
-public enum Government {
+public enum Government implements Serializable{
     ANARCHY("Anarchy", 0, 0, 9, 1),
     CAPITALIST("Captialist", 1, 2, 1, 7), COMMUNIST("Communist", 2, 8, 0, 2),
     CONFEDERACY("Confederacy", 3, 4, 2, 5), CORPORATE("Corporate", 4, 5, 0, 5),

@@ -63,6 +63,7 @@ public enum TradeGood {
      * @return the final price
      */
     public int calcMarketPrice() {
+        player = Context.getInstance().getPlayer();
         Random r = new Random();
         double price = 0;
         if (player.getCurrentPlanet() != null) {

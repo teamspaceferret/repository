@@ -28,7 +28,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="saveButton" layoutX="432.0" layoutY="247.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="105.0" text="Save">
+                  <Button fx:id="saveButton" layoutX="432.0" layoutY="247.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="45.0" prefWidth="105.0" text="Save">
                      <font>
                         <Font size="18.0" />
                      </font>

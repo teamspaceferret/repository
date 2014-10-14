@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import static spacetrader.Event.values;
+import java.io.Serializable;
 
-public enum TravelEvent {
+public enum TravelEvent implements Serializable{
     NONE("None", -1, "Nothing eventful occurs on your journey."),
     FUELLOSS("Stolen fuel", 0, "A thief has siphoned off some of your fuel. You don't notice until they are long gone. \n\n"),
     CARGOLOSS("Stolen cargo", 1, "A thief breaks into your cargo hold to steal some of your cargo! He escapes "

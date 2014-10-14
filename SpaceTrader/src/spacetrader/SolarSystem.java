@@ -1,8 +1,9 @@
 package spacetrader;
 
 import java.util.Random;
+import java.io.Serializable;
 
-public class SolarSystem {
+public class SolarSystem implements Serializable{
     private String name;
     private Coordinate coords;
     private Planet[] planets;
