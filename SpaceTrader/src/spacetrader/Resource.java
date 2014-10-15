@@ -3,8 +3,9 @@ package spacetrader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.io.Serializable;
 
-public enum Resource {
+public enum Resource implements Serializable{
     NOSPECIALRESOURCES("No special resources", 0),
     MINERALRICH("Mineral rich", 1), MINERALPOOR("Mineral poor", 2),
     DESERT("Desert", 3), LOTSOFWATER("Lots of water", 4),

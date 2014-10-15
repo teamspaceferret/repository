@@ -3,8 +3,9 @@ package spacetrader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.io.Serializable;
 
-public enum Event {
+public enum Event implements Serializable{
     NONE("Nothing", -1), DROUGHT("A drought", 0), COLD("Cold", 1), WAR("War", 2),
     BOREDOM("Boredom", 3), PLAGUE("A plague", 4),
     LACKOFWORKERS("Lack of workers", 5), CRIMEWAVE("A crime wave", 6),

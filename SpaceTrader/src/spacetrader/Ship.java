@@ -1,8 +1,9 @@
 package spacetrader;
 
 import java.util.HashMap;
+import java.io.Serializable;
 
-public class Ship {
+public class Ship implements Serializable{
     public static final HashMap<String,int[]> types = new HashMap<>();
             static{
                 types.put("flea",new int[]{10,0,0,0,1,200,4,1,2000,5,2,25,-1,-1,0,1,0,100});

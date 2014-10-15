@@ -1,6 +1,8 @@
 package spacetrader;
 
-public class Planet {
+import java.io.Serializable;
+
+public class Planet implements Serializable{
     private String name;
     private Coordinate coords;
     private int techLevel;

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.io.Serializable;
 
-class Names {
+class Names implements Serializable{
     private List<String> names;
     
     // Setting this equal to Context.SOLAR_SYSTEM_NAMES doesn't work???

@@ -37,6 +37,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        universe = Context.getInstance().getUniverse();
+        player = Context.getInstance().getPlayer();
         drawSolarSystems();
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         setDescription(player.getCurrentPlanet().getParentSolarSystem());

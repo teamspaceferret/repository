@@ -1,11 +1,33 @@
 package spacetrader;
 
-public class Context {
-    private static final Context instance = new Context();
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.io.Serializable;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+
+public class Context implements Serializable{
+    private static Context instance = new Context();
     
-    private final Player player = new Player();
-    private final Universe universe = new Universe();
-    private final Names names = new Names();
+    private Player player = new Player();
+    private Universe universe = new Universe();
+    private Names names = new Names();
    
     
     private final SoundManager soundManager = new SoundManager(6);
@@ -133,4 +155,50 @@ public class Context {
         this.stock = stocks;
     }
     
+    public void saveContextBinary(){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+            //player
+            //out.writeObject(player);
+            //solarsystem focus
+            //out.writeObject(focus);
+            //stock??
+            //out.writeObject(stock);
+            //universe
+            //out.writeObject(universe);
+                    
+            
+            //instance:
+            out.writeObject(this);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadContextBinary(){
+        try {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.bin"))) {
+                Context loaded = (Context) in.readObject();
+                instance = loaded;
+                
+            }
+        } catch (FileNotFoundException ex){
+            System.out.println("No Save Data");
+            //System.exit(0);
+            //popup window
+            /*final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(primaryStage);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Text("This is a Dialog"));
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            */    
+        } catch (IOException ex) {
+            Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

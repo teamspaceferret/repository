@@ -30,6 +30,8 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        universe = Context.getInstance().getUniverse();
+        player = Context.getInstance().getPlayer();
         planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
     }
     
@@ -62,5 +64,9 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     public void shipyardAction() {
         //controller.setScreen("Shipyard");
+    }
+    
+    public void saveAction(){
+        Context.getInstance().saveContextBinary();
     }
 }

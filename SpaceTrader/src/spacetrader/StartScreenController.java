@@ -65,10 +65,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Loads the saved game state and transitions to the appropriate screen.
      */
     public void loadGameButtonAction() {
-        Context.getInstance().getUniverse().generateUniverse();
-        Context.getInstance().getPlayer().setShip(new Ship("gnat"));
-        Context.getInstance().getPlayer().setCurrentPlanet(
-                Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
-        controller.setScreen("GalaxyMap");
+        Context.getInstance().loadContextBinary();
+        controller.setScreen("PlanetScreen");
     }
 }

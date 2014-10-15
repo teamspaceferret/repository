@@ -1,9 +1,11 @@
 package spacetrader;
 
+import java.io.Serializable;
+
 /**
  * Market class
  */
-public class Market {
+public class Market implements Serializable{
     
     private Planet planet;
     private int[] stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
