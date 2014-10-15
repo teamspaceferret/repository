@@ -1,25 +1,14 @@
 package spacetrader;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.Serializable;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 
 public class Context implements Serializable{
@@ -155,18 +144,11 @@ public class Context implements Serializable{
         this.stock = stocks;
     }
     
+    /**
+     * Create the save file for the instance of the game
+     */
     public void saveContextBinary(){
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
-            //player
-            //out.writeObject(player);
-            //solarsystem focus
-            //out.writeObject(focus);
-            //stock??
-            //out.writeObject(stock);
-            //universe
-            //out.writeObject(universe);
-                    
-            
             //instance:
             out.writeObject(this);
             
@@ -175,6 +157,9 @@ public class Context implements Serializable{
         }
     }
     
+    /**
+     * Load the saved file for a game's instance
+     */
     public void loadContextBinary(){
         try {
             try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.bin"))) {
@@ -184,17 +169,7 @@ public class Context implements Serializable{
             }
         } catch (FileNotFoundException ex){
             System.out.println("No Save Data");
-            //System.exit(0);
-            //popup window
-            /*final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(primaryStage);
-                VBox dialogVbox = new VBox(20);
-                dialogVbox.getChildren().add(new Text("This is a Dialog"));
-                Scene dialogScene = new Scene(dialogVbox, 300, 200);
-                dialog.setScene(dialogScene);
-                dialog.show();
-            */    
+            //pop up window? 
         } catch (IOException ex) {
             Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
