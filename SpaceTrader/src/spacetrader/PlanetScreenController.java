@@ -33,6 +33,11 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
+        if (player.getCurrentPlanet().getTechLevel() > 4) {
+            shipyardButton.setDisable(false);
+        } else {
+            shipyardButton.setDisable(true);
+        }
     }
     
     /**
@@ -63,9 +68,12 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Transitions to the ship yard screen.
      */
     public void shipyardAction() {
-        //controller.setScreen("Shipyard");
+        controller.setScreen("Shipyard");
     }
     
+    /**
+     * Saves the game.
+     */
     public void saveAction(){
         Context.getInstance().saveContextBinary();
     }
