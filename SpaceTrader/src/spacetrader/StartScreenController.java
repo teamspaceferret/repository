@@ -11,6 +11,8 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class StartScreenController implements ControlledScreen, Initializable {
     ScreensController controller;
     
+    SoundManager soundManager = Context.getInstance().getSoundManager();
+    
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
@@ -25,19 +27,20 @@ public class StartScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        soundManager = Context.getInstance().getSoundManager();
         //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
-        if(Context.getInstance().getSoundManager().getBackgroundMusic("OpenLoop") != null){
-            if(Context.getInstance().getSoundManager().getBackgroundMusic("OpenLoop").isPlaying()){
+        if(soundManager.getBackgroundMusic("OpenLoop") != null){
+            if(soundManager.getBackgroundMusic("OpenLoop").isPlaying()){
                 
             } else {
                 
-                Context.getInstance().getSoundManager().playBackgroundMusic("OpenLoop");
+                soundManager.playBackgroundMusic("OpenLoop");
             }
         } else {
-            Context.getInstance().getSoundManager().loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
-            Context.getInstance().getSoundManager().loadBackgroundMusic("OpenLoop", "resources/OpenLoop.wav");
+            soundManager.loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
+            soundManager.loadBackgroundMusic("OpenLoop", "resources/OpenLoop.wav");
             //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
-            Context.getInstance().getSoundManager().playBackgroundMusic("OpenLoop");
+            soundManager.playBackgroundMusic("OpenLoop");
         }
         
         
@@ -67,5 +70,17 @@ public class StartScreenController implements ControlledScreen, Initializable {
     public void loadGameButtonAction() {
         Context.getInstance().loadContextBinary();
         controller.setScreen("PlanetScreen");
+    }
+    
+    public void toggleBackgroundAction(){
+        
+    }
+    
+    public void toggleSoundEffectsAction(){
+        
+    }
+    
+    public void toggleAllMusicAction(){
+        
     }
 }

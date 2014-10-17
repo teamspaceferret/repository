@@ -5,14 +5,11 @@
  */
 package spacetrader;
 
-import java.net.MalformedURLException;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class SoundManager {
@@ -61,7 +58,6 @@ public class SoundManager {
     }
     
     public void playBackgroundMusic(String id){
-        //backgroundMusicMap.get(id).setCycleCount(AudioClip.INDEFINITE);
         Runnable bgPlay = new Runnable(){
             @Override
             public void run(){
@@ -71,29 +67,21 @@ public class SoundManager {
         soundPool.execute(bgPlay);
     }
     
-    public void playBackgroundWithIntro(String introID, String loopID){
-        backgroundMusicMap.get(introID).setCycleCount(1);
-        System.out.println("Playing intro");
-        playBackgroundMusic(introID);
-        System.out.println(backgroundMusicMap.get(introID).isPlaying());
-        //somehow have it wait for it to finish before playing next part
-        
-        //System.out.println("Playing loop");
-        //playBackgroundMusic(loopID);   
+    public void playBGWithCheck(String id, String path){
+        if (this.getBackgroundMusic(id) != null){
+            if (this.getBackgroundMusic(id).isPlaying()){ } 
+            else {
+                this.playBackgroundMusic(id);
+            }
+        } else {
+            this.loadBackgroundMusic(id, path);
+            this.playBackgroundMusic(id);
+        } 
     }
     
     public AudioClip getBackgroundMusic(String id){
         return backgroundMusicMap.get(id);
     }
-    /*
-    public void muteBG(){
-        //loop through all BG and do not play??
-    }
-    
-    public void muteSE(){
-        //loop through all SE and do not play??
-    }
-    */
     
     /*
     public void setVolumeBG(double volume){
