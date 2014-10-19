@@ -5,6 +5,7 @@
  */
 package spacetrader;
 
+import java.io.Serializable;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
 import java.util.HashMap;
@@ -12,24 +13,30 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class SoundManager {
+public class SoundManager implements Serializable{
     private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
     private HashMap<String,AudioClip> backgroundMusicMap = new HashMap();
     
     private ExecutorService soundPool;
     private double volumeBG;
     private double volumeSE;
+    private boolean bgMuted;
+    private boolean seMuted;
     
     public SoundManager(){
         soundPool = Executors.newFixedThreadPool(6);
         volumeBG = 1;
         volumeSE = 1;
+        bgMuted = false;
+        seMuted = false;
     }
     
     public SoundManager(int threadNumber){
         soundPool = Executors.newFixedThreadPool(threadNumber);
         volumeBG = 1;
         volumeSE = 1;
+        bgMuted = false;
+        seMuted = false;
     }
     
     public void loadSoundEffect(String id, String path){
@@ -48,13 +55,15 @@ public class SoundManager {
     }
     
     public void playSoundEffect(String id){
-        Runnable sePlay = new Runnable(){
+        if(!seMuted){
+            Runnable sePlay = new Runnable(){
             @Override
-            public void run(){
+              public void run(){
                 soundEffectsMap.get(id).play(volumeSE);
-            }
-        };
-        soundPool.execute(sePlay);
+              }
+            };
+            soundPool.execute(sePlay);
+        } 
     }
     
     public void playBackgroundMusic(String id){
@@ -68,19 +77,69 @@ public class SoundManager {
     }
     
     public void playBGWithCheck(String id, String path){
-        if (this.getBackgroundMusic(id) != null){
+        if(!bgMuted){
+          if (this.getBackgroundMusic(id) != null){
             if (this.getBackgroundMusic(id).isPlaying()){ } 
             else {
-                this.playBackgroundMusic(id);
+              this.playBackgroundMusic(id);
             }
-        } else {
+          } else {
             this.loadBackgroundMusic(id, path);
             this.playBackgroundMusic(id);
-        } 
+          }
+        }
+         
     }
     
     public AudioClip getBackgroundMusic(String id){
         return backgroundMusicMap.get(id);
+    }
+    
+    public boolean getBGMuted(){
+        return bgMuted;
+    }
+    
+    public boolean getSEMuted(){
+        return seMuted;
+    }
+    
+    /*
+    public AudioClip getPlayingBGMusic(){
+        AudioClip playing = null;
+        backgroundMusicMap.values();
+        
+        
+        return playing;
+    }
+    */
+    
+    public void muteBackgroundMusic(String id){
+        AudioClip toMute = getBackgroundMusic(id);
+        toMute.stop();
+        bgMuted = true;
+    }
+    
+    public void muteSoundEffects(){
+        seMuted = true;
+    }
+    
+    public void muteAllSound(String id){
+        muteBackgroundMusic(id);
+        muteSoundEffects();
+    }
+    
+    public void unMuteBackgroundMusic(String id){
+        playBackgroundMusic(id);
+        bgMuted = false;
+    }
+    
+    public void unMuteSoundEffects(){
+        seMuted = false;
+    }
+    
+    public void unMuteAllSound(String id){
+        unMuteBackgroundMusic(id);
+        unMuteSoundEffects();
     }
     
     /*

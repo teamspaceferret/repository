@@ -26,9 +26,9 @@
       </Text>
       <SplitMenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" text="Sound Options">
         <items>
-          <MenuItem mnemonicParsing="false" text="Toggle Background Music" />
-          <MenuItem mnemonicParsing="false" text="Toggle Sound Effects" />
-            <MenuItem mnemonicParsing="false" text="Toggle All Sounds" />
+          <MenuItem fx:id="toggleBG" mnemonicParsing="false" onAction="#toggleBackgroundAction" text="Toggle Background Music" />
+          <MenuItem fx:id="toggleSE" mnemonicParsing="false" onAction="#toggleSoundEffectsAction" text="Toggle Sound Effects" />
+            <MenuItem fx:id="toggleAll" mnemonicParsing="false" onAction="#toggleAllMusicAction" text="Toggle All Sounds" />
             <MenuItem mnemonicParsing="false" text="Unspecified Action" />
         </items>
       </SplitMenuButton>
