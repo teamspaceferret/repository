@@ -74,6 +74,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Label ship5Cost;
     @FXML private Label ship6Cost;
     
+    @FXML private Label playerCredtNum1; //for the credit count on upgrade ship page
+    @FXML private Label playerCreditNum2; //for the credit cound on buy new ship page
+    
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
@@ -188,7 +191,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     }
     
     public void back(){
-        
+        controller.setScreen("PlanetScreen");
     }
     
     public void confirm(){

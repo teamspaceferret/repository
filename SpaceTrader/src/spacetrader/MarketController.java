@@ -626,7 +626,7 @@ public class MarketController implements ControlledScreen, Initializable {
         Context.getInstance().getPlayer().removeCredits(Context.getInstance().getPlayer().getCredits());
         Context.getInstance().getPlayer().addCredits(startCredits);
         Context.getInstance().getPlayer().getShip().setCargo(startCargoStock,startCargo);
-        System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
+        //System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
         //need to reset stock
         controller.setScreen("PlanetScreen");
     }
