@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.ShipyardController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.ShipyardController">
+   <children>
+      <Label layoutX="24.0" layoutY="24.0" prefHeight="52.0" prefWidth="142.0" text="SHIPYARD">
+         <font>
+            <Font size="29.0" />
+         </font></Label>
+      <Button fx:id="confirm" layoutX="32.0" layoutY="334.0" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
+      <Button fx:id="back" layoutX="132.0" layoutY="334.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Label layoutX="61.0" layoutY="76.0" text="Current Ship" />
+      <TabPane layoutX="190.0" layoutY="4.0" prefHeight="390.0" prefWidth="406.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Upgrade Current Ship">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Accordion layoutX="6.0" layoutY="12.0" />
+                        <Label layoutX="14.0" layoutY="249.0" prefHeight="17.0" prefWidth="51.0" text="Buy Fuel" />
+                        <Button fx:id="minusFuel" layoutX="117.0" layoutY="249.0" mnemonicParsing="false" onAction="#fuelDecrement" text="-" />
+                        <TextField fx:id="playerFuel" layoutX="149.0" layoutY="249.0" prefHeight="25.0" prefWidth="31.0" />
+                        <Button fx:id="plusFuel" layoutX="191.0" layoutY="249.0" mnemonicParsing="false" onAction="#fuelIncrement" text="+" />
+                        <Label layoutX="14.0" layoutY="285.0" prefHeight="17.0" prefWidth="89.0" text="Buy Cargo Slots" />
+                        <Button fx:id="minusCargoSpaces" layoutX="117.0" layoutY="285.0" mnemonicParsing="false" onAction="#cargoSlotsDecrement" text="-" />
+                        <TextField fx:id="playerCargoSlots" layoutX="149.0" layoutY="285.0" prefHeight="25.0" prefWidth="31.0" />
+                        <Button fx:id="plusCargoSpaces" layoutX="191.0" layoutY="285.0" mnemonicParsing="false" onAction="#cargoSlotsIncrement" text="+" />
+                        <Label layoutX="14.0" layoutY="6.0" text="Weapons" />
+                        <Label layoutX="14.0" layoutY="33.0" text="Weapon 1" />
+                        <Label layoutX="14.0" layoutY="69.0" text="Weapon 2" />
+                        <Label layoutX="14.0" layoutY="105.0" text="Weapon 3" />
+                        <Label layoutX="14.0" layoutY="141.0" text="Shields" />
+                        <Label layoutX="14.0" layoutY="177.0" text="Shield 1" />
+                        <Label layoutX="14.0" layoutY="213.0" text="Shield 2" />
+                        <Label layoutX="339.0" layoutY="6.0" text="Price" />
+                        <Label fx:id="weapon1Cost" layoutX="339.0" layoutY="33.0" text="Cost" />
+                        <Label fx:id="weapon2Cost" layoutX="339.0" layoutY="69.0" text="Cost" />
+                        <Label fx:id="weapon3Cost" layoutX="339.0" layoutY="109.0" text="Cost" />
+                        <Label fx:id="shield1Cost" layoutX="339.0" layoutY="181.0" text="Cost" />
+                        <Label fx:id="shield2Cost" layoutX="339.0" layoutY="217.0" text="Cost" />
+                        <Label fx:id="fuelCost" layoutX="339.0" layoutY="249.0" text="Cost" />
+                        <Label fx:id="cargoSlotsCost" layoutX="339.0" layoutY="289.0" text="Cost" />
+                        <Button fx:id="minusShield2" layoutX="117.0" layoutY="213.0" mnemonicParsing="false" onAction="#shield2Decrement" text="-" />
+                        <TextField fx:id="playerShield2" layoutX="149.0" layoutY="213.0" prefHeight="25.0" prefWidth="31.0" />
+                        <Button fx:id="plusShield2" layoutX="191.0" layoutY="213.0" mnemonicParsing="false" onAction="#shield2Increment" text="+" />
+                        <Button fx:id="minusShield1" layoutX="117.0" layoutY="177.0" mnemonicParsing="false" onAction="#shield1Decrement" text="-" />
+                        <Button fx:id="minusWeapon3" layoutX="117.0" layoutY="105.0" mnemonicParsing="false" onAction="#weapon3Decrement" text="-" />
+                        <Button fx:id="minusWeapon2" layoutX="117.0" layoutY="69.0" mnemonicParsing="false" onAction="#weapon2Decrement" text="-" />
+                        <Button fx:id="minusWeapon1" layoutX="117.0" layoutY="34.0" mnemonicParsing="false" onAction="#weapon1Decrement" text="-" />
+                        <TextField fx:id="playerShield1" layoutX="149.0" layoutY="177.0" prefHeight="25.0" prefWidth="31.0" />
+                        <TextField fx:id="playerWeapon3" layoutX="149.0" layoutY="105.0" prefHeight="25.0" prefWidth="31.0" />
+                        <TextField fx:id="playerWeapon2" layoutX="149.0" layoutY="69.0" prefHeight="25.0" prefWidth="31.0" />
+                        <TextField fx:id="playerWeapon1" layoutX="150.0" layoutY="33.0" prefHeight="25.0" prefWidth="31.0" />
+                        <Button fx:id="plusShield1" layoutX="191.0" layoutY="177.0" mnemonicParsing="false" onAction="#shield1Increment" text="+" />
+                        <Button fx:id="plusWeapon3" layoutX="191.0" layoutY="105.0" mnemonicParsing="false" onAction="#weapon3Increment" text="+" />
+                        <Button fx:id="plusWeapon2" layoutX="191.0" layoutY="69.0" mnemonicParsing="false" onAction="#weapon2Increment" text="+" />
+                        <Button fx:id="plusWeapon1" layoutX="191.0" layoutY="33.0" mnemonicParsing="false" onAction="#weapon1Increment" text="+" />
+                        <Label layoutX="149.0" layoutY="6.0" text="Player's" />
+                        <Label layoutX="14.0" layoutY="320.0" prefHeight="17.0" prefWidth="89.0" text="Player's Credits" />
+                        <Label layoutX="126.0" layoutY="320.0" prefHeight="17.0" prefWidth="79.0" text="x/x" />
+                        <Label layoutX="250.0" layoutY="6.0" text="Shipyard's" />
+                        <Label fx:id="shipyardWeapon1" layoutX="274.0" layoutY="33.0" text="#" />
+                        <Label fx:id="shipyardWeapon2" layoutX="274.0" layoutY="69.0" text="#" />
+                        <Label fx:id="shipyardWeapon3" layoutX="274.0" layoutY="105.0" text="#" />
+                        <Label fx:id="shipyardShield1" layoutX="274.0" layoutY="177.0" text="#" />
+                        <Label fx:id="shipyardShield2" layoutX="274.0" layoutY="213.0" prefHeight="17.0" prefWidth="8.0" text="#" />
+                        <Label fx:id="shipyardFuel" layoutX="274.0" layoutY="249.0" text="#" />
+                        <Label fx:id="shipyardCargoSlots" layoutX="274.0" layoutY="285.0" text="#" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Buy New Ship">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="204.0" layoutY="6.0" text="Ship Stats" />
+                        <TextArea fx:id="buyShipStats" layoutX="159.0" layoutY="23.0" prefHeight="229.0" prefWidth="142.0" />
+                        <Button fx:id="buyShip" layoutX="186.0" layoutY="264.0" mnemonicParsing="false" onAction="#buyShip" text="Buy New Ship" />
+                        <Button fx:id="ship1Stats" layoutX="24.0" layoutY="33.0" mnemonicParsing="false" onAction="#ship1Stats" text="Ship 1" />
+                        <Button fx:id="ship2Stats" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" onAction="#ship2Stats" text="Ship 2" />
+                        <Button fx:id="ship3Stats" layoutX="24.0" layoutY="105.0" mnemonicParsing="false" onAction="#ship3Stats" text="Ship 3" />
+                        <Button fx:id="ship4Stats" layoutX="24.0" layoutY="141.0" mnemonicParsing="false" onAction="#ship4Stats" text="Ship 4" />
+                        <Button fx:id="ship5Stats" layoutX="24.0" layoutY="177.0" mnemonicParsing="false" onAction="#ship5Stats" text="Ship 5" />
+                        <Button fx:id="ship6Stats" layoutX="24.0" layoutY="213.0" mnemonicParsing="false" onAction="#ship6Stats" text="Ship 6" />
+                        <Label layoutX="34.0" layoutY="6.0" text="Ships" />
+                        <Label layoutX="102.0" layoutY="6.0" text="Cost" />
+                        <Label fx:id="ship1Cost" layoutX="102.0" layoutY="37.0" text="Cost" />
+                        <Label fx:id="ship2Cost" layoutX="102.0" layoutY="73.0" text="Cost" />
+                        <Label fx:id="ship3Cost" layoutX="102.0" layoutY="105.0" text="Cost" />
+                        <Label fx:id="ship4Cost" layoutX="102.0" layoutY="141.0" text="Cost" />
+                        <Label fx:id="ship5Cost" layoutX="102.0" layoutY="177.0" text="Cost" />
+                        <Label fx:id="ship6Cost" layoutX="102.0" layoutY="213.0" text="Cost" />
+                        <Label layoutX="14.0" layoutY="320.0" text="Player's Credits" />
+                        <Label layoutX="126.0" layoutY="320.0" text="x/x" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <TextArea fx:id="currentShipStats" layoutX="31.0" layoutY="95.0" prefHeight="229.0" prefWidth="142.0" />
+   </children>
 </AnchorPane>
