@@ -81,23 +81,21 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="204.0" layoutY="6.0" text="Ship Stats" />
-                        <TextArea fx:id="buyShipStats" layoutX="159.0" layoutY="23.0" prefHeight="229.0" prefWidth="142.0" />
-                        <Button fx:id="buyShip" layoutX="186.0" layoutY="264.0" mnemonicParsing="false" onAction="#buyShip" text="Buy New Ship" />
-                        <Button fx:id="ship1Stats" layoutX="24.0" layoutY="33.0" mnemonicParsing="false" onAction="#ship1Stats" text="Ship 1" />
-                        <Button fx:id="ship2Stats" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" onAction="#ship2Stats" text="Ship 2" />
-                        <Button fx:id="ship3Stats" layoutX="24.0" layoutY="105.0" mnemonicParsing="false" onAction="#ship3Stats" text="Ship 3" />
-                        <Button fx:id="ship4Stats" layoutX="24.0" layoutY="141.0" mnemonicParsing="false" onAction="#ship4Stats" text="Ship 4" />
-                        <Button fx:id="ship5Stats" layoutX="24.0" layoutY="177.0" mnemonicParsing="false" onAction="#ship5Stats" text="Ship 5" />
-                        <Button fx:id="ship6Stats" layoutX="24.0" layoutY="213.0" mnemonicParsing="false" onAction="#ship6Stats" text="Ship 6" />
+                        <Label layoutX="265.0" layoutY="6.0" text="Ship Stats" />
+                        <TextArea fx:id="buyShipStats" layoutX="220.0" layoutY="23.0" prefHeight="229.0" prefWidth="142.0" />
+                        <Button fx:id="buyShip" layoutX="246.0" layoutY="258.0" mnemonicParsing="false" onAction="#buyShip" text="Buy New Ship" />
+                        <Button fx:id="fleaStats" layoutX="24.0" layoutY="33.0" mnemonicParsing="false" onAction="#fleaStats" text="Flea" />
+                        <Button fx:id="gnatStats" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" onAction="#gnatStats" text="Gnat" />
+                        <Button fx:id="fireflyStats" layoutX="24.0" layoutY="105.0" mnemonicParsing="false" onAction="#fireflyStats" text="Firefly" />
+                        <Button fx:id="mosquitoStats" layoutX="24.0" layoutY="141.0" mnemonicParsing="false" onAction="#mosquitoStats" text="Mosquito" />
+                        <Button fx:id="bumblebeeStats" layoutX="24.0" layoutY="177.0" mnemonicParsing="false" onAction="#bumblebeeStats" text="Bumblebee" />
                         <Label layoutX="34.0" layoutY="6.0" text="Ships" />
-                        <Label layoutX="102.0" layoutY="6.0" text="Cost" />
-                        <Label fx:id="ship1Cost" layoutX="102.0" layoutY="37.0" text="Cost" />
-                        <Label fx:id="ship2Cost" layoutX="102.0" layoutY="73.0" text="Cost" />
-                        <Label fx:id="ship3Cost" layoutX="102.0" layoutY="105.0" text="Cost" />
-                        <Label fx:id="ship4Cost" layoutX="102.0" layoutY="141.0" text="Cost" />
-                        <Label fx:id="ship5Cost" layoutX="102.0" layoutY="177.0" text="Cost" />
-                        <Label fx:id="ship6Cost" layoutX="102.0" layoutY="213.0" text="Cost" />
+                        <Label layoutX="130.0" layoutY="6.0" text="Price" />
+                        <Label fx:id="fleaCost" layoutX="130.0" layoutY="37.0" text="Cost" />
+                        <Label fx:id="gnatCost" layoutX="130.0" layoutY="73.0" text="Cost" />
+                        <Label fx:id="fireflyCost" layoutX="130.0" layoutY="105.0" text="Cost" />
+                        <Label fx:id="mosquitoCost" layoutX="130.0" layoutY="141.0" text="Cost" />
+                        <Label fx:id="bumblebeeCost" layoutX="130.0" layoutY="177.0" text="Cost" />
                         <Label layoutX="14.0" layoutY="320.0" text="Player's Credits" />
                         <Label fx:id="playerCreditNum2" layoutX="126.0" layoutY="320.0" prefHeight="17.0" prefWidth="67.0" text="x/x" />
                      </children></AnchorPane>

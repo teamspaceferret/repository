@@ -31,12 +31,12 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Button minusFuel;
     @FXML private Button plusCargoSpaces;
     @FXML private Button minusCargoSpaces;
-    @FXML private Button ship1Stats;
-    @FXML private Button ship2Stats;
-    @FXML private Button ship3Stats;
-    @FXML private Button ship4Stats;
-    @FXML private Button ship5Stats;
-    @FXML private Button ship6Stats;
+    @FXML private Button fleaStats;
+    @FXML private Button gnatStats;
+    @FXML private Button fireflyStats;
+    @FXML private Button mosquitoStats;
+    @FXML private Button bumblebeeStats;
+    //@FXML private Button ship6Stats;
     @FXML private Button confirm;
     @FXML private Button back;
     @FXML private Button buyShip;
@@ -67,12 +67,12 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Label weapon3Cost;
     @FXML private Label shield1Cost;
     @FXML private Label shield2Cost;
-    @FXML private Label ship1Cost;
-    @FXML private Label ship2Cost;
-    @FXML private Label ship3Cost;
-    @FXML private Label ship4Cost;
-    @FXML private Label ship5Cost;
-    @FXML private Label ship6Cost;
+    @FXML private Label fleaCost;
+    @FXML private Label gnatCost;
+    @FXML private Label fireflyCost;
+    @FXML private Label mosquitoCost;
+    @FXML private Label bumblebeeCost;
+    //@FXML private Label ship6Cost;
     
     @FXML private Label playerCredtNum1; //for the credit count on upgrade ship page
     @FXML private Label playerCreditNum2; //for the credit cound on buy new ship page
@@ -166,27 +166,23 @@ public class ShipyardController implements Initializable, ControlledScreen {
         
     }
     
-    public void ship1Stats(){
+    public void fleaStats(){
         
     }
     
-    public void ship2Stats(){
+    public void gnatStats(){
         
     }
     
-    public void ship3Stats(){
+    public void fireflyStats(){
         
     }
     
-    public void ship4Stats(){
+    public void mosquitoStats(){
         
     }
     
-    public void ship5Stats(){
-        
-    }
-    
-    public void ship6Stats(){
+    public void bumblebeeStats(){
         
     }
     
