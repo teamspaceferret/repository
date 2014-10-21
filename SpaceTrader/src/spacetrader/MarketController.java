@@ -71,6 +71,8 @@ public class MarketController implements ControlledScreen, Initializable {
     static int[] stockGoods = new int[10];
     HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
     HashMap<TradeGood,Integer> startCargoStock;
+    //hashmap of all goods and whether or not they are available
+    HashMap<TradeGood, Boolean> goodsBeingTraded = new HashMap<>();
     int startCredits, startCargo;
     
     /**
@@ -151,6 +153,7 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();
         
         startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
+        setNoTrade();
     }
     
     /**
@@ -212,7 +215,6 @@ public class MarketController implements ControlledScreen, Initializable {
     /**
      * Set the prices of the market
      */
-
     public void setPrices(){
         stockPrices.put(TradeGood.WATER, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[0]);
         stockPrices.put(TradeGood.FURS, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[1]);
@@ -224,6 +226,24 @@ public class MarketController implements ControlledScreen, Initializable {
         stockPrices.put(TradeGood.MEDICINE, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[6]);
         stockPrices.put(TradeGood.ORE, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[3]);
         stockPrices.put(TradeGood.MACHINES, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[7]);
+    }
+    
+    /**
+     * Displays "No Trade" beside items that cannot be bought/sold, either
+     * because of tech level or governments
+     */
+    public void setNoTrade(){
+        Planet planet = player.getCurrentPlanet();
+        for(TradeGood good : TradeGood.values()) {
+            //if tech level is too low to buy that here
+            if(good.getMTLB() > planet.getTechLevel()) {
+                goodsBeingTraded.put(good, false);
+                System.out.println("No trade: " + good.toString());
+            } else {
+                goodsBeingTraded.put(good, true);
+            }
+        }
+        //when buying/selling check if the good is on this list
     }
     
     /**
@@ -243,9 +263,8 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * buy one water
+     * Buy one water
      */
-    
     public void waterIncrement() {
         if (Context.getInstance().getPlayer().getCredits() > TradeGood.WATER.calcMarketPrice() && Integer.parseInt(tradersWater.getText()) > 0 
                 && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
