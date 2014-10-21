@@ -73,6 +73,8 @@ public class MarketController implements ControlledScreen, Initializable {
     HashMap<TradeGood,Integer> startCargoStock;
     //hashmap of all goods and whether or not they are available
     HashMap<TradeGood, Boolean> goodsBeingTraded = new HashMap<>();
+    //PLEASE USE ME
+    HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
     int startCredits, startCargo;
     
     /**
@@ -197,7 +199,6 @@ public class MarketController implements ControlledScreen, Initializable {
             return Context.getInstance().getStock()[good.getID()];
         }
     }
-    //demo function only
 
     /**
      * Loads the player up with some cargo. For demo use only!
@@ -243,7 +244,46 @@ public class MarketController implements ControlledScreen, Initializable {
                 goodsBeingTraded.put(good, true);
             }
         }
-        //when buying/selling check if the good is on this list
+        if(!goodsBeingTraded.get(TradeGood.WATER)) {
+            tradersWater.setText("NO");
+            waterPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.FURS)) {
+            tradersFur.setText("NO");
+            furPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.FOOD)) {
+            tradersFood.setText("NO");
+            foodPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.ORE)) {
+            tradersOre.setText("NO");
+            orePrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.GAMES)) {
+            tradersGames.setText("NO");
+            gamesPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.FIREARMS)) {
+            tradersFirearms.setText("NO");
+            firearmsPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.MEDICINE)) {
+            tradersMed.setText("NO");
+            medPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.MACHINES)) {
+            tradersMachines.setText("NO");
+            machinesPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.NARCOTICS)) {
+            tradersNarcotics.setText("NO");
+            narcoticsPrice.setText("TRADE");
+        }
+        if(!goodsBeingTraded.get(TradeGood.ROBOTS)) {
+            tradersRobots.setText("NO");
+            robotsPrice.setText("TRADE");
+        }
     }
     
     /**
