@@ -238,7 +238,6 @@ public class MarketController implements ControlledScreen, Initializable {
     public void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
-        player.addCredits(10000000);
         startCredits = player.getCredits();
         startCargo = player.getShip().getCurrentUsedCargoSlots();
         currentCredits();
