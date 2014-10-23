@@ -33,7 +33,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
-        if (player.getCurrentPlanet().getTechLevel() > 4) {
+        if (player.getCurrentPlanet().getTechLevel() >= new Ship("flea").getMinTechLevel()) {
             shipyardButton.setDisable(false);
         } else {
             shipyardButton.setDisable(true);
