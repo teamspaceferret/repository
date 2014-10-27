@@ -29,6 +29,7 @@ public class SpaceTrader extends Application {
         mainContainer.loadScreen("TravelEvent", "TravelEvent.fxml");
         mainContainer.loadScreen("PlanetScreen", "PlanetScreen.fxml");
         mainContainer.loadScreen("Market", "Market.fxml");
+        mainContainer.loadScreen("Shipyard", "Shipyard.fxml");
         mainContainer.setScreen("StartScreen");
         
         Group root = new Group();

@@ -6,6 +6,9 @@ import java.io.Serializable;
 public class Ship implements Serializable{
     public static final HashMap<String,int[]> types = new HashMap<>();
             static{
+                //maxCargo, weaponSlots, shieldSlots, gadgetSlots, crewSlots, currentFuel,
+                //minTechLevel, fuelCost, price, bounty, occurence, hullStr, police,
+                //pirate, trader, repairCost, size, range
                 types.put("flea",new int[]{10,0,0,0,1,200,4,1,2000,5,2,25,-1,-1,0,1,0,100});
                 types.put("gnat",new int[]{15,1,0,1,1,120,5,2,10000,50,28,100,0,0,0,1,1,100});
                 types.put("firefly",new int[]{20,1,1,1,1,150,5,3,25000,75,20,100,0,0,0,1,1,100});
@@ -74,6 +77,52 @@ public class Ship implements Serializable{
         usedCargoSlots = 0;
         //add 0 of each type of item to the cargo bay
         setUpCargoBay();
+    }
+    
+    /**
+     * returns a well-formatted String detailing the stats of this ship
+     * 
+     * @return String detailing stats of ship
+     */
+    public String shipDescription() {
+        String message = "";
+        int[] stats = types.get(type);
+        HashMap statMap = mapStatNamesToInts();
+        for (int i = -1; i < stats.length; i++) {
+            if (i == -1) {
+                message += statMap.get(i) + type + "\n";
+            } else if (i != 6 && i != 9 && i != 10 && i != 12 && i != 13 && i != 14) {
+                message += statMap.get(i) + String.valueOf(stats[i]) + "\n";
+            }
+        }
+        return message;
+    }
+    
+    private HashMap mapStatNamesToInts() {
+        //maxCargo, weaponSlots, shieldSlots, gadgetSlots, crewSlots, currentFuel,
+        //minTechLevel, fuelCost, price, bounty, occurence, hullStr, police,
+        //pirate, trader, repairCost, size, range
+        HashMap<Integer, String> stats = new HashMap<>();
+        stats.put(-1, "Name: ");
+        stats.put(0, "Max cargo: ");
+        stats.put(1, "Weapon slots: ");
+        stats.put(2, "Shield slots: ");
+        stats.put(3, "Gadget slots: ");
+        stats.put(4, "Crew slots: ");
+        stats.put(5, "Max fuel: ");
+        //stats.put(6, "Planet must have this minimum tech level to sell: ");
+        stats.put(7, "Fuel cost / unit: ");
+        stats.put(8, "Price: ");
+        //stats.put(9, "Bounty: ");
+        //stats.put(10, "Occurence: ");
+        stats.put(11, "Hull strength: ");
+        //stats.put(12, "Police: ");
+        //stats.put(13, "Pirate: ");
+        //stats.put(14, "Trader: ");
+        stats.put(15, "Repair cost: ");
+        stats.put(16, "Size: ");
+        stats.put(17, "Range: ");
+        return stats;
     }
     
     /**
@@ -228,6 +277,10 @@ public class Ship implements Serializable{
      */
     public int getCargoStock(TradeGood item){
         return cargo.get(item);
+    }
+    
+    public String getType() {
+        return type;
     }
     
     /**

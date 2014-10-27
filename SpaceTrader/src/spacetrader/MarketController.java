@@ -67,10 +67,14 @@ public class MarketController implements ControlledScreen, Initializable {
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     SolarSystem currentlySelected;
-    static Random r = new Random();
+    static Random random = new Random();
     static int[] stockGoods = new int[10];
     HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
     HashMap<TradeGood,Integer> startCargoStock;
+    //hashmap of all goods and whether or not they are available
+    HashMap<TradeGood, Boolean> goodsBeingTraded = new HashMap<>();
+    //PLEASE USE ME
+    HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
     int startCredits, startCargo;
     
     /**
@@ -93,6 +97,141 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
+     * Helper method to get labels from good ID.
+     * 
+     * @return Array of labels (tradersGood, goodPrice).
+     */
+    private Label[] getLabelsFromID(int id) {
+        Label trader, price;
+        switch(id) {
+            case 0: trader = tradersWater;
+                    price = waterPrice;
+                    break;
+            case 1: trader = tradersFur;
+                    price = furPrice;
+                    break;
+            case 2: trader = tradersFood;
+                    price = foodPrice;
+                    break;
+            case 3: trader = tradersOre;
+                    price = orePrice;
+                    break;
+            case 4: trader = tradersGames;
+                    price = gamesPrice;
+                    break;
+            case 5: trader = tradersFirearms;
+                    price = firearmsPrice;
+                    break;
+            case 6: trader = tradersMed;
+                    price = medPrice;
+                    break;
+            case 7: trader = tradersMachines;
+                    price = machinesPrice;
+                    break;    
+            case 8: trader = tradersNarcotics;
+                    price = narcoticsPrice;
+                    break;
+            case 9: trader = tradersRobots;
+                    price = robotsPrice;
+                    break;
+            default: System.out.println("broken helper method: getLabelsFromID()");
+                     price = new Label();
+                     trader = new Label();
+                     break;
+        }
+        return new Label[]{trader, price};
+    }
+    
+    /**
+     * Helper method to get TextField from good ID.
+     * 
+     * @return playersGood
+     */
+    private TextField getTextFieldFromID(int id) {
+        TextField playerField;
+        switch(id) {
+            case 0: playerField = playersWater;
+                    break;
+            case 1: playerField = playersFur;
+                    break;
+            case 2: playerField = playersFood;
+                    break;
+            case 3: playerField = playersOre;
+                    break;
+            case 4: playerField = playersGames;
+                    break;
+            case 5: playerField = playersFirearms;
+                    break;
+            case 6: playerField = playersMed;
+                    break;
+            case 7: playerField = playersMachines;
+                    break;    
+            case 8: playerField = playersNarcotics;
+                    break;
+            case 9: playerField = playersRobots;
+                    break;
+            default: System.out.println("broken helper method: getTextFieldFromID()");
+                     playerField = new TextField();
+                     break;
+        }
+        return playerField;
+    }
+    
+    /**
+     * Helper method to get Slider from good ID.
+     * 
+     * @return goodSlider
+     */
+    private Slider getSliderFromID(int id) {
+        Slider slider;
+        switch(id) {
+            case 0: slider = waterSlider;
+                    break;
+            case 1: slider = furSlider;
+                    break;
+            case 2: slider = foodSlider;
+                    break;
+            case 3: slider = oreSlider;
+                    break;
+            case 4: slider = gameSlider;
+                    break;
+            case 5: slider = firearmSlider;
+                    break;
+            case 6: slider = medicineSlider;
+                    break;
+            case 7: slider = machineSlider;
+                    break;    
+            case 8: slider = narcoticSlider;
+                    break;
+            case 9: slider = robotSlider;
+                    break;
+            default: System.out.println("broken helper method: getSliderFromID()");
+                     slider = new Slider();
+                     break;
+        }
+        return slider;
+    }
+    
+    /**
+     * Helper method to initialize labels and sliders.
+     */
+    private void initLabelsSliders(TradeGood good) {
+        int index = good.getID();
+        Label[] labels = getLabelsFromID(index);
+        Label trader = labels[0];
+        Label price = labels[1];
+        TextField playerField = getTextFieldFromID(index);
+        Slider slider = getSliderFromID(index);
+        String cargoStock = String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(good));
+        String priceString = String.valueOf(stockPrices.get(good));
+        String traderStock = String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(index));
+        playerField.setText(cargoStock);
+        slider.setValue(Integer.parseInt(cargoStock));
+        price.setText(priceString);
+        trader.setText(traderStock);
+    }
+    
+    /**
      * Initializes the screen.
      */
     @Override
@@ -107,50 +246,13 @@ public class MarketController implements ControlledScreen, Initializable {
         //set playersGood to the amount they currently have
         //set tradersGood to the amount they currently have, or to "No trade" if thats true
         //display the prices for each good via their price Label
-        playersWater.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER)));
-        waterSlider.setValue((int)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER));
-        waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
-        tradersWater.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(0)));
-        playersFur.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS)));
-        furSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS));
-        tradersFur.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(1)));
-        furPrice.setText(String.valueOf(stockPrices.get(TradeGood.FURS)));
-        playersFood.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD)));
-        foodSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD));
-        tradersFood.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(2)));
-        foodPrice.setText(String.valueOf(stockPrices.get(TradeGood.FOOD)));
-        playersOre.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE)));
-        oreSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE));
-        tradersOre.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(3)));
-        orePrice.setText(String.valueOf(stockPrices.get(TradeGood.ORE)));
-        playersGames.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES)));
-        gameSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES));
-        tradersGames.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(4)));
-        gamesPrice.setText(String.valueOf(stockPrices.get(TradeGood.GAMES)));
-        playersFirearms.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS)));
-        firearmSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS));
-        tradersFirearms.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(5)));
-        firearmsPrice.setText(String.valueOf(stockPrices.get(TradeGood.FIREARMS)));
-        playersMed.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE)));
-        medicineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE));
-        tradersMed.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(6)));
-        medPrice.setText(String.valueOf(stockPrices.get(TradeGood.MEDICINE)));
-        playersMachines.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES)));
-        machineSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES));
-        tradersMachines.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(7)));
-        machinesPrice.setText(String.valueOf(stockPrices.get(TradeGood.MACHINES)));
-        playersNarcotics.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS)));
-        narcoticSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS));
-        tradersNarcotics.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(8)));
-        narcoticsPrice.setText(String.valueOf(stockPrices.get(TradeGood.NARCOTICS)));
-        playersRobots.setText(String.valueOf(Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS)));
-        robotSlider.setValue((double)Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS));
-        tradersRobots.setText(String.valueOf(Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getStockIndex(9)));
-        robotsPrice.setText(String.valueOf(stockPrices.get(TradeGood.ROBOTS)));
+        for (int i = 0; i < 10; i++) {
+            initLabelsSliders(TradeGood.getGoodFromID(i));
+        }
         Context.getInstance().setStock(stockGoods);
         currentCargo();
-        
         startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
+        setNoTrade();
     }
     
     /**
@@ -162,29 +264,28 @@ public class MarketController implements ControlledScreen, Initializable {
      */
     public static int calcStock(TradeGood good) {
         if (Context.getInstance().getStock()[good.getID()] == -1) {
-            Planet p = Context.getInstance().getPlayer().getCurrentPlanet();
-            Event e = p.getEvent();
-            Resource re = p.getResource();
-            
+            Planet planet = Context.getInstance().getPlayer().getCurrentPlanet();
+            Event event = planet.getEvent();
+            Resource resource = planet.getResource();
             int goodMinTechLevelToBuy = good.getMTLB();
             int goodMinTechLevelToSell = good.getMTLS();
-            int planetTechLevel = p.getTechLevel();
+            int planetTechLevel = planet.getTechLevel();
             int stock;
             //will not produce things from too low a tech level
             if(goodMinTechLevelToBuy > planetTechLevel){
                 stock = 0;
             } else {
-                stock = 7 + r.nextInt(14);
+                stock = 7 + random.nextInt(14);
             }
-            if (re.getID() == good.getER().getID()) {
+            if (resource.getID() == good.getER().getID()) {
                 stock *= .45;
-            } else if (re.getID() == good.getCR().getID()) {
+            } else if (resource.getID() == good.getCR().getID()) {
                 stock *= 1.55;
             } else {
             }
-            if (e.getID() == good.getIE().getID()) {
+            if (event.getID() == good.getIE().getID()) {
                 stock *= .75;
-            } else if (e.getID() == good.getDE().getID()) {
+            } else if (event.getID() == good.getDE().getID()) {
                 stock *= 1.25;
             } else {
             }
@@ -194,36 +295,52 @@ public class MarketController implements ControlledScreen, Initializable {
             return Context.getInstance().getStock()[good.getID()];
         }
     }
-    //demo function only
 
     /**
      * Loads the player up with some cargo. For demo use only!
      */
-        public void cargoUp() {
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FURS, 2);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FIREARMS, 2);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.WATER, 3);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FOOD, 2);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.NARCOTICS, 1);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ROBOTS, 3);
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.GAMES, 2);
+    public void cargoUp() {
+        Ship ship = Context.getInstance().getPlayer().getShip();
+        for (int i = 0; i < 10; i++) {
+            ship.addToCargo(TradeGood.getGoodFromID(i), random.nextInt(4));
+        }
     }
     
     /**
      * Set the prices of the market
      */
-
     public void setPrices(){
-        stockPrices.put(TradeGood.WATER, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[0]);
-        stockPrices.put(TradeGood.FURS, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[1]);
-        stockPrices.put(TradeGood.FIREARMS, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[5]);
-        stockPrices.put(TradeGood.FOOD, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[2]);
-        stockPrices.put(TradeGood.NARCOTICS, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[8]);
-        stockPrices.put(TradeGood.ROBOTS, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[9]);
-        stockPrices.put(TradeGood.GAMES, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[4]);
-        stockPrices.put(TradeGood.MEDICINE, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[6]);
-        stockPrices.put(TradeGood.ORE, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[3]);
-        stockPrices.put(TradeGood.MACHINES, Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[7]);
+        int[] marketPrices = new int[10];
+        for (int i = 0; i < marketPrices.length; i++) {
+            marketPrices[i] = Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[i];
+            stockPrices.put(TradeGood.getGoodFromID(i), marketPrices[i]);
+        }
+    }
+    
+    /**
+     * Displays "No Trade" beside items that cannot be bought/sold, either
+     * because of tech level or governments
+     */
+    public void setNoTrade(){
+        Planet planet = player.getCurrentPlanet();
+        for(TradeGood good : TradeGood.values()) {
+            //if tech level is too low to buy that here
+            if(good.getMTLB() > planet.getTechLevel()) {
+                goodsBeingTraded.put(good, false);
+                System.out.println("No trade: " + good.toString());
+            } else {
+                goodsBeingTraded.put(good, true);
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            Label[] labels = getLabelsFromID(i);
+            Label trader = labels[0];
+            Label price = labels[1];
+            if (!goodsBeingTraded.get(TradeGood.getGoodFromID(i))) {
+                trader.setText("NO");
+                price.setText("TRADE");
+            }
+        }
     }
     
     /**
@@ -243,326 +360,211 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * buy one water
+     * 
+     * @param id 
      */
+    private void genericIncrement(int id) {
+        TradeGood good = TradeGood.getGoodFromID(id);
+        Ship ship = Context.getInstance().getPlayer().getShip();
+        int credits = Context.getInstance().getPlayer().getCredits();
+        int price = TradeGood.getGoodFromID(id).calcMarketPrice();
+        Label trader = getLabelsFromID(id)[0];
+        Slider slider = getSliderFromID(id);
+        TextField playerField = getTextFieldFromID(id);
+        //check if trader trades this good
+        //set stock number to 0 if good is not tradeable
+        String traderStockStr = trader.getText();
+        int traderStock = 0;
+        if(!traderStockStr.equals("NO")){
+            traderStock = Integer.parseInt(trader.getText());
+        }
+        
+        int sliderValue = (int)slider.getValue();
+        boolean isCargoFull = ship.isCargoFull();
+        if (credits > price && traderStock > 0 && !isCargoFull && goodsBeingTraded.get(good)) {
+            slider.setValue(sliderValue + 1);
+            sliderValue = (int)slider.getValue();
+            playerField.setText(String.valueOf(sliderValue));
+            trader.setText(String.valueOf(traderStock - 1));
+            ship.addToCargo(good, 1);
+            updateCredits(good, 1);
+        }
+        currentCargo();        
+    }
     
-    public void waterIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.WATER.calcMarketPrice() && Integer.parseInt(tradersWater.getText()) > 0 
-                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-            waterSlider.setValue(((int)waterSlider.getValue()) + 1);
-            playersWater.setText(String.valueOf((int)waterSlider.getValue()));
-            tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) - 1));
-            //waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
-            //waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
-            Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.WATER, 1);
-            updateCredits(TradeGood.WATER, 1);
+    /**
+     * @param id 
+     */
+    private void genericDecrement(int id) {
+        boolean noTrade = false;
+        TradeGood good = TradeGood.getGoodFromID(id);
+        Ship ship = Context.getInstance().getPlayer().getShip();
+        int credits = Context.getInstance().getPlayer().getCredits();
+        int price = TradeGood.getGoodFromID(id).calcMarketPrice();
+        Label trader = getLabelsFromID(id)[0];
+        Slider slider = getSliderFromID(id);
+        TextField playerField = getTextFieldFromID(id);
+        //if the trader cannot trade the object, stock is 0 and noTrade is true
+        String traderStockStr = trader.getText();
+        int traderStock = 0;
+        if(!traderStockStr.equals("NO")){
+            traderStock = Integer.parseInt(trader.getText());
+            
+        } else {
+            noTrade = true;
+        }
+        
+        int sliderValue = (int)slider.getValue();
+        boolean isCargoEmpty = ship.isCargoEmpty();
+        if (!isCargoEmpty && !noTrade && ship.getCargoStock(good) > 0 && goodsBeingTraded.get(good)) {
+            slider.setValue(sliderValue - 1);
+            sliderValue = (int)slider.getValue();
+            playerField.setText(String.valueOf(sliderValue));
+            trader.setText(String.valueOf(traderStock + 1));
+            ship.removeFromCargo(good, 1);
+            updateCredits(good, -1);
         }
         currentCargo();
+    }
+    
+    /**
+     * Buy one water
+     */
+    public void waterIncrement() {
+        genericIncrement(0);
     }
 
     /**
      * sell one water
      */
     public void waterDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersWater.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.WATER) > 0) {
-        waterSlider.setValue(((int)waterSlider.getValue()) - 1);
-        playersWater.setText(String.valueOf((int)waterSlider.getValue()));
-        tradersWater.setText(String.valueOf(Integer.valueOf(tradersWater.getText()) + 1));
-        //waterPrice.setText(String.valueOf((int)waterSlider.getValue() * TradeGood.WATER.calcMarketPrice()));
-        //waterPrice.setText(String.valueOf(stockPrices.get(TradeGood.WATER)));
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.WATER, 1);
-        updateCredits(TradeGood.WATER, -1);
-        }
-        currentCargo();
+        genericDecrement(0);
     }
 
     /**
      * buy one fur
      */
     public void furIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FURS.calcMarketPrice() && Integer.parseInt(tradersFur.getText()) > 0 
-                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        furSlider.setValue((double)((int)furSlider.getValue()) + 1);
-        playersFur.setText(String.valueOf((int)furSlider.getValue()));
-        tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) - 1));
-       // furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FURS, 1);
-        updateCredits(TradeGood.FURS, 1);        
-        }
-        currentCargo();    
+        genericIncrement(1);    
     }
 
     /**
      * sell one fur
      */
     public void furDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersFur.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FURS) > 0) {
-        furSlider.setValue((double)((int)furSlider.getValue()) - 1);
-        playersFur.setText(String.valueOf((int)furSlider.getValue()));
-        tradersFur.setText(String.valueOf(Integer.valueOf(tradersFur.getText()) + 1));
-        //furPrice.setText(String.valueOf((int)furSlider.getValue() * TradeGood.FURS.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FURS, 1);
-        updateCredits(TradeGood.FURS, -1);        
-        }
-        currentCargo();    
+        genericDecrement(1);
     }
 
     /**
      * buy one food
      */
     public void foodIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FOOD.calcMarketPrice() && Integer.parseInt(tradersFood.getText()) > 0 
-            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        foodSlider.setValue((double)((int)foodSlider.getValue()) + 1);
-        playersFood.setText(String.valueOf((int)foodSlider.getValue()));
-        tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) - 1));
-        //foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FOOD, 1);
-        updateCredits(TradeGood.FOOD, 1);        
-        }
-        currentCargo();    
+        genericIncrement(2); 
     }
 
     /**
      * sell one food
      */
     public void foodDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersFood.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FOOD) > 0) {
-        foodSlider.setValue((double)((int)foodSlider.getValue()) - 1);
-        playersFood.setText(String.valueOf((int)foodSlider.getValue()));
-        tradersFood.setText(String.valueOf(Integer.valueOf(tradersFood.getText()) + 1));
-        //foodPrice.setText(String.valueOf((int)foodSlider.getValue() * TradeGood.FOOD.calcMarketPrice()));       
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FOOD, 1);
-        updateCredits(TradeGood.FOOD, -1);        
-        }
-        currentCargo();    
+        genericDecrement(2);
     }
 
     /**
      * buy one ore
      */
     public void oreIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.ORE.calcMarketPrice() && Integer.parseInt(tradersOre.getText()) > 0 
-           && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        oreSlider.setValue((double)((int)oreSlider.getValue()) + 1);
-        playersOre.setText(String.valueOf((int)oreSlider.getValue()));
-        tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) - 1));
-        //orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ORE, 1);
-        updateCredits(TradeGood.ORE, 1);        
-        }
-        currentCargo();    
+        genericIncrement(3);  
     }
 
     /**
      * sell one ore
      */
     public void oreDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersOre.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ORE) > 0) {
-        oreSlider.setValue((double)((int)oreSlider.getValue()) - 1);
-        playersOre.setText(String.valueOf((int)oreSlider.getValue()));
-        tradersOre.setText(String.valueOf(Integer.valueOf(tradersOre.getText()) + 1));
-       // orePrice.setText(String.valueOf((int)oreSlider.getValue() * TradeGood.ORE.calcMarketPrice()));       
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ORE, 1);        
-        updateCredits(TradeGood.ORE, -1);
-        }
-        currentCargo();    
+        genericDecrement(3); 
     }
 
     /**
      * buy one game
      */
     public void gamesIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.GAMES.calcMarketPrice() && Integer.parseInt(tradersGames.getText()) > 0 
-            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        gameSlider.setValue((double)((int)gameSlider.getValue()) + 1);
-        playersGames.setText(String.valueOf((int)gameSlider.getValue()));
-        tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) - 1));
-        //gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.GAMES, 1);        
-        updateCredits(TradeGood.GAMES, 1);        
-        }
-        currentCargo();    
+        genericIncrement(4);
     }
 
     /**
      * sell one game
      */
     public void gamesDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersGames.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.GAMES) > 0) {
-        gameSlider.setValue((double)((int)gameSlider.getValue()) - 1);
-        playersGames.setText(String.valueOf((int)gameSlider.getValue()));
-        tradersGames.setText(String.valueOf(Integer.valueOf(tradersGames.getText()) + 1));
-        //gamesPrice.setText(String.valueOf((int)gameSlider.getValue() * TradeGood.GAMES.calcMarketPrice()));      
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.GAMES, 1);        
-        updateCredits(TradeGood.GAMES, -1);        
-        }
-        currentCargo();    
+        genericDecrement(4);   
     }
 
     /**
      * buy one firearm
      */
     public void firearmsIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.FIREARMS.calcMarketPrice() && Integer.parseInt(tradersFirearms.getText()) > 0 
-            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        firearmSlider.setValue((double)((int)firearmSlider.getValue()) + 1);
-        playersFirearms.setText(String.valueOf((int)firearmSlider.getValue()));
-        tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) - 1));
-        //firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.FIREARMS, 1);        
-        updateCredits(TradeGood.FIREARMS, 1);        
-        }
-        currentCargo();    
+        genericIncrement(5);
     }
 
     /**
      * sell one firearm
      */
     public void firearmsDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersFirearms.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.FIREARMS) > 0) {
-        firearmSlider.setValue((double)((int)firearmSlider.getValue() - 1));
-        playersFirearms.setText(String.valueOf((int)firearmSlider.getValue()));
-        tradersFirearms.setText(String.valueOf(Integer.valueOf(tradersFirearms.getText()) + 1));
-        //firearmsPrice.setText(String.valueOf((int)firearmSlider.getValue() * TradeGood.FIREARMS.calcMarketPrice()));       
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.FIREARMS, 1);        
-        updateCredits(TradeGood.FIREARMS, -1);        
-        }
-        currentCargo();    
+        genericDecrement(5); 
     }
 
     /**
      * buy one medicine
      */
     public void medIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.MEDICINE.calcMarketPrice() && Integer.parseInt(tradersMed.getText()) > 0 
-                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {        
-        medicineSlider.setValue((double)((int)medicineSlider.getValue()) + 1);
-        playersMed.setText(String.valueOf((int)medicineSlider.getValue()));
-        tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) - 1));
-        //medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MEDICINE, 1);    
-        updateCredits(TradeGood.MEDICINE, 1);        
-        }
-        currentCargo();    
+        genericIncrement(6);  
     }
 
     /**
      * sell one medicine
      */
     public void medDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersMed.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MEDICINE) > 0) {
-        medicineSlider.setValue((double)((int)medicineSlider.getValue()) - 1);
-        playersMed.setText(String.valueOf((int)medicineSlider.getValue()));
-        tradersMed.setText(String.valueOf(Integer.valueOf(tradersMed.getText()) + 1));
-       // medPrice.setText(String.valueOf((int)medicineSlider.getValue() * TradeGood.MEDICINE.calcMarketPrice()));       
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MEDICINE, 1);
-        updateCredits(TradeGood.MEDICINE, -1);        
-        }
-        currentCargo();    
+        genericDecrement(6);    
     }
 
     /**
      * buy one machine
      */
     public void machinesIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.MACHINES.calcMarketPrice() && Integer.parseInt(tradersMachines.getText()) > 0 
-                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {        
-        machineSlider.setValue((double)((int)machineSlider.getValue()) + 1);
-        playersMachines.setText(String.valueOf((int)machineSlider.getValue()));
-        tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) - 1));
-       // machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.MACHINES, 1);
-        updateCredits(TradeGood.MACHINES, 1);        
-        }
-        currentCargo();    
+        genericIncrement(7);
     }
 
     /**
      * sell one machine
      */
     public void machinesDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersMachines.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.MACHINES) > 0) {        
-        machineSlider.setValue((double)((int)machineSlider.getValue() - 1));
-        playersMachines.setText(String.valueOf((int)machineSlider.getValue()));
-        tradersMachines.setText(String.valueOf(Integer.valueOf(tradersMachines.getText()) + 1));
-       // machinesPrice.setText(String.valueOf((int)machineSlider.getValue() * TradeGood.MACHINES.calcMarketPrice()));       
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.MACHINES, 1);
-        updateCredits(TradeGood.MACHINES, -1);        
-        }
-        currentCargo();    
+        genericDecrement(7);
     }
 
     /**
      * buy one narcotics
      */
     public void narcoticsIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.NARCOTICS.calcMarketPrice() && Integer.parseInt(tradersNarcotics.getText()) > 0 
-                && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) + 1);
-        playersNarcotics.setText(String.valueOf((int)narcoticSlider.getValue()));
-        tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) - 1));
-        //narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.NARCOTICS, 1);
-        updateCredits(TradeGood.NARCOTICS, 1);        
-        }
-        currentCargo();    
+        genericIncrement(8);    
     }
 
     /**
      * sell one narcotics
      */
     public void narcoticsDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersNarcotics.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.NARCOTICS) > 0) {        
-        narcoticSlider.setValue((double)((int)narcoticSlider.getValue()) - 1);
-        playersNarcotics.setText(String.valueOf((int)narcoticSlider.getValue()));
-        tradersNarcotics.setText(String.valueOf(Integer.valueOf(tradersNarcotics.getText()) + 1));
-        //narcoticsPrice.setText(String.valueOf((int)narcoticSlider.getValue() * TradeGood.NARCOTICS.calcMarketPrice()));      
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.NARCOTICS, 1);        
-        updateCredits(TradeGood.NARCOTICS, -1);        
-        }
-        currentCargo();    
+        genericDecrement(8);
     }
 
     /**
      * buy one robot
      */
     public void robotsIncrement() {
-        if (Context.getInstance().getPlayer().getCredits() > TradeGood.ROBOTS.calcMarketPrice() && Integer.parseInt(tradersRobots.getText()) > 0 
-            && !Context.getInstance().getPlayer().getShip().isCargoFull()) {
-        robotSlider.setValue((double)((int)robotSlider.getValue()) + 1);
-        playersRobots.setText(String.valueOf((int)robotSlider.getValue()));
-        tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) - 1));
-        //robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));        
-        Context.getInstance().getPlayer().getShip().addToCargo(TradeGood.ROBOTS, 1);
-        updateCredits(TradeGood.ROBOTS, 1);        
-        }
-        currentCargo();    
+        genericIncrement(9);
     }
 
     /**
      * sell one robot
      */
     public void robotsDecrement() {
-        if (!Context.getInstance().getPlayer().getShip().isCargoEmpty() && !tradersRobots.getText().equals("0")
-                && Context.getInstance().getPlayer().getShip().getCargoStock(TradeGood.ROBOTS) > 0) {
-        robotSlider.setValue((double)((int)robotSlider.getValue()) - 1);
-        playersRobots.setText(String.valueOf((int)robotSlider.getValue()));
-        tradersRobots.setText(String.valueOf(Integer.valueOf(tradersRobots.getText()) + 1));
-       // robotsPrice.setText(String.valueOf((int)robotSlider.getValue() * TradeGood.ROBOTS.calcMarketPrice()));      
-        Context.getInstance().getPlayer().getShip().removeFromCargo(TradeGood.ROBOTS, 1);        
-        updateCredits(TradeGood.ROBOTS, -1);        
-        }
-        currentCargo();    
+        genericDecrement(9);
     }
     
     /**
@@ -588,29 +590,9 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCredits();
         int value = -1;
         for (int i = 0; i < 10; i++) {
-            switch (i) {
-                case 0: value = Integer.valueOf(tradersWater.getText());
-                        break;
-                case 1: value = Integer.valueOf(tradersFur.getText());
-                        break;
-                case 2: value = Integer.valueOf(tradersFood.getText());
-                        break;
-                case 3: value = Integer.valueOf(tradersOre.getText());
-                        break;
-                case 4: value = Integer.valueOf(tradersGames.getText());
-                        break;
-                case 5: value = Integer.valueOf(tradersFirearms.getText());
-                        break;
-                case 6: value = Integer.valueOf(tradersMed.getText());
-                        break;
-                case 7: value = Integer.valueOf(tradersMachines.getText());
-                        break;
-                case 8: value = Integer.valueOf(tradersNarcotics.getText());
-                        break;
-                case 9: value = Integer.valueOf(tradersRobots.getText());
-                        break;
-                default: System.out.println("I don't know how this happened");
-                        break;
+            //check if trader trades this good, and if he does, change value to correct number
+            if(!getLabelsFromID(i)[0].getText().equals("NO")){
+                value = Integer.valueOf(getLabelsFromID(i)[0].getText());
             }
             Context.getInstance().getPlayer().getCurrentPlanet().getMarket().setStockIndex(i, value);
         }
@@ -623,10 +605,10 @@ public class MarketController implements ControlledScreen, Initializable {
      * back button
      */
     public void backAction() {
-        Context.getInstance().getPlayer().removeCredits(Context.getInstance().getPlayer().getCredits());
-        Context.getInstance().getPlayer().addCredits(startCredits);
-        Context.getInstance().getPlayer().getShip().setCargo(startCargoStock,startCargo);
-        System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
+        player.removeCredits(Context.getInstance().getPlayer().getCredits());
+        player.addCredits(startCredits);
+        player.getShip().setCargo(startCargoStock,startCargo);
+        //System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
         //need to reset stock
         controller.setScreen("PlanetScreen");
     }

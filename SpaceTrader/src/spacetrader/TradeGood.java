@@ -7,14 +7,14 @@ import java.util.Random;
 public enum TradeGood {
     WATER(0, 0, 2, 30, 3, 4, Event.DROUGHT, Event.NONE, Resource.LOTSOFWATER, Resource.DESERT, 30, 50, 0),
     FURS(0, 0, 0, 250, 10, 10, Event.COLD, Event.MANYHUNTERS, Resource.RICHFAUNA, Resource.LIFELESS, 230, 280, 1),
-    FOOD(1, 0, 1, 100, 5, 5, Event.CROPFAIL, Event.HARVEST, Resource.RICHSOIL, Resource.POORSOIL, 90, 160, 2),
+    FOOD(0, 1, 1, 100, 5, 5, Event.CROPFAIL, Event.HARVEST, Resource.RICHSOIL, Resource.POORSOIL, 90, 160, 2),
     ORE(2, 2, 3, 350, 20, 10, Event.WAR, Event.NONE, Resource.MINERALRICH, Resource.MINERALPOOR, 350, 420, 3),
-    GAMES(3, 1, 6, 250, -10, 5, Event.BOREDOM, Event.NONE, Resource.ARTISTIC, Resource.NOSPECIALRESOURCES, 160, 270, 4),
-    FIREARMS(3, 1, 5, 1250, -75, 100, Event.CRIMEWAVE, Event.POLICE, Resource.WARLIKE, Resource.PACIFIST, 600, 1100, 5),
-    MEDICINE(4, 1, 6, 650, -20, 10, Event.PLAGUE, Event.NONE, Resource.LOTSOFHERBS, Resource.LIFELESS, 400, 700, 6),
-    MACHINES(4, 3, 5, 900, -30, 5, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 600, 800, 7),
-    NARCOTICS(5, 0, 5, 3500, -125, 150, Event.POLICE, Event.STRAIGHTEDGE, Resource.WEIRDMUSHROOMS, Resource.NOSPECIALRESOURCES, 2000, 3000, 8),
-    ROBOTS(6, 4, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000, 9);
+    GAMES(1, 3, 6, 250, -10, 5, Event.BOREDOM, Event.NONE, Resource.ARTISTIC, Resource.NOSPECIALRESOURCES, 160, 270, 4),
+    FIREARMS(1, 3, 5, 1250, -75, 100, Event.CRIMEWAVE, Event.POLICE, Resource.WARLIKE, Resource.PACIFIST, 600, 1100, 5),
+    MEDICINE(1, 4, 6, 650, -20, 10, Event.PLAGUE, Event.NONE, Resource.LOTSOFHERBS, Resource.LIFELESS, 400, 700, 6),
+    MACHINES(3, 4, 5, 900, -30, 5, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 600, 800, 7),
+    NARCOTICS(0, 5, 5, 3500, -125, 150, Event.POLICE, Event.STRAIGHTEDGE, Resource.WEIRDMUSHROOMS, Resource.NOSPECIALRESOURCES, 2000, 3000, 8),
+    ROBOTS(4, 6, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000, 9);
     
     /**
      * TradeGoods have many parameters, most of them influence price in some way.
