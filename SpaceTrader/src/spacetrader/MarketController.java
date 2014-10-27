@@ -393,7 +393,6 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * THINGS ARE SO FUCKED
      * @param id 
      */
     private void genericDecrement(int id) {
@@ -405,7 +404,7 @@ public class MarketController implements ControlledScreen, Initializable {
         Label trader = getLabelsFromID(id)[0];
         Slider slider = getSliderFromID(id);
         TextField playerField = getTextFieldFromID(id);
-        //if the trader cannot trade the object, stock is 0
+        //if the trader cannot trade the object, stock is 0 and noTrade is true
         String traderStockStr = trader.getText();
         int traderStock = 0;
         if(!traderStockStr.equals("NO")){
@@ -590,10 +589,8 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();
         currentCredits();
         int value = -1;
-        /**
-         * error for "NO TRADE"
-         */
         for (int i = 0; i < 10; i++) {
+            //check if trader trades this good, and if he does, change value to correct number
             if(!getLabelsFromID(i)[0].getText().equals("NO")){
                 value = Integer.valueOf(getLabelsFromID(i)[0].getText());
             }
