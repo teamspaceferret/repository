@@ -371,7 +371,14 @@ public class MarketController implements ControlledScreen, Initializable {
         Label trader = getLabelsFromID(id)[0];
         Slider slider = getSliderFromID(id);
         TextField playerField = getTextFieldFromID(id);
-        int traderStock = Integer.parseInt(trader.getText());
+        //check if trader trades this good
+        //set stock number to 0 if good is not tradeable
+        String traderStockStr = trader.getText();
+        int traderStock = 0;
+        if(!traderStockStr.equals("NO")){
+            traderStock = Integer.parseInt(trader.getText());
+        }
+        
         int sliderValue = (int)slider.getValue();
         boolean isCargoFull = ship.isCargoFull();
         if (credits > price && traderStock > 0 && !isCargoFull && goodsBeingTraded.get(good)) {
@@ -385,7 +392,12 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();        
     }
     
+    /**
+     * THINGS ARE SO FUCKED
+     * @param id 
+     */
     private void genericDecrement(int id) {
+        boolean noTrade = false;
         TradeGood good = TradeGood.getGoodFromID(id);
         Ship ship = Context.getInstance().getPlayer().getShip();
         int credits = Context.getInstance().getPlayer().getCredits();
@@ -393,10 +405,19 @@ public class MarketController implements ControlledScreen, Initializable {
         Label trader = getLabelsFromID(id)[0];
         Slider slider = getSliderFromID(id);
         TextField playerField = getTextFieldFromID(id);
-        int traderStock = Integer.parseInt(trader.getText());
+        //if the trader cannot trade the object, stock is 0
+        String traderStockStr = trader.getText();
+        int traderStock = 0;
+        if(!traderStockStr.equals("NO")){
+            traderStock = Integer.parseInt(trader.getText());
+            
+        } else {
+            noTrade = true;
+        }
+        
         int sliderValue = (int)slider.getValue();
         boolean isCargoEmpty = ship.isCargoEmpty();
-        if (!isCargoEmpty && !(traderStock == 0) && ship.getCargoStock(good) > 0 && goodsBeingTraded.get(good)) {
+        if (!isCargoEmpty && !noTrade && ship.getCargoStock(good) > 0 && goodsBeingTraded.get(good)) {
             slider.setValue(sliderValue - 1);
             sliderValue = (int)slider.getValue();
             playerField.setText(String.valueOf(sliderValue));
@@ -569,8 +590,13 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();
         currentCredits();
         int value = -1;
+        /**
+         * error for "NO TRADE"
+         */
         for (int i = 0; i < 10; i++) {
-            value = Integer.valueOf(getLabelsFromID(i)[0].getText());
+            if(!getLabelsFromID(i)[0].getText().equals("NO")){
+                value = Integer.valueOf(getLabelsFromID(i)[0].getText());
+            }
             Context.getInstance().getPlayer().getCurrentPlanet().getMarket().setStockIndex(i, value);
         }
         controller.setScreen("PlanetScreen");
