@@ -1,5 +1,6 @@
 package spacetrader;
 
+//import com.sun.deploy.config.Platform;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -50,6 +51,7 @@ public class SpaceTrader extends Application {
     @Override
     public void stop(){
         //shutdown the sound threads
-        Context.getInstance().getSoundManager().shutdown();
+        //Context.getInstance().getSoundManager().shutdown();
+        SoundManager.getSoundManager().shutdown();
     }
 }

@@ -1,24 +1,18 @@
 package spacetrader;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
-import javafx.scene.media.AudioClip;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class StartScreenController implements ControlledScreen, Initializable {
     ScreensController controller;
     @FXML private MenuItem toggleBG;
     @FXML private MenuItem toggleSE;
-    @FXML private MenuItem toggleAll;
     
-    SoundManager soundManager = Context.getInstance().getSoundManager();
-    private AudioClip currentBG;
+    SoundManager soundManager = SoundManager.getSoundManager();
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
     private String bgId = "OpenInitial";
@@ -37,7 +31,6 @@ public class StartScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
-        soundManager = Context.getInstance().getSoundManager();
         seMuted = soundManager.getSEMuted();
         bgMuted = soundManager.getBGMuted();
         if(seMuted){
@@ -51,32 +44,11 @@ public class StartScreenController implements ControlledScreen, Initializable {
         } else {
             toggleBG.setText("Mute Background Music");
         }
-            
-        //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
-        /*
-        if(soundManager.getBackgroundMusic("OpenLoop") != null){
-            if(soundManager.getBackgroundMusic("OpenLoop").isPlaying()){
-                
-            } else {
-                
-                soundManager.playBackgroundMusic("OpenLoop");
-            }
-        } else {
-            soundManager.loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
-            soundManager.loadBackgroundMusic("OpenLoop", "resources/OpenLoop.wav");
-            //Context.getInstance().getSoundManager().playBackgroundWithIntro("OpenInitial", "OpenLoop");
-            soundManager.playBackgroundMusic("OpenLoop");
-        }
-        */
-       // soundManager.playBGWithCheck("OpenInitial", "resources/OpenInitial.wav");
-       // currentBG = soundManager.getBackgroundMusic("OpenInitial");
-        boolean b = soundManager.loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
-        soundManager.playBackgroundMusic("OpenInitial");
-        
-        System.out.println(b);
-        
         
         //loop isn't perfect transition. Fix that.
+        soundManager.playBGWithCheck2("OpenInitial", "resources/OpenInitial.wav");
+        soundManager.loadSoundEffect("Click", "resources/StepFast-2.wav");
+        
     }
     
     /**
@@ -93,6 +65,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Transitions to the character creation screen.
      */
     public void newGameButtonAction() {
+        soundManager.playSoundEffect("Click");
         controller.setScreen("CharacterCreation");
     }
     
@@ -100,15 +73,14 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Loads the saved game state and transitions to the appropriate screen.
      */
     public void loadGameButtonAction() {
+        soundManager.playSoundEffect("Click");
         Context.getInstance().loadContextBinary();
         controller.setScreen("PlanetScreen");
     }
     
     public void toggleBackgroundAction(){
-        //toggleBG.setText("Mute Background Music");
-        //soundManager.getbgMuted
         if(!bgMuted){
-            //soundManager.muteBackgroundMusic(bgId);
+            soundManager.muteBackgroundMusic(bgId);
             toggleBG.setText("Play Background Music");
         } else {
             soundManager.unMuteBackgroundMusic(bgId);
@@ -119,7 +91,6 @@ public class StartScreenController implements ControlledScreen, Initializable {
     }
     
     public void toggleSoundEffectsAction(){
-        //soundManager.getSEMuted
         if(!seMuted){
             soundManager.muteSoundEffects();
             toggleSE.setText("Play Sound Effects");
@@ -129,9 +100,5 @@ public class StartScreenController implements ControlledScreen, Initializable {
         }
         
         seMuted = !seMuted;
-    }
-    
-    public void toggleAllMusicAction(){
-        
     }
 }

@@ -38,6 +38,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         player = Context.getInstance().getPlayer();
+        
         drawPlanets();
         this.fuelLabel.setText("Fuel: "
                 + String.valueOf(this.player.getShip().getFuelLevel()));

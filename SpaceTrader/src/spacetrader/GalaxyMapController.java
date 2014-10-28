@@ -22,6 +22,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -39,6 +40,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     public void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
+        soundManager.playBGWithCheck2("ComputerBeep", "resources/ComputerBeep.wav",.3);
         drawSolarSystems();
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         setDescription(player.getCurrentPlanet().getParentSolarSystem());

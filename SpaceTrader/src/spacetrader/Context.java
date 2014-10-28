@@ -17,9 +17,6 @@ public class Context implements Serializable{
     private Player player = new Player();
     private Universe universe = new Universe();
     private Names names = new Names();
-   
-    
-    private final SoundManager soundManager = new SoundManager(6);
     
     public static final int BOUNDARY = 300;
     public static final int MIN_DISTANCE_BETWEEN_PLANETS = 15;
@@ -118,14 +115,6 @@ public class Context implements Serializable{
      */
     public int[] getStock() {
         return this.stock;
-    }
-    
-    /**
-     * returns the sound manager
-     * @return soundManager
-     */
-    public SoundManager getSoundManager(){
-        return this.soundManager;
     }
     
     /**

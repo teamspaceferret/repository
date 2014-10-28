@@ -5,73 +5,37 @@
  */
 package spacetrader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Serializable;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 
-
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
-
-
-public class SoundManager implements Serializable{
-    //private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
-    //private HashMap<String,AudioClip> backgroundMusicMap = new HashMap();
-    private HashMap<String,AudioInputStream> backgroundMusicMap = new HashMap();
+public class SoundManager {
+    private static final SoundManager soundManager = new SoundManager();
     
+    private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
+    private HashMap<String,AudioClip> backgroundMusicMap = new HashMap();
     
-    private byte[] buf;
+    private ExecutorService soundPool = Executors.newFixedThreadPool(6);
+    private double volumeBG = 1;
+    private double volumeSE = 1;
+    private boolean bgMuted = false;
+    private boolean seMuted = false;
     
-   /* public void SoundSerializer() throws FileNotFoundException, IOException{
-        File file = new File("C:\\soundFile.wav");
-        
-        FileInputStream fis = new FileInputStream(file);
-    }*/
-    
-    private ExecutorService soundPool;
-    private double volumeBG;
-    private double volumeSE;
-    private boolean bgMuted;
-    private boolean seMuted;
-    
-    public SoundManager(){
-        soundPool = Executors.newFixedThreadPool(6);
-        volumeBG = 1;
-        volumeSE = 1;
-        bgMuted = false;
-        seMuted = false;
-    }
-    
-    public SoundManager(int threadNumber){
-        soundPool = Executors.newFixedThreadPool(threadNumber);
-        volumeBG = 1;
-        volumeSE = 1;
-        bgMuted = false;
-        seMuted = false;
-    }
-    
-    /*
+    /**
+     * 
+     * @param id
+     * @param path 
+     */
     public void loadSoundEffect(String id, String path){
         URL url = getClass().getResource(path);
         AudioClip soundEffect = new AudioClip(url.toExternalForm());
         soundEffectsMap.put(id, soundEffect);
     }
-    */
     
     /**
      * 
@@ -79,50 +43,13 @@ public class SoundManager implements Serializable{
      * @param path
      */
     public void loadBackgroundMusic(String id, String path){
-            
-            
-            URL url = getClass().getResource(path);
-            
-            /* 
-            AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
-            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-            backgroundMusicMap.put(id, backgroundMusic);
-            return true;
-            */
-            
-           // AudioStream stream;
-           /*
-            try {
-                
-                AudioStream stream = new AudioStream(url.openStream());
-                AudioData data = stream.getData();
-                ContinuousAudioDataStream cas = new ContinuousAudioDataStream(data);
-                backgroundMusicMap.put(id, cas);
-                return true;
-            } catch (IOException ex) {
-                ex.printStackTrace();
-               return false;
-            }
-            */
-            
-            /*
-             try {
-                AudioInputStream inputStream = AudioSystem.getAudioInputStream(url);
-                backgroundMusicMap.put(id, inputStream);
-                return true;
-             } catch (Exception ex) {
-                 ex.printStackTrace();
-                return false; 
-             }
-             */
-           
-            
-            
-           
-        
+        URL url = getClass().getResource(path);
+        AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
+        backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+        backgroundMusicMap.put(id, backgroundMusic);    
     }
     
-    /*
+    
     public void playSoundEffect(String id){
         if(!seMuted){
             Runnable sePlay = new Runnable(){
@@ -134,39 +61,110 @@ public class SoundManager implements Serializable{
             soundPool.execute(sePlay);
         } 
     }
-    */
+    
     
     public void playBackgroundMusic(String id){
         Runnable bgPlay = new Runnable(){
             @Override
             public void run(){
-                //backgroundMusicMap.get(id).play(volumeBG);
-                //AudioClip clip = new AudioClip();
+                backgroundMusicMap.get(id).play(volumeBG);
             }
         };
         soundPool.execute(bgPlay);
     }
-   /* 
+    
+    public void playBackgroundMusic(String id, double volume){
+        Runnable bgPlay = new Runnable(){
+            @Override
+            public void run(){
+                backgroundMusicMap.get(id).play(volume);
+            }
+        };
+        soundPool.execute(bgPlay);
+    }
+    
+    /**
+     * Plays the track given by id and path if the background music is not muted.
+     * If the desired track is not loaded, it loads the music.
+     * Checks for other playing tracks and if a different track is playing, stops it and plays the desired music.
+     * @param id of the desired music to play
+     * @param path of the desired music
+     */
+    public void playBGWithCheck2(String id, String path){
+        if(!bgMuted){
+            //checks if the desired music is loaded or not, and loads it if needed
+            if(soundManager.backgroundMusicMap.get(id) == null){
+                soundManager.loadBackgroundMusic(id, path);
+            }
+            
+            //if the current music is different from the desired track, stop current music
+            String currentID = soundManager.currentlyPlayingBGMusicID();
+            if(!currentID.equals(id) && !currentID.equals("")){
+               soundManager.backgroundMusicMap.get(currentID).stop();
+               soundManager.playBackgroundMusic(id);
+            } else if (currentID.equals(id)){
+                //correct music playing, do nothing
+            } else {
+                soundManager.playBackgroundMusic(id);
+            }
+          
+        }
+    }
+    
+    public void playBGWithCheck2(String id, String path, double volume){
+        if(!bgMuted){
+            //checks if the desired music is loaded or not, and loads it if needed
+            if(soundManager.backgroundMusicMap.get(id) == null){
+                soundManager.loadBackgroundMusic(id, path);
+            }
+            
+            //if the current music is different from the desired track, stop current music
+            String currentID = soundManager.currentlyPlayingBGMusicID();
+            if(!currentID.equals(id) && !currentID.equals("")){
+               soundManager.backgroundMusicMap.get(currentID).stop();
+               soundManager.playBackgroundMusic(id, volume);
+            } else if (currentID.equals(id)){
+                //correct music playing, do nothing
+            } else {
+                soundManager.playBackgroundMusic(id, volume);
+            }
+          
+        }
+    }
+    
     public void playBGWithCheck(String id, String path){
         if(!bgMuted){
-          if (this.getBackgroundMusic(id) != null){
-            if (this.getBackgroundMusic(id).isPlaying()){ } 
+          if (soundManager.getBackgroundMusic(id) != null){
+            if (soundManager.getBackgroundMusic(id).isPlaying()){ } 
             else {
-              this.playBackgroundMusic(id);
+              soundManager.playBackgroundMusic(id);
             }
           } else {
-            this.loadBackgroundMusic(id, path);
-            this.playBackgroundMusic(id);
+            soundManager.loadBackgroundMusic(id, path);
+            soundManager.playBackgroundMusic(id);
           }
         }
          
     }
-    */
     
-    /*public AudioClip getBackgroundMusic(String id){
+    public String currentlyPlayingBGMusicID(){
+        String id = "";
+        Set<String> keys = soundManager.backgroundMusicMap.keySet();
+        //if keys exist
+        if(keys != null){
+            for(String key : keys){
+                if(soundManager.backgroundMusicMap.get(key).isPlaying()){
+                    id = key;
+                }
+            }
+        }
+        return id;
+    }
+    
+    public AudioClip getBackgroundMusic(String id){
         return backgroundMusicMap.get(id);
     }
-    */
+    
     
     public boolean getBGMuted(){
         return bgMuted;
@@ -176,7 +174,7 @@ public class SoundManager implements Serializable{
         return seMuted;
     }
     
-    /*
+    
     public AudioClip getPlayingBGMusic(){
         AudioClip playing = null;
         backgroundMusicMap.values();
@@ -184,14 +182,13 @@ public class SoundManager implements Serializable{
         
         return playing;
     }
-    */
-    /*
+    
     public void muteBackgroundMusic(String id){
-        AudioClip toMute = getBackgroundMusic(id);
+        AudioClip toMute = soundManager.getBackgroundMusic(id);
         toMute.stop();
         bgMuted = true;
     }
-    */
+    
     
     public void muteSoundEffects(){
         seMuted = true;
@@ -217,11 +214,11 @@ public class SoundManager implements Serializable{
         unMuteSoundEffects();
     }
     
-    /*
+    
     public void setVolumeBG(double volume){
         volumeBG = volume;
         if (volume==0){
-            muteBG();
+            
         } else {
             
         }
@@ -240,7 +237,7 @@ public class SoundManager implements Serializable{
         setVolumeBG(volume);
         setVolumeSE(volume);
     }
-    */
+    
     
     /**
      * stop all threads and media players
@@ -248,4 +245,8 @@ public class SoundManager implements Serializable{
     public void shutdown(){
         soundPool.shutdown();
     } 
+    
+    public static SoundManager getSoundManager(){
+        return soundManager;
+    }
 }
