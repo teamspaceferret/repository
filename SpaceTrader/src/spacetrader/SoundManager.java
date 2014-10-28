@@ -5,6 +5,10 @@
  */
 package spacetrader;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
@@ -12,10 +16,32 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+
+
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
+
 
 public class SoundManager implements Serializable{
-    private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
-    private HashMap<String,AudioClip> backgroundMusicMap = new HashMap();
+    //private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
+    //private HashMap<String,AudioClip> backgroundMusicMap = new HashMap();
+    private HashMap<String,AudioInputStream> backgroundMusicMap = new HashMap();
+    
+    
+    private byte[] buf;
+    
+   /* public void SoundSerializer() throws FileNotFoundException, IOException{
+        File file = new File("C:\\soundFile.wav");
+        
+        FileInputStream fis = new FileInputStream(file);
+    }*/
     
     private ExecutorService soundPool;
     private double volumeBG;
@@ -39,21 +65,64 @@ public class SoundManager implements Serializable{
         seMuted = false;
     }
     
+    /*
     public void loadSoundEffect(String id, String path){
         URL url = getClass().getResource(path);
         AudioClip soundEffect = new AudioClip(url.toExternalForm());
         soundEffectsMap.put(id, soundEffect);
     }
+    */
     
+    /**
+     * 
+     * @param id
+     * @param path
+     */
     public void loadBackgroundMusic(String id, String path){
-        
+            
+            
             URL url = getClass().getResource(path);
+            
+            /* 
             AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
             backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
             backgroundMusicMap.put(id, backgroundMusic);
+            return true;
+            */
+            
+           // AudioStream stream;
+           /*
+            try {
+                
+                AudioStream stream = new AudioStream(url.openStream());
+                AudioData data = stream.getData();
+                ContinuousAudioDataStream cas = new ContinuousAudioDataStream(data);
+                backgroundMusicMap.put(id, cas);
+                return true;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+               return false;
+            }
+            */
+            
+            /*
+             try {
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(url);
+                backgroundMusicMap.put(id, inputStream);
+                return true;
+             } catch (Exception ex) {
+                 ex.printStackTrace();
+                return false; 
+             }
+             */
+           
+            
+            
+           
         
     }
     
+    /*
     public void playSoundEffect(String id){
         if(!seMuted){
             Runnable sePlay = new Runnable(){
@@ -65,17 +134,19 @@ public class SoundManager implements Serializable{
             soundPool.execute(sePlay);
         } 
     }
+    */
     
     public void playBackgroundMusic(String id){
         Runnable bgPlay = new Runnable(){
             @Override
             public void run(){
-                backgroundMusicMap.get(id).play(volumeBG);
+                //backgroundMusicMap.get(id).play(volumeBG);
+                //AudioClip clip = new AudioClip();
             }
         };
         soundPool.execute(bgPlay);
     }
-    
+   /* 
     public void playBGWithCheck(String id, String path){
         if(!bgMuted){
           if (this.getBackgroundMusic(id) != null){
@@ -90,10 +161,12 @@ public class SoundManager implements Serializable{
         }
          
     }
+    */
     
-    public AudioClip getBackgroundMusic(String id){
+    /*public AudioClip getBackgroundMusic(String id){
         return backgroundMusicMap.get(id);
     }
+    */
     
     public boolean getBGMuted(){
         return bgMuted;
@@ -112,21 +185,23 @@ public class SoundManager implements Serializable{
         return playing;
     }
     */
-    
+    /*
     public void muteBackgroundMusic(String id){
         AudioClip toMute = getBackgroundMusic(id);
         toMute.stop();
         bgMuted = true;
     }
+    */
     
     public void muteSoundEffects(){
         seMuted = true;
     }
-    
+    /*
     public void muteAllSound(String id){
         muteBackgroundMusic(id);
         muteSoundEffects();
     }
+    */
     
     public void unMuteBackgroundMusic(String id){
         playBackgroundMusic(id);

@@ -21,7 +21,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
     private AudioClip currentBG;
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
-    private String bgId = "OpenLoop";
+    private String bgId = "OpenInitial";
     
     /**
      * Set the screen parent.
@@ -68,8 +68,12 @@ public class StartScreenController implements ControlledScreen, Initializable {
             soundManager.playBackgroundMusic("OpenLoop");
         }
         */
-        soundManager.playBGWithCheck("OpenLoop", "resources/OpenLoop.wav");
-        currentBG = soundManager.getBackgroundMusic("OpenLoop");
+       // soundManager.playBGWithCheck("OpenInitial", "resources/OpenInitial.wav");
+       // currentBG = soundManager.getBackgroundMusic("OpenInitial");
+        boolean b = soundManager.loadBackgroundMusic("OpenInitial", "resources/OpenInitial.wav");
+        soundManager.playBackgroundMusic("OpenInitial");
+        
+        System.out.println(b);
         
         
         //loop isn't perfect transition. Fix that.
@@ -104,7 +108,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
         //toggleBG.setText("Mute Background Music");
         //soundManager.getbgMuted
         if(!bgMuted){
-            soundManager.muteBackgroundMusic(bgId);
+            //soundManager.muteBackgroundMusic(bgId);
             toggleBG.setText("Play Background Music");
         } else {
             soundManager.unMuteBackgroundMusic(bgId);
