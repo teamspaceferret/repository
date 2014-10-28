@@ -359,6 +359,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
             player.setShip(selectedToBuy);
             buyShipStats.setText(selectedToBuy.getType() + " purchased!");
             player.addCredits(-1 * price);
+            updateShipTextArea(currentShipStats, player.getShip());
         } else {
             genericTextUpdate(currentShipStats, "You don't have enough credits to purchase that ship.");
         }
