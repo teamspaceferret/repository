@@ -2,8 +2,11 @@ package spacetrader;
 
 //import com.sun.deploy.config.Platform;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Popup;
+//import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 
 public class SpaceTrader extends Application {
@@ -31,7 +34,16 @@ public class SpaceTrader extends Application {
         mainContainer.loadScreen("PlanetScreen", "PlanetScreen.fxml");
         mainContainer.loadScreen("Market", "Market.fxml");
         mainContainer.loadScreen("Shipyard", "Shipyard.fxml");
+        
+        mainContainer.loadScreen("OptionsScreen", "OptionsScreen.fxml");
+        
         mainContainer.setScreen("StartScreen");
+        
+        //make and load new screen that is toggled on esc key
+        //it passes the prev screen from the thing
+        //has back button
+        //make little menus on each screen and then hide them weeeee
+        //could also use this to make a character data window
         
         Group root = new Group();
         root.getChildren().addAll(mainContainer);

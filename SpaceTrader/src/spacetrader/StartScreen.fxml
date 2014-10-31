@@ -24,10 +24,10 @@
             <Font size="48.0" />
          </font>
       </Text>
-      <SplitMenuButton layoutX="7.0" layoutY="2.0" mnemonicParsing="false" text="Sound Options">
+      <SplitMenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="SplitMenuButton" visible="false">
         <items>
-          <MenuItem fx:id="toggleBG" mnemonicParsing="false" onAction="#toggleBackgroundAction" text="Toggle Background Music" />
-          <MenuItem fx:id="toggleSE" mnemonicParsing="false" onAction="#toggleSoundEffectsAction" text="Toggle Sound Effects" />
+          <MenuItem fx:id="optionsButton" mnemonicParsing="false" onAction="#optionsActions" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </SplitMenuButton>
    </children>
