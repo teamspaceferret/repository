@@ -40,7 +40,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     public void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
-        soundManager.playBGWithCheck2("ComputerBeep", "resources/ComputerBeep.wav",.3);
+        soundManager.setVolumeBG(.1);
+        soundManager.playBGWithCheck("ComputerBeep", "resources/ComputerBeep.wav");
         drawSolarSystems();
         this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         setDescription(player.getCurrentPlanet().getParentSolarSystem());
@@ -111,6 +112,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                     && event.getY() <= solarSystem.getCoords().getY() + 10
                     && event.getY() >= solarSystem.getCoords().getY()) {
                 this.setDescription(solarSystem);
+                soundManager.playSoundEffect(SoundManager.CLICKID); //change to a beep sound instead
                 Context.getInstance().setFocus(solarSystem);
             }
         }
@@ -138,6 +140,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     public void selectSystem() {
         SolarSystem focus = Context.getInstance().getFocus();
         if (focus != null) {
+            soundManager.playSoundEffect(SoundManager.CLICKID);
             this.controller.setScreen("SolarMap");
         } else {
             this.description.setText("Please select a system.");

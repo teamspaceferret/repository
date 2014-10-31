@@ -15,6 +15,11 @@ import java.util.concurrent.Executors;
 
 
 public class SoundManager {
+    public static final String CLICKID = "Click";
+    public static final String CLICKPATH = "resources/StepFast-2.wav";
+    public static final String STARTSCREENID = "OpenInitial";
+    public static final String STARTSCREENPATH = "resources/OpenInitial.wav";
+    
     private static final SoundManager soundManager = new SoundManager();
     
     private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
@@ -25,31 +30,25 @@ public class SoundManager {
     private double volumeSE = 1;
     private boolean bgMuted = false;
     private boolean seMuted = false;
+    private String previousScreen;
     
-    /**
-     * 
-     * @param id
-     * @param path 
-     */
-    public void loadSoundEffect(String id, String path){
+    private void loadSoundEffect(String id, String path){
         URL url = getClass().getResource(path);
         AudioClip soundEffect = new AudioClip(url.toExternalForm());
         soundEffectsMap.put(id, soundEffect);
     }
     
-    /**
-     * 
-     * @param id
-     * @param path
-     */
-    public void loadBackgroundMusic(String id, String path){
+    private void loadBackgroundMusic(String id, String path){
         URL url = getClass().getResource(path);
         AudioClip backgroundMusic = new AudioClip(url.toExternalForm());
         backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
         backgroundMusicMap.put(id, backgroundMusic);    
     }
     
-    
+    /**
+     * 
+     * @param id 
+     */
     public void playSoundEffect(String id){
         if(!seMuted){
             Runnable sePlay = new Runnable(){
@@ -63,21 +62,11 @@ public class SoundManager {
     }
     
     
-    public void playBackgroundMusic(String id){
+    private void playBackgroundMusic(String id){
         Runnable bgPlay = new Runnable(){
             @Override
             public void run(){
                 backgroundMusicMap.get(id).play(volumeBG);
-            }
-        };
-        soundPool.execute(bgPlay);
-    }
-    
-    public void playBackgroundMusic(String id, double volume){
-        Runnable bgPlay = new Runnable(){
-            @Override
-            public void run(){
-                backgroundMusicMap.get(id).play(volume);
             }
         };
         soundPool.execute(bgPlay);
@@ -90,7 +79,7 @@ public class SoundManager {
      * @param id of the desired music to play
      * @param path of the desired music
      */
-    public void playBGWithCheck2(String id, String path){
+    public void playBGWithCheck(String id, String path){
         if(!bgMuted){
             //checks if the desired music is loaded or not, and loads it if needed
             if(soundManager.backgroundMusicMap.get(id) == null){
@@ -107,44 +96,22 @@ public class SoundManager {
             } else {
                 soundManager.playBackgroundMusic(id);
             }
-          
         }
     }
     
-    public void playBGWithCheck2(String id, String path, double volume){
-        if(!bgMuted){
-            //checks if the desired music is loaded or not, and loads it if needed
-            if(soundManager.backgroundMusicMap.get(id) == null){
-                soundManager.loadBackgroundMusic(id, path);
+    /**
+     * 
+     * @param id
+     * @param path 
+     */
+    public void playSEWithCheck(String id, String path){
+        if(!seMuted){
+            //check if wanted sound effect is loaded
+            if(soundManager.soundEffectsMap.get(id) == null){
+                soundManager.loadSoundEffect(id, path);
             }
-            
-            //if the current music is different from the desired track, stop current music
-            String currentID = soundManager.currentlyPlayingBGMusicID();
-            if(!currentID.equals(id) && !currentID.equals("")){
-               soundManager.backgroundMusicMap.get(currentID).stop();
-               soundManager.playBackgroundMusic(id, volume);
-            } else if (currentID.equals(id)){
-                //correct music playing, do nothing
-            } else {
-                soundManager.playBackgroundMusic(id, volume);
-            }
-          
+            soundManager.playSoundEffect(id);
         }
-    }
-    
-    public void playBGWithCheck(String id, String path){
-        if(!bgMuted){
-          if (soundManager.getBackgroundMusic(id) != null){
-            if (soundManager.getBackgroundMusic(id).isPlaying()){ } 
-            else {
-              soundManager.playBackgroundMusic(id);
-            }
-          } else {
-            soundManager.loadBackgroundMusic(id, path);
-            soundManager.playBackgroundMusic(id);
-          }
-        }
-         
     }
     
     public String currentlyPlayingBGMusicID(){
@@ -165,7 +132,6 @@ public class SoundManager {
         return backgroundMusicMap.get(id);
     }
     
-    
     public boolean getBGMuted(){
         return bgMuted;
     }
@@ -174,8 +140,7 @@ public class SoundManager {
         return seMuted;
     }
     
-    
-    public AudioClip getPlayingBGMusic(){
+    private AudioClip getPlayingBGMusic(){
         AudioClip playing = null;
         backgroundMusicMap.values();
         
@@ -189,16 +154,9 @@ public class SoundManager {
         bgMuted = true;
     }
     
-    
     public void muteSoundEffects(){
         seMuted = true;
     }
-    /*
-    public void muteAllSound(String id){
-        muteBackgroundMusic(id);
-        muteSoundEffects();
-    }
-    */
     
     public void unMuteBackgroundMusic(String id){
         playBackgroundMusic(id);
@@ -208,36 +166,30 @@ public class SoundManager {
     public void unMuteSoundEffects(){
         seMuted = false;
     }
-    
-    public void unMuteAllSound(String id){
-        unMuteBackgroundMusic(id);
-        unMuteSoundEffects();
-    }
-    
-    
+      
     public void setVolumeBG(double volume){
         volumeBG = volume;
         if (volume==0){
-            
-        } else {
-            
+            bgMuted = true;
         }
-        //loop through all music
-        //bgmusic.stop
-        //bgmusic.play
-        //replay with current volume
     }
     
     public void setVolumeSE(double volume){
         volumeSE = volume;
-        
     }
     
-    public void setAllVolume(double volume){
-        setVolumeBG(volume);
-        setVolumeSE(volume);
+    public void setAllVolume(double bgVolume, double seVolume){
+        setVolumeBG(bgVolume);
+        setVolumeSE(seVolume);
     }
     
+    public void setPrevScreen(String name){
+        previousScreen = name;
+    }
+    
+    public String getPrevScreen(){
+        return previousScreen;
+    }
     
     /**
      * stop all threads and media players
@@ -246,7 +198,12 @@ public class SoundManager {
         soundPool.shutdown();
     } 
     
+    /**
+     * Gets sound manager for the current game
+     * @return the sound manager
+     */
     public static SoundManager getSoundManager(){
         return soundManager;
     }
+    
 }

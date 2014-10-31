@@ -5,17 +5,17 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class StartScreenController implements ControlledScreen, Initializable {
     ScreensController controller;
-    @FXML private MenuItem toggleBG;
-    @FXML private MenuItem toggleSE;
+    @FXML private MenuItem optionsButton;
     
     SoundManager soundManager = SoundManager.getSoundManager();
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
-    private String bgId = "OpenInitial";
     
     /**
      * Set the screen parent.
@@ -33,22 +33,12 @@ public class StartScreenController implements ControlledScreen, Initializable {
     public void initScreen() {
         seMuted = soundManager.getSEMuted();
         bgMuted = soundManager.getBGMuted();
-        if(seMuted){
-            toggleSE.setText("Play Sound Effects");
-        } else {
-            toggleSE.setText("Mute Sound Effects");
-        }
+        soundManager.setPrevScreen("StartScreen");
         
-        if(bgMuted){
-            toggleBG.setText("Play Background Music");
-        } else {
-            toggleBG.setText("Mute Background Music");
-        }
+        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         
         //loop isn't perfect transition. Fix that.
-        soundManager.playBGWithCheck2("OpenInitial", "resources/OpenInitial.wav");
-        soundManager.loadSoundEffect("Click", "resources/StepFast-2.wav");
-        
+        soundManager.playBGWithCheck(SoundManager.STARTSCREENID, SoundManager.STARTSCREENPATH);     
     }
     
     /**
@@ -65,7 +55,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Transitions to the character creation screen.
      */
     public void newGameButtonAction() {
-        soundManager.playSoundEffect("Click");
+        soundManager.playSEWithCheck(SoundManager.CLICKID,SoundManager.CLICKPATH);
         controller.setScreen("CharacterCreation");
     }
     
@@ -73,32 +63,12 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Loads the saved game state and transitions to the appropriate screen.
      */
     public void loadGameButtonAction() {
-        soundManager.playSoundEffect("Click");
+        soundManager.playSEWithCheck(SoundManager.CLICKID,SoundManager.CLICKPATH);
         Context.getInstance().loadContextBinary();
         controller.setScreen("PlanetScreen");
     }
     
-    public void toggleBackgroundAction(){
-        if(!bgMuted){
-            soundManager.muteBackgroundMusic(bgId);
-            toggleBG.setText("Play Background Music");
-        } else {
-            soundManager.unMuteBackgroundMusic(bgId);
-            toggleBG.setText("Mute Background Music");
-        }
-        
-        bgMuted = !bgMuted;
-    }
-    
-    public void toggleSoundEffectsAction(){
-        if(!seMuted){
-            soundManager.muteSoundEffects();
-            toggleSE.setText("Play Sound Effects");
-        } else {
-            soundManager.unMuteSoundEffects();
-            toggleSE.setText("Mute Sound Effects");
-        }
-        
-        seMuted = !seMuted;
+    public void optionsActions(){
+        controller.setScreen("OptionsScreen");
     }
 }
