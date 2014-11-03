@@ -98,6 +98,10 @@ public class Ship implements Serializable{
         return message;
     }
     
+    public int getMaxFuel() {
+        return maxFuelLevel;
+    }
+    
     private HashMap mapStatNamesToInts() {
         //maxCargo, weaponSlots, shieldSlots, gadgetSlots, crewSlots, currentFuel,
         //minTechLevel, fuelCost, price, bounty, occurence, hullStr, police,

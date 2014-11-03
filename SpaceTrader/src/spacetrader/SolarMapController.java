@@ -44,7 +44,9 @@ public class SolarMapController implements ControlledScreen, Initializable {
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
         selectedPlanet = player.getCurrentPlanet();
-        setDescription(player.getCurrentPlanet());
+        if (player.getCurrentPlanet().getParentSolarSystem().equals(Context.getInstance().getFocus())) {        
+            setDescription(player.getCurrentPlanet());
+        }
     }
     
     /**
@@ -74,16 +76,26 @@ public class SolarMapController implements ControlledScreen, Initializable {
             } else {
                 gc.setFill(Color.RED);
             }
-            gc.fillOval(planet.getCoords().getX(), planet.getCoords().getY(),
-                    10, 10);
+            
+            // TODO: Move computation to separate function
+            gc.fillOval(10*(planet.getCoords().getX() - solarSystem.getCoords().getX()) + 150,
+                        10*(planet.getCoords().getY() - solarSystem.getCoords().getY()) + 150,
+                        10, 10);
         }
              
         // Draw current planet in gold
         if (player.getCurrentPlanet().getParentSolarSystem().equals(solarSystem)) {
             gc.setFill(Color.GOLD);
-            gc.fillOval(player.getCurrentPlanet().getCoords().getX(), 
-                player.getCurrentPlanet().getCoords().getY(), 10, 10);
+            gc.fillOval(10*(player.getCurrentPlanet().getCoords().getX() - solarSystem.getCoords().getX()) + 150, 
+                10*(player.getCurrentPlanet().getCoords().getY() - solarSystem.getCoords().getY()) + 150, 10, 10);
         }
+        
+        // Draw range circle
+        gc.setStroke(Color.BLACK);
+        gc.strokeOval(this.player.getCurrentPlanet().getCoords().getX() - this.player.getShip().getRange()/2 + 5,
+                this.player.getCurrentPlanet().getCoords().getY() - this.player.getShip().getRange()/2 + 5,
+                20*this.player.getShip().getRange(),
+                20*this.player.getShip().getRange());
     }
     
     
@@ -92,11 +104,17 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param event click event
      */
     public void onMouseClick(MouseEvent event) {
+        SolarSystem solarSystem = Context.getInstance().getFocus();
+        
         for (Planet planet : Context.getInstance().getFocus().getPlanets()) {
-            if ((event.getX() <= (planet.getCoords().getX() + 10))
-                    && ((event.getX() >= (planet.getCoords().getX())))
-                    && ((event.getY() <= (planet.getCoords().getY() + 10))
-                    && (event.getY() >= (planet.getCoords().getY())))) {
+            if (event.getX() <= 10*(planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 160
+                    && event.getX() >= 10*(planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 150
+                    && event.getY() <= 10*(planet.getCoords().getY()
+                    - solarSystem.getCoords().getY()) + 160
+                    && event.getY() >= 10*(planet.getCoords().getY()
+                    - solarSystem.getCoords().getX()) + 150) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
             }

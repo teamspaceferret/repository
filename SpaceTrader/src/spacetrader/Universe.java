@@ -21,8 +21,6 @@ public class Universe implements Serializable{
         Coordinate newCoord;
         Coordinate solarSystemCoords[];
         Random rand = new Random();
-        Planet dummyPlanet = new Planet();
-        Planet dummyOtherPlanet = new Planet();
         
         this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
         solarSystemCoords = new Coordinate[this.solarSystems.length];
@@ -32,13 +30,15 @@ public class Universe implements Serializable{
                 tooClose = false;
                 newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
                         rand.nextInt(Context.BOUNDARY));
-                dummyPlanet.setCoords(newCoord);
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        dummyOtherPlanet.setCoords(solarSystemCoords[j]);
-                        
-                        if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
+                        if ((Math.abs(newCoord.getX()
+                                - solarSystemCoords[j].getX())
+                                < Context.MIN_DISTANCE_BETWEEN_SOLAR_SYSTEMS)
+                                || (Math.abs(newCoord.getY()
+                                        - solarSystemCoords[j].getY())
+                                < Context.MIN_DISTANCE_BETWEEN_SOLAR_SYSTEMS)) {
                             tooClose = true;
                         }
                     }
@@ -50,7 +50,8 @@ public class Universe implements Serializable{
         
         // Create all the solar systems
         for (int i = 0; i < solarSystemCoords.length; i++) {
-            this.solarSystems[i] = new SolarSystem(solarSystemCoords[i].getX(), solarSystemCoords[i].getY());
+            this.solarSystems[i] = new SolarSystem(solarSystemCoords[i].getX(),
+                    solarSystemCoords[i].getY());
             this.solarSystems[i].generateSolarSystem();
         }
     }
@@ -89,7 +90,9 @@ public class Universe implements Serializable{
     public String toString(){
        String string = "";
        for(int i = 0; i < this.solarSystems.length; i++){
-            string += "Solar System " + i + " \"" + this.solarSystems[i].getName() + "\" at " + this.solarSystems[i].getCoords() + ": \n";
+            string += "Solar System " + i + " \""
+                    + this.solarSystems[i].getName() + "\" at "
+                    + this.solarSystems[i].getCoords() + ": \n";
             string += this.solarSystems[i].toString() + "\n";
         }
        
