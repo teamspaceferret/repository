@@ -1,14 +1,18 @@
 package spacetrader;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class CharacterCreationController implements ControlledScreen,
@@ -21,18 +25,15 @@ public class CharacterCreationController implements ControlledScreen,
             traderIncrement;
     @FXML private Label pointsLabel;
     @FXML private TextArea descriptions;
-    @FXML private TextField fighterField, engineerField, investorField,
+    @FXML private TextField engineerField, fighterField, investorField,
             nameEntry, pilotField, traderField;
-    @FXML private Slider engineerSlider, fighterSlider, investorSlider,
-            pilotSlider, traderSlider;
-    
     ScreensController controller;
     private int pointsRemaining = 15;
     private int[] stats;
     private Player player;
     private String playerName = "";
+    private Map<String, TextField> map = new HashMap<>();
     
-
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
@@ -47,7 +48,9 @@ public class CharacterCreationController implements ControlledScreen,
      */
     @Override
     public void initScreen() {
-
+        descriptions.setText("Please enter your name, hit Enter or the OK "
+                + "button, then enter your stats. Each stat may be between 0 "
+                + "and 5. You may hit the stat buttons for descriptions.");
     }
     
     /**
@@ -57,7 +60,40 @@ public class CharacterCreationController implements ControlledScreen,
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        map.put("Engineer", engineerField);
+        map.put("Fighter", fighterField);
+        map.put("Investor", investorField);
+        map.put("Pilot", pilotField);
+        map.put("Trader", traderField);
         
+        map.keySet().stream().forEach((String key) -> {
+            map.get(key).textProperty().addListener((ObservableValue<? extends String>
+                    observable, String oldValue, String newValue) -> {
+                
+                int oldInt = Integer.valueOf(oldValue);
+                int newInt = Integer.valueOf(newValue);
+                
+                if (oldInt < 0) oldInt = 0;
+                if (oldInt > 5) oldInt = 5;
+                
+                if (newInt < 0) {
+                    map.get(key).setText("0");
+                } else if (newInt > 5) {
+                    map.get(key).setText("5");
+                } else {
+                    setStat(key, newInt, oldInt);
+                    if (pointsRemaining < 0) {
+                        map.get(key).setText(oldValue);
+                    }
+                }
+            });
+        });
+        
+        nameEntry.setOnKeyPressed((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                setPlayerName();
+            }
+        });
     }
     
    /**
@@ -117,15 +153,10 @@ public class CharacterCreationController implements ControlledScreen,
         playerName = "";
         nameEntry.clear();
         investorField.setText("0");
-        investorSlider.setValue(0);
         pilotField.setText("0");
-        pilotSlider.setValue(0);
         traderField.setText("0");
-        traderSlider.setValue(0);
         fighterField.setText("0");
-        fighterSlider.setValue(0);
         engineerField.setText("0");
-        engineerSlider.setValue(0);
         descriptions.clear();
         pointsRemaining = 15;
         updatePoints();
@@ -168,30 +199,28 @@ public class CharacterCreationController implements ControlledScreen,
         return pointsRemaining != 0 && current <= 5;
     }
     
-    private void adjustStat(Slider slider, TextField field, int adjustment) {
-        int current = (int)slider.getValue() + adjustment;
-        
-        if (checkTotals(current)) {
-            pointsRemaining -= adjustment;
-            slider.setValue(current);
-            field.setText(String.valueOf(current));
-            updatePoints();
-        }
+    private void setStat(String key, int newValue) {
+        map.get(key).setText(String.valueOf(newValue));
+    }
+    
+    private void setStat(String key, int newValue, int oldValue) {
+        pointsRemaining = pointsRemaining - newValue + oldValue;
+        updatePoints();
     }
     
     /**
      * Increments or decrements the appropriate stat slider and field
      */
-    public void incrementFighterAction() { adjustStat(fighterSlider, fighterField, 1); }
-    public void incrementTraderAction() { adjustStat(traderSlider, traderField, 1); }
-    public void incrementPilotAction() { adjustStat(pilotSlider, pilotField, 1); }
-    public void incrementEngineerAction() { adjustStat(engineerSlider, engineerField, 1); }
-    public void incrementInvestorAction() { adjustStat(investorSlider, investorField, 1); }
-    public void decrementFighterAction() { adjustStat(fighterSlider, fighterField, -1); }
-    public void decrementTraderAction() { adjustStat(traderSlider, traderField, -1); }
-    public void decrementPilotAction() { adjustStat(pilotSlider, pilotField, -1); }
-    public void decrementEngineerAction() { adjustStat(engineerSlider, engineerField, -1); }
-    public void decrementInvestorAction() { adjustStat(investorSlider, investorField, -1); }
+    public void incrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
+    public void incrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
+    public void incrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
+    public void incrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }
+    public void incrementTraderAction() { setStat("Trader", Integer.valueOf(map.get("Trader").getText())+1); }
+    public void decrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())-1); }
+    public void decrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())-1); }
+    public void decrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())-1); }
+    public void decrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())-1); }
+    public void decrementTraderAction() { setStat("Trader", Integer.valueOf(map.get("Trader").getText())-1); }
     
     /**
      * Sets the description TextArea to the Fighter stat description.
