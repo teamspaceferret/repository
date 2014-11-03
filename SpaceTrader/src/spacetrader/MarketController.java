@@ -76,6 +76,7 @@ public class MarketController implements ControlledScreen, Initializable {
     //PLEASE USE ME
     HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
     int startCredits, startCargo;
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -236,6 +237,7 @@ public class MarketController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        soundManager.setPrevScreen("Market");
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         startCredits = player.getCredits();

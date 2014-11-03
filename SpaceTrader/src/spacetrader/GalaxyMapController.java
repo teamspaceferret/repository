@@ -8,7 +8,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
@@ -18,6 +21,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Canvas canvas;
     @FXML private Label fuelLabel;
     @FXML private TextArea description;
+    @FXML private MenuItem optionsButton;
     
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
@@ -38,6 +42,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        soundManager.setPrevScreen("GalaxyMap");
+        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         soundManager.setVolumeBG(.1);
@@ -145,5 +151,9 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         } else {
             this.description.setText("Please select a system.");
         }
+    }
+    
+    public void optionsAction(){
+        controller.setScreen("OptionsScreen");
     }
 }

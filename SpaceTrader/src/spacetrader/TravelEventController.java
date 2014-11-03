@@ -15,6 +15,7 @@ public class TravelEventController implements ControlledScreen, Initializable {
     ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -30,6 +31,7 @@ public class TravelEventController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
+        soundManager.setPrevScreen("TravelEvent"); //may have to not do options during event
         //display flavor text of the chosen event
         description.setText(randomEvent());
     }

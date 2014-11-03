@@ -90,6 +90,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     Ship selectedToBuy;
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -106,6 +107,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @Override
     //flea, gnat, firefly, mosquito, bumblebee
     public void initScreen() {
+        soundManager.setPrevScreen("Shipyard");
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         player.addCredits(1000000);

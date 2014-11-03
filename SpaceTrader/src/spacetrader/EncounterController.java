@@ -7,6 +7,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class EncounterController implements ControlledScreen, Initializable {
     ScreensController controller;
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -22,7 +23,7 @@ public class EncounterController implements ControlledScreen, Initializable {
      */
     @Override
     public void initScreen() {
-        
+        soundManager.setPrevScreen("Encounter");
     }
     
     /**

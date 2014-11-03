@@ -1,12 +1,8 @@
 package spacetrader;
 
-//import com.sun.deploy.config.Platform;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.stage.Popup;
-//import javafx.stage.PopupBuilder;
 import javafx.stage.Stage;
 
 public class SpaceTrader extends Application {

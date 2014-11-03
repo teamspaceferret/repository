@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class CharacterCreationController implements ControlledScreen,
@@ -25,12 +28,15 @@ public class CharacterCreationController implements ControlledScreen,
             nameEntry, pilotField, traderField;
     @FXML private Slider engineerSlider, fighterSlider, investorSlider,
             pilotSlider, traderSlider;
+    @FXML MenuItem optionsButton;
     
     ScreensController controller;
     private int pointsRemaining = 15;
     private int[] stats;
     private Player player;
     private String playerName = "";
+    
+    SoundManager soundManager = SoundManager.getSoundManager();
     
 
     /**
@@ -47,7 +53,8 @@ public class CharacterCreationController implements ControlledScreen,
      */
     @Override
     public void initScreen() {
-
+        soundManager.setPrevScreen("CharacterCreation");
+        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
     }
     
     /**
@@ -257,5 +264,9 @@ public class CharacterCreationController implements ControlledScreen,
                 + "interest rates are volatile. You can make a killing or you "
                 + "can lose your savings, but having a high Investor skill can "
                 + "bolster your successes and cushion your losses. Be wary. ");
+    }
+    
+    public void optionsAction(){
+        controller.setScreen("OptionsScreen");
     }
 }

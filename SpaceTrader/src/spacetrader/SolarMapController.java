@@ -22,6 +22,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     ScreensController controller;
     Player player = Context.getInstance().getPlayer();
     Planet selectedPlanet;
+    SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.
@@ -38,6 +39,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         player = Context.getInstance().getPlayer();
+        soundManager.setPrevScreen("SolarMap");
         
         drawPlanets();
         this.fuelLabel.setText("Fuel: "
