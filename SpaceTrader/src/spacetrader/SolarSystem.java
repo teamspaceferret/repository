@@ -50,14 +50,19 @@ public class SolarSystem implements Serializable{
         for (int i = 0; i < this.planets.length; i++) {
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
-                        rand.nextInt(Context.BOUNDARY));
-                dummyPlanet.setCoords(newCoord);
+                newCoord = new Coordinate(this.coords.getX() 
+                        + rand.nextInt(Context.PLANET_BOUNDARY)
+                        - Context.PLANET_BOUNDARY/2,
+                        this.getCoords().getY()
+                                + rand.nextInt(Context.PLANET_BOUNDARY) 
+                                - Context.PLANET_BOUNDARY/2);
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        dummyOtherPlanet.setCoords(planetCoords[j]);
-                        if (dummyPlanet.istooCloseTo(dummyOtherPlanet)) {
+                        if ((Math.abs(newCoord.getX() - planetCoords[j].getX())
+                                < Context.MIN_DISTANCE_BETWEEN_PLANETS)
+                                || (Math.abs(newCoord.getY() - planetCoords[j].getY())
+                                < Context.MIN_DISTANCE_BETWEEN_PLANETS)) {
                             tooClose = true;
                         }
                     }
