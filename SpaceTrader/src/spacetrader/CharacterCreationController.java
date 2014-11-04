@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCodeCombination;
 
 import javafx.scene.control.TextArea;
@@ -33,9 +32,6 @@ public class CharacterCreationController implements ControlledScreen,
     @FXML private TextArea descriptions;
     @FXML private TextField engineerField, fighterField, investorField,
             nameEntry, pilotField, traderField;
-//CHECK IF NORM CHAR CREATION STILL HAS OR NOT
-    @FXML private Slider engineerSlider, fighterSlider, investorSlider,
-            pilotSlider, traderSlider;
     @FXML MenuItem optionsButton;
     
 
