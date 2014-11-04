@@ -144,16 +144,16 @@ public class ShipyardController implements Initializable, ControlledScreen {
     * 
     * @return HashMap mapping ints to fields
     */
-    private HashMap mapIntsToFields() {
-        HashMap<Integer, TextField> fieldMap = new HashMap();
-        fieldMap.put(0, playerWeapon1);
-        fieldMap.put(1, playerWeapon2);
-        fieldMap.put(2, playerWeapon3);
-        fieldMap.put(3, playerShield1);
-        fieldMap.put(4, playerShield2);
-        fieldMap.put(5, playerFuel);
-        fieldMap.put(6, playerCargoSlots);
-        return fieldMap;
+    private TextField[] mapIntsToFields() {
+        TextField[] fields = new TextField[7];
+        fields[0] = playerWeapon1;
+        fields[1] = playerWeapon2;
+        fields[2] = playerWeapon3;
+        fields[3] = playerShield1;
+        fields[4] = playerShield2;
+        fields[5] = playerFuel;
+        fields[6] = playerCargoSlots;
+        return fields;
     }
     
    /**
@@ -161,23 +161,23 @@ public class ShipyardController implements Initializable, ControlledScreen {
     * 
     * @return HashMap mapping ints to labels
     */
-    private HashMap mapIntsToLabels() {
-        HashMap<Integer, Label> labelMap = new HashMap();
-        labelMap.put(0, weapon1Cost);
-        labelMap.put(1, weapon2Cost);
-        labelMap.put(2, weapon3Cost);
-        labelMap.put(3, shield1Cost);
-        labelMap.put(4, shield2Cost);
-        labelMap.put(5, fuelCost);
-        labelMap.put(6, cargoSlotsCost);
-        labelMap.put(7, fleaCost);
-        labelMap.put(8, gnatCost);
-        labelMap.put(9, fireflyCost);
-        labelMap.put(10, mosquitoCost);
-        labelMap.put(11, bumblebeeCost);
-        labelMap.put(12, playerCreditNum1);
-        labelMap.put(13, playerCreditNum2);
-        return labelMap;
+    private Label[] mapIntsToLabels() {
+        Label[] labels = new Label[14];
+        labels[0] = weapon1Cost;
+        labels[1] = weapon2Cost;
+        labels[2] = weapon3Cost;
+        labels[3] = shield1Cost;
+        labels[4] = shield2Cost;
+        labels[5] = fuelCost;
+        labels[6] = cargoSlotsCost;
+        labels[7] = fleaCost;
+        labels[8] = gnatCost;
+        labels[9] = fireflyCost;
+        labels[10] = mosquitoCost;
+        labels[11] = bumblebeeCost;
+        labels[12] = playerCreditNum1;
+        labels[13] = playerCreditNum2;
+        return labels;
     }
     
    /**
@@ -185,25 +185,25 @@ public class ShipyardController implements Initializable, ControlledScreen {
     */
     private void updatePrices() {
         int amountToFill = player.getShip().getMaxFuelLevel() - player.getShip().getFuelLevel();
-        HashMap<Integer, String> priceMap = new HashMap();
-        HashMap labelMap = mapIntsToLabels();
-        priceMap.put(0, "1000");
-        priceMap.put(1, "1500");
-        priceMap.put(2, "2000");
-        priceMap.put(3, "2000");
-        priceMap.put(4, "4000");
-        priceMap.put(5, "" + amountToFill * player.getShip().getFuelCost());
-        priceMap.put(6, "1000");
-        priceMap.put(7, "" + new Ship("flea").getPrice());
-        priceMap.put(8, "" + new Ship("gnat").getPrice());
-        priceMap.put(9, "" + new Ship("firefly").getPrice());
-        priceMap.put(10, "" + new Ship("mosquito").getPrice());
-        priceMap.put(11, "" + new Ship("bumblebee").getPrice());
+        String[] prices = new String[12];
+        Label[] labels = mapIntsToLabels();
+        prices[0] = "1000";
+        prices[1] = "1500";
+        prices[2] = "2000";
+        prices[3] = "2000";
+        prices[4] = "4000";
+        prices[5] = "" + amountToFill * player.getShip().getFuelCost();
+        prices[6] = "1000";
+        prices[7] = "" + new Ship("flea").getPrice();
+        prices[8] = "" + new Ship("gnat").getPrice();
+        prices[9] = "" + new Ship("firefly").getPrice();
+        prices[10] = "" + new Ship("mosquito").getPrice();
+        prices[11] = "" + new Ship("bumblebee").getPrice();
         for (int i = 0; i < 12; i++) {
             if (i == 5) {
-                ((Label)labelMap.get(i)).setText(priceMap.get(i) + " to fill");
+                labels[i].setText(prices[i] + " to fill");
             } else {
-                ((Label)labelMap.get(i)).setText(priceMap.get(i));
+                labels[i].setText(prices[i]);
             }
         }
     }
