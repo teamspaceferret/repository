@@ -49,7 +49,6 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         soundManager.setVolumeBG(.1);
         soundManager.playBGWithCheck("ComputerBeep", "resources/ComputerBeep.wav");
         drawSolarSystems();
-        this.fuelLabel.setText("Fuel: " + String.valueOf(this.player.getShip().getFuelLevel()));
         setDescription(player.getCurrentPlanet().getParentSolarSystem());
         Context.getInstance().setFocus(player.getCurrentPlanet().getParentSolarSystem());
     }
@@ -68,15 +67,16 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      * Draws current solar systems on galaxy map
      */
     public void drawSolarSystems() {
+        Boolean isClose;
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         // Clear canvas
         gc.clearRect(0, 0, 310, 310);
         
         for (SolarSystem solarSystem : universe.getSolarSystems()) {
-            Boolean isClose = false;
+            isClose = false;
             for (Planet planet : solarSystem.getPlanets()) {
-                if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                if (player.getCurrentPlanet().getCoords().distanceTo(planet.getCoords())
                     < 0.5*this.player.getShip().getFuelLevel()) {
                     isClose = true;
                 }
@@ -100,8 +100,10 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         
         // Draw range circle
         gc.setStroke(Color.BLACK);
-        gc.strokeOval(player.getAbsoluteLocation().getX(),
-                player.getAbsoluteLocation().getY(),
+        gc.strokeOval(player.getCurrentPlanet().getCoords().getX()
+                - this.player.getShip().getRange()/2 + 5,
+                player.getCurrentPlanet().getCoords().getY()
+                        - this.player.getShip().getRange()/2 + 5,
                 this.player.getShip().getRange(),
                 this.player.getShip().getRange());
     }

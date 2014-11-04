@@ -158,18 +158,6 @@ public class Planet implements Serializable{
     }
     
     /**
-     * Returns true if a planet is too close to another planet.
-     * @param otherPlanet the other planet
-     * @return true if the planets are too close
-     */
-    public boolean istooCloseTo(Planet otherPlanet) {
-        return (Math.abs(this.coords.getX() - otherPlanet.getCoords().getX())
-                < Context.MIN_DISTANCE_BETWEEN_PLANETS)
-                || (Math.abs(this.coords.getY() - otherPlanet.getCoords().getY())
-                < Context.MIN_DISTANCE_BETWEEN_PLANETS);
-    }
-    
-    /**
      * Sets the planet name.
      * @param name planet name
      */
@@ -177,8 +165,20 @@ public class Planet implements Serializable{
         this.name = name;
     }
     
+    /**
+     * Sets the planet coords.
+     * @param coords planet coords
+     */
     public void setCoords(Coordinate coords) {
         this.coords = coords;
+    }
+    
+    /**
+     * Sets the planet government.
+     * @param government planet government
+     */
+    public void setGovernment(Government government) {
+        this.govt = government;
     }
     
     /**

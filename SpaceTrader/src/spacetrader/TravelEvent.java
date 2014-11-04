@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-import static spacetrader.Event.values;
 import java.io.Serializable;
 
 public enum TravelEvent implements Serializable{
