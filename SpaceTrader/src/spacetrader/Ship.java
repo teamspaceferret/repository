@@ -22,7 +22,7 @@ public class Ship implements Serializable{
     private HashMap<TradeGood,Integer> cargo;
     private Weapon[] weapons;
     private Shield[] shields;
-    private Gadget[] gadgets;
+    //private Gadget[] gadgets;
     private Mercenary[] crew;
     private int currentFuelLevel;
     private int minTechLevel;
@@ -56,7 +56,7 @@ public class Ship implements Serializable{
         cargo = new HashMap<>();
         weapons = new Weapon[stats[1]];
         shields = new Shield[stats[2]];
-        gadgets = new Gadget[stats[3]];
+        //gadgets = new Gadget[stats[3]];
         crew = new Mercenary[stats[4]];
         currentFuelLevel = stats[5];
         minTechLevel = stats[6];
@@ -186,26 +186,6 @@ public class Ship implements Serializable{
         return false;
     }
     
-    /*
-    public boolean addToCargo(TradeGood item){
-        int newCargoAmt = usedCargoSlots + 1;
-        if(newCargoAmt > maxCargoSlots){
-            System.out.println("Not enough cargo space");
-            return false;
-        } else {
-          usedCargoSlots = newCargoAmt;
-          if (cargo.containsKey(item)){
-            int amt = cargo.get(item);
-            amt += 1;
-            cargo.put(item,amt);
-          } else {
-              cargo.put(item, 1);
-          }
-          return true;
-        }
-    }
-    */
-    
     /**
      * Adds the given number of the given item to cargo
      * If there are not enough cargo slots, it does not add and returns false
@@ -229,25 +209,6 @@ public class Ship implements Serializable{
           return true;
         }
     }
-    
-    /*
-    public boolean removeFromCargo(TradeGood item){
-        //if cargo item does not exist in the cargo
-        //if there are 0 of the item
-        //tries to remove too many
-        int newCargoAmt = usedCargoSlots - 1;
-        if (!cargo.containsKey(item) || cargo.get(item) == 0){
-            System.out.println("Item not in cargo");
-            return false;
-        } else {
-            int itemAmt = cargo.get(item);
-            int newItemAmt = itemAmt-1;
-            cargo.put(item, newItemAmt);
-            usedCargoSlots = newCargoAmt;
-            return true;
-        }
-    }
-    */
     
     /**
      * Removes the given number of the given item from the ships cargo
@@ -329,14 +290,6 @@ public class Ship implements Serializable{
      */
     public Shield[] getShields(){
         return shields;
-    }
-    
-    /**
-     * Gets the ship's gadgets
-     * @return ship's gadgets
-     */
-    public Gadget[] getGadgets(){
-        return gadgets;
     }
     
     /**
@@ -502,19 +455,7 @@ public class Ship implements Serializable{
         cargo.put(TradeGood.WATER, NUM);
     }
     
-    private class Gadget {
-        
-    }
-    
     private class Mercenary {
-        
-    }
-    
-    private class Shield {
-        
-    }
-    
-    private class Weapon {
         
     }
 }
