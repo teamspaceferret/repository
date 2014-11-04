@@ -96,6 +96,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     Ship selectedToBuy;
+    Shipyard shipyard;
+    Weapon[] weaponStock;
+    Shield[] shieldStock;
     
     /**
      * Set the screen parent.
@@ -114,6 +117,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
     public void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
+        shipyard = player.getCurrentPlanet().getShipyard();
+        weaponStock = shipyard.getWeaponStock();
+        shieldStock = shipyard.getShieldStock();
         //this addCredits stuff is just to make sure we have plenty of money for the demo
         if (player.getCredits() < 1000000) {
             player.addCredits(1000000);
@@ -138,23 +144,47 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updatePrices();
         updateQuantities();
         
-        weapon1Cost.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getPrice());
-        weapon2Cost.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getPrice());
-        weapon3Cost.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getPrice());
-        shield1Cost.setText("" + player.getCurrentPlanet().getShipyard().getShieldStock()[0].getPrice());
-        shield2Cost.setText("" + player.getCurrentPlanet().getShipyard().getShieldStock()[1].getPrice());
+        weapon1Cost.setText("" + weaponStock[Shipyard.TURRET_IDX].getPrice());
+        weapon2Cost.setText("" + weaponStock[Shipyard.CANNON_IDX].getPrice());
+        weapon3Cost.setText("" + weaponStock[Shipyard.OCULASER_IDX].getPrice());
+        shield1Cost.setText("" + shieldStock[Shipyard.PLATE_IDX].getPrice());
+        shield2Cost.setText("" + shieldStock[Shipyard.MATTER_CLOAK_IDX].getPrice());
         
-        shipyardWeapon1.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getDamage());
-        shipyardWeapon2.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getDamage());
-        shipyardWeapon3.setText("" + player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getDamage());
-        shipyardShield1.setText("" + player.getCurrentPlanet().getShipyard().getShieldStock()[0].getHealth());
-        shipyardShield2.setText("" + player.getCurrentPlanet().getShipyard().getShieldStock()[1].getHealth());
+        shipyardWeapon1.setText("" + weaponStock[Shipyard.TURRET_IDX].getDamage());
+        shipyardWeapon2.setText("" + weaponStock[Shipyard.CANNON_IDX].getDamage());
+        shipyardWeapon3.setText("" + weaponStock[Shipyard.OCULASER_IDX].getDamage());
+        shipyardShield1.setText("" + shieldStock[Shipyard.PLATE_IDX].getHealth());
+        shipyardShield2.setText("" + shieldStock[Shipyard.MATTER_CLOAK_IDX].getHealth());
         
-        weapon1Name.setText(player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getName());
-        weapon2Name.setText(player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getName());
-        weapon3Name.setText(player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getName());
-        shield1Name.setText(player.getCurrentPlanet().getShipyard().getShieldStock()[0].getName());
-        shield2Name.setText(player.getCurrentPlanet().getShipyard().getShieldStock()[1].getName());
+        weapon1Name.setText(weaponStock[Shipyard.TURRET_IDX].getName());
+        weapon2Name.setText(weaponStock[Shipyard.CANNON_IDX].getName());
+        weapon3Name.setText(weaponStock[Shipyard.OCULASER_IDX].getName());
+        shield1Name.setText(shieldStock[Shipyard.PLATE_IDX].getName());
+        shield2Name.setText(shieldStock[Shipyard.MATTER_CLOAK_IDX].getName());
+        
+        //System.out.println(player.getCurrentPlanet().getTechLevel());
+        int currentPlanetTechLevel = player.getCurrentPlanet().getTechLevel();
+        if(currentPlanetTechLevel < weaponStock[Shipyard.TURRET_IDX].getTechLevel()){
+            plusWeapon1.setDisable(true);
+            minusWeapon1.setDisable(true);
+        }
+        if(currentPlanetTechLevel < weaponStock[Shipyard.CANNON_IDX].getTechLevel()){
+            plusWeapon2.setDisable(true);
+            minusWeapon2.setDisable(true);
+        }
+        if(currentPlanetTechLevel < weaponStock[Shipyard.OCULASER_IDX].getTechLevel()){
+            plusWeapon3.setDisable(true);
+            minusWeapon3.setDisable(true);
+        }
+        
+        if(currentPlanetTechLevel < shieldStock[Shipyard.PLATE_IDX].getTechLevel()){
+            plusShield1.setDisable(true);
+            minusShield1.setDisable(true);
+        }
+        if(currentPlanetTechLevel < shieldStock[Shipyard.MATTER_CLOAK_IDX].getTechLevel()){
+            plusShield2.setDisable(true);
+            minusShield2.setDisable(true);
+        }
         
     }
     
@@ -262,11 +292,11 @@ public class ShipyardController implements Initializable, ControlledScreen {
         for(Weapon w : currentShipWeapons){
             if(w != null){
                 //System.out.println(w.getName());
-                if (w.getName().equalsIgnoreCase(player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getName())){
+                if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.TURRET_IDX].getName())){
                     weapon1 += 1;
-                } else if (w.getName().equalsIgnoreCase(player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getName())){
+                } else if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.CANNON_IDX].getName())){
                     weapon2 += 1;
-                } else if (w.getName().equalsIgnoreCase(player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getName())){
+                } else if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.OCULASER_IDX].getName())){
                     weapon3 += 1;
                 }
             }
@@ -275,9 +305,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
         
         for(Shield s : currentShipShields){
             //System.out.println(s.getName());
-            if (s.getName().equalsIgnoreCase(player.getCurrentPlanet().getShipyard().getShieldStock()[0].getName())){
+            if (s.getName().equalsIgnoreCase(shieldStock[Shipyard.PLATE_IDX].getName())){
                 shield1 += 1;
-            } else if (s.getName().equalsIgnoreCase(player.getCurrentPlanet().getShipyard().getShieldStock()[1].getName())){
+            } else if (s.getName().equalsIgnoreCase(shieldStock[Shipyard.MATTER_CLOAK_IDX].getName())){
                 shield2 += 1;
             }
         }

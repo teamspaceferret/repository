@@ -17,6 +17,12 @@ import java.util.Set;
 public class Shipyard implements Serializable{
     private final int MAX_SHIELD_NUM = 5;//for 
     private final int MAX_WEAPON_NUM = 5;
+    public static final int TURRET_IDX = 0;
+    public static final int CANNON_IDX = 1;
+    public static final int OCULASER_IDX = 2;
+    public static final int PLATE_IDX = 0;
+    public static final int MATTER_CLOAK_IDX = 1;
+    
     private Planet planet;
     private Weapon[] weaponStock;
     private Shield[] shieldStock;
