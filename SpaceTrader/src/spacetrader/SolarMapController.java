@@ -90,12 +90,12 @@ public class SolarMapController implements ControlledScreen, Initializable {
                 10*(player.getCurrentPlanet().getCoords().getY() - solarSystem.getCoords().getY()) + 150, 10, 10);
         }
         
-        // Draw range circle
+        /*// Draw range circle
         gc.setStroke(Color.BLACK);
         gc.strokeOval(this.player.getCurrentPlanet().getCoords().getX() - this.player.getShip().getRange()/2 + 5,
                 this.player.getCurrentPlanet().getCoords().getY() - this.player.getShip().getRange()/2 + 5,
                 20*this.player.getShip().getRange(),
-                20*this.player.getShip().getRange());
+                20*this.player.getShip().getRange());*/
     }
     
     
@@ -107,14 +107,17 @@ public class SolarMapController implements ControlledScreen, Initializable {
         SolarSystem solarSystem = Context.getInstance().getFocus();
         
         for (Planet planet : Context.getInstance().getFocus().getPlanets()) {
-            if (event.getX() <= 10*(planet.getCoords().getX()
-                    - solarSystem.getCoords().getX()) + 160
-                    && event.getX() >= 10*(planet.getCoords().getX()
-                    - solarSystem.getCoords().getX()) + 150
-                    && event.getY() <= 10*(planet.getCoords().getY()
-                    - solarSystem.getCoords().getY()) + 160
-                    && event.getY() >= 10*(planet.getCoords().getY()
-                    - solarSystem.getCoords().getX()) + 150) {
+            
+            boolean a = event.getX() <= 10*(planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 160;
+            boolean b = event.getX() >= 10*(planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 150;
+            boolean c = event.getY() <= 10*(planet.getCoords().getY()
+                    - solarSystem.getCoords().getY()) + 160;
+            boolean d = event.getY() >= 10*(planet.getCoords().getY()
+                    - solarSystem.getCoords().getY()) + 150;
+            
+            if (a && b && c && d) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
             }

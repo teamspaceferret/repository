@@ -187,6 +187,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         int amountToFill = player.getShip().getMaxFuelLevel() - player.getShip().getFuelLevel();
         HashMap<Integer, String> priceMap = new HashMap();
         HashMap labelMap = mapIntsToLabels();
+        
         priceMap.put(0, "1000");
         priceMap.put(1, "1500");
         priceMap.put(2, "2000");
