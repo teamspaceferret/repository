@@ -222,13 +222,7 @@ public class Planet implements Serializable{
     }
     
     public boolean equals(Planet other) {
-        if (other.getAbsoluteLocation().getX() == this.getAbsoluteLocation().getX()) {
-            if (other.getAbsoluteLocation().getY() == this.getAbsoluteLocation().getY()) {
-                if (other.getName().equals(this.getName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return this.coords.equals(other.getCoords())
+                && this.name.equals(other.getName());
     }
 }

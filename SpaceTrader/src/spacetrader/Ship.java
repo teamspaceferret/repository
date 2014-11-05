@@ -48,7 +48,7 @@ public class Ship implements Serializable{
      */
     public Ship(String type){
         this.type = type.toLowerCase();
-        if(type.equals("flea")){
+        if (type.equals("flea")){
             hasEscapePod = true;
         } else {
             hasEscapePod = false;

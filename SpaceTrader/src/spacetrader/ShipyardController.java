@@ -33,18 +33,10 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Button minusShield1;
     @FXML private Button plusShield2;
     @FXML private Button minusShield2;
-    @FXML private Button fillTank;
-    @FXML private Button plusCargoSpaces;
-    @FXML private Button minusCargoSpaces;
-    @FXML private Button fleaStats;
     @FXML private Button gnatStats;
     @FXML private Button fireflyStats;
     @FXML private Button mosquitoStats;
     @FXML private Button bumblebeeStats;
-    //@FXML private Button ship6Stats;
-    @FXML private Button confirm;
-    @FXML private Button back;
-    @FXML private Button buyShip;
     
     @FXML private TextArea buyShipStats;
     @FXML private TextArea currentShipStats;
@@ -57,8 +49,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private TextField playerShield1;
     @FXML private TextField playerShield2;
     
-    @FXML private Label shipyardFuel; //?
-    @FXML private Label shipyardCargoSlots; //?
     @FXML private Label shipyardWeapon1;
     @FXML private Label shipyardWeapon2;
     @FXML private Label shipyardWeapon3;
@@ -319,14 +309,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
         playerShield2.setText("" + shield2);
         
         
-        
-    }
-    
-    private void genericIncrement() {
-        
-    }
-    
-    private void genericDecrement() {
         
     }
     

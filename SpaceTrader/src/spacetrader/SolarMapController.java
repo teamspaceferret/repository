@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class SolarMapController implements ControlledScreen, Initializable {
-    @FXML private Button travelButton;
     @FXML private Canvas canvas;
     @FXML private Label fuelLabel;
     @FXML private TextArea description;
@@ -170,9 +169,6 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet destination planet
      */
     public void travelToPlanet(Planet planet) {
-        if (this.player.getCurrentPlanet().equals(planet)) {
-            
-        }
         this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
         this.player.setPreviousPlanet(this.player.getCurrentPlanet());
         this.player.setCurrentPlanet(planet);

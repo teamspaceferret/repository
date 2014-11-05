@@ -6,14 +6,13 @@ import java.io.Serializable;
  * Market class
  */
 public class Market implements Serializable{
-    
     private Planet planet;
     private int[] stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     private int[] prices = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     
     
-    public Market(Planet hostPlanet) {
-        planet = hostPlanet;
+    public Market(Planet planet) {
+        this.planet = planet;
     }
     
     public void setPrices() {

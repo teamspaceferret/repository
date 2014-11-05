@@ -9,7 +9,6 @@ import javafx.scene.control.TextArea;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class TravelEventController implements ControlledScreen, Initializable {
-    @FXML private Button travelButton;
     @FXML private TextArea description;
     
     ScreensController controller;

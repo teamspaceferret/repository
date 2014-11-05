@@ -35,8 +35,6 @@ public class SolarSystem implements Serializable{
         Coordinate newCoord;
         Coordinate planetCoords[];
         Random rand = new Random();
-        Planet dummyPlanet = new Planet();
-        Planet dummyOtherPlanet = new Planet();
         
         this.name = Context.getInstance().getNames().getRandomName();
         

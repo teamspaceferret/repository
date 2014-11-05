@@ -17,8 +17,6 @@ import java.util.Random;
  * 
  */
 public class MarketController implements ControlledScreen, Initializable {
-    @FXML private Button confirmButton;
-    @FXML private Button backButton;
     @FXML private Label creditLabel;
     @FXML private Label cargoLabel;
     @FXML private TextField playersWater;
@@ -268,9 +266,9 @@ public class MarketController implements ControlledScreen, Initializable {
             Event event = planet.getEvent();
             Resource resource = planet.getResource();
             int goodMinTechLevelToBuy = good.getMTLB();
-            int goodMinTechLevelToSell = good.getMTLS();
             int planetTechLevel = planet.getTechLevel();
             int stock;
+            
             //will not produce things from too low a tech level
             if(goodMinTechLevelToBuy > planetTechLevel){
                 stock = 0;
@@ -281,15 +279,16 @@ public class MarketController implements ControlledScreen, Initializable {
                 stock *= .45;
             } else if (resource.getID() == good.getCR().getID()) {
                 stock *= 1.55;
-            } else {
             }
+            
             if (event.getID() == good.getIE().getID()) {
                 stock *= .75;
             } else if (event.getID() == good.getDE().getID()) {
                 stock *= 1.25;
-            } else {
             }
+            
             stockGoods[good.getID()] = stock;
+            
             return stock;
         } else {
             return Context.getInstance().getStock()[good.getID()];
@@ -399,8 +398,6 @@ public class MarketController implements ControlledScreen, Initializable {
         boolean noTrade = false;
         TradeGood good = TradeGood.getGoodFromID(id);
         Ship ship = Context.getInstance().getPlayer().getShip();
-        int credits = Context.getInstance().getPlayer().getCredits();
-        int price = TradeGood.getGoodFromID(id).calcMarketPrice();
         Label trader = getLabelsFromID(id)[0];
         Slider slider = getSliderFromID(id);
         TextField playerField = getTextFieldFromID(id);

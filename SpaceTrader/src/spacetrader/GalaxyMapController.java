@@ -6,17 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class GalaxyMapController implements ControlledScreen, Initializable {
-    @FXML private Button travelButton;
     @FXML private Canvas canvas;
-    @FXML private Label fuelLabel;
     @FXML private TextArea description;
     
     ScreensController controller;

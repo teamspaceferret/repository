@@ -13,9 +13,6 @@ import java.util.Random;
  * @author Cora
  */
 public class Weapon implements Serializable{
-    
-    private String[] namesArray = { };
-    
     private String name;
     private int damage;
     private int price;

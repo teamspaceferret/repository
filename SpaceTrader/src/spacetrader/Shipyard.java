@@ -7,8 +7,6 @@ package spacetrader;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
 
 /**
  *
@@ -27,7 +25,7 @@ public class Shipyard implements Serializable{
     private Weapon[] weaponStock;
     private Shield[] shieldStock;
     
-    private static final HashMap<String,Shield> defaultShields = new HashMap<>();
+    private static final HashMap<String, Shield> defaultShields = new HashMap<>();
         static{
             defaultShields.put("Plate",new Shield("Plate",50,4));
             defaultShields.put("Matter Cloak", new Shield("Matter Cloak", 70, 5));
@@ -39,7 +37,7 @@ public class Shipyard implements Serializable{
             defaultShields.put("Name8", new Shield("Name8"));
         }
         
-        private static final HashMap<String,Weapon> defaultWeapons = new HashMap<>();
+        private static final HashMap<String, Weapon> defaultWeapons = new HashMap<>();
         static{
             defaultWeapons.put("Turret", new Weapon("Turret",10,4));
             defaultWeapons.put("Dual Cannon", new Weapon("Dual Cannon",50,5));

@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
-    @FXML private Button backButton, marketButton, saveButton, shipyardButton;
+    @FXML private Button shipyardButton;
     @FXML private Label planetName;
     
     ScreensController controller;
