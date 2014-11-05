@@ -3,6 +3,7 @@ package spacetrader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -78,6 +79,12 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Label bumblebeeCost;
     //@FXML private Label ship6Cost;
     
+    @FXML private Label weapon1Name;
+    @FXML private Label weapon2Name;
+    @FXML private Label weapon3Name;
+    @FXML private Label shield1Name;
+    @FXML private Label shield2Name;
+    
     @FXML private Label playerCreditNum1; //for the credit count on upgrade ship page
     @FXML private Label playerCreditNum2; //for the credit cound on buy new ship page
     @FXML private Tab weaponsTab;
@@ -89,6 +96,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     Ship selectedToBuy;
+    Shipyard shipyard;
+    Weapon[] weaponStock;
+    Shield[] shieldStock;
     
     /**
      * Set the screen parent.
@@ -107,6 +117,9 @@ public class ShipyardController implements Initializable, ControlledScreen {
     public void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
+        shipyard = player.getCurrentPlanet().getShipyard();
+        weaponStock = shipyard.getWeaponStock();
+        shieldStock = shipyard.getShieldStock();
         //this addCredits stuff is just to make sure we have plenty of money for the demo
         if (player.getCredits() < 1000000) {
             player.addCredits(1000000);
@@ -126,7 +139,53 @@ public class ShipyardController implements Initializable, ControlledScreen {
             mosquitoStats.setDisable(false);
             bumblebeeStats.setDisable(false);
         }
+        
+        
         updatePrices();
+        updateQuantities();
+        
+        weapon1Cost.setText("" + weaponStock[Shipyard.TURRET_IDX].getPrice());
+        weapon2Cost.setText("" + weaponStock[Shipyard.CANNON_IDX].getPrice());
+        weapon3Cost.setText("" + weaponStock[Shipyard.OCULASER_IDX].getPrice());
+        shield1Cost.setText("" + shieldStock[Shipyard.PLATE_IDX].getPrice());
+        shield2Cost.setText("" + shieldStock[Shipyard.MATTER_CLOAK_IDX].getPrice());
+        
+        shipyardWeapon1.setText("" + weaponStock[Shipyard.TURRET_IDX].getDamage());
+        shipyardWeapon2.setText("" + weaponStock[Shipyard.CANNON_IDX].getDamage());
+        shipyardWeapon3.setText("" + weaponStock[Shipyard.OCULASER_IDX].getDamage());
+        shipyardShield1.setText("" + shieldStock[Shipyard.PLATE_IDX].getHealth());
+        shipyardShield2.setText("" + shieldStock[Shipyard.MATTER_CLOAK_IDX].getHealth());
+        
+        weapon1Name.setText(weaponStock[Shipyard.TURRET_IDX].getName());
+        weapon2Name.setText(weaponStock[Shipyard.CANNON_IDX].getName());
+        weapon3Name.setText(weaponStock[Shipyard.OCULASER_IDX].getName());
+        shield1Name.setText(shieldStock[Shipyard.PLATE_IDX].getName());
+        shield2Name.setText(shieldStock[Shipyard.MATTER_CLOAK_IDX].getName());
+        
+        //System.out.println(player.getCurrentPlanet().getTechLevel());
+        int currentPlanetTechLevel = player.getCurrentPlanet().getTechLevel();
+        if(currentPlanetTechLevel < weaponStock[Shipyard.TURRET_IDX].getTechLevel()){
+            plusWeapon1.setDisable(true);
+            minusWeapon1.setDisable(true);
+        }
+        if(currentPlanetTechLevel < weaponStock[Shipyard.CANNON_IDX].getTechLevel()){
+            plusWeapon2.setDisable(true);
+            minusWeapon2.setDisable(true);
+        }
+        if(currentPlanetTechLevel < weaponStock[Shipyard.OCULASER_IDX].getTechLevel()){
+            plusWeapon3.setDisable(true);
+            minusWeapon3.setDisable(true);
+        }
+        
+        if(currentPlanetTechLevel < shieldStock[Shipyard.PLATE_IDX].getTechLevel()){
+            plusShield1.setDisable(true);
+            minusShield1.setDisable(true);
+        }
+        if(currentPlanetTechLevel < shieldStock[Shipyard.MATTER_CLOAK_IDX].getTechLevel()){
+            plusShield2.setDisable(true);
+            minusShield2.setDisable(true);
+        }
+        
     }
     
     /**
@@ -144,16 +203,16 @@ public class ShipyardController implements Initializable, ControlledScreen {
     * 
     * @return HashMap mapping ints to fields
     */
-    private HashMap mapIntsToFields() {
-        HashMap<Integer, TextField> fieldMap = new HashMap();
-        fieldMap.put(0, playerWeapon1);
-        fieldMap.put(1, playerWeapon2);
-        fieldMap.put(2, playerWeapon3);
-        fieldMap.put(3, playerShield1);
-        fieldMap.put(4, playerShield2);
-        fieldMap.put(5, playerFuel);
-        fieldMap.put(6, playerCargoSlots);
-        return fieldMap;
+    private TextField[] mapIntsToFields() {
+        TextField[] fields = new TextField[7];
+        fields[0] = playerWeapon1;
+        fields[1] = playerWeapon2;
+        fields[2] = playerWeapon3;
+        fields[3] = playerShield1;
+        fields[4] = playerShield2;
+        fields[5] = playerFuel;
+        fields[6] = playerCargoSlots;
+        return fields;
     }
     
    /**
@@ -161,23 +220,23 @@ public class ShipyardController implements Initializable, ControlledScreen {
     * 
     * @return HashMap mapping ints to labels
     */
-    private HashMap mapIntsToLabels() {
-        HashMap<Integer, Label> labelMap = new HashMap();
-        labelMap.put(0, weapon1Cost);
-        labelMap.put(1, weapon2Cost);
-        labelMap.put(2, weapon3Cost);
-        labelMap.put(3, shield1Cost);
-        labelMap.put(4, shield2Cost);
-        labelMap.put(5, fuelCost);
-        labelMap.put(6, cargoSlotsCost);
-        labelMap.put(7, fleaCost);
-        labelMap.put(8, gnatCost);
-        labelMap.put(9, fireflyCost);
-        labelMap.put(10, mosquitoCost);
-        labelMap.put(11, bumblebeeCost);
-        labelMap.put(12, playerCreditNum1);
-        labelMap.put(13, playerCreditNum2);
-        return labelMap;
+    private Label[] mapIntsToLabels() {
+        Label[] labels = new Label[14];
+        labels[0] = weapon1Cost;
+        labels[1] = weapon2Cost;
+        labels[2] = weapon3Cost;
+        labels[3] = shield1Cost;
+        labels[4] = shield2Cost;
+        labels[5] = fuelCost;
+        labels[6] = cargoSlotsCost;
+        labels[7] = fleaCost;
+        labels[8] = gnatCost;
+        labels[9] = fireflyCost;
+        labels[10] = mosquitoCost;
+        labels[11] = bumblebeeCost;
+        labels[12] = playerCreditNum1;
+        labels[13] = playerCreditNum2;
+        return labels;
     }
     
    /**
@@ -185,26 +244,25 @@ public class ShipyardController implements Initializable, ControlledScreen {
     */
     private void updatePrices() {
         int amountToFill = player.getShip().getMaxFuelLevel() - player.getShip().getFuelLevel();
-        HashMap<Integer, String> priceMap = new HashMap();
-        HashMap labelMap = mapIntsToLabels();
-        
-        priceMap.put(0, "1000");
-        priceMap.put(1, "1500");
-        priceMap.put(2, "2000");
-        priceMap.put(3, "2000");
-        priceMap.put(4, "4000");
-        priceMap.put(5, "" + amountToFill * player.getShip().getFuelCost());
-        priceMap.put(6, "1000");
-        priceMap.put(7, "" + new Ship("flea").getPrice());
-        priceMap.put(8, "" + new Ship("gnat").getPrice());
-        priceMap.put(9, "" + new Ship("firefly").getPrice());
-        priceMap.put(10, "" + new Ship("mosquito").getPrice());
-        priceMap.put(11, "" + new Ship("bumblebee").getPrice());
+        String[] prices = new String[12];
+        Label[] labels = mapIntsToLabels();
+        prices[0] = "1000"; //weapon1
+        prices[1] = "1500"; //weapon2
+        prices[2] = "2000"; //weapon3
+        prices[3] = "2000"; //shield1
+        prices[4] = "4000"; //shield2
+        prices[5] = "" + amountToFill * player.getShip().getFuelCost();
+        prices[6] = "1000";
+        prices[7] = "" + new Ship("flea").getPrice();
+        prices[8] = "" + new Ship("gnat").getPrice();
+        prices[9] = "" + new Ship("firefly").getPrice();
+        prices[10] = "" + new Ship("mosquito").getPrice();
+        prices[11] = "" + new Ship("bumblebee").getPrice();
         for (int i = 0; i < 12; i++) {
             if (i == 5) {
-                ((Label)labelMap.get(i)).setText(priceMap.get(i) + " to fill");
+                labels[i].setText(prices[i] + " to fill");
             } else {
-                ((Label)labelMap.get(i)).setText(priceMap.get(i));
+                labels[i].setText(prices[i]);
             }
         }
     }
@@ -220,6 +278,50 @@ public class ShipyardController implements Initializable, ControlledScreen {
         area.setText(text);
     }
     
+    private void updateQuantities() {
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        ArrayList<Shield> currentShipShields = player.getShip().getShields();
+        
+        //need num of each type
+        int weapon1 = 0;
+        int weapon2 = 0;
+        int weapon3 = 0;
+        int shield1 = 0;
+        int shield2 = 0;
+        
+        for(Weapon w : currentShipWeapons){
+            if(w != null){
+                //System.out.println(w.getName());
+                if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.TURRET_IDX].getName())){
+                    weapon1 += 1;
+                } else if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.CANNON_IDX].getName())){
+                    weapon2 += 1;
+                } else if (w.getName().equalsIgnoreCase(weaponStock[Shipyard.OCULASER_IDX].getName())){
+                    weapon3 += 1;
+                }
+            }
+            
+        }
+        
+        for(Shield s : currentShipShields){
+            //System.out.println(s.getName());
+            if (s.getName().equalsIgnoreCase(shieldStock[Shipyard.PLATE_IDX].getName())){
+                shield1 += 1;
+            } else if (s.getName().equalsIgnoreCase(shieldStock[Shipyard.MATTER_CLOAK_IDX].getName())){
+                shield2 += 1;
+            }
+        }
+        
+        playerWeapon1.setText("" + weapon1);
+        playerWeapon2.setText("" + weapon2);
+        playerWeapon3.setText("" + weapon3);
+        playerShield1.setText("" + shield1);
+        playerShield2.setText("" + shield2);
+        
+        
+        
+    }
+    
     private void genericIncrement() {
         
     }
@@ -229,43 +331,98 @@ public class ShipyardController implements Initializable, ControlledScreen {
     }
     
     public void weapon1Increment(){
-        
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (player.getShip().getMaxWeapons() > currentShipWeapons.size() && player.removeCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getPrice())){
+            currentShipWeapons.add(player.getCurrentPlanet().getShipyard().getWeaponStock()[0]);
+        }
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void weapon1Decrement(){
-        
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (currentShipWeapons.contains(player.getCurrentPlanet().getShipyard().getWeaponStock()[0]) && player.addCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[0].getPrice()))
+            currentShipWeapons.remove(player.getCurrentPlanet().getShipyard().getWeaponStock()[0]);
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void weapon2Increment(){
-        
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (player.getShip().getMaxWeapons() > currentShipWeapons.size() && player.removeCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getPrice())){
+            currentShipWeapons.add(player.getCurrentPlanet().getShipyard().getWeaponStock()[1]);
+        }
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void weapon2Decrement(){
-        
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (currentShipWeapons.contains(player.getCurrentPlanet().getShipyard().getWeaponStock()[1]) && player.addCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[1].getPrice()))
+            currentShipWeapons.remove(player.getCurrentPlanet().getShipyard().getWeaponStock()[1]);
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void weapon3Increment(){
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (player.getShip().getMaxWeapons() > currentShipWeapons.size() && player.removeCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getPrice())){
+            currentShipWeapons.add(player.getCurrentPlanet().getShipyard().getWeaponStock()[2]);
+        }
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
         
     }
     
     public void weapon3Decrement(){
-        
+        ArrayList<Weapon> currentShipWeapons = player.getShip().getWeapons();
+        if (currentShipWeapons.contains(player.getCurrentPlanet().getShipyard().getWeaponStock()[2]) && player.addCredits(player.getCurrentPlanet().getShipyard().getWeaponStock()[2].getPrice()))
+            currentShipWeapons.remove(player.getCurrentPlanet().getShipyard().getWeaponStock()[2]);
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void shield1Increment(){
-        
+        ArrayList<Shield> currentShipShields = player.getShip().getShields();
+        if (player.getShip().getMaxShields() > currentShipShields.size() && player.removeCredits(player.getCurrentPlanet().getShipyard().getShieldStock()[0].getPrice()))
+            currentShipShields.add(player.getCurrentPlanet().getShipyard().getShieldStock()[0]);  
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void shield1Decrement(){
-        
+        ArrayList<Shield> currentShipShields = player.getShip().getShields();
+        if (currentShipShields.contains(player.getCurrentPlanet().getShipyard().getShieldStock()[0]) && player.addCredits(player.getCurrentPlanet().getShipyard().getShieldStock()[0].getPrice()))
+            currentShipShields.remove(player.getCurrentPlanet().getShipyard().getShieldStock()[0]);
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     public void shield2Increment(){
+        ArrayList<Shield> currentShipShields = player.getShip().getShields();
+        if (player.getShip().getMaxShields() > currentShipShields.size() && player.removeCredits(player.getCurrentPlanet().getShipyard().getShieldStock()[1].getPrice()))
+            currentShipShields.add(player.getCurrentPlanet().getShipyard().getShieldStock()[1]);  
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
         
     }
     
     public void shield2Decrement(){
-        
+        ArrayList<Shield> currentShipShields = player.getShip().getShields();
+        if (currentShipShields.contains(player.getCurrentPlanet().getShipyard().getShieldStock()[1]) && player.addCredits(player.getCurrentPlanet().getShipyard().getShieldStock()[1].getPrice()))
+            currentShipShields.remove(player.getCurrentPlanet().getShipyard().getShieldStock()[1]);
+        updateQuantities();
+        playerCreditNum1.setText(String.valueOf(player.getCredits()));
+        playerCreditNum2.setText(String.valueOf(player.getCredits()));
     }
     
     /**

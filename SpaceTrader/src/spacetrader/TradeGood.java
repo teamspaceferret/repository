@@ -65,27 +65,28 @@ public enum TradeGood {
     public int calcMarketPrice() {
         player = Context.getInstance().getPlayer();
         Random r = new Random();
-        double price = 0;
-        if (player.getCurrentPlanet() != null) {
-            price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
-        } else {
-            price = BASEPRICE + (IPL * (MTLB)) + r.nextInt(VARIANCE + 1);
-        } if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
+        Event event = player.getCurrentPlanet().getEvent();
+        Resource resource = player.getCurrentPlanet().getResource();
+        double price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
+        if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
             price *= .95;
-        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.IE)) {
-            price *= 1.25;
-        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.DE)) {
-            price *= .75;
-        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.CR)) {
-            price *= 1.15;
-        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.ER)) {
-            price *= .85;
+        }
+        if (event.equals(this.IE)) {
+            price *= event.getUpMult();
+        }
+        if (event.equals(this.DE)) {
+            price *= event.getDownMult();
+        }
+        if (resource.equals(this.CR)) {
+            price *= resource.getUpMult();
+        }
+        if (resource.equals(this.ER)) {
+            price *= resource.getDownMult();
         }
         price *= (1.0 + ((double)Context.getInstance().getPlayer().getTrader() / 50.0));
-        int finalPrice = (int)price;
+        int finalPrice = (int) price;
         if (player.getTrader() > 0) {
             int discountedPrice = (int)(price-( (price)*((double)player.getTrader())/100.0) );
-            //System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
             return discountedPrice;
         } else {
             return finalPrice;

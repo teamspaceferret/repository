@@ -18,10 +18,18 @@ public enum Event implements Serializable{
     private static final List<Event> VALUES = Arrays.asList(values());
     private final String NAME;
     private final int ID;
+    private double priceMultUp, priceMultDown;
     
     private Event(String name, int id) {
         NAME = name;
         ID = id;
+        if (id == -1) {
+            priceMultUp = 1.0;
+            priceMultDown = 1.0;
+        } else {
+            priceMultUp = 1.25;
+            priceMultDown = 0.75;
+        }
     }
     
     /**
@@ -46,6 +54,14 @@ public enum Event implements Serializable{
      */
     public int getID() {
         return ID;
+    }
+    
+    public double getUpMult() {
+        return priceMultUp;
+    }
+    
+    public double getDownMult() {
+        return priceMultDown;
     }
     
     /**

@@ -11,6 +11,7 @@ public class Planet implements Serializable{
     private Event event;
     private SolarSystem parentSolarSystem;
     private Market market;
+    private Shipyard shipyard;
     
     /**
      * Constructs a planet with default values.
@@ -23,6 +24,7 @@ public class Planet implements Serializable{
         this.govt = Government.ANARCHY;
         this.event = Event.NONE;
         this.market = new Market(this);
+        this.shipyard = new Shipyard(this);
     }
     
     /**
@@ -213,6 +215,10 @@ public class Planet implements Serializable{
     
     public Market getMarket() {
         return market;
+    }
+    
+    public Shipyard getShipyard(){
+        return shipyard;
     }
     
     public boolean equals(Planet other) {

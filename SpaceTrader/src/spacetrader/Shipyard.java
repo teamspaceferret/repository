@@ -15,16 +15,22 @@ import java.util.Set;
  * @author Cora
  */
 public class Shipyard implements Serializable{
-    private final int MAX_SHIELD_NUM = 5;
+    private final int MAX_SHIELD_NUM = 5;//for 
     private final int MAX_WEAPON_NUM = 5;
+    public static final int TURRET_IDX = 0;
+    public static final int CANNON_IDX = 1;
+    public static final int OCULASER_IDX = 2;
+    public static final int PLATE_IDX = 0;
+    public static final int MATTER_CLOAK_IDX = 1;
+    
     private Planet planet;
-    private HashMap<String,Shield> shieldStock;
-    private HashMap<String,Weapon> weaponStock;
+    private Weapon[] weaponStock;
+    private Shield[] shieldStock;
     
     private static final HashMap<String,Shield> defaultShields = new HashMap<>();
         static{
-            defaultShields.put("Name1", new Shield("Name1"));
-            defaultShields.put("Name2", new Shield("Name2"));
+            defaultShields.put("Plate",new Shield("Plate",50,4));
+            defaultShields.put("Matter Cloak", new Shield("Matter Cloak", 70, 5));
             defaultShields.put("Name3", new Shield("Name3"));
             defaultShields.put("Name4", new Shield("Name4"));
             defaultShields.put("Name5", new Shield("Name5"));
@@ -35,25 +41,39 @@ public class Shipyard implements Serializable{
         
         private static final HashMap<String,Weapon> defaultWeapons = new HashMap<>();
         static{
-            defaultWeapons.put("Name1", new Weapon("Name1"));
-            defaultWeapons.put("Name2", new Weapon("Name2"));
+            defaultWeapons.put("Turret", new Weapon("Turret",10,4));
+            defaultWeapons.put("Dual Cannon", new Weapon("Dual Cannon",50,5));
+            defaultWeapons.put("Oculaser", new Weapon("Oculaser",100,6));
+            defaultWeapons.put("Name4", new Weapon("Name4"));
+            defaultWeapons.put("Name5", new Weapon("Name5"));
+            defaultWeapons.put("Name6", new Weapon("Name6"));
+            defaultWeapons.put("Name7", new Weapon("Name7"));
+            defaultWeapons.put("Name8", new Weapon("Name8"));
         }
     
     public Shipyard(Planet hostPlanet){
         planet = hostPlanet;
-        Random rand = new Random();
-        shieldStock = defaultShields;
-        weaponStock = defaultWeapons;
+        //Random rand = new Random();
+        weaponStock = new Weapon[] {defaultWeapons.get("Turret"), defaultWeapons.get("Dual Cannon"), defaultWeapons.get("Oculaser")};
+        shieldStock = new Shield[] {defaultShields.get("Plate"), defaultShields.get("Matter Cloak")};
         //limit based on planet tech level
         
         // something for spaceships too
     }
     
+    public Weapon[] getWeaponStock() {
+        return weaponStock;
+    }
     
-    
-    private HashMap<String,Shield> getShieldsFromTechLevel(int techLevel){
+    public Shield[] getShieldStock() {
+        return shieldStock;
+    }
+/* 
+    public HashMap<String,Shield> getShieldsFromTechLevel(int techLevel){
         HashMap<String,Shield> map = new HashMap<>();
-        
+        //get keyset for default
+        //loop through keyset for things
+        //place things of wanted techlevel or lower in map
         
         return map;
     }
@@ -81,12 +101,12 @@ public class Shipyard implements Serializable{
     public Weapon getWeapon(String name){
         return weaponStock.get(name);
     }
-    
+*/ 
     
     /*
     for personal testing of new methods/numbers, delete later
     */
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         Planet p = new Planet();
         Shipyard s = new Shipyard(p);
         Set<String> keys = s.getShieldNames();
@@ -124,6 +144,7 @@ public class Shipyard implements Serializable{
         }
         
     }
+    */
     
     
 }

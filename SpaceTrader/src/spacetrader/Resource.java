@@ -18,10 +18,19 @@ public enum Resource implements Serializable{
     private static final List<Resource> VALUES = Arrays.asList(values());
     private final String NAME;
     private final int ID;
+    private double priceMultUp, priceMultDown;
     
     private Resource(String name, int id) {
         NAME = name;
         ID = id;
+        if (id == 0) {
+            priceMultUp = 1.0;
+            priceMultDown = 1.0;
+        } else {
+            priceMultUp = 1.15;
+            priceMultDown = 0.85;
+        }
+        
     }
     
     /**
@@ -46,6 +55,14 @@ public enum Resource implements Serializable{
      */
     public int getID() {
         return ID;
+    }
+    
+    public double getUpMult() {
+        return priceMultUp;
+    }
+    
+    public double getDownMult() {
+        return priceMultDown;
     }
     
     public boolean equals(Resource other) {
