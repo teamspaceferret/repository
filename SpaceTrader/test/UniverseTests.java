@@ -1,12 +1,13 @@
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import spacetrader.Context;
 import spacetrader.Coordinate;
-import spacetrader.SolarSystem;
 import spacetrader.Universe;
 
 /**
@@ -14,7 +15,7 @@ import spacetrader.Universe;
  * @author keatts
  */
 public class UniverseTests {
-    private Universe universe;    
+    private final Universe universe;    
     
     public UniverseTests() {
         universe = new Universe();
@@ -23,24 +24,26 @@ public class UniverseTests {
     }
     
     @Test
-    public void numSolarSystems() {
+    public final void numSolarSystems() {
         assertTrue(universe.getSolarSystems().length == Context.NUM_SOLAR_SYSTEMS);
     }
     
     @Test
-    public void solarSystemArrayLength() {        
-        assertThat(universe.getSolarSystems().length, equalTo(universe.getSolarSystemNames().length));
+    public final void solarSystemArrayLength() {        
+        assertThat(universe.getSolarSystems().length,
+                equalTo(universe.getSolarSystemNames().length));
     }
     
     @Test
-    public void solarSystemNames() {
+    public final void solarSystemNames() {
         for (int i = 0; i < universe.getSolarSystems().length; i++) {
-            assertThat(universe.getSolarSystems()[i].getName(), equalTo(universe.getSolarSystemNames()[i]));
+            assertThat(universe.getSolarSystems()[i].getName(),
+                    equalTo(universe.getSolarSystemNames()[i]));
         }
     }
     
     @Test
-    public void otherUniverseIsNotEqual() {
+    public final void otherUniverseIsNotEqual() {
         Universe otherUniverse = new Universe();
         
         otherUniverse.generateUniverse();
@@ -49,7 +52,7 @@ public class UniverseTests {
     }
     
     @Test
-    public void solarSystemSpacing() {
+    public final void solarSystemSpacing() {
         Coordinate[] coords = new Coordinate[universe.getSolarSystems().length];
         
         for (int i = 0; i < universe.getSolarSystems().length; i++) {
@@ -65,8 +68,8 @@ public class UniverseTests {
     // It is acceptable for this test to fail
     // It just means that we ran out of names and had to reuse some
     @Test
-    public void solarSystemUniqueNames() {
-        Set<String> set = new HashSet<String>();
+    public final void solarSystemUniqueNames() {
+        Set<String> set = new HashSet<>();
         
         set.addAll(Arrays.asList(universe.getSolarSystemNames()));
         
