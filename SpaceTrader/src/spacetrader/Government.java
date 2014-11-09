@@ -14,117 +14,122 @@ public enum Government implements Serializable{
     DICTATORSHIP("Dictatorship", 7, 4, 3, 3), FACIST("Facist", 8, 9, 0, 1),
     FEUDAL("Feudal", 9, 0, 5, 5), MILITARY("Military State", 10, 7, 0, 3),
     MONARCHY("Monarchy", 11, 2, 2, 6), PACIFIST("Pacifist", 12, 1, 1, 8),
-    SOCIALIST("Socialist", 13, 2, 2, 6), SATORI("State of Satori", 14, 0, 0, 10),
-    TECHNOCRACY("Technocracy", 15, 4, 1, 5), THEOCRACY("Theocracy", 16, 5, 1, 4),;
+    SOCIALIST("Socialist", 13, 2, 2, 6),
+    SATORI("State of Satori", 14, 0, 0, 10),
+    TECHNOCRACY("Technocracy", 15, 4, 1, 5),
+    THEOCRACY("Theocracy", 16, 5, 1, 4);
     
-    private static final Random rand = new Random();
-    private final String NAME;
-    private final int ID;
-    private final int POLICE;
-    private final int PIRATE;    
-    private final int TRADER;
+    private static final Random RAND = new Random();
+    private final String name;
+    private final int id;
+    private final int police;
+    private final int pirate;    
+    private final int trader;
     
-    private Government(String name, int id, int policeChance, int pirateChance, int traderChance) {
-        NAME = name;
-        ID = id;
-        POLICE = policeChance;
-        PIRATE = pirateChance;
-        TRADER = traderChance;
+    private Government(final String name, int id, int policeChance,
+            int pirateChance, int traderChance) {
+        this.name = name;
+        this.id = id;
+        this.police = policeChance;
+        this.pirate = pirateChance;
+        this.trader = traderChance;
     }
     
     /**
      * Returns a random government, based partially on tech level.
+     * @param techLevel tech level on which to base government
      * @return a random government appropriate to the tech level
      */
-    public Government randomGovernment(int techLevel) {
+    public Government randomGovernment(final int techLevel) {
         //governments OK for any tech level added to the list initially
-        List<Government> GOVTS = new LinkedList<Government>(Arrays.asList(CAPITALIST,
-                COMMUNIST, CONFEDERACY, DEMOCRACY, DICTATORSHIP, PACIFIST, SATORI));
+        List<Government> govts = new LinkedList<>(Arrays.asList(CAPITALIST,
+                COMMUNIST, CONFEDERACY, DEMOCRACY, DICTATORSHIP, PACIFIST,
+                SATORI));
         //more specific ones are added here
         if (techLevel == 7) {
-            GOVTS.add(CYBERNETIC);
-            GOVTS.add(FACIST);
-            GOVTS.add(MILITARY);
-            GOVTS.add(TECHNOCRACY);
-            GOVTS.add(CORPORATE);
+            govts.add(CYBERNETIC);
+            govts.add(FACIST);
+            govts.add(MILITARY);
+            govts.add(TECHNOCRACY);
+            govts.add(CORPORATE);
         } else if (techLevel == 6) {
-            GOVTS.add(FACIST);
-            GOVTS.add(MILITARY);
-            GOVTS.add(TECHNOCRACY);
-            GOVTS.add(CORPORATE);
+            govts.add(FACIST);
+            govts.add(MILITARY);
+            govts.add(TECHNOCRACY);
+            govts.add(CORPORATE);
         } else if (techLevel == 5) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FACIST);
-            GOVTS.add(MILITARY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(TECHNOCRACY);
-            GOVTS.add(CORPORATE);
+            govts.add(ANARCHY);
+            govts.add(FACIST);
+            govts.add(MILITARY);
+            govts.add(SOCIALIST);
+            govts.add(TECHNOCRACY);
+            govts.add(CORPORATE);
         } else if (techLevel == 4) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FACIST);
-            GOVTS.add(MILITARY);
-            GOVTS.add(MONARCHY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(CORPORATE);
+            govts.add(ANARCHY);
+            govts.add(FACIST);
+            govts.add(MILITARY);
+            govts.add(MONARCHY);
+            govts.add(SOCIALIST);
+            govts.add(CORPORATE);
         } else if (techLevel == 3) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FEUDAL);
-            GOVTS.add(MILITARY);
-            GOVTS.add(MONARCHY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(THEOCRACY);
+            govts.add(ANARCHY);
+            govts.add(FEUDAL);
+            govts.add(MILITARY);
+            govts.add(MONARCHY);
+            govts.add(SOCIALIST);
+            govts.add(THEOCRACY);
         } else if (techLevel == 2) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FEUDAL);
-            GOVTS.add(MONARCHY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(THEOCRACY);
+            govts.add(ANARCHY);
+            govts.add(FEUDAL);
+            govts.add(MONARCHY);
+            govts.add(SOCIALIST);
+            govts.add(THEOCRACY);
         } else if (techLevel == 1) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FEUDAL);
-            GOVTS.add(MONARCHY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(THEOCRACY);
+            govts.add(ANARCHY);
+            govts.add(FEUDAL);
+            govts.add(MONARCHY);
+            govts.add(SOCIALIST);
+            govts.add(THEOCRACY);
         } else if (techLevel == 0) {
-            GOVTS.add(ANARCHY);
-            GOVTS.add(FEUDAL);
-            GOVTS.add(MONARCHY);
-            GOVTS.add(SOCIALIST);
-            GOVTS.add(THEOCRACY);
-        }        
-        return GOVTS.get(rand.nextInt(GOVTS.size()));
+            govts.add(ANARCHY);
+            govts.add(FEUDAL);
+            govts.add(MONARCHY);
+            govts.add(SOCIALIST);
+            govts.add(THEOCRACY);
+        }
+        return govts.get(RAND.nextInt(govts.size()));
     }
     
     /**
-     * Returns government name
+     * Returns government name.
      * @return government name
      */
     public String getName() {
-        return NAME;
+        return name;
     }
     
     /**
-     * Returns government id
+     * Returns government id.
      * @return government id
      */
     public int getID() {
-        return ID;
+        return id;
     }
     
     /**
-     * Returns chance of police encounter
+     * Returns chance of police encounter.
      * @return int corresponding to chance of police encounter
      */
     public int getPolice() {
-        return POLICE;
+        return police;
     }
     
     /**
-     * Returns chance of pirate encounter
+     * Returns chance of pirate encounter.
      * @return int corresponding to chance of pirate encounter
      */
     public int getPirate() {
-        return PIRATE;
+        return pirate;
     }
     
     /**
@@ -132,14 +137,16 @@ public enum Government implements Serializable{
      * @return int corresponding to chance of trader encounter
      */
     public int getTrader() {
-        return TRADER;
+        return trader;
     }
     
+    /**
+     * Returns true if this government has the same name as the other
+     * government.
+     * @param other the other government
+     * @return true if this government has the same name as the other government
+     */
     public boolean equals(Government other) {
-        if (other.getName().equals(this.getName())){
-            return true;
-        }
-        return false;
+        return other.getName().equals(this.getName());
     }
-    
 }

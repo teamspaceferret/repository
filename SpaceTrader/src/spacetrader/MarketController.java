@@ -5,17 +5,12 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import spacetrader.SpaceTrader.ControlledScreen;
 import java.util.Random;
 
-/**
- * Controls the Market.fxml file.
- * 
- */
 public class MarketController implements ControlledScreen, Initializable {
     @FXML private Label creditLabel;
     @FXML private Label cargoLabel;
@@ -60,8 +55,7 @@ public class MarketController implements ControlledScreen, Initializable {
     @FXML private Slider narcoticSlider;
     @FXML private Slider robotSlider;
     
-    
-    ScreensController controller;
+    private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     SolarSystem currentlySelected;
@@ -80,7 +74,7 @@ public class MarketController implements ControlledScreen, Initializable {
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -90,9 +84,7 @@ public class MarketController implements ControlledScreen, Initializable {
      * @param resources 
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(URL location, ResourceBundle resources) { }
     
     /**
      * Helper method to get labels from good ID.
@@ -142,7 +134,6 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to get TextField from good ID.
-     * 
      * @return playersGood
      */
     private TextField getTextFieldFromID(int id) {
@@ -177,7 +168,6 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to get Slider from good ID.
-     * 
      * @return goodSlider
      */
     private Slider getSliderFromID(int id) {
@@ -233,7 +223,7 @@ public class MarketController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
+    public final void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         startCredits = player.getCredits();
@@ -255,7 +245,6 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Determine how many of each goods this planet stocks.
-     * 
      * @param good type of good being stocked
      * @return stock of that good
      * 

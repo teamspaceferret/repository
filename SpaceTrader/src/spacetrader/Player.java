@@ -164,11 +164,11 @@ public class Player implements Serializable{
     public Coordinate getAbsoluteLocation() {
         return new Coordinate(this.currentPlanet.getParentSolarSystem().getCoords().getX()
                 + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                        * this.currentPlanet.getCoords().getX()/Context.BOUNDARY
+                        * this.currentPlanet.getCoords().getX()/Context.BOUNDARY_VISIBLE
                 - Context.MIN_DISTANCE_BETWEEN_PLANETS,
                 this.currentPlanet.getParentSolarSystem().getCoords().getY()
                         + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                                * this.currentPlanet.getCoords().getY()/Context.BOUNDARY
+                                * this.currentPlanet.getCoords().getY()/Context.BOUNDARY_VISIBLE
                         - Context.MIN_DISTANCE_BETWEEN_PLANETS);
     }
     

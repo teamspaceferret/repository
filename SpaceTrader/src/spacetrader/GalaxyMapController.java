@@ -15,16 +15,15 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Canvas canvas;
     @FXML private TextArea description;
     
-    ScreensController controller;
-    Universe universe = Context.getInstance().getUniverse();
-    Player player = Context.getInstance().getPlayer();
+    private ScreensController controller;
+    private Player player;
     
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -32,8 +31,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
-        universe = Context.getInstance().getUniverse();
+    public final void initScreen() {
         player = Context.getInstance().getPlayer();
         drawSolarSystems();
         setDescription(player.getCurrentPlanet().getParentSolarSystem());
@@ -46,9 +44,8 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      * @param resources 
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
     /**
      * Draws current solar systems on galaxy map
@@ -58,13 +55,14 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         // Clear canvas
-        gc.clearRect(0, 0, 310, 310);
+        gc.clearRect(0, 0, Context.BOUNDARY_VISIBLE, Context.BOUNDARY_VISIBLE);
         
-        for (SolarSystem solarSystem : universe.getSolarSystems()) {
+        for (SolarSystem solarSystem : Context.getInstance().getUniverse().getSolarSystems()) {
             isClose = false;
             for (Planet planet : solarSystem.getPlanets()) {
                 if (player.getCurrentPlanet().getCoords().distanceTo(planet.getCoords())
-                    < 0.5*this.player.getShip().getFuelLevel()) {
+                    < Context.DISTANCE_TO_FUEL_RATIO
+                        * player.getShip().getFuelLevel()) {
                     isClose = true;
                 }
             }
@@ -76,37 +74,40 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
             }
             
             gc.fillOval(solarSystem.getCoords().getX(),
-                    solarSystem.getCoords().getY(), 10, 10);
+                    solarSystem.getCoords().getY(), Context.DOT_SIZE,
+                    Context.DOT_SIZE);
         }
         
         // Draw current system in gold
         gc.setFill(Color.GOLD);
         gc.fillOval(player.getCurrentPlanet().getParentSolarSystem().getCoords().getX(), 
             player.getCurrentPlanet().getParentSolarSystem().getCoords().getY(),
-            10, 10);
+            Context.DOT_SIZE, Context.DOT_SIZE);
         
         // Draw range circle
         gc.setStroke(Color.BLACK);
         gc.strokeOval(player.getCurrentPlanet().getCoords().getX()
-                - this.player.getShip().getRange()/2 + 5,
+                - player.getShip().getRange() / 2 + 5,
                 player.getCurrentPlanet().getCoords().getY()
-                        - this.player.getShip().getRange()/2 + 5,
-                this.player.getShip().getRange(),
-                this.player.getShip().getRange());
+                        - player.getShip().getRange() / 2 + 5,
+                player.getShip().getRange(),
+                player.getShip().getRange());
     }
     
     /**
      * Checks if the user clicked a solar system.
      * @param event click event
      */
-    public void onMouseClick(MouseEvent event) {
+    public final void onMouseClick(final MouseEvent event) {
         //shouldnt loop over all solarSystems after it's found the clicked one
-        for (SolarSystem solarSystem : this.universe.getSolarSystems()) {
-            if (event.getX() <= solarSystem.getCoords().getX() + 10
+        for (SolarSystem solarSystem : Context.getInstance().getUniverse().getSolarSystems()) {
+            if (event.getX() <= solarSystem.getCoords().getX()
+                    + Context.DOT_SIZE
                     && event.getX() >= solarSystem.getCoords().getX()
-                    && event.getY() <= solarSystem.getCoords().getY() + 10
+                    && event.getY() <= solarSystem.getCoords().getY()
+                    + Context.DOT_SIZE
                     && event.getY() >= solarSystem.getCoords().getY()) {
-                this.setDescription(solarSystem);
+                setDescription(solarSystem);
                 Context.getInstance().setFocus(solarSystem);
             }
         }
@@ -116,7 +117,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
      * Sets the text field to describe the selected solar system.
      * @param solarSystem the system being described
      */
-    public void setDescription(SolarSystem solarSystem) {
+    public final void setDescription(final SolarSystem solarSystem) {
         //draw indicator of currently selected one
         String string = "Name: " + solarSystem.getName() + "\nCoords: "
                 + solarSystem.getCoords();
@@ -129,14 +130,14 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Travels to the currently selected system
+     * Travels to the currently selected system.
      */
-    public void selectSystem() {
+    public final void selectSystem() {
         SolarSystem focus = Context.getInstance().getFocus();
         if (focus != null) {
-            this.controller.setScreen("SolarMap");
+            controller.setScreen("SolarMap");
         } else {
-            this.description.setText("Please select a system.");
+            description.setText("Please select a system.");
         }
     }
 }

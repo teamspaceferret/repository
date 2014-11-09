@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
  * @author Stephanie
  */
 public class ShipyardController implements Initializable, ControlledScreen {
-    
     @FXML private Button plusWeapon1;
     @FXML private Button minusWeapon1;
     @FXML private Button plusWeapon2;
@@ -82,7 +81,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private TabPane tabPane;
     
     
-    ScreensController controller;
+    private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     Ship selectedToBuy;
@@ -95,7 +94,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -104,7 +103,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
      */
     @Override
     //flea, gnat, firefly, mosquito, bumblebee
-    public void initScreen() {
+    public final void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         shipyard = player.getCurrentPlanet().getShipyard();
@@ -181,12 +180,11 @@ public class ShipyardController implements Initializable, ControlledScreen {
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
    /**
     * Helper method to map integer values to the TextFields

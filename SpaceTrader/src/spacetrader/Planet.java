@@ -130,11 +130,11 @@ public class Planet implements Serializable{
     public Coordinate getAbsoluteLocation() {
         return new Coordinate(this.parentSolarSystem.getCoords().getX()
                 + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                        * this.coords.getX()/Context.BOUNDARY
+                        * this.coords.getX()/Context.BOUNDARY_VISIBLE
                 - Context.MIN_DISTANCE_BETWEEN_PLANETS,
                 this.parentSolarSystem.getCoords().getY()
                         + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                                * this.coords.getY()/Context.BOUNDARY
+                                * this.coords.getY()/Context.BOUNDARY_VISIBLE
                         - Context.MIN_DISTANCE_BETWEEN_PLANETS);
     }
     
@@ -146,17 +146,17 @@ public class Planet implements Serializable{
      */
     public double distanceToPlanet(Planet otherPlanet) {
         return Math.sqrt(Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getX()
-                + (this.getCoords().getX() - (double)Context.BOUNDARY/2)
-                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                + (this.getCoords().getX() - (double)Context.BOUNDARY_VISIBLE/2)
+                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE)
                 - (otherPlanet.getParentSolarSystem().getCoords().getX()
-                        + ((double)otherPlanet.getCoords().getX() - Context.BOUNDARY/2)
-                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2)
+                        + ((double)otherPlanet.getCoords().getX() - Context.BOUNDARY_VISIBLE/2)
+                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE), 2)
                 + Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getY()
-                        + (this.getCoords().getY() - (double)Context.BOUNDARY/2)
-                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY)
+                        + (this.getCoords().getY() - (double)Context.BOUNDARY_VISIBLE/2)
+                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE)
                         - (otherPlanet.getParentSolarSystem().getCoords().getY()
-                                + ((double)otherPlanet.getCoords().getY() - Context.BOUNDARY/2)
-                                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY), 2));
+                                + ((double)otherPlanet.getCoords().getY() - Context.BOUNDARY_VISIBLE/2)
+                                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE), 2));
     }
     
     /**

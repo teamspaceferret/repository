@@ -28,8 +28,8 @@ public class Universe implements Serializable{
         for (int i = 0; i < this.solarSystems.length; i++) {
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY),
-                        rand.nextInt(Context.BOUNDARY));
+                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY_VISIBLE),
+                        rand.nextInt(Context.BOUNDARY_VISIBLE));
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
