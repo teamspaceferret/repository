@@ -59,10 +59,10 @@ public class MarketController implements ControlledScreen, Initializable {
     private Universe universe = Context.getInstance().getUniverse();
     private Player player = Context.getInstance().getPlayer();
     private SolarSystem currentlySelected;
-    private static Random random = new Random();
-    static int[] stockGoods = new int[TradeGood.NUM_TRADE_GOODS];
-    private final HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
-    private HashMap<TradeGood,Integer> startCargoStock;
+    private final static Random RANDOM = new Random();
+    private final static int[] STOCKGOODS = new int[TradeGood.NUM_TRADE_GOODS];
+    private final HashMap<TradeGood, Integer> stockPrices = new HashMap<>();
+    private HashMap<TradeGood, Integer> startCargoStock;
     //hashmap of all goods and whether or not they are available
     private final HashMap<TradeGood, Boolean> tradingGoods = new HashMap<>();
     private final HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
@@ -247,12 +247,12 @@ public class MarketController implements ControlledScreen, Initializable {
         for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             initLabelsSliders(TradeGood.getGoodFromID(i));
         }
-        Context.getInstance().setStock(stockGoods);
+        Context.getInstance().setStock(STOCKGOODS);
         currentCargo();
-        startCargoStock = Context.getInstance().getPlayer().getShip().getCargoClone();
+        startCargoStock = player.getShip().getCargoClone();
         setNoTrade();
     }
-    
+
     /**
      * Determine how many of each goods this planet stocks.
      * @param good type of good being stocked
@@ -266,24 +266,26 @@ public class MarketController implements ControlledScreen, Initializable {
             Resource resource = planet.getResource();
             int goodMinTechLevelToBuy = good.getMTLB();
             int planetTechLevel = planet.getTechLevel();
+            int baseStock = Context.STOCK_BASE_VALUE;
+            int randStock = Context.STOCK_RAND_VALUE;
             int stock;
             //will not produce things from too low a tech level
-            if (goodMinTechLevelToBuy > planetTechLevel) { 
+            if (goodMinTechLevelToBuy > planetTechLevel) {
                 stock = 0;
-            } else { 
-                stock = 7 + random.nextInt(14);
+            } else {
+                stock = baseStock + RANDOM.nextInt(randStock);
             }
             if (resource.getID() == good.getER().getID()) {
-                stock *= .45;
+                stock *= Context.STOCK_RESOURCE_DEC;
             } else if (resource.getID() == good.getCR().getID()) {
-                stock *= 1.55;
+                stock *= Context.STOCK_RESOURCE_INC;
             }
             if (event.getID() == good.getIE().getID()) {
-                stock *= .75;
+                stock *= Context.STOCK_EVENT_DEC;
             } else if (event.getID() == good.getDE().getID()) {
-                stock *= 1.25;
+                stock *= Context.STOCK_EVENT_INC;
             }
-            stockGoods[good.getID()] = stock;
+            STOCKGOODS[good.getID()] = stock;
             return stock;
         } else {
             return Context.getInstance().getStock()[good.getID()];
@@ -576,7 +578,7 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();
         currentCredits();
         int value = -1;
-        Planet planet = Context.getInstance().getPlayer().getCurrentPlanet();    
+        Planet planet = Context.getInstance().getPlayer().getCurrentPlanet();
         for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             //check if trader trades this good, and if he does,
             //change value to correct number
