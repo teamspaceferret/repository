@@ -6,42 +6,70 @@ import java.io.Serializable;
  * Market class
  */
 public class Market implements Serializable{
-    private Planet planet;
-    private int[] stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    private int[] prices = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    private final Planet planet;
+    private int[] stock;
+    private final int[] prices;
     
-    
-    public Market(Planet planet) {
+    /**
+     * Creates a market with empty stock and no prices.
+     * @param planet the planet that the market belongs to.
+     */
+    public Market(final Planet planet) {
         this.planet = planet;
+        this.stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        this.prices = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     }
     
-    public void setPrices() {
-        for (int i = 0; i < 10; i++) {
+    /**
+     * Sets the prices for each good in the market.
+     */
+    public final void setPrices() {
+        for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             prices[i] = TradeGood.getGoodFromID(i).calcMarketPrice();
         }
     }
     
-    public void updateStock() {
+    /**
+     * Updates stock of each trade good in the market.
+     */
+    public final void updateStock() {
         if (stock[0] == -1) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
                 stock[i] = MarketController.calcStock(TradeGood.getGoodFromID(i));
             }
         }
     }
     
-    public void resetStock() {
+    /**
+     * Resets stock to default values.
+     */
+    public final void resetStock() {
         stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     }
     
-    public int getStockIndex(int index) {
+    /**
+     * Gets the stock of the item at the given index.
+     * @param index the index of the item to get the stock from
+     * @return the number of the item in stock
+     */
+    public final int getStockIndex(final int index) {
         return stock[index];
     }
     
-    public int[] getPrices() {
+    /**
+     * Gets the prices of the goods in the market.
+     * @return the price array
+     */
+    public final int[] getPrices() {
         return prices;
     }
     
-    public void setStockIndex(int index, int value) {
+    /**
+     * Sets the stock of the good at the given index.
+     * @param index the good to set the stock of
+     * @param value the value to set the stock as
+     */
+    public final void setStockIndex(final int index, final int value) {
         stock[index] = value;
     }
 }

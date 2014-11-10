@@ -1,8 +1,6 @@
 package spacetrader;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

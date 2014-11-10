@@ -56,18 +56,19 @@ public class MarketController implements ControlledScreen, Initializable {
     @FXML private Slider robotSlider;
     
     private ScreensController controller;
-    Universe universe = Context.getInstance().getUniverse();
-    Player player = Context.getInstance().getPlayer();
-    SolarSystem currentlySelected;
-    static Random random = new Random();
-    static int[] stockGoods = new int[10];
-    HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
-    HashMap<TradeGood,Integer> startCargoStock;
+    private Universe universe = Context.getInstance().getUniverse();
+    private Player player = Context.getInstance().getPlayer();
+    private SolarSystem currentlySelected;
+    private static Random random = new Random();
+    static int[] stockGoods = new int[TradeGood.NUM_TRADE_GOODS];
+    private HashMap<TradeGood,Integer> stockPrices = new HashMap<>();
+    private HashMap<TradeGood,Integer> startCargoStock;
     //hashmap of all goods and whether or not they are available
-    HashMap<TradeGood, Boolean> goodsBeingTraded = new HashMap<>();
-    //PLEASE USE ME
-    HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
-    int startCredits, startCargo;
+    private final HashMap<TradeGood, Boolean> goodsBeingTraded = new HashMap<>();
+
+    private final HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
+    private int startCredits;
+    private int startCargo;
     
     /**
      * Set the screen parent.
@@ -88,43 +89,44 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to get labels from good ID.
-     * 
+     * @param id the id of the good to get labels from
      * @return Array of labels (tradersGood, goodPrice).
      */
-    private Label[] getLabelsFromID(int id) {
+    private Label[] getLabelsFromID(final int id) {
         Label trader, price;
         switch(id) {
-            case 0: trader = tradersWater;
+            case TradeGood.WATER_ID: trader = tradersWater;
                     price = waterPrice;
                     break;
-            case 1: trader = tradersFur;
+            case TradeGood.FURS_ID: trader = tradersFur;
                     price = furPrice;
                     break;
-            case 2: trader = tradersFood;
+            case TradeGood.FOOD_ID: trader = tradersFood;
                     price = foodPrice;
                     break;
-            case 3: trader = tradersOre;
+            case TradeGood.ORE_ID: trader = tradersOre;
                     price = orePrice;
                     break;
-            case 4: trader = tradersGames;
+            case TradeGood.GAMES_ID: trader = tradersGames;
                     price = gamesPrice;
                     break;
-            case 5: trader = tradersFirearms;
+            case TradeGood.FIREARMS_ID: trader = tradersFirearms;
                     price = firearmsPrice;
                     break;
-            case 6: trader = tradersMed;
+            case TradeGood.MEDICINE_ID: trader = tradersMed;
                     price = medPrice;
                     break;
-            case 7: trader = tradersMachines;
+            case TradeGood.MACHINES_ID: trader = tradersMachines;
                     price = machinesPrice;
-                    break;    
-            case 8: trader = tradersNarcotics;
+                    break;
+            case TradeGood.NARCOTICS_ID: trader = tradersNarcotics;
                     price = narcoticsPrice;
                     break;
-            case 9: trader = tradersRobots;
+            case TradeGood.ROBOTS_ID: trader = tradersRobots;
                     price = robotsPrice;
                     break;
-            default: System.out.println("broken helper method: getLabelsFromID()");
+            default: System.out.println("broken helper method: "
+                    + "getLabelsFromID()");
                      price = new Label();
                      trader = new Label();
                      break;
@@ -134,32 +136,34 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to get TextField from good ID.
+     * @param id the id of the good to get
      * @return playersGood
      */
-    private TextField getTextFieldFromID(int id) {
+    private TextField getTextFieldFromID(final int id) {
         TextField playerField;
         switch(id) {
-            case 0: playerField = playersWater;
+            case TradeGood.WATER_ID: playerField = playersWater;
                     break;
-            case 1: playerField = playersFur;
+            case TradeGood.FURS_ID: playerField = playersFur;
                     break;
-            case 2: playerField = playersFood;
+            case TradeGood.FOOD_ID: playerField = playersFood;
                     break;
-            case 3: playerField = playersOre;
+            case TradeGood.ORE_ID: playerField = playersOre;
                     break;
-            case 4: playerField = playersGames;
+            case TradeGood.GAMES_ID: playerField = playersGames;
                     break;
-            case 5: playerField = playersFirearms;
+            case TradeGood.FIREARMS_ID: playerField = playersFirearms;
                     break;
-            case 6: playerField = playersMed;
+            case TradeGood.MEDICINE_ID: playerField = playersMed;
                     break;
-            case 7: playerField = playersMachines;
-                    break;    
-            case 8: playerField = playersNarcotics;
+            case TradeGood.MACHINES_ID: playerField = playersMachines;
                     break;
-            case 9: playerField = playersRobots;
+            case TradeGood.NARCOTICS_ID: playerField = playersNarcotics;
                     break;
-            default: System.out.println("broken helper method: getTextFieldFromID()");
+            case TradeGood.ROBOTS_ID: playerField = playersRobots;
+                    break;
+            default: System.out.println("broken helper method: "
+                    + "getTextFieldFromID()");
                      playerField = new TextField();
                      break;
         }
@@ -168,32 +172,34 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to get Slider from good ID.
+     * @param id id of good to get
      * @return goodSlider
      */
-    private Slider getSliderFromID(int id) {
+    private Slider getSliderFromID(final int id) {
         Slider slider;
         switch(id) {
-            case 0: slider = waterSlider;
+            case TradeGood.WATER_ID: slider = waterSlider;
                     break;
-            case 1: slider = furSlider;
+            case TradeGood.FURS_ID: slider = furSlider;
                     break;
-            case 2: slider = foodSlider;
+            case TradeGood.FOOD_ID: slider = foodSlider;
                     break;
-            case 3: slider = oreSlider;
+            case TradeGood.ORE_ID: slider = oreSlider;
                     break;
-            case 4: slider = gameSlider;
+            case TradeGood.GAMES_ID: slider = gameSlider;
                     break;
-            case 5: slider = firearmSlider;
+            case TradeGood.FIREARMS_ID: slider = firearmSlider;
                     break;
-            case 6: slider = medicineSlider;
+            case TradeGood.MEDICINE_ID: slider = medicineSlider;
                     break;
-            case 7: slider = machineSlider;
+            case TradeGood.MACHINES_ID: slider = machineSlider;
                     break;    
-            case 8: slider = narcoticSlider;
+            case TradeGood.NARCOTICS_ID: slider = narcoticSlider;
                     break;
-            case 9: slider = robotSlider;
+            case TradeGood.ROBOTS_ID: slider = robotSlider;
                     break;
-            default: System.out.println("broken helper method: getSliderFromID()");
+            default: System.out.println("broken helper method: "
+                    + "getSliderFromID()");
                      slider = new Slider();
                      break;
         }
@@ -202,8 +208,9 @@ public class MarketController implements ControlledScreen, Initializable {
     
     /**
      * Helper method to initialize labels and sliders.
+     * @param good trade good to init slider for
      */
-    private void initLabelsSliders(TradeGood good) {
+    private void initLabelsSliders(final TradeGood good) {
         int index = good.getID();
         Label[] labels = getLabelsFromID(index);
         Label trader = labels[0];
@@ -232,9 +239,10 @@ public class MarketController implements ControlledScreen, Initializable {
         currentCargo();
         setPrices();
         //set playersGood to the amount they currently have
-        //set tradersGood to the amount they currently have, or to "No trade" if thats true
+        //set tradersGood to the amount they currently have
+        //or to "No trade" if thats true
         //display the prices for each good via their price Label
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             initLabelsSliders(TradeGood.getGoodFromID(i));
         }
         Context.getInstance().setStock(stockGoods);
@@ -247,9 +255,8 @@ public class MarketController implements ControlledScreen, Initializable {
      * Determine how many of each goods this planet stocks.
      * @param good type of good being stocked
      * @return stock of that good
-     * 
      */
-    public static int calcStock(TradeGood good) {
+    public static int calcStock(final TradeGood good) {
         if (Context.getInstance().getStock()[good.getID()] == -1) {
             Planet planet = Context.getInstance().getPlayer().getCurrentPlanet();
             Event event = planet.getEvent();
@@ -257,9 +264,8 @@ public class MarketController implements ControlledScreen, Initializable {
             int goodMinTechLevelToBuy = good.getMTLB();
             int planetTechLevel = planet.getTechLevel();
             int stock;
-            
             //will not produce things from too low a tech level
-            if(goodMinTechLevelToBuy > planetTechLevel){
+            if (goodMinTechLevelToBuy > planetTechLevel) {
                 stock = 0;
             } else {
                 stock = 7 + random.nextInt(14);
@@ -277,28 +283,17 @@ public class MarketController implements ControlledScreen, Initializable {
             }
             
             stockGoods[good.getID()] = stock;
-            
             return stock;
         } else {
             return Context.getInstance().getStock()[good.getID()];
         }
     }
-
-    /**
-     * Loads the player up with some cargo. For demo use only!
-     */
-    public void cargoUp() {
-        Ship ship = Context.getInstance().getPlayer().getShip();
-        for (int i = 0; i < 10; i++) {
-            ship.addToCargo(TradeGood.getGoodFromID(i), random.nextInt(4));
-        }
-    }
     
     /**
-     * Set the prices of the market
+     * Set the prices of the market.
      */
-    public void setPrices(){
-        int[] marketPrices = new int[10];
+    public final void setPrices() {
+        int[] marketPrices = new int[TradeGood.NUM_TRADE_GOODS];
         for (int i = 0; i < marketPrices.length; i++) {
             marketPrices[i] = Context.getInstance().getPlayer().getCurrentPlanet().getMarket().getPrices()[i];
             stockPrices.put(TradeGood.getGoodFromID(i), marketPrices[i]);
@@ -306,21 +301,21 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Displays "No Trade" beside items that cannot be bought/sold, either
+     * Displays "No Trade" beside items that cannot be bought/sold, either.
      * because of tech level or governments
      */
-    public void setNoTrade(){
+    public final void setNoTrade() {
         Planet planet = player.getCurrentPlanet();
-        for(TradeGood good : TradeGood.values()) {
+        for (TradeGood good : TradeGood.values()) {
             //if tech level is too low to buy that here
-            if(good.getMTLB() > planet.getTechLevel()) {
+            if (good.getMTLB() > planet.getTechLevel()) {
                 goodsBeingTraded.put(good, false);
                 System.out.println("No trade: " + good.toString());
             } else {
                 goodsBeingTraded.put(good, true);
             }
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             Label[] labels = getLabelsFromID(i);
             Label trader = labels[0];
             Label price = labels[1];
@@ -332,26 +327,27 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Sets the current available credits to be displayed
+     * Sets the current available credits to be displayed.
      */
-    public void currentCredits() {
+    public final void currentCredits() {
         creditLabel.setText("Credits: " + player.getCredits());
     }
     
     /**
-     * Sets the current available cargo space to be displayed
+     * Sets the current available cargo space to be displayed.
      */
-    public void currentCargo() {
+    public final void currentCargo() {
         int currentUsedCargo = player.getShip().getCurrentUsedCargoSlots();
         int maxCargoSlots = player.getShip().getMaxCargoSlots();
-        cargoLabel.setText("Cargo Bay Slots: " + currentUsedCargo + "/" + maxCargoSlots);
+        cargoLabel.setText("Cargo Bay Slots: " + currentUsedCargo
+                + "/" + maxCargoSlots);
     }
     
     /**
-     * 
-     * @param id 
+     * A generic increment method for a good.
+     * @param id the good to increment the count of
      */
-    private void genericIncrement(int id) {
+    private void genericIncrement(final int id) {
         TradeGood good = TradeGood.getGoodFromID(id);
         Ship ship = Context.getInstance().getPlayer().getShip();
         int credits = Context.getInstance().getPlayer().getCredits();
@@ -363,27 +359,28 @@ public class MarketController implements ControlledScreen, Initializable {
         //set stock number to 0 if good is not tradeable
         String traderStockStr = trader.getText();
         int traderStock = 0;
-        if(!traderStockStr.equals("NO")){
+        if (!traderStockStr.equals("NO")) {
             traderStock = Integer.parseInt(trader.getText());
         }
-        
-        int sliderValue = (int)slider.getValue();
+        int sliderValue = (int) slider.getValue();
         boolean isCargoFull = ship.isCargoFull();
-        if (credits > price && traderStock > 0 && !isCargoFull && goodsBeingTraded.get(good)) {
+        if (credits > price && traderStock > 0 && !isCargoFull
+                && goodsBeingTraded.get(good)) {
             slider.setValue(sliderValue + 1);
-            sliderValue = (int)slider.getValue();
+            sliderValue = (int) slider.getValue();
             playerField.setText(String.valueOf(sliderValue));
             trader.setText(String.valueOf(traderStock - 1));
             ship.addToCargo(good, 1);
             updateCredits(good, 1);
         }
-        currentCargo();        
+        currentCargo();
     }
     
     /**
-     * @param id 
+     * Generic decrement for a good.
+     * @param id good to decrement
      */
-    private void genericDecrement(int id) {
+    private void genericDecrement(final int id) {
         boolean noTrade = false;
         TradeGood good = TradeGood.getGoodFromID(id);
         Ship ship = Context.getInstance().getPlayer().getShip();
@@ -393,18 +390,18 @@ public class MarketController implements ControlledScreen, Initializable {
         //if the trader cannot trade the object, stock is 0 and noTrade is true
         String traderStockStr = trader.getText();
         int traderStock = 0;
-        if(!traderStockStr.equals("NO")){
+        if (!traderStockStr.equals("NO")) {
             traderStock = Integer.parseInt(trader.getText());
-            
         } else {
             noTrade = true;
         }
         
-        int sliderValue = (int)slider.getValue();
+        int sliderValue = (int) slider.getValue();
         boolean isCargoEmpty = ship.isCargoEmpty();
-        if (!isCargoEmpty && !noTrade && ship.getCargoStock(good) > 0 && goodsBeingTraded.get(good)) {
+        if (!isCargoEmpty && !noTrade && ship.getCargoStock(good) > 0
+                && goodsBeingTraded.get(good)) {
             slider.setValue(sliderValue - 1);
-            sliderValue = (int)slider.getValue();
+            sliderValue = (int) slider.getValue();
             playerField.setText(String.valueOf(sliderValue));
             trader.setText(String.valueOf(traderStock + 1));
             ship.removeFromCargo(good, 1);
@@ -414,151 +411,152 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * Buy one water
+     * Buy one water.
      */
-    public void waterIncrement() {
-        genericIncrement(0);
+    public final void waterIncrement() {
+        genericIncrement(TradeGood.WATER_ID);
     }
 
     /**
-     * sell one water
+     * sell one water.
      */
-    public void waterDecrement() {
-        genericDecrement(0);
+    public final void waterDecrement() {
+        genericDecrement(TradeGood.WATER_ID);
     }
 
     /**
-     * buy one fur
+     * buy one fur.
      */
-    public void furIncrement() {
-        genericIncrement(1);    
+    public final void furIncrement() {
+        genericIncrement(TradeGood.FURS_ID);
     }
 
     /**
-     * sell one fur
+     * sell one fur.
      */
-    public void furDecrement() {
-        genericDecrement(1);
+    public final void furDecrement() {
+        genericDecrement(TradeGood.FURS_ID);
     }
 
     /**
-     * buy one food
+     * buy one food.
      */
-    public void foodIncrement() {
-        genericIncrement(2); 
+    public final void foodIncrement() {
+        genericIncrement(TradeGood.FOOD_ID);
     }
 
     /**
-     * sell one food
+     * sell one food.
      */
-    public void foodDecrement() {
-        genericDecrement(2);
+    public final void foodDecrement() {
+        genericDecrement(TradeGood.FOOD_ID);
     }
 
     /**
-     * buy one ore
+     * buy one ore.
      */
-    public void oreIncrement() {
-        genericIncrement(3);  
+    public final void oreIncrement() {
+        genericIncrement(TradeGood.ORE_ID);
     }
 
     /**
-     * sell one ore
+     * sell one ore.
      */
-    public void oreDecrement() {
-        genericDecrement(3); 
+    public final void oreDecrement() {
+        genericDecrement(TradeGood.ORE_ID);
     }
 
     /**
-     * buy one game
+     * buy one game.
      */
-    public void gamesIncrement() {
-        genericIncrement(4);
+    public final void gamesIncrement() {
+        genericIncrement(TradeGood.GAMES_ID);
     }
 
     /**
-     * sell one game
+     * sell one game.
      */
-    public void gamesDecrement() {
-        genericDecrement(4);   
+    public final void gamesDecrement() {
+        genericDecrement(TradeGood.GAMES_ID);
     }
 
     /**
-     * buy one firearm
+     * buy one firearm.
      */
-    public void firearmsIncrement() {
-        genericIncrement(5);
+    public final void firearmsIncrement() {
+        genericIncrement(TradeGood.FIREARMS_ID);
     }
 
     /**
-     * sell one firearm
+     * sell one firearm.
      */
-    public void firearmsDecrement() {
-        genericDecrement(5); 
+    public final void firearmsDecrement() {
+        genericDecrement(TradeGood.FIREARMS_ID);
     }
 
     /**
-     * buy one medicine
+     * buy one medicine.
      */
-    public void medIncrement() {
-        genericIncrement(6);  
+    public final void medIncrement() {
+        genericIncrement(TradeGood.MEDICINE_ID);
     }
 
     /**
-     * sell one medicine
+     * sell one medicine.
      */
-    public void medDecrement() {
-        genericDecrement(6);    
+    public final void medDecrement() {
+        genericDecrement(TradeGood.MEDICINE_ID);
     }
 
     /**
-     * buy one machine
+     * buy one machine.
      */
-    public void machinesIncrement() {
-        genericIncrement(7);
+    public final void machinesIncrement() {
+        genericIncrement(TradeGood.MACHINES_ID);
     }
 
     /**
-     * sell one machine
+     * sell one machine.
      */
-    public void machinesDecrement() {
-        genericDecrement(7);
+    public final void machinesDecrement() {
+        genericDecrement(TradeGood.MACHINES_ID);
     }
 
     /**
-     * buy one narcotics
+     * buy one narcotics.
      */
-    public void narcoticsIncrement() {
-        genericIncrement(8);    
+    public final void narcoticsIncrement() {
+        genericIncrement(TradeGood.NARCOTICS_ID);
     }
 
     /**
-     * sell one narcotics
+     * sell one narcotics.
      */
-    public void narcoticsDecrement() {
-        genericDecrement(8);
+    public final void narcoticsDecrement() {
+        genericDecrement(TradeGood.NARCOTICS_ID);
     }
 
     /**
-     * buy one robot
+     * buy one robot.
      */
-    public void robotsIncrement() {
-        genericIncrement(9);
+    public final void robotsIncrement() {
+        genericIncrement(TradeGood.ROBOTS_ID);
     }
 
     /**
-     * sell one robot
+     * sell one robot.
      */
-    public void robotsDecrement() {
-        genericDecrement(9);
+    public final void robotsDecrement() {
+        genericDecrement(TradeGood.ROBOTS_ID);
     }
     
     /**
      * Updates the player's credits on buy / sell.
      * @param traded good you're buying or selling
-     * @param num determines if you're adding or subtracting, negative to add pos to subtract (will flip later)
+     * @param num determines if you're adding or subtracting,
+     *      negative to add pos to subtract (will flip later)
      */
-    public void updateCredits(TradeGood traded, int num) {
+    public final void updateCredits(final TradeGood traded, final int num) {
         if (num < 0) {
             int absNum = Math.abs(num);
             Context.getInstance().getPlayer().addCredits(absNum * stockPrices.get(traded));
@@ -569,34 +567,31 @@ public class MarketController implements ControlledScreen, Initializable {
     }
     
     /**
-     * confirm button
+     * confirm button.
      */
-    public void confirmAction() {
+    public final void confirmAction() {
         currentCargo();
         currentCredits();
         int value = -1;
-        for (int i = 0; i < 10; i++) {
-            //check if trader trades this good, and if he does, change value to correct number
-            if(!getLabelsFromID(i)[0].getText().equals("NO")){
+        for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
+            //check if trader trades this good, and if he does,
+            //change value to correct number
+            if (!getLabelsFromID(i)[0].getText().equals("NO")) {
                 value = Integer.valueOf(getLabelsFromID(i)[0].getText());
             }
             Context.getInstance().getPlayer().getCurrentPlanet().getMarket().setStockIndex(i, value);
         }
         controller.setScreen("PlanetScreen");
-        //do stuff
-        //go back to PlanetScreen
     }
     
     /**
-     * back button
+     * back button.
      */
-    public void backAction() {
+    public final void backAction() {
         player.removeCredits(Context.getInstance().getPlayer().getCredits());
         player.addCredits(startCredits);
-        player.getShip().setCargo(startCargoStock,startCargo);
-        //System.out.println(Context.getInstance().getPlayer().getShip().getCargo().get(TradeGood.WATER));
-        //need to reset stock
+        player.getShip().setCargo(startCargoStock, startCargo);
+        
         controller.setScreen("PlanetScreen");
     }
-    
 }

@@ -23,11 +23,19 @@ public enum Government implements Serializable{
     private final String name;
     private final int id;
     private final int police;
-    private final int pirate;    
+    private final int pirate;
     private final int trader;
     
-    private Government(final String name, int id, int policeChance,
-            int pirateChance, int traderChance) {
+    /**
+     * Creates a Government.
+     * @param name name of government
+     * @param id id of government
+     * @param policeChance chance of police encounter for the government
+     * @param pirateChance chance of pirate encounter for the government
+     * @param traderChance chance of trader encounter for the government
+     */
+    private Government(final String name, final int id, final int policeChance,
+            final int pirateChance, final int traderChance) {
         this.name = name;
         this.id = id;
         this.police = policeChance;
@@ -46,51 +54,51 @@ public enum Government implements Serializable{
                 COMMUNIST, CONFEDERACY, DEMOCRACY, DICTATORSHIP, PACIFIST,
                 SATORI));
         //more specific ones are added here
-        if (techLevel == 7) {
+        if (techLevel == Context.HI_TECH) {
             govts.add(CYBERNETIC);
             govts.add(FACIST);
             govts.add(MILITARY);
             govts.add(TECHNOCRACY);
             govts.add(CORPORATE);
-        } else if (techLevel == 6) {
+        } else if (techLevel == Context.POST_INDUSTRIAL) {
             govts.add(FACIST);
             govts.add(MILITARY);
             govts.add(TECHNOCRACY);
             govts.add(CORPORATE);
-        } else if (techLevel == 5) {
+        } else if (techLevel == Context.INDUSTRIAL) {
             govts.add(ANARCHY);
             govts.add(FACIST);
             govts.add(MILITARY);
             govts.add(SOCIALIST);
             govts.add(TECHNOCRACY);
             govts.add(CORPORATE);
-        } else if (techLevel == 4) {
+        } else if (techLevel == Context.EARLY_INDUSTRIAL) {
             govts.add(ANARCHY);
             govts.add(FACIST);
             govts.add(MILITARY);
             govts.add(MONARCHY);
             govts.add(SOCIALIST);
             govts.add(CORPORATE);
-        } else if (techLevel == 3) {
+        } else if (techLevel == Context.RENAISSANCE) {
             govts.add(ANARCHY);
             govts.add(FEUDAL);
             govts.add(MILITARY);
             govts.add(MONARCHY);
             govts.add(SOCIALIST);
             govts.add(THEOCRACY);
-        } else if (techLevel == 2) {
+        } else if (techLevel == Context.MEDIEVAL) {
             govts.add(ANARCHY);
             govts.add(FEUDAL);
             govts.add(MONARCHY);
             govts.add(SOCIALIST);
             govts.add(THEOCRACY);
-        } else if (techLevel == 1) {
+        } else if (techLevel == Context.AGRICULTURE) {
             govts.add(ANARCHY);
             govts.add(FEUDAL);
             govts.add(MONARCHY);
             govts.add(SOCIALIST);
             govts.add(THEOCRACY);
-        } else if (techLevel == 0) {
+        } else if (techLevel == Context.PRE_AGRICULTURE) {
             govts.add(ANARCHY);
             govts.add(FEUDAL);
             govts.add(MONARCHY);
@@ -133,7 +141,7 @@ public enum Government implements Serializable{
     }
     
     /**
-     * Returns chance of trader encounter
+     * Returns chance of trader encounter.
      * @return int corresponding to chance of trader encounter
      */
     public int getTrader() {
@@ -146,7 +154,7 @@ public enum Government implements Serializable{
      * @param other the other government
      * @return true if this government has the same name as the other government
      */
-    public boolean equals(Government other) {
+    public boolean isEqual(final Government other) {
         return other.getName().equals(this.getName());
     }
 }

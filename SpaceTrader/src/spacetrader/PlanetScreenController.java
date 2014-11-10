@@ -52,28 +52,28 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     /**
      * Transitions back to the solar system map screen.
      */
-    public void backAction() {
+    public final void backAction() {
         controller.setScreen("SolarMap");
     }
     
     /**
      * Transitions to the market screen.
      */
-    public void marketAction() {
+    public final void marketAction() {
         controller.setScreen("Market");
     }
     
     /**
      * Transitions to the ship yard screen.
      */
-    public void shipyardAction() {
+    public final void shipyardAction() {
         controller.setScreen("Shipyard");
     }
     
     /**
      * Saves the game.
      */
-    public void saveAction(){
+    public final void saveAction(){
         Context.getInstance().saveContextBinary();
     }
 }

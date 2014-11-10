@@ -32,7 +32,7 @@ public class Planet implements Serializable{
      * @param x planet's x coordinate
      * @param y planet's y coordinate
      */
-    public Planet(int x, int y) {
+    public Planet(final int x, final int y) {
         this();
         this.coords = new Coordinate(x, y);
     }
@@ -41,7 +41,7 @@ public class Planet implements Serializable{
      * Constructs a planet with given coordinates.
      * @param coords planet's coordinate pair
      */
-    public Planet(Coordinate coords) {
+    public Planet(final Coordinate coords) {
         this();
         this.coords = coords;
     }
@@ -56,8 +56,9 @@ public class Planet implements Serializable{
      * @param y the y coordinate of the parent
      * @param parentSolarSystem the parent solar system
      */
-    public Planet(String name, int techLevel, Resource resource, Government govt,
-            int x, int y, SolarSystem parentSolarSystem) {
+    public Planet(final String name, final int techLevel
+            , final Resource resource, final Government govt, final int x
+            , final int y, final SolarSystem parentSolarSystem) {
         this();
         this.name = name;
         this.techLevel = techLevel;
@@ -71,7 +72,7 @@ public class Planet implements Serializable{
      * Returns the name of the planet.
      * @return the name of the planet
      */
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
     
@@ -79,7 +80,7 @@ public class Planet implements Serializable{
      * Returns the coordinates of the planet.
      * @return the coordinates of the planet
      */
-    public Coordinate getCoords() {
+    public final Coordinate getCoords() {
         return this.coords;
     }
     
@@ -87,7 +88,7 @@ public class Planet implements Serializable{
      * Returns the tech level of the planet.
      * @return the tech level of the planet
      */
-    public int getTechLevel() {
+    public final int getTechLevel() {
         return this.techLevel;
     }
     
@@ -95,7 +96,7 @@ public class Planet implements Serializable{
      * Returns the resources of the planet.
      * @return the resources of the planet
      */
-    public Resource getResource() {
+    public final Resource getResource() {
         return this.resource;
     }
 
@@ -103,7 +104,7 @@ public class Planet implements Serializable{
      * Returns the resources of the planet.
      * @return the resources of the planet
      */
-    public Government getGovernment() {
+    public final Government getGovernment() {
         return this.govt;
     }
     
@@ -111,7 +112,7 @@ public class Planet implements Serializable{
      * Returns the event of the planet.
      * @return the event of the planet
      */
-    public Event getEvent() {
+    public final Event getEvent() {
         return this.event;
     }
     
@@ -119,7 +120,7 @@ public class Planet implements Serializable{
      * Returns the parent solar system.
      * @return the parent solar system
      */
-    public SolarSystem getParentSolarSystem() {
+    public final SolarSystem getParentSolarSystem() {
         return this.parentSolarSystem;
     }
     
@@ -127,43 +128,42 @@ public class Planet implements Serializable{
      * Returns the current absolute location.
      * @return the current absolute location
      */
-    public Coordinate getAbsoluteLocation() {
+    public final Coordinate getAbsoluteLocation() {
         return new Coordinate(this.parentSolarSystem.getCoords().getX()
                 + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                        * this.coords.getX()/Context.BOUNDARY_VISIBLE
+                        * this.coords.getX() / Context.BOUNDARY_VISIBLE
                 - Context.MIN_DISTANCE_BETWEEN_PLANETS,
                 this.parentSolarSystem.getCoords().getY()
                         + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                                * this.coords.getY()/Context.BOUNDARY_VISIBLE
+                                * this.coords.getY() / Context.BOUNDARY_VISIBLE
                         - Context.MIN_DISTANCE_BETWEEN_PLANETS);
     }
     
     /**
      * Returns the distance between a planet and another planet.
-     * 
      * @param otherPlanet the other planet
      * @return the distance between a planet and another planets
      */
-    public double distanceToPlanet(Planet otherPlanet) {
+    public final  double distanceToPlanet(Planet otherPlanet) {
         return Math.sqrt(Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getX()
-                + (this.getCoords().getX() - (double)Context.BOUNDARY_VISIBLE/2)
-                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE)
+                + (this.getCoords().getX() - (double) Context.BOUNDARY_VISIBLE / 2)
+                        * (double) 2 * Context.MIN_DISTANCE_BETWEEN_PLANETS / Context.BOUNDARY_VISIBLE)
                 - (otherPlanet.getParentSolarSystem().getCoords().getX()
-                        + ((double)otherPlanet.getCoords().getX() - Context.BOUNDARY_VISIBLE/2)
-                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE), 2)
+                        + ((double) otherPlanet.getCoords().getX() - Context.BOUNDARY_VISIBLE / 2)
+                                * (double) 2 * Context.MIN_DISTANCE_BETWEEN_PLANETS / Context.BOUNDARY_VISIBLE), 2)
                 + Math.pow(Math.abs(this.getParentSolarSystem().getCoords().getY()
-                        + (this.getCoords().getY() - (double)Context.BOUNDARY_VISIBLE/2)
-                                * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE)
+                        + (this.getCoords().getY() - (double) Context.BOUNDARY_VISIBLE / 2)
+                                * (double) 2 * Context.MIN_DISTANCE_BETWEEN_PLANETS / Context.BOUNDARY_VISIBLE)
                         - (otherPlanet.getParentSolarSystem().getCoords().getY()
-                                + ((double)otherPlanet.getCoords().getY() - Context.BOUNDARY_VISIBLE/2)
-                                        * (double)2*Context.MIN_DISTANCE_BETWEEN_PLANETS/Context.BOUNDARY_VISIBLE), 2));
+                                + ((double) otherPlanet.getCoords().getY() - Context.BOUNDARY_VISIBLE / 2)
+                                        * (double) 2 * Context.MIN_DISTANCE_BETWEEN_PLANETS / Context.BOUNDARY_VISIBLE), 2));
     }
     
     /**
      * Sets the planet name.
      * @param name planet name
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
     
@@ -171,7 +171,7 @@ public class Planet implements Serializable{
      * Sets the planet coords.
      * @param coords planet coords
      */
-    public void setCoords(Coordinate coords) {
+    public final void setCoords(final Coordinate coords) {
         this.coords = coords;
     }
     
@@ -179,7 +179,7 @@ public class Planet implements Serializable{
      * Sets the planet government.
      * @param government planet government
      */
-    public void setGovernment(Government government) {
+    public final void setGovernment(final Government government) {
         this.govt = government;
     }
     
@@ -187,7 +187,7 @@ public class Planet implements Serializable{
      * Sets the planet event.
      * @param event event
      */
-    public void setEvent(Event event) {
+    public final void setEvent(final Event event) {
         this.event = event;
     }
     
@@ -195,7 +195,7 @@ public class Planet implements Serializable{
      * Sets the parent solar system.
      * @param parentSolarSystem parent solar system
      */
-    public void setParentSolarSystem(SolarSystem parentSolarSystem) {
+    public final void setParentSolarSystem(final SolarSystem parentSolarSystem) {
         this.parentSolarSystem = parentSolarSystem;
     }
     
@@ -213,15 +213,29 @@ public class Planet implements Serializable{
         return string;
     }
     
-    public Market getMarket() {
+    /**
+     * Gets the planet's market.
+     * @return the market of the planet
+     */
+    public final Market getMarket() {
         return market;
     }
     
-    public Shipyard getShipyard(){
+    /**
+     * Gets the planet's shipyard.
+     * @return the shipyard of the planet
+     */
+    public final Shipyard getShipyard() {
         return shipyard;
     }
     
-    public boolean equals(Planet other) {
+    /**
+     * Compares the planets, and if they are the same, returns true, otherwise
+     * it returns false.
+     * @param other the other planet to compare against
+     * @return true if planets are equal, false otherwise
+     */
+    public final boolean isEqual(final Planet other) {
         return this.coords.equals(other.getCoords())
                 && this.name.equals(other.getName());
     }

@@ -33,6 +33,25 @@ public class Context implements Serializable{
     public static final double FUEL_TO_DISTANCE_RATIO = 2.0;
     public static final double DISTANCE_TO_FUEL_RATIO = 1 / FUEL_TO_DISTANCE_RATIO;
     
+    public static final int PRE_AGRICULTURE = 0;
+    public static final int AGRICULTURE = 1;
+    public static final int MEDIEVAL = 2;
+    public static final int RENAISSANCE = 3;
+    public static final int EARLY_INDUSTRIAL = 4;
+    public static final int INDUSTRIAL = 5;
+    public static final int POST_INDUSTRIAL = 6;
+    public static final int HI_TECH = 7;
+    
+    public static final int STARTING_CREDITS = 1000;
+    
+    public static final int INVESTOR_ID = 0;
+    public static final int PILOT_ID = 1;
+    public static final int TRADER_ID = 2;
+    public static final int FIGHTER_ID = 3;
+    public static final int ENGINEER_ID = 4;
+    
+    //public static final int NUM_TRADE_GOODS = 10;
+    
     public static final String[] SOLAR_SYSTEM_NAMES = {
         "Acamar", "Adahn", "Aldea", "Andevian", "Antedi", "Balosnee", "Baratas",
         "Brax", "Bretel", "Calondia", "Campor", "Capelle", "Carzon", "Castor",
