@@ -125,21 +125,6 @@ public class Planet implements Serializable{
     }
     
     /**
-     * Returns the current absolute location.
-     * @return the current absolute location
-     */
-    public final Coordinate getAbsoluteLocation() {
-        return new Coordinate(this.parentSolarSystem.getCoords().getX()
-                + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                        * this.coords.getX() / Context.BOUNDARY_VISIBLE
-                - Context.MIN_DISTANCE_BETWEEN_PLANETS,
-                this.parentSolarSystem.getCoords().getY()
-                        + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                                * this.coords.getY() / Context.BOUNDARY_VISIBLE
-                        - Context.MIN_DISTANCE_BETWEEN_PLANETS);
-    }
-    
-    /**
      * Returns the distance between a planet and another planet.
      * @param otherPlanet the other planet
      * @return the distance between a planet and another planets

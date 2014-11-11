@@ -35,6 +35,10 @@ public class SolarMapController implements ControlledScreen, Initializable {
      */
     @Override
     public final void initScreen() {
+        SolarSystem focus;
+        
+        focus = Context.getInstance().getFocus();
+        
         player = Context.getInstance().getPlayer();
         drawPlanets();
         this.fuelLabel.setText("Fuel: "
@@ -42,7 +46,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
         selectedPlanet = player.getCurrentPlanet();
-        if (player.getCurrentPlanet().getParentSolarSystem().equals(Context.getInstance().getFocus())) {        
+        if (selectedPlanet.getParentSolarSystem().equals(focus)) {        
             setDescription(player.getCurrentPlanet());
         }
     }
@@ -60,14 +64,15 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * Draws the current solar systems on solar map.
      */
     public void drawPlanets() {
-        SolarSystem solarSystem = Context.getInstance().getFocus();
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        Planet currentPlanet = player.getCurrentPlanet();
+        SolarSystem solarSystem = Context.getInstance().getFocus();
         
         // Clear canvas
         gc.clearRect(0, 0, Context.BOUNDARY_VISIBLE, Context.BOUNDARY_VISIBLE);
         
         for (Planet planet : solarSystem.getPlanets()) {
-            if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+            if (currentPlanet.getCoords().distanceTo(planet.getCoords())
                     < Context.DISTANCE_TO_FUEL_RATIO 
                     * this.player.getShip().getFuelLevel()) {
                 gc.setFill(Color.GREEN);
@@ -79,14 +84,15 @@ public class SolarMapController implements ControlledScreen, Initializable {
                     * (planet.getCoords().getX()
                             - solarSystem.getCoords().getX())
                     + Context.BOUNDARY_VISIBLE / 2,
-                        Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO * (planet.getCoords().getY()
+                        Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
+                                * (planet.getCoords().getY()
                                 - solarSystem.getCoords().getY())
                                 + Context.BOUNDARY_VISIBLE / 2,
                         Context.DOT_SIZE, Context.DOT_SIZE);
         }
              
         // Draw current planet in gold
-        if (player.getCurrentPlanet().getParentSolarSystem().equals(solarSystem)) {
+        if (currentPlanet.getParentSolarSystem().equals(solarSystem)) {
             gc.setFill(Color.GOLD);
             gc.fillOval(Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
                     * (player.getCurrentPlanet().getCoords().getX()
@@ -135,16 +141,20 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * Selects a planet and travels to it if able.
      */
     public void selectPlanet() {
-        if (this.selectedPlanet == null) {
-            this.description.setText("Please select a planet.");
-        } else if (this.player.getShip().getRange() <= Context.FUEL_TO_DISTANCE_RATIO
-                * (int) this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
-            this.description.setText(this.selectedPlanet.getName()
+        Coordinate coords = player.getCurrentPlanet().getCoords();
+        
+        if (selectedPlanet == null) {
+            description.setText("Please select a planet.");
+        } else if (player.getShip().getRange()
+                <= Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(selectedPlanet.getCoords())) {
+            description.setText(this.selectedPlanet.getName()
                     + "is too further away than your ship's maximum range.");
-        } else if (this.player.getShip().getFuelLevel() <= Context.FUEL_TO_DISTANCE_RATIO
-                * (int) this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
-            this.description.setText("You don't have enough fuel to travel to "
-                    + this.selectedPlanet.getName() + ".");
+        } else if (player.getShip().getFuelLevel()
+                <= Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(selectedPlanet.getCoords())) {
+            description.setText("You don't have enough fuel to travel to "
+                    + selectedPlanet.getName() + ".");
         } else {
             travelToPlanet(selectedPlanet);
         }
@@ -155,20 +165,22 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
+        Coordinate coords = player.getCurrentPlanet().getCoords();
+        
         String string = "Name: " + planet.getName() + "\nCoords: "
                 + planet.getCoords() + "\nDistance: "
-                + (int) this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                + (int) coords.distanceTo(planet.getCoords())
                 + "\nFuel required: "
                 + Context.FUEL_TO_DISTANCE_RATIO 
-                * (int) this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                * (int) coords.distanceTo(planet.getCoords())
                 + "\n" + "Tech level: "
-                + Context.TECH_LEVELS[(planet.getTechLevel())] + "\n"
-                + "Government: " + planet.getGovernment().getName() + "\n"
-                + "Police: " + planet.getGovernment().getPolice()
-                + " Pirates: " + planet.getGovernment().getPirate()                
-                + " Traders: " + planet.getGovernment().getTrader() + "\n"
-                + "Resources: " + planet.getResource().getName() + "\n"
-                + "Event: " + planet.getEvent().getName() + "\n";
+                + Context.TECH_LEVELS[(planet.getTechLevel())]
+                + "\nGovernment: " + planet.getGovernment().getName()
+                + "\nPolice: " + planet.getGovernment().getPolice()
+                + "\nPirates: " + planet.getGovernment().getPirate()                
+                + "\nTraders: " + planet.getGovernment().getTrader()
+                + "\nResources: " + planet.getResource().getName()
+                + "\nEvent: " + planet.getEvent().getName() + "\n";
 
         
         if (planet.isEqual(player.getCurrentPlanet())) {
@@ -183,27 +195,30 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet destination planet
      */
     public final void travelToPlanet(final Planet planet) {
-        this.player.getShip().subtractFuel((int) Context.FUEL_TO_DISTANCE_RATIO
-                * (int) this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
-        this.player.setPreviousPlanet(this.player.getCurrentPlanet());
-        this.player.setCurrentPlanet(planet);
-        if (!this.player.getPreviousPlanet().isEqual(this.player.getCurrentPlanet())
-                || (this.player.getCurrentPlanet().getName().equals("Noobville")
-                && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
-            this.player.getCurrentPlanet().getMarket().setPrices();
-            this.player.getCurrentPlanet().getMarket().updateStock();
+        Planet currentPlanet = player.getCurrentPlanet();
+        Coordinate coords = currentPlanet.getCoords();
+        
+        player.getShip().subtractFuel((int) Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(planet.getCoords()));
+        player.setPreviousPlanet(player.getCurrentPlanet());
+        player.setCurrentPlanet(planet);
+        if (!player.getPreviousPlanet().isEqual(player.getCurrentPlanet())
+                || (currentPlanet.getName().equals("Noobville")
+                && currentPlanet.getMarket().getPrices()[0] == -1)) {
+            currentPlanet.getMarket().setPrices();
+            currentPlanet.getMarket().updateStock();
         }           
 
         //random events happen on the planet you go to, only if changing planets
-        if (this.player.getCurrentPlanet().isEqual(this.player.getPreviousPlanet())) {
+        if (currentPlanet.isEqual(player.getPreviousPlanet())) {
             //dont do anything, you are already here
-            this.controller.setScreen("PlanetScreen");
-        } else if (!(this.player.getCurrentPlanet().isEqual(this.player.getPreviousPlanet()))) {
+            controller.setScreen("PlanetScreen");
+        } else if (!(currentPlanet.isEqual(player.getPreviousPlanet()))) {
             //a random event happens!
             //1/3 encounters
-            //this.controller.setScreen("Encounter");
+            //controller.setScreen("Encounter");
             //2/3 random things
-            this.controller.setScreen("TravelEvent");
+            controller.setScreen("TravelEvent");
         }
     }
     

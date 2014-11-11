@@ -114,11 +114,14 @@ public class CharacterCreationController implements ControlledScreen,
             Context.getInstance().getPlayer().setShip(new Ship("gnat"));
             
             // Create universe
-            Context.getInstance().getUniverse().generateUniverse();
+            Universe universe = Context.getInstance().getUniverse();
+            universe.generateUniverse();
+            
             // Set default location
-            Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0].setName("Noobville");
-            Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0].setGovernment(Government.MONARCHY);
-            Context.getInstance().getPlayer().setCurrentPlanet(Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
+            Planet startPlanet = universe.getSolarSystems()[0].getPlanets()[0];
+            startPlanet.setName("Noobville");
+            startPlanet.setGovernment(Government.MONARCHY);
+            Context.getInstance().getPlayer().setCurrentPlanet(startPlanet);
             
             controller.setScreen("GalaxyMap");
             
@@ -201,7 +204,7 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Increments or decrements the appropriate stat slider and field
      */
-    public void incrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
+    public void incrementEngineerAction() { setStat("Engineer",Integer.valueOf(map.get("Engineer").getText())+1); }
     public void incrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
     public void incrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
     public void incrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }

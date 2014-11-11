@@ -32,7 +32,8 @@ public class Context implements Serializable{
     public static final double EVENT_DOWN_MULTIPLIER = 1.25;
     public static final double EVENT_UP_MULTIPLIER = 0.75;
     public static final double FUEL_TO_DISTANCE_RATIO = 2.0;
-    public static final double DISTANCE_TO_FUEL_RATIO = 1 / FUEL_TO_DISTANCE_RATIO;
+    public static final double DISTANCE_TO_FUEL_RATIO = 1
+            / FUEL_TO_DISTANCE_RATIO;
     
     public static final int PRE_AGRICULTURE = 0;
     public static final int AGRICULTURE = 1;
@@ -89,7 +90,7 @@ public class Context implements Serializable{
     public static final String[] RESOURCES = {
         "NOSPECIALRESOURCES", "MINERALRICH", "MINERALPOOR", "DESERT",
         "LOTSOFWATER", "RICHSOIL", "POORSOIL", "RICHFAUNA", "LIFELESS",
-        "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE", "PACIFIST" // Pacifist?
+        "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE", "PACIFIST"
     };
     
     public static final String[] GOVERNMENTS = {
@@ -183,22 +184,30 @@ public class Context implements Serializable{
     /**
      * Create the save file for the instance of the game
      */
-    public void saveContextBinary(){
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
-            //instance:
-            out.writeObject(this);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
+    public void saveContextBinary() {
+        try {
+            FileOutputStream file = new FileOutputStream("data.bin");
+            try (ObjectOutputStream out = new ObjectOutputStream(file)) {
+                //instance:
+                out.writeObject(this);
+
+            } catch (IOException ex) {
+                Logger.getLogger(Context.class.getName()).log(Level.SEVERE,
+                        null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Context.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
     }
     
     /**
      * Load the saved file for a game's instance
      */
-    public void loadContextBinary(){
+    public void loadContextBinary() {
         try {
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.bin"))) {
+            FileInputStream file = new FileInputStream("data.bin");
+            try (ObjectInputStream in = new ObjectInputStream(file)) {
                 Context loaded = (Context) in.readObject();
                 instance = loaded;
                 
@@ -207,7 +216,8 @@ public class Context implements Serializable{
             System.out.println("No Save Data");
             //pop up window? 
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(Context.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Context.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
     }
 }
