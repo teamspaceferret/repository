@@ -7,10 +7,9 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.MenuItem;
+
 import javafx.scene.input.KeyCodeCombination;
 
 import javafx.scene.control.TextArea;
@@ -22,25 +21,18 @@ import spacetrader.SpaceTrader.ControlledScreen;
 
 public class CharacterCreationController implements ControlledScreen,
         Initializable {
-    @FXML private Button cancelButton, confirmButton, engineerButton,
-            engineerDecrement, engineerIncrement, fighterButton,
-            fighterDecrement, fighterIncrement, investorButton,
-            investorDecrement, investorIncrement, okButton, pilotButton,
-            pilotDecrement, pilotIncrement, traderButton, traderDecrement,
-            traderIncrement;
     @FXML private Label pointsLabel;
     @FXML private TextArea descriptions;
     @FXML private TextField engineerField, fighterField, investorField,
             nameEntry, pilotField, traderField;
     @FXML MenuItem optionsButton;
-    
 
-    ScreensController controller;
+
+    private ScreensController controller;
     private int pointsRemaining = 15;
     private int[] stats;
-    private Player player;
     private String playerName = "";
-    private Map<String, TextField> map = new HashMap<>();
+    private final Map<String, TextField> map = new HashMap<>();
     
 
     SoundManager soundManager = SoundManager.getSoundManager();
@@ -51,7 +43,7 @@ public class CharacterCreationController implements ControlledScreen,
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -59,7 +51,7 @@ public class CharacterCreationController implements ControlledScreen,
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
+    public final void initScreen() {
         soundManager.setPrevScreen("CharacterCreation");
         optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 
@@ -72,10 +64,11 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location,
+            final ResourceBundle resources) {
         map.put("Engineer", engineerField);
         map.put("Fighter", fighterField);
         map.put("Investor", investorField);
@@ -94,7 +87,7 @@ public class CharacterCreationController implements ControlledScreen,
                 
                 if (newInt < 0) {
                     map.get(key).setText("0");
-                } else if (newInt > 5) {
+                } else if (newInt > Context.MAX_POINTS_PER_SKILL) {
                     map.get(key).setText("5");
                 } else {
                     setStat(key, newInt, oldInt);
@@ -137,11 +130,14 @@ public class CharacterCreationController implements ControlledScreen,
             Context.getInstance().getPlayer().setShip(new Ship("gnat"));
             
             // Create universe
-            Context.getInstance().getUniverse().generateUniverse();
+            Universe universe = Context.getInstance().getUniverse();
+            universe.generateUniverse();
+            
             // Set default location
-            Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0].setName("Noobville");
-            Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0].setGovernment(Government.MONARCHY);
-            Context.getInstance().getPlayer().setCurrentPlanet(Context.getInstance().getUniverse().getSolarSystems()[0].getPlanets()[0]);
+            Planet startPlanet = universe.getSolarSystems()[0].getPlanets()[0];
+            startPlanet.setName("Noobville");
+            startPlanet.setGovernment(Government.MONARCHY);
+            Context.getInstance().getPlayer().setCurrentPlanet(startPlanet);
             
             controller.setScreen("GalaxyMap");
             
@@ -161,7 +157,6 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Returns to the start screen. Clears all stat fields and
      * resets stat sliders and refunds stat points.
-     * 
      */
     
     public void backAction() {
@@ -181,7 +176,6 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Sets the Player name. Player name cannot be "".
      * Also greets the Player!
-     *
      */
     
     public void setPlayerName() {
@@ -198,7 +192,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Updates the GUI to show how many stat points are left to assign.
-     *
      */
     public void updatePoints() {
         pointsLabel.setText("Points remaining: " + pointsRemaining);
@@ -240,7 +233,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Sets the description TextArea to the Fighter stat description.
-     * 
      */
     public void fighterDescriptionAction() {
         descriptions.setText("The fighter skill determines how well you handle "
@@ -253,7 +245,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Sets the description TextArea to the Trader stat description.
-     * 
      */
     public void traderDescriptionAction() {
         descriptions.setText("The trader skill determines what prices you must " 
@@ -267,7 +258,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Sets the description TextArea to the Pilot stat description.
-     * 
      */
     public void pilotDescriptionAction() {
         descriptions.setText("The pilot skill determines how well you pilot "
@@ -281,7 +271,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Sets the description TextArea to the Engineer stat description.
-     * 
      */
     public void engineerDescriptionAction() {
         descriptions.setText("The engineer skill determines how well you keep "
@@ -295,7 +284,6 @@ public class CharacterCreationController implements ControlledScreen,
     
     /**
      * Sets the description TextArea to the Investor stat description.
-     * 
      */
     public void investorDescriptionAction() {
         descriptions.setText("The investor skill influences how well you do in "

@@ -13,9 +13,6 @@ import java.util.Random;
  * @author Cora
  */
 public class Weapon implements Serializable{
-    
-    private String[] namesArray = { };
-    
     private String name;
     private int damage;
     private int price;
@@ -45,14 +42,11 @@ public class Weapon implements Serializable{
         
     }
     
-    public Weapon(int planetTechLevel){
-        int max = planetTechLevel; //double check these vals
-        int min = 4;
-        techLevel = random.nextInt((max - min) + 1) + min; //max tech level
-        
-        damage = (techLevel * 3) + random.nextInt(10);
-        name = generateName();
-        price = generatePrice(damage * 5);
+    public Weapon(String name,int damage,int techLevel){
+        this.techLevel = techLevel;
+        this.damage = damage;
+        this.name = name;
+        price = generatePrice(damage);
         
     }
     

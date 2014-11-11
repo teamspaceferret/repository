@@ -8,9 +8,8 @@ import java.io.Serializable;
 
 class Names implements Serializable{
     private List<String> names;
-    
     // Setting this equal to Context.SOLAR_SYSTEM_NAMES doesn't work???
-    private static String[] namesArray = {
+    private final static String[] namesArray = {
         "Acamar", "Adahn", "Aldea", "Andevian", "Antedi", "Balosnee", "Baratas",
         "Brax", "Bretel", "Calondia", "Campor", "Capelle", "Carzon", "Castor",
         "Cestus", "Cheron", "Courteney", "Daled", "Damast", "Davlos", "Deneb",
@@ -30,10 +29,17 @@ class Names implements Serializable{
         "Vandor", "Ventax", "Xenon", "Xerxes", "Yew", "Yojimbo", "Zalkon",
         "Zuul"};
 
-    public Names() {        
+    /**
+     * Returns the name pool as an array.
+     */
+    public Names() {
         this.names = new ArrayList(Arrays.asList(namesArray));
     }
     
+    /**
+     * Gets a random name from the name pool.
+     * @return a random name
+     */
     public String getRandomName() {
         if (this.names.isEmpty()) {
             this.names = new ArrayList(Arrays.asList(namesArray));

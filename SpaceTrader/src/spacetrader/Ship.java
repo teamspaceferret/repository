@@ -2,6 +2,7 @@ package spacetrader;
 
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Ship implements Serializable{
     public static final HashMap<String,int[]> types = new HashMap<>();
@@ -20,8 +21,8 @@ public class Ship implements Serializable{
     private String type;
     private boolean hasEscapePod;
     private HashMap<TradeGood,Integer> cargo;
-    private Weapon[] weapons;
-    private Shield[] shields;
+    private ArrayList<Weapon> weapons;
+    private ArrayList<Shield> shields;
     //private Gadget[] gadgets;
     private Mercenary[] crew;
     private int currentFuelLevel;
@@ -47,15 +48,15 @@ public class Ship implements Serializable{
      */
     public Ship(String type){
         this.type = type.toLowerCase();
-        if(type.equals("flea")){
+        if (type.equals("flea")){
             hasEscapePod = true;
         } else {
             hasEscapePod = false;
         }
         int[] stats = types.get(type);
         cargo = new HashMap<>();
-        weapons = new Weapon[stats[1]];
-        shields = new Shield[stats[2]];
+        weapons = new ArrayList<Weapon>();
+        shields = new ArrayList<Shield>();
         //gadgets = new Gadget[stats[3]];
         crew = new Mercenary[stats[4]];
         currentFuelLevel = stats[5];
@@ -280,7 +281,7 @@ public class Ship implements Serializable{
      * Gets the ship's weapons
      * @return ship's weapons
      */
-    public Weapon[] getWeapons(){
+    public ArrayList<Weapon> getWeapons(){
         return weapons;
     }
     
@@ -288,7 +289,7 @@ public class Ship implements Serializable{
      * Gets the ship's shields
      * @return ship's shields
      */
-    public Shield[] getShields(){
+    public ArrayList<Shield> getShields(){
         return shields;
     }
     
@@ -457,5 +458,13 @@ public class Ship implements Serializable{
     
     private class Mercenary {
         
+    }
+    
+    public int getMaxWeapons() {
+        return types.get(type)[1];
+    }
+    
+    public int getMaxShields() {
+        return types.get(type)[2];
     }
 }

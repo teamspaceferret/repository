@@ -12,140 +12,139 @@ public class Player implements Serializable{
     private Ship ship;
     
     /**
-     * Constructs a player without a name or stats and 0 credits
+     * Constructs a player without a name or stats and 0 credits.
      */
     public Player() {
         this.name = null;
         this.stats = null;
-        this.credits = 1000;
+        this.credits = Context.STARTING_CREDITS;
     }
     
     /**
      * Constructs a player with the given stats and name
-     * and gives them the default number of credits and default ship
+     * and gives them the default number of credits and default ship.
      * @param name The name for the player
      * @param stats The stats for the player
      */
-    public Player(String name, int[] stats) {
+    public Player(final String name, final int[] stats) {
         this.name = name;
         this.stats = stats;
-        this.credits = 1000;
+        this.credits = Context.STARTING_CREDITS;
         this.ship = new Ship("gnat");
     }
     
     /**
-     * Adds the given number of credits to the player's credit amount
+     * Adds the given number of credits to the player's credit amount.
      * Returns true if the addition was successful, false otherwise
      * @param creditsToAdd the number of credits to add
      * @return true if successful, false otherwise
      */
-    public boolean addCredits(int creditsToAdd){
-        if (this.credits < 0){
+    public final boolean addCredits(final int creditsToAdd) {
+        if (this.credits < 0) {
             System.out.println("Cannot add negative number");
             return false;
-        }
-        else {
+        } else {
             this.credits += creditsToAdd;
             return true;
-        }   
+        }
     }
     
     /**
-     * Removes the given number of credits from the player's credit pool
+     * Removes the given number of credits from the player's credit pool.
      * Returns true if the removal succeeded
-     * If the player does not have enough credits to remove the given amount, returns false
+     * If the player does not have enough credits to remove the given amount
+     * and returns false
      * @param creditsToRemove the number of credits to remove from the player
      * @return true if the operation succeeded, false otherwise
      */
-    public boolean removeCredits(int creditsToRemove){
+    public final boolean removeCredits(final int creditsToRemove) {
         int newCreditAmt = this.credits - creditsToRemove;
-        if(newCreditAmt < 0 || creditsToRemove < 0){
+        if (newCreditAmt < 0 || creditsToRemove < 0) {
             System.out.println("Not enough credits to remove that amount");
             return false;
-        }
-        else {
+        } else {
             this.credits = newCreditAmt;
             return true;
-        }   
+        }
     }
     
     /**
-     * Gets the player's name
+     * Gets the player's name.
      * @return The player's name
      */
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
     
     /**
-     * Gets the player's ship
+     * Gets the player's ship.
      * @return  The player's ship
      */
-    public Ship getShip(){
+    public final Ship getShip() {
         return this.ship;
     }
     
     /**
-     * Gets the player's credits
+     * Gets the player's credits.
      * @return The player's credits
      */
-    public int getCredits(){
+    public final int getCredits() {
         return this.credits;
     }
     
     /**
-     * Gets the player's stats
+     * Gets the player's stats.
      * @return the array of the player's stats
      */
-    public int[] getStats() {
+    public final int[] getStats() {
         return this.stats;
     }
     
     /**
-     * Gets the player's investor level
+     * Gets the player's investor level.
      * @return The value of the investor stat
      */
-    public int getInvestor() {
-        return this.stats[0];
+    public final int getInvestor() {
+        return this.stats[Context.INVESTOR_ID];
     }
     
     /**
-     * Gets the player's pilot level
+     * Gets the player's pilot level.
      * @return The value of the pilot stat
      */
-    public int getPilot() {
-        return this.stats[1];
+    public final int getPilot() {
+        return this.stats[Context.PILOT_ID];
     }
     
     /**
-     * Gets the player's trader level
+     * Gets the player's trader level.
      * @return The value of the trader stat
      */
-    public int getTrader() {
-        return this.stats[2];
+    public final int getTrader() {
+        return this.stats[Context.TRADER_ID];
     }
     
     /**
-     * Gets the player's fighter level
+     * Gets the player's fighter level.
      * @return The value of the fighter stat
      */
-    public int getFighter() {
-        return this.stats[3];
+    public final int getFighter() {
+        return this.stats[Context.FIGHTER_ID];
     }
     
     /**
-     * Gets the player's engineer level
+     * Gets the player's engineer level.
      * @return The value of the engineer stat
      */
-    public int getEngineer() {
-        return this.stats[4];
+    public final int getEngineer() {
+        return this.stats[Context.ENGINEER_ID];
     }
     
     /**
      * Returns the current planet.
      * @return the current planet
      */
-    public Planet getCurrentPlanet() {
+    public final Planet getCurrentPlanet() {
         return this.currentPlanet;
     }
     
@@ -153,73 +152,60 @@ public class Player implements Serializable{
      * Returns the previous planet.
      * @return the previous planet
      */
-    public Planet getPreviousPlanet() {
+    public final Planet getPreviousPlanet() {
         return this.previousPlanet;
     }
     
     /**
-     * Returns the current absolute location.
-     * @return the current absolute location
-     */
-    public Coordinate getAbsoluteLocation() {
-        return new Coordinate(this.currentPlanet.getParentSolarSystem().getCoords().getX()
-                + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                        * this.currentPlanet.getCoords().getX()/Context.BOUNDARY
-                - Context.MIN_DISTANCE_BETWEEN_PLANETS,
-                this.currentPlanet.getParentSolarSystem().getCoords().getY()
-                        + Context.MIN_DISTANCE_BETWEEN_PLANETS
-                                * this.currentPlanet.getCoords().getY()/Context.BOUNDARY
-                        - Context.MIN_DISTANCE_BETWEEN_PLANETS);
-    }
-    
-    /**
-     * Sets the name of the player
+     * Sets the name of the player.
      * @param name Name of the player
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
     
     /**
-     * Sets the player's skill stats
+     * Sets the player's skill stats.
      * @param stats The array representing the player's stats
      */
-    public void setStats(int[] stats) {
+    public final void setStats(final int[] stats) {
         this.stats = stats;
     }
     
     /**
-     * Sets the currently visited planet
+     * Sets the currently visited planet.
      * @param planet the current planet
      */
-    public void setCurrentPlanet(Planet planet) {
+    public final void setCurrentPlanet(final Planet planet) {
         currentPlanet = planet;
     }
     
     /**
-     * Sets the previously visited planet
+     * Sets the previously visited planet.
      * @param planet the previous planet
      */
-    public void setPreviousPlanet(Planet planet) {
+    public final void setPreviousPlanet(final Planet planet) {
         previousPlanet = planet;
     }
     
     /**
-     * Sets the current ship
+     * Sets the current ship.
      * @param newShip ship that is being set
      */
-    public void setShip(Ship newShip){
+    public final void setShip(final Ship newShip){
         ship = newShip;
     }
     
     /**
-     * Makes a string representation of the player
+     * Makes a string representation of the player.
      * @return a string representation of the player
      */
     @Override
     public String toString() {
-        return name + " with stats: Investor: " + stats[0] + " Pilot: "
-                + stats[1] + " Trader: " + stats[2] + " Fighter: " + stats[3] 
-                + " Engineer: " + stats[4];
+        return name + " with stats: Investor: " + stats[Context.INVESTOR_ID]
+                + " Pilot: " + stats[Context.PILOT_ID] + " Trader: "
+                + stats[Context.TRADER_ID] + " Fighter: "
+                + stats[Context.FIGHTER_ID] + " Engineer: "
+                + stats[Context.ENGINEER_ID];
     }
 }

@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -14,22 +13,23 @@ import javafx.scene.paint.Color;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class SolarMapController implements ControlledScreen, Initializable {
-    @FXML private Button travelButton;
     @FXML private Canvas canvas;
     @FXML private Label fuelLabel;
     @FXML private TextArea description;
     
-    ScreensController controller;
-    Player player = Context.getInstance().getPlayer();
-    Planet selectedPlanet;
+
     SoundManager soundManager = SoundManager.getSoundManager();
+
+    private ScreensController controller;
+    private Player player = Context.getInstance().getPlayer();
+    private Planet selectedPlanet;
     
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -37,7 +37,11 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
+    public final void initScreen() {
+        SolarSystem focus;
+        
+        focus = Context.getInstance().getFocus();
+        
         player = Context.getInstance().getPlayer();
         soundManager.setPrevScreen("SolarMap");
         
@@ -47,7 +51,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         int[] stockReset = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         Context.getInstance().setStock(stockReset);
         selectedPlanet = player.getCurrentPlanet();
-        if (player.getCurrentPlanet().getParentSolarSystem().equals(Context.getInstance().getFocus())) {        
+        if (selectedPlanet.getParentSolarSystem().equals(focus)) {        
             setDescription(player.getCurrentPlanet());
         }
     }
@@ -55,69 +59,83 @@ public class SolarMapController implements ControlledScreen, Initializable {
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
         
     /**
      * Draws the current solar systems on solar map.
      */
     public void drawPlanets() {
-        SolarSystem solarSystem = Context.getInstance().getFocus();
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        Planet currentPlanet = player.getCurrentPlanet();
+        SolarSystem solarSystem = Context.getInstance().getFocus();
         
         // Clear canvas
-        gc.clearRect(0, 0, 310, 310);
+        gc.clearRect(0, 0, Context.BOUNDARY_VISIBLE, Context.BOUNDARY_VISIBLE);
         
         for (Planet planet : solarSystem.getPlanets()) {
-            if (player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                    < 0.5*this.player.getShip().getFuelLevel()) {
+            if (currentPlanet.getCoords().distanceTo(planet.getCoords())
+                    < Context.DISTANCE_TO_FUEL_RATIO 
+                    * this.player.getShip().getFuelLevel()) {
                 gc.setFill(Color.GREEN);
             } else {
                 gc.setFill(Color.RED);
             }
             
-            // TODO: Move computation to separate function
-            gc.fillOval(10*(planet.getCoords().getX() - solarSystem.getCoords().getX()) + 150,
-                        10*(planet.getCoords().getY() - solarSystem.getCoords().getY()) + 150,
-                        10, 10);
+            gc.fillOval(Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
+                    * (planet.getCoords().getX()
+                            - solarSystem.getCoords().getX())
+                    + Context.BOUNDARY_VISIBLE / 2,
+                        Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
+                                * (planet.getCoords().getY()
+                                - solarSystem.getCoords().getY())
+                                + Context.BOUNDARY_VISIBLE / 2,
+                        Context.DOT_SIZE, Context.DOT_SIZE);
         }
              
         // Draw current planet in gold
-        if (player.getCurrentPlanet().getParentSolarSystem().equals(solarSystem)) {
+        if (currentPlanet.getParentSolarSystem().equals(solarSystem)) {
             gc.setFill(Color.GOLD);
-            gc.fillOval(10*(player.getCurrentPlanet().getCoords().getX() - solarSystem.getCoords().getX()) + 150, 
-                10*(player.getCurrentPlanet().getCoords().getY() - solarSystem.getCoords().getY()) + 150, 10, 10);
+            gc.fillOval(Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
+                    * (player.getCurrentPlanet().getCoords().getX()
+                            - solarSystem.getCoords().getX())
+                    + Context.BOUNDARY_VISIBLE / 2, 
+                Context.UNIVERSE_TO_SOLAR_SYSTEM_RATIO
+                        * (player.getCurrentPlanet().getCoords().getY()
+                                - solarSystem.getCoords().getY())
+                        + Context.BOUNDARY_VISIBLE / 2,
+                Context.DOT_SIZE, Context.DOT_SIZE);
         }
         
         // Draw range circle
-        gc.setStroke(Color.BLACK);
+        /*gc.setStroke(Color.BLACK);
         gc.strokeOval(this.player.getCurrentPlanet().getCoords().getX() - this.player.getShip().getRange()/2 + 5,
                 this.player.getCurrentPlanet().getCoords().getY() - this.player.getShip().getRange()/2 + 5,
                 20*this.player.getShip().getRange(),
-                20*this.player.getShip().getRange());
+                20*this.player.getShip().getRange());*/
     }
-    
     
     /**
      * Checks if the user clicked a planet.
      * @param event click event
      */
-    public void onMouseClick(MouseEvent event) {
+    public final void onMouseClick(final MouseEvent event) {
         SolarSystem solarSystem = Context.getInstance().getFocus();
         
         for (Planet planet : Context.getInstance().getFocus().getPlanets()) {
-            if (event.getX() <= 10*(planet.getCoords().getX()
-                    - solarSystem.getCoords().getX()) + 160
-                    && event.getX() >= 10*(planet.getCoords().getX()
-                    - solarSystem.getCoords().getX()) + 150
-                    && event.getY() <= 10*(planet.getCoords().getY()
-                    - solarSystem.getCoords().getY()) + 160
-                    && event.getY() >= 10*(planet.getCoords().getY()
-                    - solarSystem.getCoords().getX()) + 150) {
+            boolean a = event.getX() <= 10 * (planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 150 + Context.DOT_SIZE;
+            boolean b = event.getX() >= 10 * (planet.getCoords().getX()
+                    - solarSystem.getCoords().getX()) + 150;
+            boolean c = event.getY() <= 10 * (planet.getCoords().getY()
+                    - solarSystem.getCoords().getY()) + 150 + Context.DOT_SIZE;
+            boolean d = event.getY() >= 10 * (planet.getCoords().getY()
+                    - solarSystem.getCoords().getY()) + 150;
+            
+            if (a && b && c && d) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
             }
@@ -125,15 +143,23 @@ public class SolarMapController implements ControlledScreen, Initializable {
     }
     
     /**
-     * TODO
+     * Selects a planet and travels to it if able.
      */
     public void selectPlanet() {
-        if (this.selectedPlanet == null) {
-            this.description.setText("Please select a planet.");
-        } else if (this.player.getShip().getRange() <= 2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
-            this.description.setText(this.selectedPlanet.getName() + "is too further away than your ship's maximum range.");
-        } else if (this.player.getShip().getFuelLevel() <= 2*(int)this.player.getAbsoluteLocation().distanceTo(this.selectedPlanet.getAbsoluteLocation())) {
-            this.description.setText("You don't have enough fuel to travel to " + this.selectedPlanet.getName() + ".");
+        Coordinate coords = player.getCurrentPlanet().getCoords();
+        
+        if (selectedPlanet == null) {
+            description.setText("Please select a planet.");
+        } else if (player.getShip().getRange()
+                <= Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(selectedPlanet.getCoords())) {
+            description.setText(this.selectedPlanet.getName()
+                    + "is too further away than your ship's maximum range.");
+        } else if (player.getShip().getFuelLevel()
+                <= Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(selectedPlanet.getCoords())) {
+            description.setText("You don't have enough fuel to travel to "
+                    + selectedPlanet.getName() + ".");
         } else {
             travelToPlanet(selectedPlanet);
         }
@@ -144,21 +170,25 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet the planet being described
      */
     public void setDescription(Planet planet) {
+        Coordinate coords = player.getCurrentPlanet().getCoords();
+        
         String string = "Name: " + planet.getName() + "\nCoords: "
                 + planet.getCoords() + "\nDistance: "
-                + (int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
+                + (int) coords.distanceTo(planet.getCoords())
                 + "\nFuel required: "
-                + 2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation())
-                + "\n" + "Tech level: " + Context.TECH_LEVELS[(planet.getTechLevel())] + "\n"
-                + "Government: " + planet.getGovernment().getName() + "\n"
-                + "Police: " + planet.getGovernment().getPolice()
-                + " Pirates: " + planet.getGovernment().getPirate()                
-                + " Traders: " + planet.getGovernment().getTrader() + "\n"
-                + "Resources: " + planet.getResource().getName() + "\n"
-                + "Event: " + planet.getEvent().getName() + "\n";
+                + Context.FUEL_TO_DISTANCE_RATIO 
+                * (int) coords.distanceTo(planet.getCoords())
+                + "\n" + "Tech level: "
+                + Context.TECH_LEVELS[(planet.getTechLevel())]
+                + "\nGovernment: " + planet.getGovernment().getName()
+                + "\nPolice: " + planet.getGovernment().getPolice()
+                + "\nPirates: " + planet.getGovernment().getPirate()                
+                + "\nTraders: " + planet.getGovernment().getTrader()
+                + "\nResources: " + planet.getResource().getName()
+                + "\nEvent: " + planet.getEvent().getName() + "\n";
 
         
-        if (planet.equals(player.getCurrentPlanet())) {
+        if (planet.isEqual(player.getCurrentPlanet())) {
             string += "\nCurrent planet";
         }
         
@@ -169,30 +199,33 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * Travels to the given planet.
      * @param planet destination planet
      */
-    public void travelToPlanet(Planet planet) {
-        if (this.player.getCurrentPlanet().equals(planet)) {
-            
-        }
-        this.player.getShip().subtractFuel(2*(int)this.player.getAbsoluteLocation().distanceTo(planet.getAbsoluteLocation()));
-        this.player.setPreviousPlanet(this.player.getCurrentPlanet());
-        this.player.setCurrentPlanet(planet);
-        if (!this.player.getPreviousPlanet().equals(this.player.getCurrentPlanet())
-                || (this.player.getCurrentPlanet().getName().equals("Noobville") 
-                && this.player.getCurrentPlanet().getMarket().getPrices()[0] == -1)) {
-            this.player.getCurrentPlanet().getMarket().setPrices();
-            this.player.getCurrentPlanet().getMarket().updateStock();
+    public final void travelToPlanet(final Planet planet) {
+        Planet currentPlanet = player.getCurrentPlanet();
+        Coordinate coords = currentPlanet.getCoords();
+        
+        player.getShip().subtractFuel((int) Context.FUEL_TO_DISTANCE_RATIO
+                * (int) coords.distanceTo(planet.getCoords()));
+        player.setPreviousPlanet(player.getCurrentPlanet());
+        player.setCurrentPlanet(planet);
+        currentPlanet = player.getCurrentPlanet();
+        if (!player.getPreviousPlanet().isEqual(currentPlanet)
+                || (currentPlanet.getName().equals("Noobville")
+                && currentPlanet.getMarket().getPrices()[0] == -1)) {
+            currentPlanet.getMarket().setPrices();
+            currentPlanet.getMarket().updateStock();
         }           
 
         //random events happen on the planet you go to, only if changing planets
-        if (this.player.getCurrentPlanet().equals(this.player.getPreviousPlanet())) {
+        if (currentPlanet.isEqual(player.getPreviousPlanet())) {
             //dont do anything, you are already here
-            this.controller.setScreen("PlanetScreen");
-        } else if (!(this.player.getCurrentPlanet().equals(this.player.getPreviousPlanet()))) {
+            controller.setScreen("PlanetScreen");
+        } else {
             //a random event happens!
             //1/3 encounters
-            //this.controller.setScreen("Encounter");
+            //controller.setScreen("Encounter");
             //2/3 random things
-            this.controller.setScreen("TravelEvent");
+            //controller.setScreen("TravelEvent");
+            controller.setScreen("PlanetScreen");
         }
     }
     

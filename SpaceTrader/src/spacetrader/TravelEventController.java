@@ -4,15 +4,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class TravelEventController implements ControlledScreen, Initializable {
-    @FXML private Button travelButton;
     @FXML private TextArea description;
     
-    ScreensController controller;
+    private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     SoundManager soundManager = SoundManager.getSoundManager();
@@ -22,7 +20,7 @@ public class TravelEventController implements ControlledScreen, Initializable {
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -30,8 +28,9 @@ public class TravelEventController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
+    public final void initScreen() {
         soundManager.setPrevScreen("TravelEvent"); //may have to not do options during event
+
         //display flavor text of the chosen event
         description.setText(randomEvent());
     }
@@ -39,12 +38,11 @@ public class TravelEventController implements ControlledScreen, Initializable {
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
     /**
      * Selects a random event to happen; effects applied in randomTravelEvent()

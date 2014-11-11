@@ -16,9 +16,20 @@ public enum TradeGood {
     NARCOTICS(0, 5, 5, 3500, -125, 150, Event.POLICE, Event.STRAIGHTEDGE, Resource.WEIRDMUSHROOMS, Resource.NOSPECIALRESOURCES, 2000, 3000, 8),
     ROBOTS(4, 6, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000, 9);
     
+    public static final int NUM_TRADE_GOODS = 10;
+    public static final int WATER_ID = 0;
+    public static final int FURS_ID = 1;
+    public static final int FOOD_ID = 2;
+    public static final int ORE_ID = 3;
+    public static final int GAMES_ID = 4;
+    public static final int FIREARMS_ID = 5;
+    public static final int MEDICINE_ID = 6;
+    public static final int MACHINES_ID = 7;
+    public static final int NARCOTICS_ID = 8;
+    public static final int ROBOTS_ID = 9;
+    
     /**
      * TradeGoods have many parameters, most of them influence price in some way.
-     * 
      * @param MTLB minimum tech level to buy this resource
      * @param MTLS minimum tech level to sell this resource
      * @param TTP tech level which produces the most of this resource
@@ -65,27 +76,28 @@ public enum TradeGood {
     public int calcMarketPrice() {
         player = Context.getInstance().getPlayer();
         Random r = new Random();
-        double price = 0;
-        if (player.getCurrentPlanet() != null) {
-            price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
-        } else {
-            price = BASEPRICE + (IPL * (MTLB)) + r.nextInt(VARIANCE + 1);
-        } if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
+        Event event = player.getCurrentPlanet().getEvent();
+        Resource resource = player.getCurrentPlanet().getResource();
+        double price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
+        if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
             price *= .95;
-        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.IE)) {
-            price *= 1.25;
-        } if (player.getCurrentPlanet().getEvent() != null && player.getCurrentPlanet().getEvent().equals(this.DE)) {
-            price *= .75;
-        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.CR)) {
-            price *= 1.15;
-        } if (player.getCurrentPlanet().getResource() != null && player.getCurrentPlanet().getResource().equals(this.ER)) {
-            price *= .85;
+        }
+        if (event.equals(this.IE)) {
+            price *= event.getUpMult();
+        }
+        if (event.equals(this.DE)) {
+            price *= event.getDownMult();
+        }
+        if (resource.equals(this.CR)) {
+            price *= resource.getUpMult();
+        }
+        if (resource.equals(this.ER)) {
+            price *= resource.getDownMult();
         }
         price *= (1.0 + ((double)Context.getInstance().getPlayer().getTrader() / 50.0));
-        int finalPrice = (int)price;
+        int finalPrice = (int) price;
         if (player.getTrader() > 0) {
             int discountedPrice = (int)(price-( (price)*((double)player.getTrader())/100.0) );
-            //System.out.println("You got a discount from " + finalPrice + " to " + discountedPrice + "!");
             return discountedPrice;
         } else {
             return finalPrice;
@@ -149,32 +161,32 @@ public enum TradeGood {
         return MTLS;
     }
     
-    public static TradeGood getGoodFromID(int id) {
+    public static TradeGood getGoodFromID(final int id) {
         TradeGood good = null;
         switch(id) {
-            case 0: good = WATER;
+            case TradeGood.WATER_ID: good = WATER;
                     break;
-            case 1: good = FURS;
+            case TradeGood.FURS_ID: good = FURS;
                     break;
-            case 2: good = FOOD;
+            case TradeGood.FOOD_ID: good = FOOD;
                     break;
-            case 3: good = ORE;
+            case TradeGood.ORE_ID: good = ORE;
                     break;
-            case 4: good = GAMES;
+            case TradeGood.GAMES_ID: good = GAMES;
                     break;
-            case 5: good = FIREARMS;
+            case TradeGood.FIREARMS_ID: good = FIREARMS;
                     break;
-            case 6: good = MEDICINE;
+            case TradeGood.MEDICINE_ID: good = MEDICINE;
                     break;
-            case 7: good = MACHINES;
+            case TradeGood.MACHINES_ID: good = MACHINES;
                     break;
-            case 8: good = NARCOTICS;
+            case TradeGood.NARCOTICS_ID: good = NARCOTICS;
                     break;
-            case 9: good = ROBOTS;
+            case TradeGood.ROBOTS_ID: good = ROBOTS;
                     break;
             default: System.out.println("you supplied a bad ID, returns null");
                     break;
         }
-        return good;     
+        return good;
     }
 }

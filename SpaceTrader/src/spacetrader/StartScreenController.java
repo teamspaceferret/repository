@@ -10,19 +10,23 @@ import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class StartScreenController implements ControlledScreen, Initializable {
+<<<<<<< HEAD
     ScreensController controller;
     @FXML private MenuItem optionsButton;
     
     SoundManager soundManager = SoundManager.getSoundManager();
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
+=======
+    private ScreensController controller;
+>>>>>>> origin/master
     
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -30,6 +34,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
+<<<<<<< HEAD
     public void initScreen() {
         seMuted = soundManager.getSEMuted();
         bgMuted = soundManager.getBGMuted();
@@ -40,16 +45,18 @@ public class StartScreenController implements ControlledScreen, Initializable {
         //loop isn't perfect transition. Fix that.
         soundManager.playBGWithCheck(SoundManager.STARTSCREENID, SoundManager.STARTSCREENPATH);     
     }
+=======
+    public final void initScreen() { }
+>>>>>>> origin/master
     
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
     /**
      * Transitions to the character creation screen.

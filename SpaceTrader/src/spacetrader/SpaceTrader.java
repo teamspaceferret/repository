@@ -11,8 +11,8 @@ public class SpaceTrader extends Application {
  * interface of ControlledScreen
  */
     public interface ControlledScreen {
-        public void setScreenParent(ScreensController screenPage); 
-        public void initScreen();
+        void setScreenParent(ScreensController screenPage); 
+        void initScreen();
     }
   
 /**

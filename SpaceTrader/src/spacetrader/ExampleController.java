@@ -12,14 +12,14 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class ExampleController implements ControlledScreen, Initializable {
     @FXML private Label exampleLabel;
     
-    ScreensController controller;
+    private ScreensController controller;
     
     /**
      * Set the screen parent.
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -27,31 +27,28 @@ public class ExampleController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
-        
-    }
+    public final void initScreen() { }
     
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
     /**
      * Print example message to console.
      */
-    public void exampleButtonAction() {
+    public final void exampleButtonAction() {
         exampleLabel.setText("Button clicked!");
     }
     
     /**
      * Transition to the start screen.
      */
-    public void nextButtonAction() {
+    public final void nextButtonAction() {
         controller.setScreen("StartScreen");
     }
 }

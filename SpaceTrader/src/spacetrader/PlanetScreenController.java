@@ -9,10 +9,10 @@ import javafx.scene.control.Label;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
-    @FXML private Button backButton, marketButton, saveButton, shipyardButton;
+    @FXML private Button shipyardButton;
     @FXML private Label planetName;
     
-    ScreensController controller;
+    private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
     
@@ -21,7 +21,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * @param screenParent the screen parent
      */
     @Override
-    public void setScreenParent(ScreensController screenParent) {
+    public final void setScreenParent(final ScreensController screenParent) {
         controller = screenParent;
     }
     
@@ -29,7 +29,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-    public void initScreen() {
+    public final void initScreen() {
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
@@ -43,38 +43,37 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     /**
      * Initializes the controller class.
      * @param location
-     * @param resources 
+     * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
-    }
+    public void initialize(final URL location,
+            final ResourceBundle resources) { }
     
     /**
      * Transitions back to the solar system map screen.
      */
-    public void backAction() {
+    public final void backAction() {
         controller.setScreen("SolarMap");
     }
     
     /**
      * Transitions to the market screen.
      */
-    public void marketAction() {
+    public final void marketAction() {
         controller.setScreen("Market");
     }
     
     /**
      * Transitions to the ship yard screen.
      */
-    public void shipyardAction() {
+    public final void shipyardAction() {
         controller.setScreen("Shipyard");
     }
     
     /**
      * Saves the game.
      */
-    public void saveAction(){
+    public final void saveAction(){
         Context.getInstance().saveContextBinary();
     }
 }
