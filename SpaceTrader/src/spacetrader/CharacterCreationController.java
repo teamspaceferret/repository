@@ -71,7 +71,7 @@ public class CharacterCreationController implements ControlledScreen,
                 
                 if (newInt < 0) {
                     map.get(key).setText("0");
-                } else if (newInt > 5) {
+                } else if (newInt > Context.MAX_POINTS_PER_SKILL) {
                     map.get(key).setText("5");
                 } else {
                     setStat(key, newInt, oldInt);
