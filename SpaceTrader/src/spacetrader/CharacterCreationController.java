@@ -204,7 +204,7 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Increments or decrements the appropriate stat slider and field
      */
-    public void incrementEngineerAction() { setStat("Engineer",Integer.valueOf(map.get("Engineer").getText())+1); }
+    public void incrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
     public void incrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
     public void incrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
     public void incrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }

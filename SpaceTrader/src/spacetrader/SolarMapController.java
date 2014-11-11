@@ -202,7 +202,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
                 * (int) coords.distanceTo(planet.getCoords()));
         player.setPreviousPlanet(player.getCurrentPlanet());
         player.setCurrentPlanet(planet);
-        if (!player.getPreviousPlanet().isEqual(player.getCurrentPlanet())
+        currentPlanet = player.getCurrentPlanet();
+        if (!player.getPreviousPlanet().isEqual(currentPlanet)
                 || (currentPlanet.getName().equals("Noobville")
                 && currentPlanet.getMarket().getPrices()[0] == -1)) {
             currentPlanet.getMarket().setPrices();
@@ -213,12 +214,13 @@ public class SolarMapController implements ControlledScreen, Initializable {
         if (currentPlanet.isEqual(player.getPreviousPlanet())) {
             //dont do anything, you are already here
             controller.setScreen("PlanetScreen");
-        } else if (!(currentPlanet.isEqual(player.getPreviousPlanet()))) {
+        } else {
             //a random event happens!
             //1/3 encounters
             //controller.setScreen("Encounter");
             //2/3 random things
-            controller.setScreen("TravelEvent");
+            //controller.setScreen("TravelEvent");
+            controller.setScreen("PlanetScreen");
         }
     }
     
