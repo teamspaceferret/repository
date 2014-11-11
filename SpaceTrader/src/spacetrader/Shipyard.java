@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author Cora
  */
-public class Shipyard implements Serializable{
+public class Shipyard implements Serializable {
     private final int MAX_SHIELD_NUM = 5;//for 
     private final int MAX_WEAPON_NUM = 5;
     public static final int TURRET_IDX = 0;
@@ -52,8 +52,10 @@ public class Shipyard implements Serializable{
     public Shipyard(Planet hostPlanet){
         planet = hostPlanet;
         //Random rand = new Random();
-        weaponStock = new Weapon[] {defaultWeapons.get("Turret"), defaultWeapons.get("Dual Cannon"), defaultWeapons.get("Oculaser")};
-        shieldStock = new Shield[] {defaultShields.get("Plate"), defaultShields.get("Matter Cloak")};
+        weaponStock = new Weapon[] {defaultWeapons.get("Turret"),
+        defaultWeapons.get("Dual Cannon"), defaultWeapons.get("Oculaser")};
+        shieldStock = new Shield[] {defaultShields.get("Plate"),
+        defaultShields.get("Matter Cloak")};
         //limit based on planet tech level
         
         // something for spaceships too

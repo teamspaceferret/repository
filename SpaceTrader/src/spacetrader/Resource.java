@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.io.Serializable;
+import static spacetrader.Resource.values;
 
-public enum Resource implements Serializable{
+public enum Resource implements Serializable {
     NOSPECIALRESOURCES("No special resources", 0),
     MINERALRICH("Mineral rich", 1), MINERALPOOR("Mineral poor", 2),
     DESERT("Desert", 3), LOTSOFWATER("Lots of water", 4),
@@ -16,13 +17,13 @@ public enum Resource implements Serializable{
     
     private static final Random rand = new Random();
     private static final List<Resource> VALUES = Arrays.asList(values());
-    private final String NAME;
-    private final int ID;
+    private final String name;
+    private final int id;
     private double priceMultUp, priceMultDown;
     
     private Resource(String name, int id) {
-        NAME = name;
-        ID = id;
+        this.name = name;
+        this.id = id;
         if (id == 0) {
             priceMultUp = 1.0;
             priceMultDown = 1.0;
@@ -30,7 +31,6 @@ public enum Resource implements Serializable{
             priceMultUp = 1.15;
             priceMultDown = 0.85;
         }
-        
     }
     
     /**
@@ -40,13 +40,36 @@ public enum Resource implements Serializable{
     public Resource randomResource() {
         return VALUES.get(rand.nextInt(VALUES.size()));
     }
-    
+
+    /**
+     * Returns an array of available Resource conditions.
+     * @return array of resource conditions
+     */
+    public static Resource[] resourceArray() {
+        Resource[] resources = new Resource[14];
+        resources[0] = Resource.NOSPECIALRESOURCES;
+        resources[1] = Resource.MINERALRICH;
+        resources[2] = Resource.MINERALPOOR;
+        resources[3] = Resource.DESERT;
+        resources[4] = Resource.LOTSOFWATER;
+        resources[5] = Resource.RICHSOIL;
+        resources[6] = Resource.POORSOIL;
+        resources[7] = Resource.RICHFAUNA;
+        resources[8] = Resource.LIFELESS;
+        resources[9] = Resource.WEIRDMUSHROOMS;
+        resources[10] = Resource.LOTSOFHERBS;
+        resources[11] = Resource.ARTISTIC;
+        resources[12] = Resource.WARLIKE;
+        resources[13] = Resource.PACIFIST;
+        return resources;
+    }
+
     /**
      * Returns resource name.
      * @return resource name
      */
     public String getName() {
-        return NAME;
+        return name;
     }
     
     /**
@@ -54,7 +77,7 @@ public enum Resource implements Serializable{
      * @return resource id
      */
     public int getID() {
-        return ID;
+        return id;
     }
     
     public double getUpMult() {

@@ -58,6 +58,11 @@ public class Context implements Serializable{
     public static final double STOCK_RESOURCE_INC = 1.55;
     public static final double STOCK_EVENT_DEC = .75;
     public static final double STOCK_EVENT_INC = 1.25;
+    public static final double TECH_PRICE_MULT = .95;
+    
+    public static final String[] PRICES =
+            new String[]{"1000", "1500", "2000", "2000", "4000", "-1",
+                "1000"};
     
     //public static final int NUM_TRADE_GOODS = 10;
     
