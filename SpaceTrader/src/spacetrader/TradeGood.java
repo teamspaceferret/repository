@@ -80,12 +80,12 @@ public enum TradeGood {
      */
     public int calcMarketPrice() {
         player = Context.getInstance().getPlayer();
-        Random r = new Random();
+        //Random r = new Random();
         int techLevel = player.getCurrentPlanet().getTechLevel();
         Event event = player.getCurrentPlanet().getEvent();
         Resource resource = player.getCurrentPlanet().getResource();
         double price = basePrice;
-        price += (ipl * (techLevel - mtlb)) + r.nextInt(variance + 1);
+        price += (ipl * (techLevel - mtlb)) + variance;
         if (player.getCurrentPlanet().getTechLevel() == this.ttp) {
             price *= Context.TECH_PRICE_MULT;
         }
