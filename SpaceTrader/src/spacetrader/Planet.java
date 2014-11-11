@@ -176,6 +176,14 @@ public class Planet implements Serializable{
         this.event = event;
     }
     
+    public final void setResource(final Resource resource) {
+        this.resource = resource;
+    }
+    
+    public final void setTechLevel(final int techLevel) {
+        this.techLevel = techLevel;
+    }
+    
     /**
      * Sets the parent solar system.
      * @param parentSolarSystem parent solar system
