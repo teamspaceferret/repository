@@ -50,6 +50,13 @@ public class Context implements Serializable{
     public static final int TRADER_ID = 2;
     public static final int FIGHTER_ID = 3;
     public static final int ENGINEER_ID = 4;
+    public static final int STOCK_BASE_VALUE = 7;
+    public static final int STOCK_RAND_VALUE = 14;
+
+    public static final double STOCK_RESOURCE_DEC = .45;
+    public static final double STOCK_RESOURCE_INC = 1.55;
+    public static final double STOCK_EVENT_DEC = .75;
+    public static final double STOCK_EVENT_INC = 1.25;
     
     //public static final int NUM_TRADE_GOODS = 10;
     
