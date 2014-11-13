@@ -28,8 +28,8 @@ public enum Resource implements Serializable {
             priceMultUp = 1.0;
             priceMultDown = 1.0;
         } else {
-            priceMultUp = 1.15;
-            priceMultDown = 0.85;
+            priceMultUp = Context.STOCK_RESOURCE_INC;
+            priceMultDown = Context.STOCK_RESOURCE_DEC;
         }
     }
     

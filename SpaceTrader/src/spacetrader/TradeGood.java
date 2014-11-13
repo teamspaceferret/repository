@@ -74,6 +74,10 @@ public enum TradeGood {
         this.id = id;
     }
     
+    public int getBasePrice() {
+        return basePrice;
+    }
+    
     /**
      * Calculates market prices for each good
      * @return the final price
@@ -91,23 +95,21 @@ public enum TradeGood {
         }
         if (event.equals(this.ie)) {
             price *= event.getUpMult();
-        }
-        if (event.equals(this.de)) {
+        } else if (event.equals(this.de)) {
             price *= event.getDownMult();
         }
         if (resource.equals(this.cr)) {
-            price *= resource.getUpMult();
-        }
-        if (resource.equals(this.er)) {
             price *= resource.getDownMult();
+        } else if (resource.equals(this.er)) {
+            price *= resource.getUpMult();
         }
         price *= (((double) player.getTrader() / DFIFTY) + 1.0);
         int finalPrice = (int) price;
         if (player.getTrader() > 0) {
-            int discountedPrice = (int) price;
+            double discountedPrice = price;
             double trader = (double) player.getTrader();
-            discountedPrice -= (price) * (trader / PERCENT);
-            return discountedPrice;
+            discountedPrice -= (price) * (4.0 * trader / PERCENT);
+            return (int) discountedPrice;
         } else {
             return finalPrice;
         }

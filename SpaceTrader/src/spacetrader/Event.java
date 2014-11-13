@@ -17,12 +17,12 @@ public enum Event implements Serializable{
     
     private static final Random RAND = new Random();
     private static final List<Event> VALUES = Arrays.asList(values());
-    private final String NAME;
-    private final int ID;
+    private final String name;
+    private final int id;
     
     private Event(final String name, final int id) {
-        this.NAME = name;
-        this.ID = id;
+        this.name = name;
+        this.id = id;
     }
     
     /**
@@ -58,7 +58,7 @@ public enum Event implements Serializable{
      * @return event name
      */
     public String getName() {
-        return NAME;
+        return name;
     }
     
     /**
@@ -66,7 +66,7 @@ public enum Event implements Serializable{
      * @return event id
      */
     public int getID() {
-        return ID;
+        return id;
     }
     
     /**
@@ -74,7 +74,7 @@ public enum Event implements Serializable{
      * @return the up multiplier
      */
     public double getUpMult() {
-        if (ID == -1) {
+        if (id == -1) {
             return 1;
         }
         return Context.EVENT_UP_MULTIPLIER;
@@ -85,7 +85,7 @@ public enum Event implements Serializable{
      * @return the down multiplier1
      */
     public double getDownMult() {
-        if (ID == -1) {
+        if (id == -1) {
             return 1;
         }
         return Context.EVENT_DOWN_MULTIPLIER;
