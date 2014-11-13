@@ -59,7 +59,8 @@ public class SolarSystem implements Serializable{
                     for (int j = 0; j < i; j++) {
                         if ((Math.abs(newCoord.getX() - planetCoords[j].getX())
                                 < Context.MIN_DISTANCE_BETWEEN_PLANETS)
-                                || (Math.abs(newCoord.getY() - planetCoords[j].getY())
+                                || (Math.abs(newCoord.getY() - planetCoords[j]
+                                        .getY())
                                 < Context.MIN_DISTANCE_BETWEEN_PLANETS)) {
                             tooClose = true;
                         }
@@ -73,7 +74,8 @@ public class SolarSystem implements Serializable{
         // Create all the planets
         for (int i = 0; i < planetCoords.length; i++) {
             int techLevel = rand.nextInt(Context.TECH_LEVELS.length);
-            this.planets[i] = new Planet(Context.getInstance().getNames().getRandomName(),
+            this.planets[i] = new Planet(Context.getInstance().getNames()
+                    .getRandomName(),
                     techLevel,
                     Resource.NOSPECIALRESOURCES.randomResource(),
                     Government.ANARCHY.randomGovernment(techLevel),

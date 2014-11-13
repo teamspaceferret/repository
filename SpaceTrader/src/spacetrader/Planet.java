@@ -23,7 +23,7 @@ public class Planet implements Serializable{
         this.resource = Resource.NOSPECIALRESOURCES;
         this.govt = Government.ANARCHY;
         this.event = Event.NONE;
-        this.market = new Market(this);
+        this.market = new Market();
         this.shipyard = new Shipyard(this);
     }
     

@@ -3,7 +3,7 @@ package spacetrader;
 import java.util.Random;
 import java.io.Serializable;
 
-public class Universe implements Serializable{
+public class Universe implements Serializable {
     private SolarSystem[] solarSystems;
     
     /**
@@ -18,25 +18,23 @@ public class Universe implements Serializable{
      */
     public void generateUniverse() {
         boolean tooClose;
-        Coordinate newCoord;
-        Coordinate solarSystemCoords[];
+        Coordinate newCord;
+        Coordinate[] solarSystemCoords;
         Random rand = new Random();
-        
         this.solarSystems = new SolarSystem[Context.NUM_SOLAR_SYSTEMS];
-        solarSystemCoords = new Coordinate[this.solarSystems.length];
-        
+        solarSystemCoords = new Coordinate[this.solarSystems.length];   
         for (int i = 0; i < this.solarSystems.length; i++) {
             do {
                 tooClose = false;
-                newCoord = new Coordinate(rand.nextInt(Context.BOUNDARY_VISIBLE),
+                newCord = new Coordinate(rand.nextInt(Context.BOUNDARY_VISIBLE),
                         rand.nextInt(Context.BOUNDARY_VISIBLE));
 
                 if (i > 0) {
                     for (int j = 0; j < i; j++) {
-                        if ((Math.abs(newCoord.getX()
+                        if ((Math.abs(newCord.getX()
                                 - solarSystemCoords[j].getX())
                                 < Context.MIN_DISTANCE_BETWEEN_SOLAR_SYSTEMS)
-                                || (Math.abs(newCoord.getY()
+                                || (Math.abs(newCord.getY()
                                         - solarSystemCoords[j].getY())
                                 < Context.MIN_DISTANCE_BETWEEN_SOLAR_SYSTEMS)) {
                             tooClose = true;
@@ -45,7 +43,7 @@ public class Universe implements Serializable{
                 }
             } while (tooClose);
             
-            solarSystemCoords[i] = newCoord;
+            solarSystemCoords[i] = newCord;
         }
         
         // Create all the solar systems

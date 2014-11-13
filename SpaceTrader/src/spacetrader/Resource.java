@@ -15,11 +15,11 @@ public enum Resource implements Serializable {
     WEIRDMUSHROOMS("Weird mushrooms", 9), LOTSOFHERBS("Lots of herbs", 10),
     ARTISTIC("Artistic", 11), WARLIKE("Warlike", 12), PACIFIST("Pacifist", 13);
     
-    private static final Random rand = new Random();
+    private static final Random RAND = new Random();
     private static final List<Resource> VALUES = Arrays.asList(values());
     private final String name;
     private final int id;
-    private double priceMultUp, priceMultDown;
+    private final double priceMultUp, priceMultDown;
     
     private Resource(String name, int id) {
         this.name = name;
@@ -38,7 +38,7 @@ public enum Resource implements Serializable {
      * @return a random resource
      */
     public Resource randomResource() {
-        return VALUES.get(rand.nextInt(VALUES.size()));
+        return VALUES.get(RAND.nextInt(VALUES.size()));
     }
 
     /**
