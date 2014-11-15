@@ -103,5 +103,11 @@
         </tabs>
       </TabPane>
       <TextArea fx:id="currentShipStats" layoutX="31.0" layoutY="95.0" prefHeight="229.0" prefWidth="142.0" wrapText="true" />
+      <MenuButton layoutX="12.0" layoutY="12.0" mnemonicParsing="false" text="MenuButton" visible="false">
+        <items>
+          <MenuItem fx:id="optionsButton" mnemonicParsing="false" onAction="#optionsAction" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>

@@ -14,15 +14,9 @@ import java.io.Serializable;
 public class Context implements Serializable{
     private static Context instance = new Context();
     
-<<<<<<< HEAD
-    private Player player = new Player();
-    private Universe universe = new Universe();
-    private Names names = new Names();
-=======
     private final Player player = new Player();
     private final Universe universe = new Universe();
     private final Names names;
->>>>>>> origin/master
     
     public static final int BOUNDARY_FULL = 310;
     public static final int BOUNDARY_VISIBLE = 300;

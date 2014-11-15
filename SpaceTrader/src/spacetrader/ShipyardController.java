@@ -13,6 +13,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import spacetrader.SpaceTrader.ControlledScreen;
 import java.util.ResourceBundle;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 
 /**
  * FXML Controller class
@@ -78,6 +81,8 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Tab shipTab;
     @FXML private TabPane tabPane;
     
+    @FXML private MenuItem optionsButton;
+    
     
     private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
@@ -104,6 +109,8 @@ public class ShipyardController implements Initializable, ControlledScreen {
     //flea, gnat, firefly, mosquito, bumblebee
     public final void initScreen() {
         soundManager.setPrevScreen("Shipyard");
+        
+        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
@@ -504,6 +511,10 @@ public class ShipyardController implements Initializable, ControlledScreen {
         }
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+    }
+    
+    public final void optionsAction(){
+        controller.setScreen("OptionsScreen");
     }
  
 }

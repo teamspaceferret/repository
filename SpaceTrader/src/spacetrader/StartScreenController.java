@@ -10,16 +10,15 @@ import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class StartScreenController implements ControlledScreen, Initializable {
-<<<<<<< HEAD
-    ScreensController controller;
     @FXML private MenuItem optionsButton;
     
+    private ScreensController controller;
     SoundManager soundManager = SoundManager.getSoundManager();
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
-=======
-    private ScreensController controller;
->>>>>>> origin/master
+
+    
+
     
     /**
      * Set the screen parent.
@@ -34,7 +33,6 @@ public class StartScreenController implements ControlledScreen, Initializable {
      * Initializes the screen.
      */
     @Override
-<<<<<<< HEAD
     public void initScreen() {
         seMuted = soundManager.getSEMuted();
         bgMuted = soundManager.getBGMuted();
@@ -45,9 +43,6 @@ public class StartScreenController implements ControlledScreen, Initializable {
         //loop isn't perfect transition. Fix that.
         soundManager.playBGWithCheck(SoundManager.STARTSCREENID, SoundManager.STARTSCREENPATH);     
     }
-=======
-    public final void initScreen() { }
->>>>>>> origin/master
     
     /**
      * Initializes the controller class.

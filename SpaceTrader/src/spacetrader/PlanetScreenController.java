@@ -6,12 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 public class PlanetScreenController implements ControlledScreen, Initializable {
     @FXML private Button shipyardButton;
     @FXML private Label planetName;
+    @FXML private MenuItem optionsButton;
     
+    private SoundManager soundManager = SoundManager.getSoundManager();
     private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
@@ -30,6 +35,9 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     @Override
     public final void initScreen() {
+        soundManager.setPrevScreen("PlanetScreen");
+        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         planetName.setText(player.getCurrentPlanet().getName().toUpperCase());
@@ -75,5 +83,9 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      */
     public final void saveAction(){
         Context.getInstance().saveContextBinary();
+    }
+    
+    public final void optionsAction(){
+        controller.setScreen("OptionsScreen");
     }
 }
