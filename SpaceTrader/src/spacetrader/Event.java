@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.io.Serializable;
+import static spacetrader.Event.values;
 
 public enum Event implements Serializable{
     NONE("Nothing", -1), DROUGHT("A drought", 0), COLD("Cold", 1),
@@ -32,6 +33,26 @@ public enum Event implements Serializable{
         return VALUES.get(RAND.nextInt(VALUES.size()));
     }
     
+    public static Event[] eventArray() {
+        Event[] events = new Event[15];
+        events[0] = Event.NONE;
+        events[1] = Event.DROUGHT;
+        events[2] = Event.COLD;
+        events[3] = Event.WAR;
+        events[4] = Event.BOREDOM;
+        events[5] = Event.PLAGUE;
+        events[6] = Event.LACKOFWORKERS;
+        events[7] = Event.CRIMEWAVE;
+        events[8] = Event.STRIKE;
+        events[9] = Event.MANYHUNTERS;
+        events[10] = Event.CROPFAIL;
+        events[11] = Event.HARVEST;
+        events[12] = Event.POLICE;
+        events[13] = Event.LUDDITES;
+        events[14] = Event.STRAIGHTEDGE;
+        return events;
+    }
+    
     /**
      * Returns event name.
      * @return event name
@@ -56,7 +77,6 @@ public enum Event implements Serializable{
         if (id == -1) {
             return 1;
         }
-        
         return Context.EVENT_UP_MULTIPLIER;
     }
     
@@ -68,7 +88,6 @@ public enum Event implements Serializable{
         if (id == -1) {
             return 1;
         }
-        
         return Context.EVENT_DOWN_MULTIPLIER;
     }
     

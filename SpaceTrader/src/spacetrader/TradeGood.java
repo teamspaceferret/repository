@@ -5,16 +5,16 @@ import java.util.Random;
  *
  */
 public enum TradeGood {
-    WATER(0, 0, 2, 30, 3, 4, Event.DROUGHT, Event.NONE, Resource.LOTSOFWATER, Resource.DESERT, 30, 50, 0),
-    FURS(0, 0, 0, 250, 10, 10, Event.COLD, Event.MANYHUNTERS, Resource.RICHFAUNA, Resource.LIFELESS, 230, 280, 1),
-    FOOD(0, 1, 1, 100, 5, 5, Event.CROPFAIL, Event.HARVEST, Resource.RICHSOIL, Resource.POORSOIL, 90, 160, 2),
-    ORE(2, 2, 3, 350, 20, 10, Event.WAR, Event.NONE, Resource.MINERALRICH, Resource.MINERALPOOR, 350, 420, 3),
-    GAMES(1, 3, 6, 250, -10, 5, Event.BOREDOM, Event.NONE, Resource.ARTISTIC, Resource.NOSPECIALRESOURCES, 160, 270, 4),
-    FIREARMS(1, 3, 5, 1250, -75, 100, Event.CRIMEWAVE, Event.POLICE, Resource.WARLIKE, Resource.PACIFIST, 600, 1100, 5),
-    MEDICINE(1, 4, 6, 650, -20, 10, Event.PLAGUE, Event.NONE, Resource.LOTSOFHERBS, Resource.LIFELESS, 400, 700, 6),
-    MACHINES(3, 4, 5, 900, -30, 5, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 600, 800, 7),
-    NARCOTICS(0, 5, 5, 3500, -125, 150, Event.POLICE, Event.STRAIGHTEDGE, Resource.WEIRDMUSHROOMS, Resource.NOSPECIALRESOURCES, 2000, 3000, 8),
-    ROBOTS(4, 6, 7, 5000, -150, 100, Event.LACKOFWORKERS, Event.LUDDITES, Resource.NOSPECIALRESOURCES, Resource.NOSPECIALRESOURCES, 3500, 5000, 9);
+    WATER(0, 0, 2, 30, 3, 4, 1, 0, 4, 3, 30, 50, 0),
+    FURS(0, 0, 0, 250, 10, 10, 2, 9, 7, 8, 230, 280, 1),
+    FOOD(0, 1, 1, 100, 5, 5, 10, 11, 5, 6, 90, 160, 2),
+    ORE(2, 2, 3, 350, 20, 10, 3, 0, 1, 2, 350, 420, 3),
+    GAMES(1, 3, 6, 250, -10, 5, 4, 0, 11, 0, 160, 270, 4),
+    FIREARMS(1, 3, 5, 1250, -75, 100, 7, 12, 12, 13, 600, 1100, 5),
+    MEDICINE(1, 4, 6, 650, -20, 10, 5, 0, 10, 8, 400, 700, 6),
+    MACHINES(3, 4, 5, 900, -30, 5, 6, 13, 0, 0, 600, 800, 7),
+    NARCOTICS(0, 5, 5, 3500, -125, 150, 12, 14, 9, 0, 2000, 3000, 8),
+    ROBOTS(4, 6, 7, 5000, -150, 100, 6, 13, 0, 0, 3500, 5000, 9);
     
     public static final int NUM_TRADE_GOODS = 10;
     public static final int WATER_ID = 0;
@@ -27,9 +27,11 @@ public enum TradeGood {
     public static final int MACHINES_ID = 7;
     public static final int NARCOTICS_ID = 8;
     public static final int ROBOTS_ID = 9;
-    
+    public static final double DFIFTY = 50.0;
+    public static final double PERCENT = 100.0;
+
     /**
-     * TradeGoods have many parameters, most of them influence price in some way.
+     * TradeGoods have many parameters, most of them influence price in a way.
      * @param MTLB minimum tech level to buy this resource
      * @param MTLS minimum tech level to sell this resource
      * @param TTP tech level which produces the most of this resource
@@ -44,29 +46,36 @@ public enum TradeGood {
      * @param RTH random trader highest price, outside of marketplace
      * @param ID good id
      */
+
+    private final int mtlb, mtls, ttp, basePrice, ipl, variance, rtl, rth, id;
+    private final Event ie, de;
+    private final Resource cr, er;
+    private final Universe universe = Context.getInstance().getUniverse();
+    private Player player = Context.getInstance().getPlayer();
+
+    private TradeGood(final int mtlb, final int mtls, final int ttp,
+            final int basePrice, final int ipl, final int variance,
+            final int ie, final int de, final int cr, final int er,
+            final int rtl, final int rth, final int id) {
+        Event[] events = Event.eventArray();
+        Resource[] resources = Resource.resourceArray();
+        this.mtlb = mtlb;
+        this.mtls = mtls;
+        this.ttp = ttp;
+        this.basePrice = basePrice;
+        this.ipl = ipl;
+        this.variance = variance;
+        this.ie = events[ie];
+        this.de = events[de];
+        this.cr = resources[cr];
+        this.er = resources[er];
+        this.rtl = rtl;
+        this.rth = rth;
+        this.id = id;
+    }
     
-    private final int MTLB, MTLS, TTP, BASEPRICE, IPL, VARIANCE, RTL, RTH, ID;
-    private final Event IE, DE;
-    private final Resource CR, ER;
-    Universe universe = Context.getInstance().getUniverse();
-    Player player = Context.getInstance().getPlayer();
-    
-    
-    private TradeGood(int mtlb, int mtls, int ttp, int basePrice, int ipl,
-            int variance, Event ie, Event de, Resource cr, Resource er, int rtl, int rth, int id) {
-        MTLB = mtlb;
-        MTLS = mtls;
-        TTP = ttp;
-        BASEPRICE = basePrice;
-        IPL = ipl;
-        VARIANCE = variance;
-        IE = ie;
-        DE = de;
-        CR = cr;
-        ER = er;
-        RTL = rtl;
-        RTH = rth;
-        ID = id;
+    public int getBasePrice() {
+        return basePrice;
     }
     
     /**
@@ -75,92 +84,107 @@ public enum TradeGood {
      */
     public int calcMarketPrice() {
         player = Context.getInstance().getPlayer();
-        Random r = new Random();
+        //Random r = new Random();
+        int techLevel = player.getCurrentPlanet().getTechLevel();
         Event event = player.getCurrentPlanet().getEvent();
         Resource resource = player.getCurrentPlanet().getResource();
-        double price = BASEPRICE + (IPL * (player.getCurrentPlanet().getTechLevel() - MTLB)) + r.nextInt(VARIANCE + 1);
-        if (player.getCurrentPlanet().getTechLevel() == this.TTP) {
-            price *= .95;
+        double price = basePrice;
+        price += (ipl * (techLevel - mtlb)) + variance;
+        if (player.getCurrentPlanet().getTechLevel() == this.ttp) {
+            price *= Context.TECH_PRICE_MULT;
         }
-        if (event.equals(this.IE)) {
+        if (event.equals(this.ie)) {
             price *= event.getUpMult();
-        }
-        if (event.equals(this.DE)) {
+        } else if (event.equals(this.de)) {
             price *= event.getDownMult();
         }
-        if (resource.equals(this.CR)) {
+        if (resource.equals(this.cr)) {
+            price *= resource.getDownMult();
+        } else if (resource.equals(this.er)) {
             price *= resource.getUpMult();
         }
-        if (resource.equals(this.ER)) {
-            price *= resource.getDownMult();
-        }
-        price *= (1.0 + ((double)Context.getInstance().getPlayer().getTrader() / 50.0));
+        price *= (((double) player.getTrader() / DFIFTY) + 1.0);
         int finalPrice = (int) price;
         if (player.getTrader() > 0) {
-            int discountedPrice = (int)(price-( (price)*((double)player.getTrader())/100.0) );
-            return discountedPrice;
+            double discountedPrice = price;
+            double trader = (double) player.getTrader();
+            discountedPrice -= (price) * (4.0 * trader / PERCENT);
+            return (int) discountedPrice;
         } else {
             return finalPrice;
         }
     }
-    
+
     /**
-     * calculates price when buying/selling with a random trader
+     * calculates price when buying/selling with a random trader.
      * @return trader price
      */
     public int calcTraderPrice() {
         Random r = new Random();
-        return RTL + r.nextInt(RTH - RTL);
+        return rtl + r.nextInt(rth - rtl);
     }
     
     /**
-     * get increase event
+     * get increase event.
      * @return increase event
      */
     public Event getIE() {
-        return IE;
+        return ie;
     }
     
     /**
-     * get decrease event
+     * get decrease event.
      * @return decrease event
      */
     public Event getDE() {
-        return DE;
+        return de;
     }
     
     /**
-     * get low price modifier resource
+     * get low price modifier resource.
      * @return low price mod resource
      */
     public Resource getCR() {
-        return CR;
+        return cr;
     }
     
     /**
-     * get high price modifier resource
+     * get high price modifier resource.
      * @return high price mod resource
      */
     public Resource getER() {
-        return ER;
+        return er;
     }
-    
+
     /**
-     * get good ID
+     * get good ID.
      * @return good ID
      */
     public int getID() {
-        return ID;
+        return id;
     }
-    
-    public int getMTLB(){
-        return MTLB;
+
+    /**
+     * get MTLB stat.
+     * @return MTLB int stat
+     */
+    public int getMTLB() {
+        return mtlb;
     }
-    
-    public int getMTLS(){
-        return MTLS;
+
+    /**
+     * get MTLS stat.
+     * @return MTLS int stat
+     */
+    public int getMTLS() {
+        return mtls;
     }
-    
+
+    /**
+     * uses a switch statement to return a good from an int id.
+     * @param id id of good to return
+     * @return good with ID id
+     */
     public static TradeGood getGoodFromID(final int id) {
         TradeGood good = null;
         switch(id) {

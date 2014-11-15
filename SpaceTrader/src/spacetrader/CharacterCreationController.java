@@ -76,7 +76,8 @@ public class CharacterCreationController implements ControlledScreen,
         map.put("Trader", traderField);
         
         map.keySet().stream().forEach((String key) -> {
-            map.get(key).textProperty().addListener((ObservableValue<? extends String>
+            map.get(key).textProperty()
+                    .addListener((ObservableValue<? extends String>
                     observable, String oldValue, String newValue) -> {
                 
                 int oldInt = Integer.valueOf(oldValue);
@@ -220,16 +221,26 @@ public class CharacterCreationController implements ControlledScreen,
     /**
      * Increments or decrements the appropriate stat slider and field
      */
-    public void incrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
-    public void incrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
-    public void incrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
-    public void incrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }
-    public void incrementTraderAction() { setStat("Trader", Integer.valueOf(map.get("Trader").getText())+1); }
-    public void decrementEngineerAction() { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())-1); }
-    public void decrementFighterAction() { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())-1); }
-    public void decrementInvestorAction() { setStat("Investor", Integer.valueOf(map.get("Investor").getText())-1); }
-    public void decrementPilotAction() { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())-1); }
-    public void decrementTraderAction() { setStat("Trader", Integer.valueOf(map.get("Trader").getText())-1); }
+    public void incrementEngineerAction() 
+    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
+    public void incrementFighterAction() 
+    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
+    public void incrementInvestorAction() 
+    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
+    public void incrementPilotAction() 
+    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }
+    public void incrementTraderAction() 
+    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())+1); }
+    public void decrementEngineerAction() 
+    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())-1); }
+    public void decrementFighterAction() 
+    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())-1); }
+    public void decrementInvestorAction() 
+    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())-1); }
+    public void decrementPilotAction() 
+    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())-1); }
+    public void decrementTraderAction() 
+    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())-1); }
     
     /**
      * Sets the description TextArea to the Fighter stat description.

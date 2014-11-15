@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Market class
  */
 public class Market implements Serializable{
-    private final Planet planet;
+    //private Planet planet;
     private int[] stock;
     private final int[] prices;
     
@@ -14,8 +14,8 @@ public class Market implements Serializable{
      * Creates a market with empty stock and no prices.
      * @param planet the planet that the market belongs to.
      */
-    public Market(final Planet planet) {
-        this.planet = planet;
+    public Market() {
+        //this.planet = planet;
         this.stock = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         this.prices = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     }
@@ -35,7 +35,8 @@ public class Market implements Serializable{
     public final void updateStock() {
         if (stock[0] == -1) {
             for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
-                stock[i] = MarketController.calcStock(TradeGood.getGoodFromID(i));
+                stock[i] = MarketController
+                        .calcStock(TradeGood.getGoodFromID(i));
             }
         }
     }

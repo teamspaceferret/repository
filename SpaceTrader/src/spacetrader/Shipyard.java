@@ -12,9 +12,9 @@ import java.util.HashMap;
  *
  * @author Cora
  */
-public class Shipyard implements Serializable{
-    private final int MAX_SHIELD_NUM = 5;//for 
-    private final int MAX_WEAPON_NUM = 5;
+public class Shipyard implements Serializable {
+    private final int maxShieldNum = 5;//for 
+    private final int maxWeaponNum = 5;
     public static final int TURRET_IDX = 0;
     public static final int CANNON_IDX = 1;
     public static final int OCULASER_IDX = 2;
@@ -25,45 +25,51 @@ public class Shipyard implements Serializable{
     private Weapon[] weaponStock;
     private Shield[] shieldStock;
     
-    private static final HashMap<String, Shield> defaultShields = new HashMap<>();
-        static{
-            defaultShields.put("Plate",new Shield("Plate",50,4));
-            defaultShields.put("Matter Cloak", new Shield("Matter Cloak", 70, 5));
-            defaultShields.put("Name3", new Shield("Name3"));
-            defaultShields.put("Name4", new Shield("Name4"));
-            defaultShields.put("Name5", new Shield("Name5"));
-            defaultShields.put("Name6", new Shield("Name6"));
-            defaultShields.put("Name7", new Shield("Name7"));
-            defaultShields.put("Name8", new Shield("Name8"));
+    private static final HashMap<String, Shield> DEFAULT_SHIELDS =
+            new HashMap<>();
+        static {
+            DEFAULT_SHIELDS.put("Plate", new Shield("Plate", 50, 4));
+            DEFAULT_SHIELDS.put("Matter Cloak",
+                    new Shield("Matter Cloak", 70, 5));
+            DEFAULT_SHIELDS.put("Name3", new Shield("Name3"));
+            DEFAULT_SHIELDS.put("Name4", new Shield("Name4"));
+            DEFAULT_SHIELDS.put("Name5", new Shield("Name5"));
+            DEFAULT_SHIELDS.put("Name6", new Shield("Name6"));
+            DEFAULT_SHIELDS.put("Name7", new Shield("Name7"));
+            DEFAULT_SHIELDS.put("Name8", new Shield("Name8"));
         }
         
-        private static final HashMap<String, Weapon> defaultWeapons = new HashMap<>();
-        static{
-            defaultWeapons.put("Turret", new Weapon("Turret",10,4));
-            defaultWeapons.put("Dual Cannon", new Weapon("Dual Cannon",50,5));
-            defaultWeapons.put("Oculaser", new Weapon("Oculaser",100,6));
-            defaultWeapons.put("Name4", new Weapon("Name4"));
-            defaultWeapons.put("Name5", new Weapon("Name5"));
-            defaultWeapons.put("Name6", new Weapon("Name6"));
-            defaultWeapons.put("Name7", new Weapon("Name7"));
-            defaultWeapons.put("Name8", new Weapon("Name8"));
+        private static final HashMap<String, Weapon> DEFAULT_WEAPONS =
+                new HashMap<>();
+        static {
+            DEFAULT_WEAPONS.put("Turret", new Weapon("Turret", 10, 4));
+            DEFAULT_WEAPONS.put("Dual Cannon",
+                    new Weapon("Dual Cannon", 50, 5));
+            DEFAULT_WEAPONS.put("Oculaser", new Weapon("Oculaser", 100, 6));
+            DEFAULT_WEAPONS.put("Name4", new Weapon("Name4"));
+            DEFAULT_WEAPONS.put("Name5", new Weapon("Name5"));
+            DEFAULT_WEAPONS.put("Name6", new Weapon("Name6"));
+            DEFAULT_WEAPONS.put("Name7", new Weapon("Name7"));
+            DEFAULT_WEAPONS.put("Name8", new Weapon("Name8"));
         }
     
-    public Shipyard(Planet hostPlanet){
+    public Shipyard(final Planet hostPlanet) {
         planet = hostPlanet;
         //Random rand = new Random();
-        weaponStock = new Weapon[] {defaultWeapons.get("Turret"), defaultWeapons.get("Dual Cannon"), defaultWeapons.get("Oculaser")};
-        shieldStock = new Shield[] {defaultShields.get("Plate"), defaultShields.get("Matter Cloak")};
+        weaponStock = new Weapon[] {DEFAULT_WEAPONS.get("Turret"),
+        DEFAULT_WEAPONS.get("Dual Cannon"), DEFAULT_WEAPONS.get("Oculaser")};
+        shieldStock = new Shield[] {DEFAULT_SHIELDS.get("Plate"),
+        DEFAULT_SHIELDS.get("Matter Cloak")};
         //limit based on planet tech level
         
         // something for spaceships too
     }
     
-    public Weapon[] getWeaponStock() {
+    public final Weapon[] getWeaponStock() {
         return weaponStock;
     }
     
-    public Shield[] getShieldStock() {
+    public final Shield[] getShieldStock() {
         return shieldStock;
     }
 /* 

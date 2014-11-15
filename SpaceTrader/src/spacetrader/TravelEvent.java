@@ -9,15 +9,21 @@ import java.io.Serializable;
 
 public enum TravelEvent implements Serializable {
     NONE("None", -1, "Nothing eventful occurs on your journey."),
-    FUELLOSS("Stolen fuel", 0, "A thief has siphoned off some of your fuel. You don't notice until they are long gone. \n\n"),
-    CARGOLOSS("Stolen cargo", 1, "A thief breaks into your cargo hold to steal some of your cargo! He escapes "
+    FUELLOSS("Stolen fuel", 0, "A thief has siphoned off some of your fuel. You"
+            + " don't notice until they are long gone. \n\n"),
+    CARGOLOSS("Stolen cargo", 1, "A thief breaks into your cargo hold to steal "
+            + "some of your cargo! He escapes "
             + "before the can catch him. \n\n"),
-    CREDITLOSS("Broken equipment", 2, "One of your heat capacitors is malfunctioning and needs to be replaced. \n\n"),
-    FUELWIN("Fuel discovered", 3, "You discover canisters of fuel floating in space. They appear undamaged, "
+    CREDITLOSS("Broken equipment", 2, "One of your heat capacitors is "
+            + "malfunctioning and needs to be replaced. \n\n"),
+    FUELWIN("Fuel discovered", 3, "You discover canisters of fuel floating in "
+            + "space. They appear undamaged, "
             + "so you fuel up as much as you can. \n\n"),
-    CARGOWIN("Cargo discovered", 4, "You find a crate of supplies floating in space. It appears undamaged "
+    CARGOWIN("Cargo discovered", 4, "You find a crate of supplies floating in "
+            + "space. It appears undamaged "
             + "and is filled with games. \n\n"),
-    CREDITWIN("You won the lottery!", 5, "You won the galactic scratch-off lottery! \n\n"),
+    CREDITWIN("You won the lottery!", 5, "You won the galactic scratch-off "
+            + "lottery! \n\n"),
     PRICEINCREASE("Radical price increase", 6, "");
     
     private static final Random rand = new Random();
@@ -71,14 +77,17 @@ public enum TravelEvent implements Serializable {
                 //remove one cargo
                 if (stolenGood != null) {
                     player.getShip().removeFromCargo(stolenGood, 1);
-                    eventText += "You find that one box of " + stolenGood.name() + " is missing.";
+                    eventText += "You find that one box of " + stolenGood.name()
+                            + " is missing.";
                 } else {
                     //this shouldnt happen, but in case no cargo is found...
-                    eventText += "You check the hold, but find that nothing is out of place. "
+                    eventText += "You check the hold, but find that nothing is "
+                            + "out of place. "
                             + "You guess that you got lucky this time.";
                 }
             } else {
-                eventText += "The joke is on him though. You didn't have any cargo anyway!";
+                eventText += "The joke is on him though. You didn't have any "
+                        + "cargo anyway!";
             }
         } else if (selected.ID == 2) {
             //would be cool to randomize which part breaks
@@ -91,45 +100,56 @@ public enum TravelEvent implements Serializable {
             }
             int creditsToRemove = rand.nextInt(max);
             player.removeCredits(creditsToRemove);
-            eventText += "You lose " + creditsToRemove + " credits in repair costs.";
+            eventText += "You lose " + creditsToRemove + " credits in repair "
+                    + "costs.";
         } else if (selected.ID == 3) {
             //would be cool to randomize how much fuel
             //if at max fuel, notify player
-            if (player.getShip().getMaxFuelLevel() == player.getShip().getFuelLevel()) {
-                eventText += "However, you are already at max fuel. You leave the canisters as they are.";
+            if (player.getShip().getMaxFuelLevel() == 
+                    player.getShip().getFuelLevel()) {
+                eventText += "However, you are already at max fuel. You leave "
+                        + "the canisters as they are.";
             }
             //if you can, add all
-            else if ((player.getShip().getMaxFuelLevel() - player.getShip().getFuelLevel()) >= 50) {
+            else if ((player.getShip().getMaxFuelLevel() -
+                    player.getShip().getFuelLevel()) >= 50) {
                 player.getShip().addFuel(50);
                 eventText += "You empty the canisters, gaining 50 fuel.";
             } else {
                 //else add what you can
-                int fuelAdded = player.getShip().getMaxFuelLevel() - player.getShip().getFuelLevel();
+                int fuelAdded = player.getShip().getMaxFuelLevel() -
+                        player.getShip().getFuelLevel();
                 player.getShip().addFuel(fuelAdded);
-                eventText += "You gain " + fuelAdded + " fuel and leave the rest as is.";
+                eventText += "You gain " + fuelAdded + " fuel and leave the "
+                        + "rest as is.";
             }
         } else if (selected.ID == 4) {
             //would be cool to randomize which good
             //if room in cargo hold, add cargo
-            if (player.getShip().getCurrentUsedCargoSlots() != player.getShip().getMaxCargoSlots()) {
+            if (player.getShip().getCurrentUsedCargoSlots() 
+                    != player.getShip().getMaxCargoSlots()) {
                 player.getShip().addToCargo(TradeGood.GAMES, 1);
                 eventText += "You load the cargo and continue on your way.";
             } else {
-                eventText += "However, you have no room in your cargo hold so you leave it alone.";
+                eventText += "However, you have no room in your cargo hold so "
+                        + "you leave it alone.";
             }
         } else if (selected.ID == 5) {
             //would be cool to randomize how many credits
             player.addCredits(100);
             eventText += "You gain 100 credits.";
         } else if (selected.ID == 6) {
-            eventText += "Something is happening now on " + player.getCurrentPlanet().getName() + "! \n\n";
+            eventText += "Something is happening now on " +
+                    player.getCurrentPlanet().getName() + "! \n\n";
             player.getCurrentPlanet().setEvent(Event.NONE.randomEvent());
             if (player.getCurrentPlanet().getEvent().equals(Event.NONE)) {
-                eventText += "No, wait. Nevermind. It looks like nothing of interest is happening after all."
+                eventText += "No, wait. Nevermind. It looks like nothing of "
+                        + "interest is happening after all."
                         + "What a boring place.";
             } else {
                 eventText += player.getCurrentPlanet().getEvent().getName() + 
-                    " is causing drastic price increases in some goods, but it isn't likely to last very long.";
+                    " is causing drastic price increases in some goods, but it "
+                        + "isn't likely to last very long.";
             }
         }
         //return appropriately editted text
