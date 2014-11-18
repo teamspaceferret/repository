@@ -319,6 +319,14 @@ public class MarketController implements ControlledScreen, Initializable {
                 tradingGoods.put(good, true);
             }
         }
+        //if govt has illegal goods restriction, change sale to false
+        if (planet.getGovernment().getIllegalGoods().length > 0) {
+            for (TradeGood good : planet.getGovernment().getIllegalGoods()) {
+                tradingGoods.replace(good, Boolean.FALSE);
+            }
+        }
+        //if govt satori
+            //add those goods to tradingGoods as false
         for (int i = 0; i < TradeGood.NUM_TRADE_GOODS; i++) {
             Label[] labels = getLabelsFromID(i);
             Label trader = labels[0];

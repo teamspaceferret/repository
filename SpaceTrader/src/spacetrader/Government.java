@@ -6,18 +6,32 @@ import java.util.List;
 import java.util.Random;
 import java.io.Serializable;
 
-public enum Government implements Serializable{
-    ANARCHY("Anarchy", 0, 0, 9, 1),
-    CAPITALIST("Captialist", 1, 2, 1, 7), COMMUNIST("Communist", 2, 8, 0, 2),
-    CONFEDERACY("Confederacy", 3, 4, 2, 5), CORPORATE("Corporate", 4, 5, 0, 5),
-    CYBERNETIC("Cybernetic", 5, 3, 2, 5), DEMOCRACY("Democracy", 6, 1, 1, 8),
-    DICTATORSHIP("Dictatorship", 7, 4, 3, 3), FACIST("Facist", 8, 9, 0, 1),
-    FEUDAL("Feudal", 9, 0, 5, 5), MILITARY("Military State", 10, 7, 0, 3),
-    MONARCHY("Monarchy", 11, 2, 2, 6), PACIFIST("Pacifist", 12, 1, 1, 8),
-    SOCIALIST("Socialist", 13, 2, 2, 6),
-    SATORI("State of Satori", 14, 0, 0, 10),
-    TECHNOCRACY("Technocracy", 15, 4, 1, 5),
-    THEOCRACY("Theocracy", 16, 5, 1, 4);
+public enum Government implements Serializable {
+    ANARCHY("Anarchy", 0, 0, 9, 1, new TradeGood[0]),
+    CAPITALIST("Captialist", 1, 2, 1, 7, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    COMMUNIST("Communist", 2, 8, 0, 2, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    CONFEDERACY("Confederacy", 3, 4, 2, 5, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    CORPORATE("Corporate", 4, 5, 0, 5, new TradeGood[0]),
+    CYBERNETIC("Cybernetic", 5, 3, 2, 5, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    DEMOCRACY("Democracy", 6, 1, 1, 8, new TradeGood[0]),
+    DICTATORSHIP("Dictatorship", 7, 4, 3, 3, new TradeGood[0]),
+    FACIST("Facist", 8, 9, 0, 1, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    FEUDAL("Feudal", 9, 0, 5, 5, new TradeGood[0]),
+    MILITARY("Military State", 10, 7, 0, 3, new TradeGood[]
+        {TradeGood.NARCOTICS}),
+    MONARCHY("Monarchy", 11, 2, 2, 6, new TradeGood[0]),
+    PACIFIST("Pacifist", 12, 1, 1, 8, new TradeGood[] {TradeGood.FIREARMS}),
+    SOCIALIST("Socialist", 13, 2, 2, 6, new TradeGood[0]),
+    SATORI("State of Satori", 14, 0, 0, 10, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS}),
+    TECHNOCRACY("Technocracy", 15, 4, 1, 5, new TradeGood[0]),
+    THEOCRACY("Theocracy", 16, 5, 1, 4, new TradeGood[] {TradeGood.FIREARMS,
+        TradeGood.NARCOTICS});
     
     private static final Random RAND = new Random();
     private final String name;
@@ -25,6 +39,7 @@ public enum Government implements Serializable{
     private final int police;
     private final int pirate;
     private final int trader;
+    private final TradeGood[] illegalGoods;
     
     /**
      * Creates a Government.
@@ -35,12 +50,14 @@ public enum Government implements Serializable{
      * @param traderChance chance of trader encounter for the government
      */
     private Government(final String name, final int id, final int policeChance,
-            final int pirateChance, final int traderChance) {
+            final int pirateChance, final int traderChance, final TradeGood[]
+            illegalGoods) {
         this.name = name;
         this.id = id;
         this.police = policeChance;
         this.pirate = pirateChance;
         this.trader = traderChance;
+        this.illegalGoods = illegalGoods;
     }
     
     /**
@@ -146,6 +163,14 @@ public enum Government implements Serializable{
      */
     public int getTrader() {
         return trader;
+    }
+    
+    /**
+     * Returns array of illegal goods
+     * @return array listing illegal goods
+     */
+    public TradeGood[] getIllegalGoods() {
+        return illegalGoods;
     }
     
     /**
