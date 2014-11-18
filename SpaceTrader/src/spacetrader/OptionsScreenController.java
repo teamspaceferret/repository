@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 /**
@@ -21,8 +23,10 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     @FXML MenuItem toggleBGButton;
     @FXML MenuItem toggleSEButton;
     
-    ScreensController controller;
-    SoundManager soundManager;
+    @FXML MenuItem backShortcut;
+    
+    private ScreensController controller;
+    private SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Initializes the controller class.
@@ -38,8 +42,8 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     }
 
     @Override
-    public void initScreen() {
-        soundManager = SoundManager.getSoundManager();
+    public final void initScreen() {
+        backShortcut.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
     }
     
     public void toggleBackgroundMusic(){
@@ -63,6 +67,10 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     }
     
     public void backAction(){
+        controller.setScreen(soundManager.getPrevScreen());
+    }
+    
+    public void backAction2(){
         controller.setScreen(soundManager.getPrevScreen());
     }
     

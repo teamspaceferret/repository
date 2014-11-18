@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,13 +9,25 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.OptionsScreenController">
    <children>
-      <Label layoutX="14.0" layoutY="23.0" prefHeight="53.0" prefWidth="74.0" text="Options" />
-      <SplitMenuButton layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Sound Options">
+      <Label layoutX="14.0" layoutY="23.0" prefHeight="53.0" prefWidth="99.0" text="Options">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <SplitMenuButton layoutX="14.0" layoutY="85.0" mnemonicParsing="false" text="Sound Options">
         <items>
           <MenuItem fx:id="toggleBGButton" mnemonicParsing="false" onAction="#toggleBackgroundMusic" text="Mute Background Music" />
           <MenuItem fx:id="toggleSEButton" mnemonicParsing="false" onAction="#toggleSoundEffects" text="Mute Sound Effects" />
         </items>
       </SplitMenuButton>
-      <Button layoutX="14.0" layoutY="339.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
+      <Button layoutX="14.0" layoutY="337.0" mnemonicParsing="false" onAction="#backAction" prefHeight="40.0" prefWidth="110.0" text="Back (esc)">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <MenuButton layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="MenuButton" visible="false">
+        <items>
+          <MenuItem fx:id="backShortcut" mnemonicParsing="false" onAction="#backAction2" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>
