@@ -35,7 +35,7 @@ public class CharacterCreationController implements ControlledScreen,
     private final Map<String, TextField> map = new HashMap<>();
     
 
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
     
 
     /**
@@ -305,6 +305,7 @@ public class CharacterCreationController implements ControlledScreen,
     }
     
     public void optionsAction(){
+        
         controller.setScreen("OptionsScreen");
     }
 }

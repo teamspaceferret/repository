@@ -13,7 +13,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
     @FXML private MenuItem optionsButton;
     
     private ScreensController controller;
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
     private boolean bgMuted = soundManager.getBGMuted();
     private boolean seMuted = soundManager.getBGMuted();
 
@@ -38,6 +38,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
         bgMuted = soundManager.getBGMuted();
         soundManager.setPrevScreen("StartScreen");
         
+        //try changing all vers of options screen control to check current screen and toggeling
         optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         
         //loop isn't perfect transition. Fix that.

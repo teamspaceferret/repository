@@ -66,7 +66,7 @@ public class MarketController implements ControlledScreen, Initializable {
     private HashMap<TradeGood, Integer> startCargoStock;
     //hashmap of all goods and whether or not they are available
 
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
     private final HashMap<TradeGood, Boolean> tradingGoods = new HashMap<>();
     private final HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
     private int startCredits;

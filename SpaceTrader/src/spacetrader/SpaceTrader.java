@@ -35,12 +35,6 @@ public class SpaceTrader extends Application {
         
         mainContainer.setScreen("StartScreen");
         
-        //make and load new screen that is toggled on esc key
-        //it passes the prev screen from the thing
-        //has back button
-        //make little menus on each screen and then hide them weeeee
-        //could also use this to make a character data window
-        
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);

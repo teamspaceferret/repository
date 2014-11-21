@@ -20,10 +20,10 @@ import spacetrader.SpaceTrader.ControlledScreen;
  * @author Cora
  */
 public class OptionsScreenController implements ControlledScreen, Initializable {
-    @FXML MenuItem toggleBGButton;
-    @FXML MenuItem toggleSEButton;
+    @FXML private MenuItem toggleBGButton;
+    @FXML private MenuItem toggleSEButton;
     
-    @FXML MenuItem backShortcut;
+    @FXML private MenuItem backShortcut;
     
     private ScreensController controller;
     private SoundManager soundManager = SoundManager.getSoundManager();
@@ -43,7 +43,13 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
 
     @Override
     public final void initScreen() {
-        backShortcut.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //System.out.println("HASD:KFJ");
+        //backShortcut.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //backShortcut.se
+        //backShortcut.setOnAction(new A);
+        System.out.println(backShortcut.getAccelerator());
+        System.out.println(soundManager.getPrevScreen());
+        System.out.println(backShortcut.getOnAction().toString());
     }
     
     public void toggleBackgroundMusic(){
@@ -67,10 +73,7 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     }
     
     public void backAction(){
-        controller.setScreen(soundManager.getPrevScreen());
-    }
-    
-    public void backAction2(){
+        //System.out.println("ASDFLKEWAIJWEFAIO");
         controller.setScreen(soundManager.getPrevScreen());
     }
     

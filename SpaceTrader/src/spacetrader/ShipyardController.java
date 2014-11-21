@@ -89,7 +89,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     //Player player = Context.getInstance().getPlayer();
     //Ship selectedToBuy;
     
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
 
     private Universe universe = Context.getInstance().getUniverse();
     private Player player = Context.getInstance().getPlayer();

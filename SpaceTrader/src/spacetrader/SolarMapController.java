@@ -18,7 +18,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
     @FXML private TextArea description;
     
 
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
 
     private ScreensController controller;
     private Player player = Context.getInstance().getPlayer();

@@ -13,7 +13,7 @@ public class TravelEventController implements ControlledScreen, Initializable {
     private ScreensController controller;
     Universe universe = Context.getInstance().getUniverse();
     Player player = Context.getInstance().getPlayer();
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
     
     /**
      * Set the screen parent.

@@ -21,7 +21,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private MenuItem optionsButton;
 
     Universe universe = Context.getInstance().getUniverse();
-    SoundManager soundManager = SoundManager.getSoundManager();
+    private SoundManager soundManager = SoundManager.getSoundManager();
 
     private ScreensController controller;
     private Player player;
