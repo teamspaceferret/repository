@@ -20,7 +20,7 @@
           <MenuItem fx:id="toggleSEButton" mnemonicParsing="false" onAction="#toggleSoundEffects" text="Mute Sound Effects" />
             <MenuItem fx:id="backShortcut" mnemonicParsing="false" onAction="#backAction" text="Unspecified Action" visible="false">
                <accelerator>
-                  <KeyCodeCombination alt="UP" code="ESCAPE" control="UP" meta="UP" shift="ANY" shortcut="UP" />
+                  <KeyCodeCombination alt="UP" code="ESCAPE" control="UP" meta="UP" shift="DOWN" shortcut="UP" />
                </accelerator>
             </MenuItem>
         </items>

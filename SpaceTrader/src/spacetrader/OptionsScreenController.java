@@ -47,9 +47,9 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
         //backShortcut.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         //backShortcut.se
         //backShortcut.setOnAction(new A);
-        System.out.println(backShortcut.getAccelerator());
-        System.out.println(soundManager.getPrevScreen());
-        System.out.println(backShortcut.getOnAction().toString());
+        //System.out.println(backShortcut.getAccelerator());
+        //System.out.println(soundManager.getPrevScreen());
+        //System.out.println(backShortcut.getOnAction().toString());
     }
     
     public void toggleBackgroundMusic(){
