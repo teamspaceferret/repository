@@ -25,7 +25,7 @@ public class CharacterCreationController implements ControlledScreen,
     @FXML private TextArea descriptions;
     @FXML private TextField engineerField, fighterField, investorField,
             nameEntry, pilotField, traderField;
-    @FXML MenuItem optionsButton;
+    //@FXML MenuItem optionsButton;
 
 
     private ScreensController controller;
@@ -53,7 +53,7 @@ public class CharacterCreationController implements ControlledScreen,
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("CharacterCreation");
-        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 
         descriptions.setText("Please enter your name, hit Enter or the OK "
                 + "button, then enter your stats. Each stat may be between 0 "
@@ -153,6 +153,7 @@ public class CharacterCreationController implements ControlledScreen,
             descriptions.setText("You still have to enter a name "
                     + "and press OK.");
         }
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -161,6 +162,7 @@ public class CharacterCreationController implements ControlledScreen,
      */
     
     public void backAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("StartScreen");
         playerName = "";
         nameEntry.clear();
@@ -189,6 +191,7 @@ public class CharacterCreationController implements ControlledScreen,
             playerName = name;
             descriptions.setText("Hello, " + playerName + "!");
         }
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -222,25 +225,35 @@ public class CharacterCreationController implements ControlledScreen,
      * Increments or decrements the appropriate stat slider and field
      */
     public void incrementEngineerAction() 
-    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); }
+    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())+1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void incrementFighterAction() 
-    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); }
+    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())+1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void incrementInvestorAction() 
-    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); }
+    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())+1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void incrementPilotAction() 
-    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); }
+    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())+1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void incrementTraderAction() 
-    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())+1); }
+    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())+1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void decrementEngineerAction() 
-    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())-1); }
+    { setStat("Engineer", Integer.valueOf(map.get("Engineer").getText())-1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void decrementFighterAction() 
-    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())-1); }
+    { setStat("Fighter", Integer.valueOf(map.get("Fighter").getText())-1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void decrementInvestorAction() 
-    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())-1); }
+    { setStat("Investor", Integer.valueOf(map.get("Investor").getText())-1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void decrementPilotAction() 
-    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())-1); }
+    { setStat("Pilot", Integer.valueOf(map.get("Pilot").getText())-1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     public void decrementTraderAction() 
-    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())-1); }
+    { setStat("Trader", Integer.valueOf(map.get("Trader").getText())-1); 
+    soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);}
     
     /**
      * Sets the description TextArea to the Fighter stat description.
@@ -252,6 +265,7 @@ public class CharacterCreationController implements ControlledScreen,
                 + "or bounty hunting career hasn't that much use of this "
                 + "skill, but for a pirate it is an absolute must. A targeting "
                 + "system will enhance your fighting capabilities.");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -265,6 +279,7 @@ public class CharacterCreationController implements ControlledScreen,
                 + "In the early stages of your life as a trader you might have "
                 + "a hard time getting any money if you work with low trading "
                 + "capabilities.");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -278,6 +293,7 @@ public class CharacterCreationController implements ControlledScreen,
                 + "This makes the piloting skill important to both traders and "
                 + "pirates. A navigating system will enhance your piloting "
                 + "capabilities.");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -291,6 +307,7 @@ public class CharacterCreationController implements ControlledScreen,
                 + "so it does more damage. This makes the engineer skill "
                 + "important for both traders and pirates. An auto-repair "
                 + "system will enhance the engineering capabilities.");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -302,10 +319,8 @@ public class CharacterCreationController implements ControlledScreen,
                 + "interest rates are volatile. You can make a killing or you "
                 + "can lose your savings, but having a high Investor skill can "
                 + "bolster your successes and cushion your losses. Be wary. ");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
-    public void optionsAction(){
-        
-        controller.setScreen("OptionsScreen");
-    }
+    
 }

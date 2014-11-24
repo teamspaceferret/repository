@@ -18,7 +18,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class GalaxyMapController implements ControlledScreen, Initializable {
     @FXML private Canvas canvas;
     @FXML private TextArea description;
-    @FXML private MenuItem optionsButton;
+    //@FXML private MenuItem optionsButton;
 
     Universe universe = Context.getInstance().getUniverse();
     private SoundManager soundManager = SoundManager.getSoundManager();
@@ -42,7 +42,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("GalaxyMap");
-        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         universe = Context.getInstance().getUniverse();
         
         player = Context.getInstance().getPlayer();
@@ -176,9 +176,5 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         } else {
             description.setText("Please select a system.");
         }
-    }
-    
-    public void optionsAction(){
-        controller.setScreen("OptionsScreen");
     }
 }

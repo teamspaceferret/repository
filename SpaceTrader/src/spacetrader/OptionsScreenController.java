@@ -60,6 +60,7 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
             soundManager.unMuteBackgroundMusic(SoundManager.STARTSCREENID);
             toggleBGButton.setText("Mute Background Music");
         }
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public void toggleSoundEffects(){
@@ -70,10 +71,12 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
             soundManager.unMuteSoundEffects();
             toggleSEButton.setText("Mute Sound Effects");
         }
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public void backAction(){
         //System.out.println("ASDFLKEWAIJWEFAIO");
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen(soundManager.getPrevScreen());
     }
     

@@ -81,7 +81,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Tab shipTab;
     @FXML private TabPane tabPane;
     
-    @FXML private MenuItem optionsButton;
+    //@FXML private MenuItem optionsButton;
     
     
     private ScreensController controller;
@@ -115,7 +115,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     public final void initScreen() {
         soundManager.setPrevScreen("Shipyard");
         
-        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
@@ -332,6 +332,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void weapon1Decrement() {
@@ -345,6 +346,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void weapon2Increment() {
@@ -358,6 +360,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
 
     public final void weapon2Decrement() {
@@ -371,6 +374,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void weapon3Increment() {
@@ -384,6 +388,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
 
     public final void weapon3Decrement() {
@@ -397,6 +402,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void shield1Increment() {
@@ -410,6 +416,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void shield1Decrement() {
@@ -422,6 +429,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void shield2Increment() {
@@ -435,6 +443,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         
     }
     
@@ -448,6 +457,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         updateQuantities();
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
@@ -473,6 +483,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
         }
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     public final void cargoSlotsIncrement() {
@@ -486,32 +497,38 @@ public class ShipyardController implements Initializable, ControlledScreen {
     //updates right TextArea with flea information
     public final void fleaStats() {
         updateShipTextArea(buyShipStats, new Ship("flea"));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     //updates right TextArea with gnat information
     public final void gnatStats() {
         updateShipTextArea(buyShipStats, new Ship("gnat"));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
 
     //updates right TextArea with firefly information
     public final void fireflyStats() {
         updateShipTextArea(buyShipStats, new Ship("firefly"));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     //updates right TextArea with mosquito information    
     public final void mosquitoStats() {
         updateShipTextArea(buyShipStats, new Ship("mosquito"));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     //updates right TextArea with bumblebee information    
     public final void bumblebeeStats() {
         updateShipTextArea(buyShipStats, new Ship("bumblebee"));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
     /**
      * returns to previous screen, saving changes that have occurred.
      */
     public final void back() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("PlanetScreen");
         buyShipStats.clear();
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
@@ -549,10 +566,8 @@ public class ShipyardController implements Initializable, ControlledScreen {
         }
         playerCreditNum1.setText(String.valueOf(player.getCredits()));
         playerCreditNum2.setText(String.valueOf(player.getCredits()));
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
     
-    public final void optionsAction(){
-        controller.setScreen("OptionsScreen");
-    }
  
 }

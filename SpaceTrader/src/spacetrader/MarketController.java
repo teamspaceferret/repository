@@ -330,6 +330,7 @@ public class MarketController implements ControlledScreen, Initializable {
             if (!tradingGoods.get(TradeGood.getGoodFromID(i))) {
                 trader.setText("NO");
                 price.setText("TRADE");
+                //disable inc and dec button if possible
             }
         }
     }
@@ -382,6 +383,7 @@ public class MarketController implements ControlledScreen, Initializable {
             updateCredits(good, 1);
         }
         currentCargo();
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
 
     /**
@@ -416,6 +418,7 @@ public class MarketController implements ControlledScreen, Initializable {
             updateCredits(good, -1);
         }
         currentCargo();
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
     }
 
     /**
@@ -591,6 +594,7 @@ public class MarketController implements ControlledScreen, Initializable {
             }
             planet.getMarket().setStockIndex(i, value);
         }
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("PlanetScreen");
     }
 
@@ -601,6 +605,8 @@ public class MarketController implements ControlledScreen, Initializable {
         player.removeCredits(Context.getInstance().getPlayer().getCredits());
         player.addCredits(startCredits);
         player.getShip().setCargo(startCargoStock, startCargo);
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("PlanetScreen");
     }
+    
 }

@@ -38,12 +38,6 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <MenuButton layoutX="24.0" layoutY="163.0" mnemonicParsing="false" text="MenuButton" visible="false">
-                    <items>
-                      <MenuItem fx:id="optionsButton" mnemonicParsing="false" onAction="#optionsAction" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
                </children>
             </AnchorPane>
          </children>

@@ -138,6 +138,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
             if (a && b && c && d) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
+                soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
             }
         }
     }
@@ -216,6 +217,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
         }           
 
         //random events happen on the planet you go to, only if changing planets
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         if (currentPlanet.isEqual(player.getPreviousPlanet())) {
             //dont do anything, you are already here
             controller.setScreen("PlanetScreen");
@@ -233,6 +235,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * Transitions to the galaxy map screen.
      */
     public void backAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("GalaxyMap");
     }
 }

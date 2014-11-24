@@ -30,11 +30,5 @@
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="32.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="310.0" />
       <Canvas fx:id="canvas" height="310.0" layoutX="32.0" layoutY="74.0" onMouseClicked="#onMouseClick" width="310.0" />
-      <MenuButton layoutX="12.0" layoutY="12.0" mnemonicParsing="false" text="MenuButton" visible="false">
-        <items>
-          <MenuItem fx:id="optionsButton" mnemonicParsing="false" onAction="#optionsAction" text="Options Button" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
    </children>
 </AnchorPane>

@@ -14,7 +14,7 @@ import spacetrader.SpaceTrader.ControlledScreen;
 public class PlanetScreenController implements ControlledScreen, Initializable {
     @FXML private Button shipyardButton;
     @FXML private Label planetName;
-    @FXML private MenuItem optionsButton;
+    //@FXML private MenuItem optionsButton;
     
     private SoundManager soundManager = SoundManager.getSoundManager();
     private ScreensController controller;
@@ -36,7 +36,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("PlanetScreen");
-        optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
@@ -61,6 +61,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Transitions back to the solar system map screen.
      */
     public final void backAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("SolarMap");
     }
     
@@ -68,6 +69,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Transitions to the market screen.
      */
     public final void marketAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("Market");
     }
     
@@ -75,6 +77,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Transitions to the ship yard screen.
      */
     public final void shipyardAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("Shipyard");
     }
     
@@ -82,10 +85,11 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Saves the game.
      */
     public final void saveAction(){
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         Context.getInstance().saveContextBinary();
     }
     
-    public final void optionsAction(){
-        controller.setScreen("OptionsScreen");
-    }
+    //public final void optionsAction(){
+    //    controller.setScreen("OptionsScreen");
+    //}
 }
