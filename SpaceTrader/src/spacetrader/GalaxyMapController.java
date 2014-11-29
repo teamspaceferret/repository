@@ -74,7 +74,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
         SolarSystem[] solarSystems;
         
         // Clear canvas
-        gc.clearRect(0, 0, Context.BOUNDARY_VISIBLE, Context.BOUNDARY_VISIBLE);
+        gc.clearRect(0, 0, Context.BOUNDARY_FULL, Context.BOUNDARY_FULL);
         
         solarSystems = Context.getInstance().getUniverse().getSolarSystems();
         
