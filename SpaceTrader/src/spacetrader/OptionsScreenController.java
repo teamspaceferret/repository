@@ -53,6 +53,7 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     }
     
     public void toggleBackgroundMusic(){
+        //make general to any music not just bg
         if(!soundManager.getBGMuted()){
             soundManager.muteBackgroundMusic(SoundManager.STARTSCREENID);
             toggleBGButton.setText("Play Background Music");
