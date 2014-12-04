@@ -49,6 +49,10 @@ public class Player implements Serializable{
         }
     }
     
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+    
     /**
      * Removes the given number of credits from the player's credit pool.
      * Returns true if the removal succeeded

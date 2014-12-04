@@ -30,7 +30,7 @@ public class SpaceTrader extends Application {
         mainContainer.loadScreen("PlanetScreen", "PlanetScreen.fxml");
         mainContainer.loadScreen("Market", "Market.fxml");
         mainContainer.loadScreen("Shipyard", "Shipyard.fxml");
-        
+        mainContainer.loadScreen("Encounter", "Encounter.fxml");
         mainContainer.loadScreen("OptionsScreen", "OptionsScreen.fxml");
         
         mainContainer.setScreen("StartScreen");

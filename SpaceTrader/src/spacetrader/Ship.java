@@ -11,10 +11,10 @@ public class Ship implements Serializable{
                 //minTechLevel, fuelCost, price, bounty, occurence, hullStr, police,
                 //pirate, trader, repairCost, size, range
                 types.put("flea",new int[]{10,0,0,0,1,200,4,1,2000,5,2,25,-1,-1,0,1,0,100});
-                types.put("gnat",new int[]{15,1,0,1,1,120,5,2,10000,50,28,100,0,0,0,1,1,100});
-                types.put("firefly",new int[]{20,1,1,1,1,150,5,3,25000,75,20,100,0,0,0,1,1,100});
-                types.put("mosquito",new int[]{15,2,1,1,1,100,5,5,30000,100,20,100,0,1,0,1,1,100});
-                types.put("bumblebee",new int[]{25,1,2,2,2,130,5,7,60000,125,15,100,0,1,0,1,2,100});
+                types.put("gnat",new int[]{15,1,0,1,1,120,5,2,10000,50,28,225,0,0,0,1,1,100});
+                types.put("firefly",new int[]{20,1,1,1,1,150,5,3,25000,75,20,275,0,0,0,1,1,100});
+                types.put("mosquito",new int[]{15,2,1,1,1,100,5,5,30000,100,20,275,0,1,0,1,1,100});
+                types.put("bumblebee",new int[]{25,1,2,2,2,130,5,7,60000,125,15,400,0,1,0,1,2,100});
                 
             }
 
@@ -170,6 +170,7 @@ public class Ship implements Serializable{
      * Gets whether or not the cargo is empty
      * @return true if cargo bay is empty, false otherwise
      */
+    
     public boolean isCargoEmpty(){
         if(usedCargoSlots == 0){
             return true;

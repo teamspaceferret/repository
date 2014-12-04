@@ -1,6 +1,7 @@
 package spacetrader;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -224,10 +225,15 @@ public class SolarMapController implements ControlledScreen, Initializable {
         } else {
             //a random event happens!
             //1/3 encounters
+            Random r = new Random();
+            if (r.nextInt(4) == 0 && !player.getShip().getWeapons().isEmpty()) {
+                controller.setScreen("Encounter");
+            } else {
             //controller.setScreen("Encounter");
             //2/3 random things
             //controller.setScreen("TravelEvent");
-            controller.setScreen("PlanetScreen");
+                controller.setScreen("PlanetScreen");
+            }
         }
     }
     

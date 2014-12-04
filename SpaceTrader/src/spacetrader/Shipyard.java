@@ -25,7 +25,7 @@ public class Shipyard implements Serializable {
     private Weapon[] weaponStock;
     private Shield[] shieldStock;
     
-    private static final HashMap<String, Shield> DEFAULT_SHIELDS =
+    public static final HashMap<String, Shield> DEFAULT_SHIELDS =
             new HashMap<>();
         static {
             DEFAULT_SHIELDS.put("Plate", new Shield("Plate", 50, 4));
@@ -39,7 +39,7 @@ public class Shipyard implements Serializable {
             DEFAULT_SHIELDS.put("Name8", new Shield("Name8"));
         }
         
-        private static final HashMap<String, Weapon> DEFAULT_WEAPONS =
+        public static final HashMap<String, Weapon> DEFAULT_WEAPONS =
                 new HashMap<>();
         static {
             DEFAULT_WEAPONS.put("Turret", new Weapon("Turret", 10, 4));

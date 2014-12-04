@@ -1,11 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.EncounterController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spacetrader.EncounterController">
+   <children>
+      <ProgressBar fx:id="playerHPBar" layoutX="14.0" layoutY="368.0" prefHeight="18.0" prefWidth="142.0" progress="1.0">
+         <effect>
+            <ColorAdjust contrast="0.67" hue="0.23" />
+         </effect></ProgressBar>
+      <ProgressBar fx:id="enemyHPBar" layoutX="14.0" layoutY="175.0" prefHeight="18.0" prefWidth="142.0" progress="1.0">
+         <effect>
+            <ColorAdjust contrast="0.72" hue="1.0" />
+         </effect></ProgressBar>
+      <ImageView fx:id="enemyView" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/player.jpg" />
+         </image></ImageView>
+      <ImageView fx:id="playerView" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/playerred.jpg" />
+         </image></ImageView>
+      <Text fx:id="playerHP" layoutX="161.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP: 9999">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="enemyHP" layoutX="161.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP: 9999">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <SplitPane dividerPositions="0.6, 0.7, 0.8" layoutX="244.0" layoutY="14.0" orientation="VERTICAL" prefHeight="374.0" prefWidth="339.0">
+        <items>
+          <AnchorPane fx:id="firstPane" minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="337.0">
+               <children>
+                  <Text layoutX="24.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FIGHT" underline="true" wrappingWidth="62.0">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="111.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open fire! Weapons must be purchased at Shipyard before use." underline="true" wrappingWidth="198.369140625" />
+                  <ToggleButton fx:id="turret" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Turret" />
+                  <ToggleButton fx:id="cannon" layoutX="12.0" layoutY="109.0" mnemonicParsing="false" text="Dual Cannon" />
+                  <ToggleButton fx:id="laser" layoutX="12.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Oculaser" />
+                  <Button fx:id="fire" layoutX="12.0" layoutY="182.0" mnemonicParsing="false" onAction="#turn" prefHeight="32.0" prefWidth="85.0" text="FIRE!" />
+                  <Text layoutX="111.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low damage, has a high chance to hit twice. Average critical hit  chance." wrappingWidth="231.84375" />
+                  <Text layoutX="111.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average damage, High critical hit chance when enemy has more than 50% HP." wrappingWidth="223.43359375" />
+                  <Text layoutX="111.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="High damage and hard to dodge. Above average critical hit chance." wrappingWidth="238.03125" />
+                  <Text layoutX="111.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a weapon button and press FIRE!" underline="true" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="secondPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text layoutX="84.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brace yourself! More effective with shields." />
+                  <Button fx:id="guard" layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#guard" prefHeight="25.0" prefWidth="59.0" text="GUARD" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="thirdPane" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text layoutX="84.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Run away! Hope you're a good pilot..." />
+                  <Button fx:id="flee" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#flee" prefHeight="25.0" prefWidth="59.0" text="FLEE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="lastPane" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TextArea fx:id="combatLog" editable="false" layoutX="74.0" layoutY="9.0" prefHeight="54.0" prefWidth="249.0" text="-taunt- \n you did this \n they did this" wrapText="true" />
+                  <Text layoutX="7.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Combat log:" wrappingWidth="79.0" />
+                  <Text layoutX="7.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turn #:" />
+                  <Text fx:id="turnCount" layoutX="48.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="20.46875" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Button fx:id="endButton" disable="true" layoutX="177.0" layoutY="114.0" mnemonicParsing="false" onAction="#nextScreen" text="Continue" visible="false" />
+   </children>
 </AnchorPane>

@@ -127,6 +127,7 @@ public class CharacterCreationController implements ControlledScreen,
             
             // Create player
             Context.getInstance().getPlayer().setName(playerName);
+            Context.getInstance().getPlayer().setCredits(9999999);
             Context.getInstance().getPlayer().setStats(stats);
             Context.getInstance().getPlayer().setShip(new Ship("gnat"));
             
