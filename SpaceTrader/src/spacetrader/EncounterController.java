@@ -24,6 +24,8 @@ public class EncounterController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         soundManager.setPrevScreen("Encounter");
+        soundManager.setCurrentBG(SoundManager.ENCOUNTER_BG_ID);
+        soundManager.playBGWithCheck(SoundManager.ENCOUNTER_BG_ID, SoundManager.ENCOUNTER_BG_PATH);
     }
     
     /**

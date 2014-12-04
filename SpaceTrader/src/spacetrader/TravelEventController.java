@@ -30,6 +30,8 @@ public class TravelEventController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("TravelEvent"); //may have to not do options during event
+        soundManager.setCurrentBG(SoundManager.EVENT_BG_ID);
+        soundManager.playBGWithCheck(SoundManager.EVENT_BG_ID, SoundManager.EVENT_BG_PATH);
 
         //display flavor text of the chosen event
         description.setText(randomEvent());
@@ -56,6 +58,7 @@ public class TravelEventController implements ControlledScreen, Initializable {
      * Continues to the planet.
      */
     public void continueAction() {
+        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen("PlanetScreen");
     }
     

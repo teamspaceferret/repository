@@ -28,6 +28,13 @@ public class SoundManager {
     public static final String COMPUTER_BEEP_ID = "ComputerBeep";
     public static final String COMPUTER_BEEP_PATH = "resources/ComputerBeep.wav";
     
+    //for random events, if working:
+    public static final String EVENT_BG_ID = "";
+    public static final String EVENT_BG_PATH = "resources/tension_short.wav";
+    //background for encounters
+    public static final String ENCOUNTER_BG_ID = "TensionLong";
+    public static final String ENCOUNTER_BG_PATH = "resources/tension_long.wav";
+    
     private static final SoundManager soundManager = new SoundManager();
     
     private HashMap<String,AudioClip> soundEffectsMap = new HashMap();
