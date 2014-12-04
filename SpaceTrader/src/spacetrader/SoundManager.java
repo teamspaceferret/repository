@@ -166,7 +166,7 @@ public class SoundManager {
     }
     
     public void unMuteBackgroundMusic(String id){
-        playBackgroundMusic(id);
+        
         bgMuted = false;
     }
     

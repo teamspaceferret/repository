@@ -45,6 +45,8 @@ public class SolarMapController implements ControlledScreen, Initializable {
         
         player = Context.getInstance().getPlayer();
         soundManager.setPrevScreen("SolarMap");
+        soundManager.setCurrentBG(SoundManager.COMPUTER_BEEP_ID);
+        soundManager.playBGWithCheck(SoundManager.COMPUTER_BEEP_ID, SoundManager.COMPUTER_BEEP_PATH);
         
         drawPlanets();
         this.fuelLabel.setText("Fuel: "

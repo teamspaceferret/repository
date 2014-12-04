@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.io.Serializable;
+import static spacetrader.Event.values;
 
 public enum TravelEvent implements Serializable {
     NONE("None", -1, "Nothing eventful occurs on your journey."),
@@ -27,7 +28,7 @@ public enum TravelEvent implements Serializable {
     PRICEINCREASE("Radical price increase", 6, "");
     
     private static final Random RAND = new Random();
-    private final List<TravelEvent> values = Arrays.asList(values());
+    private static final List<TravelEvent> values = Arrays.asList(values());
     private final String name;
     private final int id;
     private final String text;
