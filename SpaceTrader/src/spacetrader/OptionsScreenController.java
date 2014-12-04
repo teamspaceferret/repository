@@ -10,8 +10,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import spacetrader.SpaceTrader.ControlledScreen;
 
 /**
@@ -27,6 +25,7 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     
     private ScreensController controller;
     private SoundManager soundManager = SoundManager.getSoundManager();
+    private String currentBGID;
     
     /**
      * Initializes the controller class.
@@ -43,21 +42,16 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
 
     @Override
     public final void initScreen() {
-        //System.out.println("HASD:KFJ");
-        //backShortcut.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
-        //backShortcut.se
-        //backShortcut.setOnAction(new A);
-        //System.out.println(backShortcut.getAccelerator());
-        //System.out.println(soundManager.getPrevScreen());
-        //System.out.println(backShortcut.getOnAction().toString());
+        currentBGID = soundManager.getCurrentBG();
+        //if null, then wat?
     }
     
     public void toggleBackgroundMusic(){
         if(!soundManager.getBGMuted()){
-            soundManager.muteBackgroundMusic(SoundManager.STARTSCREENID);
+            soundManager.muteBackgroundMusic(currentBGID);
             toggleBGButton.setText("Play Background Music");
         } else {
-            soundManager.unMuteBackgroundMusic(SoundManager.STARTSCREENID);
+            soundManager.unMuteBackgroundMusic(currentBGID);
             toggleBGButton.setText("Mute Background Music");
         }
         soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
@@ -75,7 +69,6 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     }
     
     public void backAction(){
-        //System.out.println("ASDFLKEWAIJWEFAIO");
         soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
         controller.setScreen(soundManager.getPrevScreen());
     }

@@ -44,6 +44,9 @@ public class SolarMapController implements ControlledScreen, Initializable {
         
         player = Context.getInstance().getPlayer();
         soundManager.setPrevScreen("SolarMap");
+        if(!soundManager.currentlyPlayingBGMusicID().equals(SoundManager.COMPUTER_BEEP_ID)){
+            soundManager.playBGWithCheck(SoundManager.COMPUTER_BEEP_ID, SoundManager.COMPUTER_BEEP_PATH);
+        }
         
         drawPlanets();
         this.fuelLabel.setText("Fuel: "
@@ -138,7 +141,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
             if (a && b && c && d) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
-                soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
+                soundManager.playSEWithCheck(SoundManager.MAP_SELECT_BEEP_ID, SoundManager.MAP_SELECT_BEEP_PATH);
             }
         }
     }

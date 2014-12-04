@@ -8,10 +8,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-
-import javafx.scene.input.KeyCodeCombination;
-
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -25,8 +21,6 @@ public class CharacterCreationController implements ControlledScreen,
     @FXML private TextArea descriptions;
     @FXML private TextField engineerField, fighterField, investorField,
             nameEntry, pilotField, traderField;
-    //@FXML MenuItem optionsButton;
-
 
     private ScreensController controller;
     private int pointsRemaining = 15;
@@ -53,8 +47,8 @@ public class CharacterCreationController implements ControlledScreen,
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("CharacterCreation");
-        //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
-
+        soundManager.setCurrentBG(SoundManager.STARTSCREENID);
+        
         descriptions.setText("Please enter your name, hit Enter or the OK "
                 + "button, then enter your stats. Each stat may be between 0 "
                 + "and 5. You may hit the stat buttons for descriptions.");

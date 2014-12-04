@@ -114,6 +114,7 @@ public class ShipyardController implements Initializable, ControlledScreen {
     //flea, gnat, firefly, mosquito, bumblebee
     public final void initScreen() {
         soundManager.setPrevScreen("Shipyard");
+        soundManager.setCurrentBG(SoundManager.PLANET1_ID);
         
         //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 

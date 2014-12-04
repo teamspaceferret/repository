@@ -36,7 +36,11 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("PlanetScreen");
+        soundManager.setCurrentBG(SoundManager.PLANET1_ID);
         //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
+        
+        soundManager.setVolumeBG(.5);
+        soundManager.playBGWithCheck(SoundManager.PLANET1_ID, SoundManager.PLANET1_PATH);
         
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
@@ -85,7 +89,7 @@ public class PlanetScreenController implements ControlledScreen, Initializable {
      * Saves the game.
      */
     public final void saveAction(){
-        soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
+        soundManager.playSEWithCheck(SoundManager.SAVE_BEEP_ID, SoundManager.SAVE_BEEP_PATH);
         Context.getInstance().saveContextBinary();
     }
     

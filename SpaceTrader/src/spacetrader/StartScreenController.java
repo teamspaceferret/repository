@@ -37,6 +37,7 @@ public class StartScreenController implements ControlledScreen, Initializable {
         seMuted = soundManager.getSEMuted();
         bgMuted = soundManager.getBGMuted();
         soundManager.setPrevScreen("StartScreen");
+        soundManager.setCurrentBG(SoundManager.STARTSCREENID);
         
         //try changing all vers of options screen control to check current screen and toggeling
         optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));

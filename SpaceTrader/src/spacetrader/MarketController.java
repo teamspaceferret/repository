@@ -237,6 +237,8 @@ public class MarketController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("Market");
+        soundManager.setCurrentBG(SoundManager.PLANET1_ID);
+        
         universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         startCredits = player.getCredits();
