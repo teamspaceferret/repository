@@ -26,19 +26,17 @@ public enum TravelEvent implements Serializable {
             + "lottery! \n\n"),
     PRICEINCREASE("Radical price increase", 6, "");
     
-    private static final Random rand = new Random();
-    private final List<TravelEvent> VALUES = Arrays.asList(values());
-    private final String NAME;
-    private final int ID;
-    private String TEXT;
+    private static final Random RAND = new Random();
+    private final List<TravelEvent> values = Arrays.asList(values());
+    private final String name;
+    private final int id;
+    private final String text;
     
-    Universe universe = Context.getInstance().getUniverse();
-    Player player = Context.getInstance().getPlayer();
     
     private TravelEvent(String name, int id, String text) {
-        NAME = name;
-        ID = id;
-        TEXT = text;
+        this.name = name;
+        this.id = id;
+        this.text = text;
     }
     
     /**
@@ -46,13 +44,14 @@ public enum TravelEvent implements Serializable {
      * @return the text representation of what happened during the event
      */
     public String randomTravelEvent() {
+        Player player = Context.getInstance().getPlayer();
         //set last planet's events to NONE, since they only last 1 turn
         player.getPreviousPlanet().setEvent(Event.NONE);
-        TravelEvent selected = VALUES.get(rand.nextInt(VALUES.size()));
+        TravelEvent selected = values.get(RAND.nextInt(values.size()));
         //edit a copy of the base text, adding on the random effects to be printed
-        String eventText = selected.TEXT;
+        String eventText = selected.text;
         //do the things based on which event happened
-        if (selected.ID == 0) {
+        if (selected.id == 0) {
             //random amount between 0 and (1/4 total OR 50) <- whichever is lower
             int max;
             if (((player.getShip().getFuelLevel())/4) > 50) {
@@ -60,10 +59,10 @@ public enum TravelEvent implements Serializable {
             } else {
                 max = ((player.getShip().getFuelLevel())/4);
             }
-            int fuelToRemove = rand.nextInt(max);
+            int fuelToRemove = RAND.nextInt(max);
             player.getShip().subtractFuel(fuelToRemove);
             eventText += "You lose " + fuelToRemove + " units of fuel.";
-        } else if (selected.ID == 1) {
+        } else if (selected.id == 1) {
             if (player.getShip().getCurrentUsedCargoSlots() > 0) {
                 TradeGood stolenGood = null;
                 //go through all cargo to find which has quantity > 0, steal one
@@ -89,7 +88,7 @@ public enum TravelEvent implements Serializable {
                 eventText += "The joke is on him though. You didn't have any "
                         + "cargo anyway!";
             }
-        } else if (selected.ID == 2) {
+        } else if (selected.id == 2) {
             //would be cool to randomize which part breaks
             //random amount between 0 and (1/4 total OR 250) <- whichever is lower
             int max = 0;
@@ -98,11 +97,11 @@ public enum TravelEvent implements Serializable {
             } else {
                 max = ((player.getCredits())/4);
             }
-            int creditsToRemove = rand.nextInt(max);
+            int creditsToRemove = RAND.nextInt(max);
             player.removeCredits(creditsToRemove);
             eventText += "You lose " + creditsToRemove + " credits in repair "
                     + "costs.";
-        } else if (selected.ID == 3) {
+        } else if (selected.id == 3) {
             //would be cool to randomize how much fuel
             //if at max fuel, notify player
             if (player.getShip().getMaxFuelLevel() == 
@@ -123,7 +122,7 @@ public enum TravelEvent implements Serializable {
                 eventText += "You gain " + fuelAdded + " fuel and leave the "
                         + "rest as is.";
             }
-        } else if (selected.ID == 4) {
+        } else if (selected.id == 4) {
             //would be cool to randomize which good
             //if room in cargo hold, add cargo
             if (player.getShip().getCurrentUsedCargoSlots() 
@@ -134,11 +133,11 @@ public enum TravelEvent implements Serializable {
                 eventText += "However, you have no room in your cargo hold so "
                         + "you leave it alone.";
             }
-        } else if (selected.ID == 5) {
+        } else if (selected.id == 5) {
             //would be cool to randomize how many credits
             player.addCredits(100);
             eventText += "You gain 100 credits.";
-        } else if (selected.ID == 6) {
+        } else if (selected.id == 6) {
             eventText += "Something is happening now on " +
                     player.getCurrentPlanet().getName() + "! \n\n";
             player.getCurrentPlanet().setEvent(Event.NONE.randomEvent());
@@ -161,7 +160,7 @@ public enum TravelEvent implements Serializable {
      * @return event name
      */
     public String getName() {
-        return NAME;
+        return name;
     }
     
     /**
@@ -169,7 +168,7 @@ public enum TravelEvent implements Serializable {
      * @return event id
      */
     public int getID() {
-        return ID;
+        return id;
     }
     
     /**
@@ -177,7 +176,7 @@ public enum TravelEvent implements Serializable {
      * @return event name
      */
     public String getText() {
-        return TEXT;
+        return text;
     }
     
     /**
@@ -186,9 +185,6 @@ public enum TravelEvent implements Serializable {
      * @return true if event equals the given event
      */
     public boolean equals(Event other) {
-        if (other.getName().equals(this.getName())){
-            return true;
-        }
-        return false;
+        return other.getName().equals(this.getName());
     }
 }

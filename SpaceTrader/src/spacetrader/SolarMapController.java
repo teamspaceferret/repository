@@ -45,6 +45,11 @@ public class SolarMapController implements ControlledScreen, Initializable {
         
         player = Context.getInstance().getPlayer();
         soundManager.setPrevScreen("SolarMap");
+        soundManager.setCurrentBG(SoundManager.COMPUTER_BEEP_ID);
+        
+        if(!soundManager.currentlyPlayingBGMusicID().equals(SoundManager.COMPUTER_BEEP_ID)){
+            soundManager.playBGWithCheck(SoundManager.COMPUTER_BEEP_ID, SoundManager.COMPUTER_BEEP_PATH);
+        }
         
         drawPlanets();
         this.fuelLabel.setText("Fuel: "
@@ -139,7 +144,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
             if (a && b && c && d) {
                 selectedPlanet = planet;
                 setDescription(selectedPlanet);
-                soundManager.playSEWithCheck(SoundManager.CLICKID, SoundManager.CLICKPATH);
+                soundManager.playSEWithCheck(SoundManager.MAP_SELECT_BEEP_ID, SoundManager.MAP_SELECT_BEEP_PATH);
             }
         }
     }
@@ -202,6 +207,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet destination planet
      */
     public final void travelToPlanet(final Planet planet) {
+        Random rand;
         Planet currentPlanet = player.getCurrentPlanet();
         Coordinate coords = currentPlanet.getCoords();
         
@@ -226,12 +232,11 @@ public class SolarMapController implements ControlledScreen, Initializable {
             //a random event happens!
             //1/3 encounters
             Random r = new Random();
-            if (r.nextInt(4) == 0 && !player.getShip().getWeapons().isEmpty()) {
+            if (r.nextInt(1) == 0 && !player.getShip().getWeapons().isEmpty()) {
                 controller.setScreen("Encounter");
+            } else if (r.nextInt(3) == 1) {
+                    controller.setScreen("TravelEvent");
             } else {
-            //controller.setScreen("Encounter");
-            //2/3 random things
-            //controller.setScreen("TravelEvent");
                 controller.setScreen("PlanetScreen");
             }
         }

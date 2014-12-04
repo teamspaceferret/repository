@@ -57,9 +57,7 @@ public class MarketController implements ControlledScreen, Initializable {
     @FXML private Slider robotSlider;
 
     private ScreensController controller;
-    private Universe universe = Context.getInstance().getUniverse();
     private Player player = Context.getInstance().getPlayer();
-    private SolarSystem currentlySelected;
     private final static Random RANDOM = new Random();
     private final static int[] STOCKGOODS = new int[TradeGood.NUM_TRADE_GOODS];
     private final HashMap<TradeGood, Integer> stockPrices = new HashMap<>();
@@ -68,7 +66,6 @@ public class MarketController implements ControlledScreen, Initializable {
 
     private SoundManager soundManager = SoundManager.getSoundManager();
     private final HashMap<TradeGood, Boolean> tradingGoods = new HashMap<>();
-    private final HashMap<TradeGood, Label[]> labelsForGoods = new HashMap<>();
     private int startCredits;
     private int startCargo;
 
@@ -237,7 +234,8 @@ public class MarketController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("Market");
-        universe = Context.getInstance().getUniverse();
+        soundManager.setCurrentBG(SoundManager.PLANET1_ID);
+        
         player = Context.getInstance().getPlayer();
         startCredits = player.getCredits();
         startCargo = player.getShip().getCurrentUsedCargoSlots();

@@ -42,12 +42,14 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     @Override
     public final void initScreen() {
         soundManager.setPrevScreen("GalaxyMap");
+        soundManager.setCurrentBG(SoundManager.COMPUTER_BEEP_ID);
         //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
         universe = Context.getInstance().getUniverse();
         
         player = Context.getInstance().getPlayer();
-        soundManager.setVolumeBG(.1);
-        soundManager.playBGWithCheck("ComputerBeep", "resources/ComputerBeep.wav");
+        soundManager.setVolumeBG(.2);
+        soundManager.setVolumeSE(.4); //need a better soln, to control the vol a single sound is played at
+        soundManager.playBGWithCheck(SoundManager.COMPUTER_BEEP_ID, SoundManager.COMPUTER_BEEP_PATH);
         drawSolarSystems();
         SolarSystem ss = player.getCurrentPlanet().getParentSolarSystem();
         setDescription(ss);
@@ -137,7 +139,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
                     + Context.DOT_SIZE
                     && event.getY() >= solarSystem.getCoords().getY()) {
 
-                soundManager.playSoundEffect(SoundManager.CLICKID); //change to a beep sound instead
+                soundManager.playSEWithCheck(SoundManager.MAP_SELECT_BEEP_ID, SoundManager.MAP_SELECT_BEEP_PATH);
                 setDescription(solarSystem);
                 Context.getInstance().setFocus(solarSystem);
             }
@@ -170,6 +172,7 @@ public class GalaxyMapController implements ControlledScreen, Initializable {
     public final void selectSystem() {
         SolarSystem focus = Context.getInstance().getFocus();
         if (focus != null) {
+            soundManager.setVolumeSE(1);
             soundManager.playSoundEffect(SoundManager.CLICKID);
             controller.setScreen("SolarMap");
 

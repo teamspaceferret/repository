@@ -24,7 +24,7 @@ public class Planet implements Serializable{
         this.govt = Government.ANARCHY;
         this.event = Event.NONE;
         this.market = new Market();
-        this.shipyard = new Shipyard(this);
+        this.shipyard = new Shipyard();
     }
     
     /**

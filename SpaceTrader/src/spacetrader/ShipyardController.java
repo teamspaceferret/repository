@@ -41,8 +41,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private TextArea buyShipStats;
     @FXML private TextArea currentShipStats;
     
-    @FXML private TextField playerFuel;
-    @FXML private TextField playerCargoSlots;
     @FXML private TextField playerWeapon1;
     @FXML private TextField playerWeapon2;
     @FXML private TextField playerWeapon3;
@@ -78,7 +76,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @FXML private Label playerCreditNum1; //credits on upgrade ship
     @FXML private Label playerCreditNum2; //credits on buy new ship
     @FXML private Tab weaponsTab;
-    @FXML private Tab shipTab;
     @FXML private TabPane tabPane;
     
     //@FXML private MenuItem optionsButton;
@@ -91,7 +88,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
     
     private SoundManager soundManager = SoundManager.getSoundManager();
 
-    private Universe universe = Context.getInstance().getUniverse();
     private Player player = Context.getInstance().getPlayer();
     private Ship selectedToBuy;
     private Shipyard shipyard;
@@ -114,10 +110,10 @@ public class ShipyardController implements Initializable, ControlledScreen {
     //flea, gnat, firefly, mosquito, bumblebee
     public final void initScreen() {
         soundManager.setPrevScreen("Shipyard");
+        soundManager.setCurrentBG(SoundManager.PLANET1_ID);
         
         //optionsButton.setAccelerator(new KeyCodeCombination(KeyCode.ESCAPE));
 
-        universe = Context.getInstance().getUniverse();
         player = Context.getInstance().getPlayer();
         shipyard = player.getCurrentPlanet().getShipyard();
         Planet planet = player.getCurrentPlanet();
@@ -197,23 +193,6 @@ public class ShipyardController implements Initializable, ControlledScreen {
     @Override
     public void initialize(final URL location,
             final ResourceBundle resources) { }
-    
-   /**
-    * Helper method to map integer values to the TextFields
-    * 
-    * @return HashMap mapping ints to fields
-    */
-    private TextField[] mapIntsToFields() {
-        TextField[] fields = new TextField[7];
-        fields[0] = playerWeapon1;
-        fields[1] = playerWeapon2;
-        fields[2] = playerWeapon3;
-        fields[3] = playerShield1;
-        fields[4] = playerShield2;
-        fields[5] = playerFuel;
-        fields[6] = playerCargoSlots;
-        return fields;
-    }
     
    /**
     * Helper method to map integer values to the Labels

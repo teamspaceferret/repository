@@ -85,9 +85,9 @@ public class EncounterController implements ControlledScreen, Initializable {
     }
     
     public void availableWeapons() {
-        turret.setDisable(true);
-        cannon.setDisable(true);
-        laser.setDisable(true);
+        //turret.setDisable(true);
+        //cannon.setDisable(true);
+        //laser.setDisable(true);
         for (Weapon w : playerShip.getWeapons()) {
             if (w.getName().equals("Turret")) {
                 turret.setDisable(false);
@@ -174,6 +174,8 @@ public class EncounterController implements ControlledScreen, Initializable {
     @Override
     public void initScreen() {
         soundManager.setPrevScreen("Encounter");
+        soundManager.setCurrentBG(SoundManager.ENCOUNTER_BG_ID);
+        soundManager.playBGWithCheck(SoundManager.ENCOUNTER_BG_ID, SoundManager.ENCOUNTER_BG_PATH);
         combatLog.setText(quips[0]);
         stats = Context.getInstance().getPlayer().getStats();
         //stats = new int[]{5, 5, 5, 5, 5};

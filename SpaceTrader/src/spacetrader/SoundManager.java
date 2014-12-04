@@ -19,6 +19,21 @@ public class SoundManager {
     public static final String CLICKPATH = "resources/StepFast-2.wav";
     public static final String STARTSCREENID = "OpenInitial";
     public static final String STARTSCREENPATH = "resources/OpenInitial.wav";
+    public static final String MAP_SELECT_BEEP_PATH = "resources/button_beep.wav";
+    public static final String MAP_SELECT_BEEP_ID = "MapSelect";
+    public static final String PLANET1_PATH = "resources/Planet1.wav";
+    public static final String PLANET1_ID = "Planet1";
+    public static final String SAVE_BEEP_PATH = "resources/save_beep.wav";
+    public static final String SAVE_BEEP_ID = "SaveBeep";
+    public static final String COMPUTER_BEEP_ID = "ComputerBeep";
+    public static final String COMPUTER_BEEP_PATH = "resources/ComputerBeep.wav";
+    
+    //for random events, if working:
+    public static final String EVENT_BG_ID = "";
+    public static final String EVENT_BG_PATH = "resources/tension_short.wav";
+    //background for encounters
+    public static final String ENCOUNTER_BG_ID = "TensionLong";
+    public static final String ENCOUNTER_BG_PATH = "resources/tension_long.wav";
     
     private static final SoundManager soundManager = new SoundManager();
     
@@ -31,6 +46,7 @@ public class SoundManager {
     private boolean bgMuted = false;
     private boolean seMuted = false;
     private String previousScreen;
+    private String currentBGID;
     
     private void loadSoundEffect(String id, String path){
         URL url = getClass().getResource(path);
@@ -70,6 +86,7 @@ public class SoundManager {
             }
         };
         soundPool.execute(bgPlay);
+        //currentBG = backgroundMusicMap.get(id);
     }
     
     /**
@@ -91,9 +108,7 @@ public class SoundManager {
             if(!currentID.equals(id) && !currentID.equals("")){
                soundManager.backgroundMusicMap.get(currentID).stop();
                soundManager.playBackgroundMusic(id);
-            } else if (currentID.equals(id)){
-                //correct music playing, do nothing
-            } else {
+            } else if (!currentID.equals(id)){
                 soundManager.playBackgroundMusic(id);
             }
         }
@@ -140,16 +155,8 @@ public class SoundManager {
         return seMuted;
     }
     
-    private AudioClip getPlayingBGMusic(){
-        AudioClip playing = null;
-        backgroundMusicMap.values();
-        
-        
-        return playing;
-    }
-    
     public void muteBackgroundMusic(String id){
-        AudioClip toMute = soundManager.getBackgroundMusic(id);
+        AudioClip toMute = backgroundMusicMap.get(id);
         toMute.stop();
         bgMuted = true;
     }
@@ -204,6 +211,14 @@ public class SoundManager {
      */
     public static SoundManager getSoundManager(){
         return soundManager;
+    }
+    
+    public void setCurrentBG(String id){
+        currentBGID = id;
+    }
+    
+    public String getCurrentBG(){
+        return currentBGID;
     }
     
 }

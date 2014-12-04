@@ -19,7 +19,6 @@ public class Ship implements Serializable{
             }
 
     private String type;
-    private boolean hasEscapePod;
     private HashMap<TradeGood,Integer> cargo;
     private ArrayList<Weapon> weapons;
     private ArrayList<Shield> shields;
@@ -48,11 +47,6 @@ public class Ship implements Serializable{
      */
     public Ship(String type){
         this.type = type.toLowerCase();
-        if (type.equals("flea")){
-            hasEscapePod = true;
-        } else {
-            hasEscapePod = false;
-        }
         int[] stats = types.get(type);
         cargo = new HashMap<>();
         weapons = new ArrayList<Weapon>();
