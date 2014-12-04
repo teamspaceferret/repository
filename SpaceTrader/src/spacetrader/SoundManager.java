@@ -108,9 +108,7 @@ public class SoundManager {
             if(!currentID.equals(id) && !currentID.equals("")){
                soundManager.backgroundMusicMap.get(currentID).stop();
                soundManager.playBackgroundMusic(id);
-            } else if (currentID.equals(id)){
-                //correct music playing, do nothing
-            } else {
+            } else if (!currentID.equals(id)){
                 soundManager.playBackgroundMusic(id);
             }
         }

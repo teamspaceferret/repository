@@ -34,7 +34,8 @@ public class TravelEventController implements ControlledScreen, Initializable {
         soundManager.playBGWithCheck(SoundManager.EVENT_BG_ID, SoundManager.EVENT_BG_PATH);
 
         //display flavor text of the chosen event
-        description.setText(randomEvent());
+        //description.setText(randomEvent());
+        description.setText("A random event happened.");
     }
     
     /**
@@ -51,7 +52,9 @@ public class TravelEventController implements ControlledScreen, Initializable {
      * @return the text output by what occurred during the event
      */
     public String randomEvent() {
-        return TravelEvent.NONE.randomTravelEvent();
+        TravelEvent event;
+        event = TravelEvent.NONE;
+        return event.randomTravelEvent();
     }
     
     /**

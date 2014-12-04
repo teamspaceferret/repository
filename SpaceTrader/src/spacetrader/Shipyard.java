@@ -13,8 +13,6 @@ import java.util.HashMap;
  * @author Cora
  */
 public class Shipyard implements Serializable {
-    private final int maxShieldNum = 5;//for 
-    private final int maxWeaponNum = 5;
     public static final int TURRET_IDX = 0;
     public static final int CANNON_IDX = 1;
     public static final int OCULASER_IDX = 2;
@@ -53,8 +51,7 @@ public class Shipyard implements Serializable {
             DEFAULT_WEAPONS.put("Name8", new Weapon("Name8"));
         }
     
-    public Shipyard(final Planet hostPlanet) {
-        planet = hostPlanet;
+    public Shipyard() {
         //Random rand = new Random();
         weaponStock = new Weapon[] {DEFAULT_WEAPONS.get("Turret"),
         DEFAULT_WEAPONS.get("Dual Cannon"), DEFAULT_WEAPONS.get("Oculaser")};
@@ -112,7 +109,7 @@ public class Shipyard implements Serializable {
     */
     /*public static void main(String[] args){
         Planet p = new Planet();
-        Shipyard s = new Shipyard(p);
+        Shipyard s = new Shipyard();
         Set<String> keys = s.getShieldNames();
         for(String key : keys){
             System.out.println(key);

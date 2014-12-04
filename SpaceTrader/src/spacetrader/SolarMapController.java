@@ -1,6 +1,7 @@
 package spacetrader;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -206,6 +207,7 @@ public class SolarMapController implements ControlledScreen, Initializable {
      * @param planet destination planet
      */
     public final void travelToPlanet(final Planet planet) {
+        Random rand;
         Planet currentPlanet = player.getCurrentPlanet();
         Coordinate coords = currentPlanet.getCoords();
         
@@ -227,12 +229,12 @@ public class SolarMapController implements ControlledScreen, Initializable {
             //dont do anything, you are already here
             controller.setScreen("PlanetScreen");
         } else {
-            //a random event happens!
-            //1/3 encounters
-            //controller.setScreen("Encounter");
-            //2/3 random things
-            //controller.setScreen("TravelEvent");
-            controller.setScreen("PlanetScreen");
+            rand = new Random();
+            if (rand.nextInt(3) == 1) {
+                controller.setScreen("TravelEvent");
+            } else {
+                controller.setScreen("PlanetScreen");
+            }
         }
     }
     

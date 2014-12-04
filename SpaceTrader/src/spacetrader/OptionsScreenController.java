@@ -21,8 +21,6 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
     @FXML private MenuItem toggleBGButton;
     @FXML private MenuItem toggleSEButton;
     
-    @FXML private MenuItem backShortcut;
-    
     private ScreensController controller;
     private SoundManager soundManager = SoundManager.getSoundManager();
     private String currentBGID;
