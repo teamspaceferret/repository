@@ -29,7 +29,7 @@ public class SoundManager {
     public static final String COMPUTER_BEEP_PATH = "resources/ComputerBeep.wav";
     
     //for random events, if working:
-    public static final String EVENT_BG_ID = "";
+    public static final String EVENT_BG_ID = "Event";
     public static final String EVENT_BG_PATH = "resources/tension_short.wav";
     //background for encounters
     public static final String ENCOUNTER_BG_ID = "TensionLong";
