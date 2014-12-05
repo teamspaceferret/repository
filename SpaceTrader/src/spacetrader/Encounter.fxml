@@ -19,13 +19,13 @@
          <effect>
             <ColorAdjust contrast="0.72" hue="1.0" />
          </effect></ProgressBar>
-      <ImageView fx:id="enemyView" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="playerImage" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@resources/player.jpg" />
+            <Image url="@resources/playership.jpg" />
          </image></ImageView>
-      <ImageView fx:id="playerView" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="enemyImage" fitHeight="150.0" fitWidth="215.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@resources/playerred.jpg" />
+            <Image url="@resources/pirate.jpg" />
          </image></ImageView>
       <Text fx:id="playerHP" layoutX="161.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP: 9999">
          <font>
@@ -46,7 +46,7 @@
                         <Font size="22.0" />
                      </font>
                   </Text>
-                  <Text layoutX="111.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open fire! Weapons must be purchased at Shipyard before use." underline="true" wrappingWidth="198.369140625" />
+                  <Text layoutX="111.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Open fire! Weapons need to be purchased in shipyard before use." underline="true" wrappingWidth="198.369140625" />
                   <ToggleButton fx:id="turret" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Turret" />
                   <ToggleButton fx:id="cannon" layoutX="12.0" layoutY="109.0" mnemonicParsing="false" text="Dual Cannon" />
                   <ToggleButton fx:id="laser" layoutX="12.0" layoutY="147.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Oculaser" />
@@ -55,6 +55,7 @@
                   <Text layoutX="111.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average damage, High critical hit chance when enemy has more than 50% HP." wrappingWidth="223.43359375" />
                   <Text layoutX="111.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="High damage and hard to dodge. Above average critical hit chance." wrappingWidth="238.03125" />
                   <Text layoutX="111.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a weapon button and press FIRE!" underline="true" />
+                  <Button fx:id="buyButton" disable="true" layoutX="158.0" layoutY="182.0" mnemonicParsing="false" onAction="#buy" text="Buy" visible="false" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="secondPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -80,5 +81,7 @@
         </items>
       </SplitPane>
       <Button fx:id="endButton" disable="true" layoutX="177.0" layoutY="114.0" mnemonicParsing="false" onAction="#nextScreen" text="Continue" visible="false" />
+      <Text fx:id="playerLabel" layoutX="163.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You" />
+      <Text fx:id="enemyLabel" layoutX="163.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pirate" />
    </children>
 </AnchorPane>

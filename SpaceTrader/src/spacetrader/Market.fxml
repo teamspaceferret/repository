@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -18,17 +19,17 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <Button fx:id="confirmButton" layoutX="441.0" layoutY="247.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="45.0" prefWidth="105.0" text="Confirm">
+            <Button fx:id="confirmButton" layoutX="436.0" layoutY="273.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="45.0" prefWidth="105.0" text="Confirm">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="creditLabel" layoutX="441.0" layoutY="119.0" text="Credits: ">
+            <Label fx:id="creditLabel" layoutX="427.0" layoutY="175.0" text="Credits: ">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="cargoLabel" layoutX="441.0" layoutY="177.0" text="Cargo Bays: ">
+            <Label fx:id="cargoLabel" layoutX="427.0" layoutY="202.0" text="Cargo Bays: ">
                <font>
                   <Font size="16.0" />
                </font>
@@ -243,6 +244,11 @@
             <Slider fx:id="medicineSlider" layoutX="224.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
             <Slider fx:id="foodSlider" layoutX="224.0" layoutY="19.0" max="99.0" prefHeight="14.0" prefWidth="0.0" visible="false" />
             <Slider fx:id="robotSlider" layoutX="359.0" layoutY="36.0" max="99.0" prefHeight="14.0" prefWidth="15.0" visible="false" />
+            <ImageView fitHeight="136.0" fitWidth="178.0" layoutX="427.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/marketplace.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

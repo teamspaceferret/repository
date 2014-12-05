@@ -1,19 +1,21 @@
 package spacetrader;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-import spacetrader.SpaceTrader.ControlledScreen;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.text.Text;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
-import java.util.Random;
-import java.util.HashMap;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import spacetrader.SpaceTrader.ControlledScreen;
 
 public class EncounterController implements ControlledScreen, Initializable {
     ScreensController controller;
@@ -23,13 +25,21 @@ public class EncounterController implements ControlledScreen, Initializable {
     @FXML private ToggleButton cannon; 
     @FXML private ToggleButton laser;
     @FXML private ToggleGroup group;
+    @FXML private ImageView enemyImage;
+    @FXML private ImageView playerImage;
     @FXML private Button fire;
     @FXML private Button guard;
     @FXML private Button flee;
+    @FXML private Button printWeaps;
+    @FXML private Button addT;
+    @FXML private Button addC;
+    @FXML private Button addL;
     @FXML private TextArea combatLog;
     @FXML private Text playerHP;
     @FXML private Text enemyHP;
     @FXML private Text turnCount;
+    @FXML private Text enemyLabel;
+    @FXML private Text playerLabel;
     @FXML private ProgressBar playerHPBar;
     @FXML private ProgressBar enemyHPBar;
     @FXML private AnchorPane firstPane;
@@ -38,6 +48,7 @@ public class EncounterController implements ControlledScreen, Initializable {
     @FXML private AnchorPane lastPane;
     @FXML private Text endText;
     @FXML private Button endButton;
+    @FXML private Button buyButton;
     private Random random;
     private HashMap weapons;
     private HashMap shields;
@@ -51,6 +62,8 @@ public class EncounterController implements ControlledScreen, Initializable {
     private int maxPlayerHP;
     private int maxEnemyHP;
     private int turnCounter;
+    private int amt;
+    private TradeGood good;
     private double playerAcc;
     private double enemyAcc;
     private int[] stats;
@@ -65,7 +78,9 @@ public class EncounterController implements ControlledScreen, Initializable {
                                             + " Kill them with kindness?"};//11 cont.
     private String playerLastMove;
     private String enemyLastMove;
+    private String type;
     private boolean isGuarding, isFleeing;
+    private String pirateType, policeType, traderType;
     
     /**
      * Set the screen parent.
@@ -85,9 +100,9 @@ public class EncounterController implements ControlledScreen, Initializable {
     }
     
     public void availableWeapons() {
-        //turret.setDisable(true);
-        //cannon.setDisable(true);
-        //laser.setDisable(true);
+        turret.setDisable(true);
+        cannon.setDisable(true);
+        laser.setDisable(true);
         for (Weapon w : playerShip.getWeapons()) {
             if (w.getName().equals("Turret")) {
                 turret.setDisable(false);
@@ -97,6 +112,61 @@ public class EncounterController implements ControlledScreen, Initializable {
                 laser.setDisable(false);
             }
         }
+    }
+    
+    private String genRate(String type, double genPolice) {
+        if (genPolice == 1.0) {
+            return type;
+        } else {
+            if (random.nextDouble() < genPolice) {
+                return type;
+            }
+            return "";
+        }
+    }
+    
+    private void detEncounterRates(Government govt) {
+        policeType = genRate("police", (double)govt.getPolice() * .1);
+        pirateType = genRate("pirate", (double)govt.getPirate() * .1);
+        traderType = genRate("trader", (double)govt.getPirate() * .1);
+    }
+    
+    public String setEncounterType() {
+        Planet current = Context.getInstance().getPlayer().getCurrentPlanet();
+        Government govt = current.getGovernment();
+        policeType = "";
+        pirateType = "";
+        traderType = "";
+        detEncounterRates(govt);
+        String[] types = new String[]{policeType, pirateType, traderType};
+        String[] trues = new String[3];
+        int counter = 0;
+        for (String s : types) {
+            if (!s.equals("")) {
+                trues[counter] = s;
+                counter++;
+            }
+        }
+        if (counter == 0 || counter == 3) {
+            int temp = random.nextInt(3);
+            if (temp == 0 && govt.getPolice() != 0) {
+                return policeType;
+            } else if (temp == 1 && govt.getPirate() != 0) {
+                return pirateType;
+            } else if (temp == 2 && govt.getTrader() != 0 ) {
+                return traderType;
+            }
+        } else if (counter == 2) {
+            int temp = random.nextInt(2);
+            if (temp == 0) {
+                return trues[0];
+            } else if (temp == 1) {
+                return trues[1];
+            }
+        } else {
+            return trues[0];
+        }
+        return "";
     }
     
     public void initHP() {
@@ -168,6 +238,36 @@ public class EncounterController implements ControlledScreen, Initializable {
         }
         return quips[choice];
     }
+    
+    public void typeSetUp(String type) {
+        if (type.equals("police")) {
+            enemyImage.setImage(new Image("spacetrader/resources/police.jpg"));
+            playerImage.setImage(new Image("spacetrader/resources/playership.jpg"));
+            combatLog.setText("5-0! The cops are on your tail!");
+            enemyLabel.setText("Police");
+        } else if (type.equals("pirate")) {
+            enemyImage.setImage(new Image("spacetrader/resources/pirate.jpg"));
+            playerImage.setImage(new Image("spacetrader/resources/playership.jpg"));
+            combatLog.setText("Pirates stop you dead in your tracks...they want your cargo!");
+            enemyLabel.setText("Pirate");
+        } else {
+            enemyImage.setImage(new Image("spacetrader/resources/trader.jpg"));
+            playerImage.setImage(new Image("spacetrader/resources/playerface.jpg"));
+            combatLog.setText("Oh, a trader. Maybe they want to make a deal?");
+            enemyLabel.setText("Trader");
+        }
+    }
+    
+    public void typeBreakDown(String type) {
+        if (type.equals("police")) {
+            
+        } else if (type.equals("pirate")) {
+            
+        } else {
+            
+        }
+    }
+    
     /**
      * Initializes the screen.
      */
@@ -176,13 +276,13 @@ public class EncounterController implements ControlledScreen, Initializable {
         soundManager.setPrevScreen("Encounter");
         soundManager.setCurrentBG(SoundManager.ENCOUNTER_BG_ID);
         soundManager.playBGWithCheck(SoundManager.ENCOUNTER_BG_ID, SoundManager.ENCOUNTER_BG_PATH);
-        combatLog.setText(quips[0]);
-        stats = Context.getInstance().getPlayer().getStats();
-        //stats = new int[]{5, 5, 5, 5, 5};
-        Context.getInstance().getPlayer().setShip(new Ship("bumblebee"));
         random = new Random();
         playerShip = Context.getInstance().getPlayer().getShip();
         enemyShip = chooseEnemy();
+        type = setEncounterType();
+        //type = "trader";
+        typeSetUp(type);
+        stats = Context.getInstance().getPlayer().getStats(); 
         initHP();
         availableWeapons();
         turnCounter = 1;
@@ -202,6 +302,9 @@ public class EncounterController implements ControlledScreen, Initializable {
         cannon.setUserData("cannon");
         laser.setToggleGroup(group);
         laser.setUserData("laser");
+        if (type.equals("trader")) {
+            endFightTrader();
+        }
     }
     
     public void endFight() {
@@ -214,9 +317,31 @@ public class EncounterController implements ControlledScreen, Initializable {
         endButton.setDisable(false);
         firstPane.getChildren().add(endText);
         firstPane.getChildren().add(endButton);
-        AnchorPane.setTopAnchor(endText, 15.0);
+        firstPane.getChildren().add(buyButton);
+        AnchorPane.setTopAnchor(endText, 20.0);
         AnchorPane.setRightAnchor(endButton, 2.0);
         AnchorPane.setBottomAnchor(endButton, 2.0);
+    }
+    
+    public void endFightTrader() {
+        endFight();
+        buyButton.setVisible(true);
+        buyButton.setDisable(false);
+        int goodType = random.nextInt(10);
+        good = TradeGood.getGoodFromID(goodType);
+        amt = getRandom(1, 3);
+        int price = amt * (good.calcMarketPrice() - getRandom(25, 40));
+        endText.setText("I'll sell you " + amt + " " + good.getName() + "(s) for " + price + " credits! "
+                + "(Your credits: " + Context.getInstance().getPlayer().getCredits() + " cr.)");
+        
+    }
+    
+    public void buy() {
+        endText.setText("Thanks!");
+        playerShip.addToCargo(good, amt);
+        int creds = Context.getInstance().getPlayer().getCredits();
+        Context.getInstance().getPlayer().setCredits(creds - amt);
+        buyButton.setDisable(true);
     }
     
     public void nextScreen() {

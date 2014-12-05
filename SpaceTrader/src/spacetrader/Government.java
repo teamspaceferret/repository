@@ -12,7 +12,7 @@ public enum Government implements Serializable {
         TradeGood.NARCOTICS}),
     COMMUNIST("Communist", 2, 8, 0, 2, new TradeGood[] {TradeGood.FIREARMS,
         TradeGood.NARCOTICS}),
-    CONFEDERACY("Confederacy", 3, 4, 2, 5, new TradeGood[] {TradeGood.FIREARMS,
+    CONFEDERACY("Confederacy", 3, 4, 1, 5, new TradeGood[] {TradeGood.FIREARMS,
         TradeGood.NARCOTICS}),
     CORPORATE("Corporate", 4, 5, 0, 5, new TradeGood[0]),
     CYBERNETIC("Cybernetic", 5, 3, 2, 5, new TradeGood[] {TradeGood.FIREARMS,

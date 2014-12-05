@@ -5,16 +5,16 @@ import java.util.Random;
  *
  */
 public enum TradeGood {
-    WATER(0, 0, 2, 30, 3, 4, 1, 0, 4, 3, 30, 50, 0),
-    FURS(0, 0, 0, 250, 10, 10, 2, 9, 7, 8, 230, 280, 1),
-    FOOD(0, 1, 1, 100, 5, 5, 10, 11, 5, 6, 90, 160, 2),
-    ORE(2, 2, 3, 350, 20, 10, 3, 0, 1, 2, 350, 420, 3),
-    GAMES(1, 3, 6, 250, -10, 5, 4, 0, 11, 0, 160, 270, 4),
-    FIREARMS(1, 3, 5, 1250, -75, 100, 7, 12, 12, 13, 600, 1100, 5),
-    MEDICINE(1, 4, 6, 650, -20, 10, 5, 0, 10, 8, 400, 700, 6),
-    MACHINES(3, 4, 5, 900, -30, 5, 6, 13, 0, 0, 600, 800, 7),
-    NARCOTICS(0, 5, 5, 3500, -125, 150, 12, 14, 9, 0, 2000, 3000, 8),
-    ROBOTS(4, 6, 7, 5000, -150, 100, 6, 13, 0, 0, 3500, 5000, 9);
+    WATER(0, 0, 2, 30, 3, 4, 1, 0, 4, 3, 30, 50, 0, "water"),
+    FURS(0, 0, 0, 250, 10, 10, 2, 9, 7, 8, 230, 280, 1, "fur"),
+    FOOD(0, 1, 1, 100, 5, 5, 10, 11, 5, 6, 90, 160, 2, "food"),
+    ORE(2, 2, 3, 350, 20, 10, 3, 0, 1, 2, 350, 420, 3, "ore"),
+    GAMES(1, 3, 6, 250, -10, 5, 4, 0, 11, 0, 160, 270, 4, "game"),
+    FIREARMS(1, 3, 5, 1250, -75, 100, 7, 12, 12, 13, 600, 1100, 5, "firearm"),
+    MEDICINE(1, 4, 6, 650, -20, 10, 5, 0, 10, 8, 400, 700, 6, "medicine"),
+    MACHINES(3, 4, 5, 900, -30, 5, 6, 13, 0, 0, 600, 800, 7, "machine"),
+    NARCOTICS(0, 5, 5, 3500, -125, 150, 12, 14, 9, 0, 2000, 3000, 8, "narcotic"),
+    ROBOTS(4, 6, 7, 5000, -150, 100, 6, 13, 0, 0, 3500, 5000, 9, "robot");
     
     public static final int NUM_TRADE_GOODS = 10;
     public static final int WATER_ID = 0;
@@ -48,6 +48,7 @@ public enum TradeGood {
      */
 
     private final int mtlb, mtls, ttp, basePrice, ipl, variance, rtl, rth, id;
+    private final String name;
     private final Event ie, de;
     private final Resource cr, er;
     private final Universe universe = Context.getInstance().getUniverse();
@@ -56,7 +57,7 @@ public enum TradeGood {
     private TradeGood(final int mtlb, final int mtls, final int ttp,
             final int basePrice, final int ipl, final int variance,
             final int ie, final int de, final int cr, final int er,
-            final int rtl, final int rth, final int id) {
+            final int rtl, final int rth, final int id, final String name) {
         Event[] events = Event.eventArray();
         Resource[] resources = Resource.resourceArray();
         this.mtlb = mtlb;
@@ -72,6 +73,11 @@ public enum TradeGood {
         this.rtl = rtl;
         this.rth = rth;
         this.id = id;
+        this.name = name;
+    }
+    
+    public String getName() {
+        return name;
     }
     
     public int getBasePrice() {
