@@ -40,6 +40,7 @@ public class OptionsScreenController implements ControlledScreen, Initializable 
 
     @Override
     public final void initScreen() {
+        System.out.println(soundManager.getCurrentBG());
         currentBGID = soundManager.getCurrentBG();
         //if null, then wat?
     }
